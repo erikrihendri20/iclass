@@ -1,0 +1,16 @@
+CRITICAL - 2021-03-15 03:26:10 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\file\bimbel\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\file\bimbel\public_html\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-03-15 03:27:07 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\bimbel\public_html\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-03-15 03:30:34 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\bimbel\public_html\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-03-15 03:31:12 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\bimbel\public_html\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}

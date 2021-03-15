@@ -1,0 +1,367 @@
+CRITICAL - 2021-03-14 01:02:41 --> Array to string conversion
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\template\index.php(8): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Array to string...', 'C:\\xampp\\htdocs...', 8, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(236): CodeIgniter\View\View->render('landingpage/tem...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/ind...', Array, true)
+#5 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Landingpage.php(10): view('landingpage/ind...', Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Landingpage->index()
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Landingpage))
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2021-03-14 01:38:07 --> Invalid file: landingpage/masuk.php
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(203): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('landingpage/mas...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/mas...', Array, true)
+#2 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(11): view('landingpage/mas...', Array)
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->masuk()
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-03-14 01:38:47 --> Invalid file: landingpage/masuk.php
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(203): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('landingpage/mas...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/mas...', Array, true)
+#2 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(11): view('landingpage/mas...', Array)
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->masuk()
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-03-14 01:39:26 --> Invalid file: landingpage/masuk.php
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(203): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('landingpage/mas...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/mas...', Array, true)
+#2 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(11): view('landingpage/mas...', Array)
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->masuk()
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-03-14 01:42:05 --> Undefined variable: active
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\template\index.php(23): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 23, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(236): CodeIgniter\View\View->render('landingpage/tem...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#5 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(17): view('landingpage/daf...', Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2021-03-14 03:27:35 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-03-14 03:27:53 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-03-14 03:27:55 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-03-14 03:29:31 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-03-14 03:30:10 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(265): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(228): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(893): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(417): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2021-03-14 03:30:15 --> Undefined property: App\Controllers\Auth::$session
+#0 C:\xampp\htdocs\bimbel\iclass\app\Controllers\BaseController.php(48): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 48, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(909): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(422): CodeIgniter\CodeIgniter->createController()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-03-14 03:36:12 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-03-14 03:38:09 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(265): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(228): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 [internal function]: spl_autoload_call('App\\Controllers...')
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(893): class_exists('\\App\\Controller...', true)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(417): CodeIgniter\CodeIgniter->startController()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2021-03-14 03:40:38 --> Undefined index: kembali
+#0 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(22): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 22, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-03-14 03:47:57 --> Call to a member function setRules() on null
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-03-14 03:59:04 --> Undefined property: CodeIgniter\View\View::$validation
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\daftar.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(35): view('landingpage/daf...', Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-03-14 03:59:36 --> Cannot use isset() on the result of an expression (you can use "null !== expression" instead)
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+ERROR - 2021-03-14 04:17:35 --> Error connecting to the database: Unknown database 'iclass'
+CRITICAL - 2021-03-14 04:17:35 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Rules.php(212): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(306): CodeIgniter\Validation\Rules->is_unique('asdsadsadas@fds...', 'email', Array, NULL)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(164): CodeIgniter\Validation\Validation->processRules('email', 'Email', 'asdsadsadas@fds...', Array, Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Controller.php(181): CodeIgniter\Validation\Validation->run()
+#6 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(91): CodeIgniter\Controller->validate(Array)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-03-14 04:41:26 --> Undefined property: CodeIgniter\View\View::$request
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\daftar.php(4): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 4, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(103): view('landingpage/daf...', Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-03-14 04:45:20 --> Call to undefined method CodeIgniter\View\View::session()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#3 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(103): view('landingpage/daf...', Array)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#8 {main}
+ERROR - 2021-03-14 05:08:49 --> mysqli_sql_exception: Unknown column 'kelas' in 'field list' in C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:314
+Stack trace:
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(314): mysqli->query('INSERT INTO `us...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2263): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(278): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(758): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(705): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(667): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(106): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#10 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#13 {main}
+CRITICAL - 2021-03-14 05:08:49 --> Unknown column 'kelas' in 'field list'
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(314): mysqli->query('INSERT INTO `us...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2263): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(278): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(758): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(705): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(667): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(106): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#10 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#13 {main}
+ERROR - 2021-03-14 05:25:35 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: No such host is known. 
+CRITICAL - 2021-03-14 05:25:35 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Rules.php(212): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(306): CodeIgniter\Validation\Rules->is_unique('erca.rihendri@g...', 'email', Array, NULL)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(164): CodeIgniter\Validation\Validation->processRules('email', 'Email', 'erca.rihendri@g...', Array, Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Controller.php(181): CodeIgniter\Validation\Validation->run()
+#6 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(94): CodeIgniter\Controller->validate(Array)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2021-03-14 05:29:20 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: No such host is known. 
+CRITICAL - 2021-03-14 05:29:20 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Rules.php(212): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(306): CodeIgniter\Validation\Rules->is_unique('erca.rihendri@g...', 'email', Array, NULL)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(164): CodeIgniter\Validation\Validation->processRules('email', 'Email', 'erca.rihendri@g...', Array, Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Controller.php(181): CodeIgniter\Validation\Validation->run()
+#6 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(94): CodeIgniter\Controller->validate(Array)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2021-03-14 05:32:26 --> Error connecting to the database: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+CRITICAL - 2021-03-14 05:32:26 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Rules.php(212): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(306): CodeIgniter\Validation\Rules->is_unique('erca.rihendri@g...', 'email', Array, NULL)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(164): CodeIgniter\Validation\Validation->processRules('email', 'Email', 'erca.rihendri@g...', Array, Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Controller.php(181): CodeIgniter\Validation\Validation->run()
+#6 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(94): CodeIgniter\Controller->validate(Array)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2021-03-14 05:34:57 --> Error connecting to the database: Host '36.74.166.146' is not allowed to connect to this MySQL server
+CRITICAL - 2021-03-14 05:34:57 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(213): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(583): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(17): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->text()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2021-03-14 05:36:16 --> Error connecting to the database: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+CRITICAL - 2021-03-14 05:36:16 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(213): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(583): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(17): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->text()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2021-03-14 05:36:29 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: No such host is known. 
+CRITICAL - 2021-03-14 05:36:29 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(213): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(583): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(17): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->text()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2021-03-14 06:03:18 --> Error connecting to the database: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+CRITICAL - 2021-03-14 06:03:18 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(213): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(583): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(17): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->text()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2021-03-14 21:32:00 --> Error connecting to the database: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+CRITICAL - 2021-03-14 21:32:00 --> Unable to connect to the database.
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(618): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1866): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Rules.php(212): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(306): CodeIgniter\Validation\Rules->is_unique('erca.rihendri@g...', 'email', Array, NULL)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Validation\Validation.php(164): CodeIgniter\Validation\Validation->processRules('email', 'Email', 'erca.rihendri@g...', Array, Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Controller.php(181): CodeIgniter\Validation\Validation->run()
+#6 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(101): CodeIgniter\Controller->validate(Array)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#8 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2021-03-14 21:32:37 --> mysqli_sql_exception: Unknown column 'jurusan' in 'field list' in C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:314
+Stack trace:
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(314): mysqli->query('INSERT INTO `us...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2263): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(278): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(758): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(705): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(667): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(113): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#10 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#13 {main}
+CRITICAL - 2021-03-14 21:32:37 --> Unknown column 'jurusan' in 'field list'
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(314): mysqli->query('INSERT INTO `us...')
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(2263): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(278): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(758): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Model.php(705): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\BaseModel.php(667): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(113): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#10 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#13 {main}
+CRITICAL - 2021-03-14 21:44:13 --> Call to undefined function Validation()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#3 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(123): view('landingpage/daf...', Array)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2021-03-14 21:44:32 --> Undefined variable: validation
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\daftar.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(123): view('landingpage/daf...', Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-03-14 21:45:17 --> Undefined variable: validation
+#0 C:\xampp\htdocs\bimbel\iclass\app\Views\landingpage\daftar.php(3): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 3, Array)
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#4 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(123): view('landingpage/daf...', Array)
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#7 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-03-14 21:58:46 --> Call to undefined method CodeIgniter\Validation\Validation::hashError()
+#0 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include()
+#1 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#2 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('landingpage/daf...', Array, true)
+#3 C:\xampp\htdocs\bimbel\iclass\app\Controllers\Auth.php(123): view('landingpage/daf...', Array)
+#4 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Auth->daftar()
+#5 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#6 C:\xampp\htdocs\bimbel\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\bimbel\public_html\index.php(44): CodeIgniter\CodeIgniter->run()
+#8 {main}
