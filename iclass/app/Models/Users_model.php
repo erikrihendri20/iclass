@@ -13,10 +13,16 @@ class Users_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['name', 'kelas' , 'jurusan' , 'pilih-paket' , 'telepon' , 'email' , 'username' , 'password' , 'bukti-pembayaran' , 'status'];
+    protected $allowedFields = ['nama', 'kelas_id' , 'jurusan' , 'pilih-paket' , 'telepon' , 'email' , 'username' , 'password' , 'bukti-pembayaran' , 'status'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function getByUserName($identitas)
+    {
+        $this->builder()->where('username',$identitas)->orWhere('email',$identitas);
+        return $this->builder()->get()->getResultArray();
+    }
 }

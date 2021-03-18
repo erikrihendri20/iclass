@@ -37,6 +37,7 @@ $routes->get('/daftar', 'Auth::daftar');
 $routes->get('/masuk', 'Auth::masuk');
 $routes->post('/daftar', 'Auth::daftar');
 $routes->post('/masuk', 'Auth::masuk');
+$routes->get('/keluar', 'Auth::keluar');
 
 /*
  * --------------------------------------------------------------------

@@ -1,29 +1,29 @@
-<?= $this->extend('landingpage/template/index'); ?>
+<?= $this->extend('template/index'); ?>
 <?= $this->section('content'); ?>
     <div class="content mb-3">
         <div class="container pt-5">
             
             <!-- About -->
             <div class="row d-flex">
-                <div class="col-6 d-flex flex-column justify-content-center align-items-start">
+                <div class="col d-flex flex-column justify-content-center align-items-start">
                     <h2 class="font-weight-bold"><span class="text-warning">i</span><span class="text-primary">Class</span></h2>
                     <h2 class="font-weight-bold"><span class="text-primary">Education</span></h2>
                     <p>iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
-                    <button class="btn btn-warning">Selengkapnya</button>
+                    <button class="btn btn-warning sm">Selengkapnya</button>
                 </div>
-                <div class="col-6 d-flex justify-content-center align-items-center">
-                <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="..." class="img-thumbnail">
+                <div class="col d-flex justify-content-center align-items-center flex-1">
+                    <img class="w-100" style="max-width:;" src="img/1.png" alt="...">
                 </div>
             </div>
 
             <!-- Facilities -->
-            <div class="row d-flex mt-5">
-                <div class="mr-0 pr-0 col-3 d-flex justify-content-center align-items-center">
-                    <img class="w-100" src="https://images-na.ssl-images-amazon.com/images/I/81F-QC1N5WL._AC_SY550_.jpg" alt="">
+            <div class="row mt-5 d-flex">
+                <div class="m-0 p-0 col-3">
+                    <img class="px-0 mx-0 w-100" src="img/2.png" alt="">
                 </div>
-                <div class="ml-0 pl-0 col-9 d-flex flex-column justify-content-center align-items-center">
-                    <h4 class="text-primary">Fasilitas</h4>
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="m-0 p-0 col-9 d-flex flex-column align-items-center">
+                    <h3 class="font-weight-bold m-0 p-0 text-primary">Fasilitas</h3>
+                    <div id="carouselExampleControls" class="m-0 p-0 carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100" style="width: 1000px;">
@@ -50,7 +50,7 @@
             <!-- Pilih Paket -->
             <div class="row d-flex mt-5">
                 <div class="col d-flex justify-content-center align-items-center">
-                    <h4>Pilih Paket</h4>
+                    <h2 class="text-primary">Pilih Paket</h2>
                 </div>
             </div>
 

@@ -5,25 +5,92 @@ use App\Models\Users_Model;
 
 class Auth extends BaseController
 {
-    protected $validation;
-    public function __construct()
-    {
-        $validation =  \Config\Services::validation();
-    }
 
     public function text()
     {
-        $model= new Users_Model();
-        $data=$model->findAll();
-        dd($data);
+        dd(session()->pilih_paket);
     }
 
 	public function masuk()
 	{
+        if(isset($_POST['submit'])){
+            $model = new Users_Model();
+            $identitas = $this->request->getPost('username');
+            $password = $this->request->getPost('password');
+            $user = $model->getByUserName($identitas);
+            if($user){
+                if(password_verify($password,$user[0]['password'])){
+                    $data=[
+                        'log'=>true,
+                        'id'=>$user[0]['id'],
+                        'nama'=>$user[0]['nama'],
+                        'kelas_id'=>$user[0]['kelas_id'],
+                        'jurusan'=>$user[0]['jurusan'],
+                        'pilih_paket'=>$user[0]['pilih-paket'],
+                        'telepon'=>$user[0]['telepon'],
+                        'email'=>$user[0]['email'],
+                        'username'=>$user[0]['username'],
+                        'bukti_pembayaran'=>$user[0]['bukti-pembayaran'],
+                        'status'=>$user[0]['status'],
+                    ];
+                    session()->set($data);
+                    $flash='<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            anda berhasil masuk:D
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                    session()->setFlashdata('flash' , $flash);
+                    return redirect()->to('peserta'); 
+                }else{
+                    $flash='<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            password salah!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                    session()->setFlashdata('flash' , $flash);
+                    return redirect()->to('masuk'); 
+                }
+            }else{
+                $flash='<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            user tidak ditemukan!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash' , $flash);
+                return redirect()->to('masuk');
+            }
+        }
         $data['active'] = 'masuk';
-		$data['css'] = ['landingpage/masuk.css'];
-		return view('landingpage/masuk',$data);
+		$data['css'] = ['auth/masuk.css'];
+		return view('auth/masuk',$data);
 	}
+
+    public function keluar()
+    {
+        session()->remove('log');
+        session()->remove('id');
+        session()->remove('nama');
+        session()->remove('kelas_id');
+        session()->remove('jurusan');
+        session()->remove('pilih-paket');
+        session()->remove('telepon');
+        session()->remove('email');
+        session()->remove('username');
+        session()->remove('bukti-pembayaran');
+        session()->remove('status');
+        $flash='<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            sukses keluar:(
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+        session()->setFlashdata('flash' , $flash);
+        return redirect()->to('masuk'); 
+    }
+
 	public function daftar()
 	{
         if(isset($_POST['submit'])){
@@ -33,13 +100,6 @@ class Auth extends BaseController
                     'rules'  => 'required',
                     'errors' => [
                         'required' => 'Nama harus diisi'
-                    ]
-                ],
-                'kelas' => [
-                    'label'  => 'Kelas',
-                    'rules'  => 'required',
-                    'errors' => [
-                        'required' => 'Kelas harus diisi'
                     ]
                 ],
                 'jurusan' => [
@@ -102,16 +162,22 @@ class Auth extends BaseController
                 $model = new Users_Model();
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),
-                    'kelas' => $this->request->getPost('kelas'),
                     'jurusan' => $this->request->getPost('jurusan'),
                     'pilih-paket' => $this->request->getPost('pilih-paket'),
                     'telepon' => $this->request->getPost('telepon'),
                     'email' => $this->request->getPost('email'),
                     'username' => $this->request->getPost('username'),
-                    'password' => $this->request->getPost('password'),
+                    'password' => password_hash($this->request->getPost('password'),PASSWORD_DEFAULT),
                 ];
                 $model->save($newuser);
-                session()->setFlashdata('terdaftar', $newuser['nama'] . 'berhasil terdaftar <br> selesaikan pendaftaran untuk mendapatkan layanan kami');
+                $flash='<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
+                            selesaikan pembayaran untuk mendapatkan layanan iclass
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash' , $flash);
                 return redirect()->to('masuk');
             }else{
                 return redirect()->back()->withInput();
@@ -120,7 +186,7 @@ class Auth extends BaseController
             dd($this->request->getVar());
         }
         $data['active'] = 'daftar';
-		$data['css'] = ['landingpage/daftar.css'];
-		return view('landingpage/daftar',$data);
+		$data['css'] = ['auth/daftar.css'];
+		return view('auth/daftar',$data);
 	}
 }

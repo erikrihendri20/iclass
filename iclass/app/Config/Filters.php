@@ -19,6 +19,7 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
+		'masuk'		=> \App\Filters\AuthFilter::class,
 	];
 
 	/**
@@ -31,10 +32,13 @@ class Filters extends BaseConfig
 		'before' => [
 			// 'honeypot',
 			// 'csrf',
+			'masuk' => ['except' => [
+				'masuk' , 'daftar' , 'auth' , 'auth/*',
+				'landingpage', 'landingpage/*' , '/'
+				]]
 		],
 		'after'  => [
-			'toolbar',
-			// 'honeypot',
+			// 'toolbar',
 		],
 	];
 
