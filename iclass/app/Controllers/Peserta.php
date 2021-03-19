@@ -6,6 +6,8 @@ class Peserta extends BaseController
 {
 	public function index()
 	{
-		d(session()->username);
+		$data['css'] = ['peserta/index.css'];
+		$data['active'] = 'beranda';
+		return view('peserta/index', $data);
 	}
 }

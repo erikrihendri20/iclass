@@ -42,7 +42,7 @@ class Auth extends BaseController
                             </button>
                         </div>';
                     session()->setFlashdata('flash', $flash);
-                    return redirect()->to(base_url());
+                    return redirect()->to('peserta');
                 } else {
                     $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             password salah!
