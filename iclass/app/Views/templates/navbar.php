@@ -17,7 +17,7 @@
             </h6>
             <?php if (!session('username')) : ?>
                 <h6>
-                    <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Pilih Paket</a>
+                    <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url('#paket') ?>">Pilih Paket</a>
                 </h6>
                 <h6>
                     <a class="nav-item nav-link <?php if ($active == 'daftar') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/daftar">Pendaftaran</a>

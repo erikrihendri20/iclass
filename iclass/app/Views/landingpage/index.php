@@ -11,7 +11,7 @@
                 </h1>
                 <h2 class="font-weight-bold display-1 mt-0"><span class="text-primary">Education</span></h2>
                 <p class="h4 w-75">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
-                <button class="btn btn-warning sm">Selengkapnya</button>
+                <a class="btn btn-warning sm" href="<?= base_url('#fasilitas') ?>">Selengkapnya</a>
             </div>
             <div class="col d-flex justify-content-center align-items-center flex-1">
                 <img class="w-100" style="" src="img/1.png" alt="...">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Facilities -->
-        <div class="row d-flex m-5 py-4">
+        <div class="row d-flex m-5 py-4" id="fasilitas">
             <div class="m-0 p-0 col-3 d-flex">
                 <img class="px-0 mx-0 w-100 h-100" src="img/2.png" alt="">
             </div>
@@ -72,7 +72,7 @@
                             <p class="my-0"><span class="check-reguler">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-primary">199rb</h5>
-                        <a href="#" class="btn btn-warning card-link">Daftar Sekarang</a>
+                        <a href="<?= base_url('masuk') ?>" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                             <p class="my-0"><span class="check-premium-plus">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-center">279rb</h5>
-                        <a href="#" class="btn btn-warning card-link align-self-center">Daftar Sekarang</a>
+                        <a href="<?= base_url('masuk') ?>" class="btn btn-warning card-link align-self-center">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                             <p class="my-0"><span class="check-premium">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-primary">259rb</h5>
-                        <a href="#" class="btn btn-warning card-link">Daftar Sekarang</a>
+                        <a href="<?= base_url('masuk') ?>" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
