@@ -1,0 +1,17 @@
+.edu {
+  color: white;
+}
+.btn {
+  border-radius: 100px;
+}
+.header-paket {
+  border-radius: 0px 0px 5px 5px;
+}
+ul {
+  list-style-type: circle;
+}
+.premium p,
+.premium h5,
+.premium a {
+  color: white;
+}

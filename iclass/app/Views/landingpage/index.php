@@ -14,7 +14,7 @@
                 <a class="btn btn-warning sm" href="<?= base_url('#fasilitas') ?>">Selengkapnya</a>
             </div>
             <div class="col d-flex justify-content-center align-items-center flex-1">
-                <img class="w-100" style="" src="img/1.png" alt="...">
+                <img class="w-100" src="img/1.png" alt="...">
             </div>
         </div>
 
