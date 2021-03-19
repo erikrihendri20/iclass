@@ -15,10 +15,10 @@
             <h6>
                 <a class="nav-item nav-link <?php if ($active == 'blog') echo 'active text-primary font-weight-bold'; ?> " href="<?= base_url(); ?>">Blog</a>
             </h6>
-            <h6>
-                <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Pilih Paket</a>
-            </h6>
             <?php if (!session('username')) : ?>
+                <h6>
+                    <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Pilih Paket</a>
+                </h6>
                 <h6>
                     <a class="nav-item nav-link <?php if ($active == 'daftar') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/daftar">Pendaftaran</a>
                 </h6>
@@ -27,7 +27,13 @@
                 </h6>
             <?php else : ?>
                 <h6>
-                    <a class="nav-item nav-link dropdown dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Kelasku</a>
+                </h6>
+                <h6>
+                    <a class="nav-item nav-link <?php if ($active == 'daftar') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/daftar">Video Materi</a>
+                </h6>
+                <h6 class="dropdown">
+                    <a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Welcome, <?php echo (session('username')); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
