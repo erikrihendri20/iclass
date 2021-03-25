@@ -20,6 +20,7 @@ class Filters extends BaseConfig
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
 		'masuk'		=> \App\Filters\AuthFilter::class,
+		'masukadmin'		=> \App\Filters\AuthFilterAdmin::class,
 	];
 
 	/**
@@ -34,7 +35,8 @@ class Filters extends BaseConfig
 			// 'csrf',
 			'masuk' => ['except' => [
 				'masuk' , 'daftar' , 'auth' , 'auth/*',
-				'landingpage', 'landingpage/*' , '/'
+				'landingpage', 'landingpage/*' , '/' ,
+				'admin' , 'masukAdmin'
 				]]
 		],
 		'after'  => [
@@ -62,5 +64,9 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [];
+	public $filters = [
+		'masukadmin' => [
+			'before' => ['admin']
+		]
+	];
 }

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Users_Model;
+use App\Models\Admin_model;
 
 class Auth extends BaseController
 {
@@ -68,6 +69,69 @@ class Auth extends BaseController
         $data['active'] = 'masuk';
         $data['css'] = ['auth/masuk.css'];
         return view('auth/masuk', $data);
+    }
+
+
+    public function keluarAdmin()
+    {
+        session()->remove('logadmin');
+        session()->remove('admin_id');
+        session()->remove('admin_nama');
+        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            sukses keluar:(
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+        session()->setFlashdata('flash', $flash);
+        return redirect()->to('masukAdmin');
+    }
+
+    public function masukAdmin()
+    {
+        if (isset($_POST['submit'])) {
+            $model = new Admin_model();
+            $identitas = $this->request->getPost('username');
+            $password = $this->request->getPost('password');
+            $user = $model->getByUserName($identitas);
+            if ($user) {
+                if ($password==$user[0]['password']) {
+                    $data = [
+                        'logadmin' => true,
+                        'admin_id' => $user[0]['id'],
+                        'admin_nama' => $user[0]['nama'],
+                    ];
+                    session()->set($data);
+                    $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            anda berhasil masuk:D
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                    session()->setFlashdata('flash', $flash);
+                    return redirect()->to(base_url().'/admin');
+                } else {
+                    $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            password salah!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                    session()->setFlashdata('flash', $flash);
+                    return redirect()->to('masukAdmin');
+                }
+            } else {
+                $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            user tidak ditemukan!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to('masukAdmin');
+            }
+        }
+        return view('auth/masukAdmin');
     }
 
     public function keluar()

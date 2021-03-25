@@ -10,8 +10,6 @@ class Peserta extends BaseController
 		$data['active'] = 'beranda';
 		return view('peserta/index', $data);
 	}
-	public function FunctionName(Type $var = null)
-	{
-		# code...
-	}
+
+	
 }
