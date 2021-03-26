@@ -30,6 +30,28 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
+                Kelas
+            </div>
+
+            <!-- Nav Item - My-profile -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/daftarKelas">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Daftar Kelas</span></a>
+            </li>
+
+            <!-- Nav Item - My-profile -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Peserta</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
                 Soal
             </div>
 
@@ -50,9 +72,9 @@
 
             <!-- Nav Item - My-profile -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/jadwal">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Upload Jadwal</span></a>
+                    <span>Atur Jadwal</span></a>
             </li>
 
             <!-- Nav Item - Tables -->

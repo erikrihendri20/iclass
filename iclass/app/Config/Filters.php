@@ -36,7 +36,7 @@ class Filters extends BaseConfig
 			'masuk' => ['except' => [
 				'masuk' , 'daftar' , 'auth' , 'auth/*',
 				'landingpage', 'landingpage/*' , '/' ,
-				'admin' , 'masukAdmin'
+				'admin/*' , 'admin/' , 'masukAdmin'
 				]]
 		],
 		'after'  => [
@@ -66,7 +66,7 @@ class Filters extends BaseConfig
 	 */
 	public $filters = [
 		'masukadmin' => [
-			'before' => ['admin']
+			'before' => ['admin/*']
 		]
 	];
 }
