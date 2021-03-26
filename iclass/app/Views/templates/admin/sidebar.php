@@ -1,3 +1,7 @@
+<?php
+
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -19,8 +23,9 @@
             </div>
 
             <!-- Nav Item - User - list -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+
+            <li class="nav-item <?= ($active=='dashboard') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -34,7 +39,7 @@
             </div>
 
             <!-- Nav Item - My-profile -->
-            <li class="nav-item">
+            <li class="nav-item <?= ($active=='daftar kelas') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin/daftarKelas">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Daftar Kelas</span></a>
@@ -52,14 +57,14 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Soal
+                Materi
             </div>
 
             <!-- Nav Item - My-profile -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Upload Soal</span></a>
+                    <span>Upload Materi</span></a>
             </li>
 
             <!-- Divider -->
@@ -71,8 +76,8 @@
             </div>
 
             <!-- Nav Item - My-profile -->
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(); ?>/admin/jadwal">
+            <li class="nav-item <?= ($active=='atur jadwal') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwal">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Atur Jadwal</span></a>
             </li>

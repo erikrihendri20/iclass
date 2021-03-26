@@ -10,13 +10,14 @@ class Admin extends BaseController
 {
     public function index()
     {
-        return view('admin/index');
+        $data['active']='dashboard';
+        return view('admin/index',$data);
     }
     
-    public function jadwal()
+    public function aturJadwal()
     {
-        $data['active'] = 'jadwal';
-        return view('admin/jadwal',$data);
+        $data['active'] = 'atur jadwal';
+        return view('admin/aturJadwal',$data);
     }
 
     public function daftarKelas()
@@ -29,6 +30,7 @@ class Admin extends BaseController
 
     public function tambahKelas()
     {
+        
         if(isset($_POST['submit'])){
             $data=[
                 'nama'=>$this->request->getPost('nama'),
@@ -65,6 +67,31 @@ class Admin extends BaseController
                 session()->setFlashdata('flash', $flash);
                 return redirect()->to(base_url().'/admin/daftarKelas'); 
             }
+        }
+    }
+
+    public function hapusKelas($id)
+    {
+        if(isset($id)){
+            $model=new Kelas_Model();
+            $model->delete($id);
+            $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Kelas <strong>berhasil</strong> dihapus
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url().'/admin/daftarKelas');
+        }else{
+            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Gagal</strong>, pastikan nama kelas belum digunakan sebelumnya
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url().'/admin/daftarKelas'); 
         }
     }
 

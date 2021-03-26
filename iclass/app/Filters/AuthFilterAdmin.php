@@ -18,7 +18,7 @@ class AuthFilterAdmin implements FilterInterface
                             </button>
                         </div>';
                 session()->setFlashdata('flash' , $flash);
-                return redirect()->to('masukAdmin');
+                return redirect()->to(base_url().'/auth/masukAdmin');
         }
     }
 

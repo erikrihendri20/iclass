@@ -26,8 +26,8 @@
                 <td><?= $u['nama']; ?></td>
                 <td><a href="<?= $u['link-meeting']; ?>"><?= $u['link-meeting']; ?></a></td>
                 <td>
-                    <button class="btn btn-success">Edit</button>
-                    <button class="btn btn-danger">Hapus</button>
+                    <a class="btn btn-success text-light" type="submit" name="edit" value="<?= $u['id']; ?>">Edit</a>
+                    <a class="btn btn-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $u['id']; ?>">Hapus</a>
                 </td>
             </tr>
             <?php $no++; endforeach; ?>

@@ -123,7 +123,7 @@
     <?php endif; ?>
 
     <!-- calendar -->
-    <?php if($active=='jadwal'): ?>
+    <?php if($active=='atur jadwal'): ?>
     <link href='<?= base_url(); ?>/css/fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src='<?= base_url(); ?>/js/jquery-1.10.2.js' type="text/javascript"></script>
     <script src='<?= base_url(); ?>/js/jquery-ui.custom.min.js' type="text/javascript"></script>
