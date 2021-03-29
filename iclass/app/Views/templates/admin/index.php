@@ -130,8 +130,17 @@
     <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
 
     <script>
-
+        function base_url() {
+            var pathparts = location.pathname.split('/');
+            if (location.host == 'localhost') {
+                var url = location.origin+'/'+pathparts[1].trim('/')+'/'; // http://localhost/myproject/
+            }else{
+                var url = location.origin; // http://stackoverflow.com
+            }
+            return url;
+        }
         $(document).ready(function() {
+            
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -170,12 +179,12 @@
 
             /* initialize the calendar
             -----------------------------------------------------------------*/
-
+            
             var calendar =  $('#calendar').fullCalendar({
                 header: {
-                    left: 'title',
+                    left: 'prev,today,next',
                     center: 'agendaDay,agendaWeek,month',
-                    right: 'prev,next today'
+                    right: 'title'
                 },
                 editable: true,
                 firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
@@ -195,19 +204,21 @@
                     day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
                 },
                 allDaySlot: false,
-                selectHelper: true,
+                selectHelper: false,
                 select: function(start, end, allDay) {
-                    var title = prompt('Event Title:');
+                    var title = prompt('Agenda:');
                     if (title) {
-                        calendar.fullCalendar('renderEvent',
+                        $.post(
+                            "tambahJadwal", 
                             {
-                                title: title,
-                                start: start,
-                                end: end,
-                                allDay: allDay
-                            },
-                            true // make the event "stick"
-                        );
+                                title:title,
+                                start:start,
+                                end:end,
+                                kode_kelas:$('#kode-kelas').val()
+                            }, function(result){
+                                console.log($('#kode-kelas').val())
+                            console.log(result)
+                        });
                     }
                     calendar.fullCalendar('unselect');
                 },
@@ -236,6 +247,8 @@
 
                 },
 
+
+                
                 events: [
                     {
                         title: 'All Day Event',
@@ -283,7 +296,7 @@
                     }
                 ],
             });
-
+            
 
         });
 

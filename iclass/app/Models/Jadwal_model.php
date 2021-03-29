@@ -13,5 +13,12 @@ class Jadwal_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['title', 'start_event' , 'end_event'];
+    protected $allowedFields = ['title', 'start_event', 'url', 'kode_kelas' , 'end_event'];
+
+    public function getJadwal($kode_kelas)
+    {
+        $this->builder()->join('kelas','kelas.id=events.kode_kelas');
+        $this->builder()->where('kelas.id',$kode_kelas);
+        return $this->builder()->get()->getResultArray();
+    }
 }

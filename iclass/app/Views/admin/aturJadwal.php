@@ -10,12 +10,10 @@
         <form action="">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Kelas</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <select class="form-control" name="kode_kelas" id="kode-kelas">
+                <?php foreach($kelas as $k): ?>
+                    <option value="<?= $k['id']; ?>"><?= $k['nama']; ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         </form>

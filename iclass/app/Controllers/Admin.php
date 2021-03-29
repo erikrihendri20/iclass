@@ -17,6 +17,8 @@ class Admin extends BaseController
     public function aturJadwal()
     {
         $data['active'] = 'atur jadwal';
+        $model=new Kelas_Model();
+        $data['kelas']=$model->findAll();
         return view('admin/aturJadwal',$data);
     }
 
@@ -103,11 +105,18 @@ class Admin extends BaseController
                     'title' => $this->request->getPost('title'),
                     'start_event' => $this->request->getPost('start'),
                     'end_event' => $this->request->getPost('end'),
+                    'kode_kelas' => $this->request->getPost('kode_kelas'),
                 ];
                 $model = new Jadwal_Model();
                 $model->save($data);
                 return 'sadsad';
         }
+    }
+
+    public function renderJadwal($kode_kelas)
+    {
+        $model=new Jadwal_Model();
+        return json_encode($model->getJadwal($kode_kelas));
     }
 
     public function jadwalAdmin()
