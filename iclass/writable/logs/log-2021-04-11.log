@@ -22,3 +22,68 @@ CRITICAL - 2021-04-11 05:58:45 --> Call to undefined function CodeIgniter\locale
 #0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
 #1 C:\xampp\htdocs\iclass\public_html\index.php(34): require('C:\\xampp\\htdocs...')
 #2 {main}
+CRITICAL - 2021-04-11 11:46:04 --> Call to undefined method CodeIgniter\Database\MySQLi\Builder::findAll()
+#0 C:\xampp\htdocs\iclass\iclass\app\Controllers\Peserta.php(19): App\Models\Materi_Model->getAll()
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Peserta->materi()
+#2 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Peserta))
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-04-11 11:49:08 --> Array to string conversion
+#0 C:\xampp\htdocs\iclass\iclass\app\Views\peserta\materi.php(65): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Array to string...', 'C:\\xampp\\htdocs...', 65, Array)
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('peserta/materi', Array, true)
+#4 C:\xampp\htdocs\iclass\iclass\app\Controllers\Peserta.php(23): view('peserta/materi', Array)
+#5 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Peserta->materi()
+#6 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Peserta))
+#7 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-04-11 11:49:32 --> Undefined index: name
+#0 C:\xampp\htdocs\iclass\iclass\app\Views\peserta\materi.php(65): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 65, Array)
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('peserta/materi', Array, true)
+#4 C:\xampp\htdocs\iclass\iclass\app\Controllers\Peserta.php(23): view('peserta/materi', Array)
+#5 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Peserta->materi()
+#6 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Peserta))
+#7 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-04-11 11:49:50 --> Undefined offset: 1
+#0 C:\xampp\htdocs\iclass\iclass\app\Views\peserta\materi.php(65): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 65, Array)
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('peserta/materi', Array, true)
+#4 C:\xampp\htdocs\iclass\iclass\app\Controllers\Peserta.php(23): view('peserta/materi', Array)
+#5 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Peserta->materi()
+#6 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Peserta))
+#7 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-04-11 12:45:46 --> syntax error, unexpected '?>', expecting ':'
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('peserta/materi', Array, true)
+#2 C:\xampp\htdocs\iclass\iclass\app\Controllers\Materi.php(17): view('peserta/materi', Array)
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Materi->index()
+#4 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materi))
+#5 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-04-11 13:01:38 --> Undefined variable: materi
+#0 C:\xampp\htdocs\iclass\iclass\app\Views\peserta\materi.php(32): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 32, Array)
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(220): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\View\View.php(222): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\Common.php(1217): CodeIgniter\View\View->render('peserta/materi', Array, true)
+#4 C:\xampp\htdocs\iclass\iclass\app\Controllers\Materi.php(33): view('peserta/materi', Array)
+#5 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(936): App\Controllers\Materi->materi('2')
+#6 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Materi))
+#7 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-04-11 13:17:41 --> syntax error, unexpected 'if' (T_IF)
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(385): CodeIgniter\CodeIgniter->tryToRouteIt(NULL)
+#1 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#2 C:\xampp\htdocs\iclass\public_html\index.php(43): CodeIgniter\CodeIgniter->run()
+#3 {main}

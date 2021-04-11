@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Materi_Model;
+
 class Peserta extends BaseController
 {
 	public function index()
@@ -10,6 +12,4 @@ class Peserta extends BaseController
 		$data['active'] = 'beranda';
 		return view('peserta/index', $data);
 	}
-
-	
 }

@@ -39,6 +39,7 @@ $routes->post('/daftar', 'Auth::daftar');
 $routes->post('/masuk', 'Auth::masuk');
 $routes->get('/keluar', 'Auth::keluar');
 $routes->get('/masukAdmin', 'Auth::masukAdmin');
+$routes->get('/materi/(:any)', 'Materi::materi/$1');
 
 /*
  * --------------------------------------------------------------------
