@@ -1,0 +1,24 @@
+CRITICAL - 2021-04-11 05:55:00 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\public_html\index.php(34): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-04-11 05:55:06 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\public_html\index.php(34): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-04-11 05:55:12 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\iclass\public\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-04-11 05:56:13 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\iclass\public\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-04-11 05:58:36 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\iclass\public\index.php(35): require('C:\\xampp\\htdocs...')
+#2 {main}
+CRITICAL - 2021-04-11 05:58:45 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\iclass\iclass\vendor\codeigniter4\framework\system\bootstrap.php(159): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\iclass\public_html\index.php(34): require('C:\\xampp\\htdocs...')
+#2 {main}
