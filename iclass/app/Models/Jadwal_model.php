@@ -24,6 +24,8 @@ class Jadwal_Model extends Model
         }
         if($jenis!=null){
             $this->builder()->where('jenis',$jenis);
+        }else{
+            $this->builder()->select('link-meeting as url');
         }
         $this->builder()->where('kelas.id',$kode_kelas);
         return $this->builder()->get()->getResultArray();

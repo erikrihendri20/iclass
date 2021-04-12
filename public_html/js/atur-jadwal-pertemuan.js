@@ -100,6 +100,29 @@
 					}
 					calendar.fullCalendar('unselect');
 				},
+				eventResize:function(event) {
+					start=$.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss")
+					end=$.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss")
+					title=event.title
+					id=event.id
+					$.ajax({
+						url:'tambahJadwal',
+						type:'POST',
+						data:{
+							id:id,
+							title:title,
+							start:start,
+							end:end,
+							kode_kelas:$('#kode-kelas').val(),
+							jenis: 1,
+							class_name: 'info'
+						},
+						success:function () {
+							calendar.fullCalendar('refetchEvents');
+							alert('jadwal sukses diubah')
+						}
+					})
+				},
 				droppable: true, // this allows things to be dropped onto the calendar !!!
 				eventDrop:function (event) {
 					start=$.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss")

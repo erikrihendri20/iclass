@@ -13,14 +13,15 @@
       <li class="nav-item">
         <a class="nav-item nav-link <?php if ($active == 'beranda') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Beranda</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link <?php if ($active == 'blog') echo 'active text-primary font-weight-bold'; ?> " href="<?= base_url('landingpage/blog'); ?>">Blog</a>
-      </li>
+      
       <li class="nav-item">
         <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url('#paket'); ?>">Pilih Paket</a>
       </li>
 
       <?php if (!session('username')) : ?>
+        <li class="nav-item">
+          <a class="nav-item nav-link <?php if ($active == 'blog') echo 'active text-primary font-weight-bold'; ?> " href="<?= base_url('landingpage/blog'); ?>">Blog</a>
+        </li>
         <li class="nav-item">
           <a class="nav-item nav-link <?php if ($active == 'daftar') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/daftar">Pendaftaran</a>
         </li>
@@ -28,6 +29,16 @@
           <a class="nav-item nav-link <?php if ($active == 'masuk') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/masuk">Masuk</a>
         </li>
       <?php else : ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Kelasku
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?= base_url('Kelasku/jadwal'); ?>">Jadwal</a>
+            <a class="dropdown-item" href="<?= base_url('Kelasku/latihan'); ?>">Latihan Soal</a>
+            <a class="dropdown-item" href="<?= base_url('peserta/edit'); ?>">Rekaman Kelas</a>
+          </div>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome, <?php echo (session('username')); ?>

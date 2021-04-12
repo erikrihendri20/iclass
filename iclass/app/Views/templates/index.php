@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/<?= $style; ?>">
     <?php endforeach; ?>
     <!-- <link rel="stylesheet" href="<?= base_url(); ?>/css/tailwindcss/tailwind.css"> -->
+    <link href='<?= base_url(); ?>/css/fullcalendar.css' rel='stylesheet' />
     <title>Document</title>
 </head>
 
