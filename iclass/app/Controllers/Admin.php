@@ -14,12 +14,20 @@ class Admin extends BaseController
         return view('admin/index',$data);
     }
     
-    public function aturJadwal()
+    public function aturJadwalPertemuan()
     {
-        $data['active'] = 'atur jadwal';
+        $data['active'] = 'atur jadwal pertemuan';
         $model=new Kelas_Model();
         $data['kelas']=$model->findAll();
-        return view('admin/aturJadwal',$data);
+        return view('admin/aturJadwalPertemuan',$data);
+    }
+
+    public function aturJadwalTryout()
+    {
+        $data['active'] = 'atur jadwal tryout';
+        $model=new Kelas_Model();
+        $data['kelas']=$model->findAll();
+        return view('admin/aturJadwalTryout',$data);
     }
 
     public function daftarKelas()
@@ -30,9 +38,15 @@ class Admin extends BaseController
         return view('admin/daftarKelas',$data);
     }
 
+    public function lihatJadwal($kode_kelas,$jenis=null)
+    {
+        $model = new Jadwal_Model();
+        $result = $model->getJadwal($kode_kelas,$jenis);
+        echo json_encode($result);
+    }
+
     public function tambahKelas()
     {
-        
         if(isset($_POST['submit'])){
             $data=[
                 'nama'=>$this->request->getPost('nama'),
@@ -72,6 +86,8 @@ class Admin extends BaseController
         }
     }
 
+
+
     public function hapusKelas($id)
     {
         if(isset($id)){
@@ -106,11 +122,23 @@ class Admin extends BaseController
                     'start_event' => $this->request->getPost('start'),
                     'end_event' => $this->request->getPost('end'),
                     'kode_kelas' => $this->request->getPost('kode_kelas'),
+                    'link-meeting' => $this->request->getPost('url'),
+                    'jenis' => $this->request->getPost('jenis'),
+                    'class_name' => $this->request->getPost('class_name'),
                 ];
+                if(isset($_POST['id'])){
+                    $data['id']=$this->request->getPost('id');
+                }
                 $model = new Jadwal_Model();
-                $model->save($data);
-                return 'sadsad';
+                $model -> save($data);
         }
+    }
+
+    public function hapusJadwal()
+    {
+        $id=$this->request->getPost('id');
+        $model = new Jadwal_Model();
+        $model -> delete($id);
     }
 
     public function renderJadwal($kode_kelas)

@@ -76,10 +76,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             </div>
 
             <!-- Nav Item - My-profile -->
-            <li class="nav-item <?= ($active=='atur jadwal') ? 'active' :  ' '; ?>">
-                <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwal">
+            <li class="nav-item <?= ($active=='atur jadwal pertemuan') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalPertemuan">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Atur Jadwal</span></a>
+                    <span>Atur Jadwal Pertemuan</span></a>
+            </li>
+
+            <li class="nav-item <?= ($active=='atur jadwal tryout') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Atur Jadwal Tryout</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
