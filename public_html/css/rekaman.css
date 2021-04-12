@@ -1,0 +1,23 @@
+div#content-2-container, #rekaman-container {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+div#video_rekaman {
+    width: 70%;
+}
+
+div#thumbnail_rekaman {
+    width: 30%;
+}
+
+@media (max-width:700px) {
+    div#video_rekaman {
+        width: 100%;
+    }
+    
+    div#content-2-container, #materi-container {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}

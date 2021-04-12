@@ -1,0 +1,48 @@
+div#content-2-container, #materi-container {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+div#video-container {
+    width: 75%;
+}
+
+div#bab_materi {
+    width: 25%;
+}
+
+@media (max-width:700px) {
+    div#video-container {
+        width: 100%;
+    }
+    
+    div#content-2-container, #materi-container {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    div#vide_materi {
+        margin-left: 0;
+    }
+
+    div#bab_materi {
+        position: relative;
+        float: left;
+    }
+
+    div#bab_materi {
+        width: 100%;
+    }
+
+    div.bab {
+        width: 50%;
+    }
+
+    span#judul_materi {
+        font-size: xx-large;
+    }
+
+    a.bagian, .abab {
+        font-size: small;
+    }
+}

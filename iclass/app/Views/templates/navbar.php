@@ -36,7 +36,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?= base_url('Kelasku/jadwal'); ?>">Jadwal</a>
             <a class="dropdown-item" href="<?= base_url('Kelasku/latihan'); ?>">Latihan Soal</a>
-            <a class="dropdown-item" href="<?= base_url('peserta/edit'); ?>">Rekaman Kelas</a>
+            <a class="dropdown-item" href="<?= base_url('Kelasku/rekaman'); ?>">Rekaman Kelas</a>
           </div>
         </li>
         <li class="nav-item dropdown">
