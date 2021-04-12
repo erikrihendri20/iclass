@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 08:22 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.3.27
+-- Generation Time: Apr 12, 2021 at 01:03 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,17 +50,21 @@ INSERT INTO `admin` (`id`, `nama`, `username`, `password`) VALUES
 CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `start_event` datetime NOT NULL,
-  `end_event` datetime NOT NULL
+  `kode_kelas` int(11) NOT NULL,
+  `start_event` datetime DEFAULT NULL,
+  `end_event` datetime DEFAULT NULL,
+  `jenis` int(1) NOT NULL,
+  `class_name` varchar(20) NOT NULL,
+  `allDay` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `start_event`, `end_event`) VALUES
-(1, 'sdsadas', '2021-03-03 00:00:00', '2021-03-04 00:00:00'),
-(2, 'coba', '2021-03-26 06:01:56', '2021-03-26 06:01:56');
+INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `jenis`, `class_name`, `allDay`) VALUES
+(109, 'sadsadasd', 1, '2021-04-15 00:00:00', '0000-00-00 00:00:00', 2, 'success', NULL),
+(111, 'dasdsada', 1, '2021-04-01 00:00:00', '0000-00-00 00:00:00', 1, 'info', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,45 +95,6 @@ INSERT INTO `kelas` (`id`, `nama`, `link-meeting`, `created_at`, `deleted_at`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materi`
---
-
-CREATE TABLE `materi` (
-  `id` smallint(2) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `parts` tinyint(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `materi`
---
-
-INSERT INTO `materi` (`id`, `name`, `parts`) VALUES
-(1, 'Barisan dan Deret', 3),
-(2, 'Persamaan Eksponensial', 3),
-(3, 'Suku Banyak', 2),
-(4, 'Persamaan dan Fs Kuadrat', 5),
-(5, 'Fungsi Komposisi dan Invers', 4),
-(6, 'Persamaan garis lurus', 3),
-(7, 'Logaritma', 4),
-(8, 'Matriks', 4),
-(9, 'Trigonometri', 5),
-(10, 'Limit', 0),
-(11, 'Limit Fungsi Trigonometri', 3),
-(12, 'Turunan', 4),
-(13, 'Turunan Fungsi Trigonometri', 0),
-(14, 'Integral subs, parsial, aplikatif', 0),
-(15, 'Integral tak tentu', 0),
-(16, 'Lingkaran', 5),
-(17, 'Transformasi Geometri', 3),
-(18, 'Kaidah Pencacahan, Permutasi, Kombinasi, dan Pelua', 4),
-(19, 'Geometri Bidang Datar', 4),
-(20, 'Geometri Bidang Ruang', 3),
-(21, 'Statistika', 7);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -156,7 +121,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nama`, `kelas_id`, `jurusan`, `pilih-paket`, `telepon`, `email`, `username`, `password`, `bukti-pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (16, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
-(17, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40');
+(17, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13');
 
 --
 -- Indexes for dumped tables
@@ -181,12 +146,6 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `materi`
---
-ALTER TABLE `materi`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -206,7 +165,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `kelas`
