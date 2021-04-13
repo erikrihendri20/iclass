@@ -18,7 +18,7 @@ class Kelasku extends BaseController
         $kode_kelas=session('kelas_id');
         $model = new Jadwal_Model();
         $result = $model->getJadwal($kode_kelas);
-        echo json_encode($result);
+        return json_encode($result);
     }
 
     public function rekaman($id = NULL)
@@ -32,5 +32,12 @@ class Kelasku extends BaseController
         $data['css'] = ['kelasku/jadwal.css', 'rekaman.css'];
 		$data['active'] = 'rekaman';
 		return view('kelasku/rekaman', $data);
+    }
+    
+    public function latihan()
+    {
+        $data['css'] = ['kelasku.css'];
+		$data['active'] = 'rekaman';
+        return view('kelasku/latihan',$data);
     }
 }
