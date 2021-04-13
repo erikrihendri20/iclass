@@ -5,9 +5,9 @@
     <div class="col">
         <form action="<?= base_url(); ?>/admin/tambahRekaman" method="POST" enctype="multipart/form-data">
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="pertemuanKe">Pertemuan ke-</label>
+            <label class="col-sm-2 col-form-label" for="pertemuan">Pertemuan ke-</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="pertemuanKe" placeholder="1">
+                <input type="text" class="form-control" id="pertemuan" name="pertemuan" placeholder="1">
             </div>
             <small id="emailHelp" class="form-text text-muted">Pertemuan terakhir adalah pertemuan ke-</small>
         </div>
@@ -15,19 +15,19 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="materi">Materi</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="materi" placeholder="Aljabar">
+                <input type="text" class="form-control" id="materi" name="materi" placeholder="Aljabar">
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="exampleFormControlFile1">Rekaman Pertemuan</label>
+            <label class="col-sm-2 col-form-label" for="rekaman">Rekaman Pertemuan</label>
             <div class="col-sm-10">
                 <input type="file" class="form-control-file" id="rekaman" name="rekaman">
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="exampleFormControlFile1">Thumbnail Rekaman</label>
+            <label class="col-sm-2 col-form-label" for="thumbnailRekaman">Thumbnail Rekaman</label>
             <div class="col-sm-10">
                 <input type="file" class="form-control-file" id="thumbnailRekaman" name="thumbnailRekaman">
             </div>

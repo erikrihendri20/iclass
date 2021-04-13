@@ -29,7 +29,7 @@ class Kelasku extends BaseController
 		$data['rekamans'] = $model->getAll();
         $data['rekamanPilihan'] = $model->getById($id);
 
-        $data['css'] = ['kelasku/jadwal.css', 'rekaman.css'];
+        $data['css'] = ['rekaman.css'];
 		$data['active'] = 'rekaman';
 		return view('kelasku/rekaman', $data);
     }
@@ -37,7 +37,7 @@ class Kelasku extends BaseController
     public function latihan()
     {
         $data['css'] = ['kelasku.css'];
-		$data['active'] = 'rekaman';
+		$data['active'] = 'latihan';
         return view('kelasku/latihan',$data);
     }
 }

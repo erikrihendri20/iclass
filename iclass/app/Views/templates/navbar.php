@@ -39,6 +39,9 @@
             <a class="dropdown-item" href="<?= base_url('Kelasku/rekaman'); ?>">Rekaman Kelas</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link <?php if ($active == 'materi') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>/materi">Video Materi</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome, <?php echo (session('username')); ?>

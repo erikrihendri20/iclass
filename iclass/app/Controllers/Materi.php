@@ -13,8 +13,8 @@ class Materi extends BaseController
         $data['materiPilihan'] = $model->getById(1);
         $data['part'] = 1;
 
-		$data['css'] = ['peserta/index.css', 'materi.css'];
-		$data['active'] = 'beranda';
+		$data['css'] = ['materi.css'];
+		$data['active'] = 'materi';
 		return view('peserta/materi', $data);
 	}
 
@@ -28,8 +28,8 @@ class Materi extends BaseController
         $data['materiPilihan'] = $model->getById($id);
         $data['part'] = $part;
 
-		$data['css'] = ['peserta/index.css', 'materi.css'];
-		$data['active'] = 'beranda';
+		$data['css'] = ['materi.css'];
+		$data['active'] = 'materi';
 		return view('peserta/materi', $data);
     }
 }
