@@ -52,6 +52,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     <span>Peserta</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/uploadRekaman">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Upload Rekaman</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 

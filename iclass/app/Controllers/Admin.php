@@ -153,4 +153,101 @@ class Admin extends BaseController
         return json_encode($model->findAll());
     }
     
+    public function uploadRekaman()
+    {
+        $data['active'] = 'Kelas';
+        return view('admin/uploadRekaman', $data);
+    }
+
+    public function tambahRekaman()
+    {
+        if(isset($_POST['submit'])){
+            $data=[
+                'pertemuan' => $this->request->getPost('pertemuan'),
+                'materi' => $this->request->getPost('materi'),
+                'rekaman' => $this->request->getFile('rekaman'),
+                'thumbnailRekaman' => $this->request->getFile('thumbnailRekaman')
+            ];
+            $rules = [
+                'pertemuan' => [
+                    'label'  => 'Pertemuan',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Pertemuan harus diisi'
+                    ]
+                ],
+                'materi' => [
+                    'label'  => 'Materi',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Materi harus diisi',
+                    ]
+                ],
+                'rekaman' => [
+                    'label' => 'upload',
+                    'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih file',
+                        'ext_in' => 'Pilih file dengan format Mp4'
+                    ]
+                ],
+                'thumbnailRekaman' => [
+                    'label' => 'upload',
+                    'rules' => 'uploaded[thumbnailRekaman]|ext_in[thumbnailRekaman,jpg|jpeg|png]|is_image[file_name]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih file',
+                        'ext_in' => 'Pilih file dengan ekstensi gambar',
+                        'is_image' => 'Pilih gambar'
+                    ]
+                ]
+            ];
+            
+            $rekaman = $this->request->getFile('rekaman');
+            $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
+
+            if ($this->validate($rules)) {
+                // $model=new Rekaman_Model();
+                // $model->postRekaman($data);
+                $rekaman->store('.vid/Rekaman Kelas/');
+                $thumbnailRekaman->store('.img/Rekaman Kelas/');
+                session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
+                return redirect()->to(base_url().'/admin');
+            } else {
+                if (!$rekaman->isValid()) {
+                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
+                    return redirect()->to(base_url().'/admin/uploadRekaman');
+                } else if (!$thumbnailRekaman->isValid()) {
+                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
+                    return redirect()->to(base_url().'/admin/uploadRekaman');
+                } else {
+                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$this->validator->listErrors()}','error')</script>");
+                    return redirect()->to(base_url().'/admin/uploadRekaman');
+                }
+            }
+
+            
+
+
+
+            // if (!$rekaman->isValid()) {
+            //     session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
+            //     return redirect()->to(base_url().'/admin/uploadRekaman');
+            // } else {
+            //     if (!$thumbnailRekaman->isValid()) {
+            //         session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
+            //         return redirect()->to(base_url().'/admin/uploadRekaman');
+            //     } else {
+            //         if ($this->validate($rules)) {
+            //             // $model=new Rekaman_Model();
+            //             // $model->postRekaman($data);
+            //             session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
+            //             return redirect()->to(base_url().'/admin');
+            //         }else{
+            //             session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan data yang Anda masukkan telah benar.','error')</script>");
+            //             return redirect()->to(base_url().'/admin/uploadRekaman');
+            //         }
+            //     }
+            // }
+        }
+    }
 }

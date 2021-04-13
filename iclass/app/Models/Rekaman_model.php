@@ -22,4 +22,9 @@ class Rekaman_Model extends Model
     {
         return $this->where('id', $id)->first();
     }
+
+    public function postRekaman($data)
+    {
+
+    }
 }
