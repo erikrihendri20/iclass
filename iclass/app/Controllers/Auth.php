@@ -95,7 +95,7 @@ class Auth extends BaseController
             $password = $this->request->getPost('password');
             $user = $model->getByUserName($identitas);
             if ($user) {
-                if ($password==$user[0]['password']) {
+                if ($password == $user[0]['password']) {
                     $data = [
                         'logadmin' => true,
                         'admin_id' => $user[0]['id'],
@@ -109,7 +109,7 @@ class Auth extends BaseController
                             </button>
                         </div>';
                     session()->setFlashdata('flash', $flash);
-                    return redirect()->to(base_url().'/admin');
+                    return redirect()->to(base_url() . '/admin');
                 } else {
                     $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             password salah!
@@ -254,5 +254,19 @@ class Auth extends BaseController
         $data['active'] = 'daftar';
         $data['css'] = ['auth/daftar.css'];
         return view('auth/daftar', $data);
+    }
+
+    public function caraDaftar()
+    {
+        $data['active'] = 'daftar';
+        $data['css'] = ['auth/daftar.css'];
+        return view('auth/caraDaftar', $data);
+    }
+
+    public function lupaPassword()
+    {
+        $data['active'] = 'masuk';
+        $data['css'] = ['auth/masuk.css'];
+        return view('auth/forgotPassword', $data);
     }
 }

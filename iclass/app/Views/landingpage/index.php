@@ -99,7 +99,7 @@
             <div class="col d-flex justify-content-center mb-1">
                 <div class="card align-self-start d-flex d-flex" style="width: 18rem;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                        <h5 class="card-title text-primary py-2">Reguler</h5>
+                        <h5 class="card-title text-primary py-2">Premium</h5>
                         <div class="list-premium-plus">
                             <p class="my-0"><span class="check-premium">&#10003;</span> Full video materi</p>
                             <p class="my-0"><span class="check-premium">&#10003;</span> 18x tatap muka</p>
