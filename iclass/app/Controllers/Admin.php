@@ -171,33 +171,34 @@ class Admin extends BaseController
             $rules = [
                 'pertemuan' => [
                     'label'  => 'Pertemuan',
-                    'rules'  => 'required',
+                    'rules'  => 'required|max_length[3]',
                     'errors' => [
-                        'required' => 'Pertemuan harus diisi'
+                        'required' => 'Pertemuan harus diisi',
+                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit'
                     ]
                 ],
                 'materi' => [
                     'label'  => 'Materi',
-                    'rules'  => 'required',
+                    'rules'  => 'required|max_length[50]',
                     'errors' => [
                         'required' => 'Materi harus diisi',
+                        'max_length' => 'Nama materi berisi maksimal 50 karakter (termasuk spasi)'
                     ]
                 ],
                 'rekaman' => [
                     'label' => 'upload',
                     'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]',
                     'errors' => [
-                        'uploaded' => 'Silahkan pilih file',
+                        'uploaded' => 'Silahkan pilih video rekaman kelas',
                         'ext_in' => 'Pilih file dengan format Mp4'
                     ]
                 ],
                 'thumbnailRekaman' => [
                     'label' => 'upload',
-                    'rules' => 'uploaded[thumbnailRekaman]|ext_in[thumbnailRekaman,jpg|jpeg|png]|is_image[file_name]',
+                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]',
                     'errors' => [
-                        'uploaded' => 'Silahkan pilih file',
-                        'ext_in' => 'Pilih file dengan ekstensi gambar',
-                        'is_image' => 'Pilih gambar'
+                        'uploaded' => 'Silahkan pilih gambar thumbnail video rekaman kelas',
+                        'is_image' => 'Pilih gambar dengan jenis gambar'
                     ]
                 ]
             ];
@@ -208,46 +209,25 @@ class Admin extends BaseController
             if ($this->validate($rules)) {
                 // $model=new Rekaman_Model();
                 // $model->postRekaman($data);
-                $rekaman->store('.vid/Rekaman Kelas/');
-                $thumbnailRekaman->store('.img/Rekaman Kelas/');
+                $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.mp4');
+                $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.'.$thumbnailRekaman->guessExtension());
                 session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-                return redirect()->to(base_url().'/admin');
+                return redirect()->to(base_url().'/admin/uploadRekaman');
             } else {
-                if (!$rekaman->isValid()) {
-                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
-                    return redirect()->to(base_url().'/admin/uploadRekaman');
-                } else if (!$thumbnailRekaman->isValid()) {
-                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
-                    return redirect()->to(base_url().'/admin/uploadRekaman');
-                } else {
-                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$this->validator->listErrors()}','error')</script>");
-                    return redirect()->to(base_url().'/admin/uploadRekaman');
-                }
+                $errors = $this->validator->getErrors();
+                session()->setFlashdata($errors);
+                session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
+                return redirect()->to(base_url().'/admin/uploadRekaman');
             }
+        }
+    }
 
-            
-
-
-
-            // if (!$rekaman->isValid()) {
-            //     session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
-            //     return redirect()->to(base_url().'/admin/uploadRekaman');
-            // } else {
-            //     if (!$thumbnailRekaman->isValid()) {
-            //         session()->setFlashdata('flash', "<script>swal('Upload Gagal!','{$rekaman->getErrorString()}','error')</script>");
-            //         return redirect()->to(base_url().'/admin/uploadRekaman');
-            //     } else {
-            //         if ($this->validate($rules)) {
-            //             // $model=new Rekaman_Model();
-            //             // $model->postRekaman($data);
-            //             session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-            //             return redirect()->to(base_url().'/admin');
-            //         }else{
-            //             session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan data yang Anda masukkan telah benar.','error')</script>");
-            //             return redirect()->to(base_url().'/admin/uploadRekaman');
-            //         }
-            //     }
-            // }
+    public function numberValidation(string $str, string $fields, array $data)
+    {
+        if (preg_match( '/^[0-9]+/', $data['pertemuan'])) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
