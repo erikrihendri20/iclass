@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
+use App\Models\Kuis_Model;
 
 class Kelasku extends BaseController
 {
