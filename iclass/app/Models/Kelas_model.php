@@ -14,4 +14,10 @@ class Kelas_Model extends Model
     protected $returnType     = 'array';
 
     protected $allowedFields = ['nama', 'link-meeting'];
+
+    public function getById($id)
+    {
+        $this->builder()->where('id', $id);
+        return $this->builder()->get()->getResultArray();
+    }
 }

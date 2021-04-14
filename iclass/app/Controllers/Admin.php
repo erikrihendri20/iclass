@@ -153,4 +153,81 @@ class Admin extends BaseController
         return json_encode($model->findAll());
     }
     
+    public function uploadRekaman()
+    {
+        $data['active'] = 'Kelas';
+        return view('admin/uploadRekaman', $data);
+    }
+
+    public function tambahRekaman()
+    {
+        if(isset($_POST['submit'])){
+            $data=[
+                'pertemuan' => $this->request->getPost('pertemuan'),
+                'materi' => $this->request->getPost('materi'),
+                'rekaman' => $this->request->getFile('rekaman'),
+                'thumbnailRekaman' => $this->request->getFile('thumbnailRekaman')
+            ];
+            $rules = [
+                'pertemuan' => [
+                    'label'  => 'Pertemuan',
+                    'rules'  => 'required|max_length[3]',
+                    'errors' => [
+                        'required' => 'Pertemuan harus diisi',
+                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit'
+                    ]
+                ],
+                'materi' => [
+                    'label'  => 'Materi',
+                    'rules'  => 'required|max_length[50]',
+                    'errors' => [
+                        'required' => 'Materi harus diisi',
+                        'max_length' => 'Nama materi berisi maksimal 50 karakter (termasuk spasi)'
+                    ]
+                ],
+                'rekaman' => [
+                    'label' => 'upload',
+                    'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih video rekaman kelas',
+                        'ext_in' => 'Pilih file dengan format Mp4'
+                    ]
+                ],
+                'thumbnailRekaman' => [
+                    'label' => 'upload',
+                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih gambar thumbnail video rekaman kelas',
+                        'is_image' => 'Pilih gambar dengan jenis gambar'
+                    ]
+                ]
+            ];
+            
+            $rekaman = $this->request->getFile('rekaman');
+            $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
+
+            if ($this->validate($rules)) {
+                // $model=new Rekaman_Model();
+                // $model->postRekaman($data);
+                $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.mp4');
+                $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.'.$thumbnailRekaman->guessExtension());
+                session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
+                return redirect()->to(base_url().'/admin/uploadRekaman');
+            } else {
+                $errors = $this->validator->getErrors();
+                session()->setFlashdata($errors);
+                session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
+                return redirect()->to(base_url().'/admin/uploadRekaman');
+            }
+        }
+    }
+
+    public function numberValidation(string $str, string $fields, array $data)
+    {
+        if (preg_match( '/^[0-9]+/', $data['pertemuan'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
