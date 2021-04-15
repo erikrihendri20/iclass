@@ -51,6 +51,7 @@
 
     <form action="<?= base_url('kelasku/latihan_pembahasan') ?>" method="post" id='soal'>
         <input type="hidden" name="jawaban" id="jawaban_soal">
+        <input type="hidden" name="no_kuis" value="<?= $kuis[0]['no_kuis'] ?>">>
     </form>
 
 </div>

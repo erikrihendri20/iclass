@@ -16,6 +16,7 @@
             <h3 class="text-primary">Masukkan Kode</h3 class="text-primary">
             <div class="form-group">
                 <input type="text" class="form-control" id="kode_kuis" name="kode_kuis">
+                <input type="hidden" name="no_kuis" value="0">
             </div>
             <div class="text-center mx-5 my-3">
                 <button type="submit" name="submit" class="btn btn-primary align-self-center mx-1">Submit</button>
