@@ -11,47 +11,47 @@ class Admin extends BaseController
 {
     public function index()
     {
-        $data['active']='dashboard';
-        return view('admin/index',$data);
+        $data['active'] = 'dashboard';
+        return view('admin/index', $data);
     }
-    
+
     public function aturJadwalPertemuan()
     {
         $data['active'] = 'atur jadwal pertemuan';
-        $model=new Kelas_Model();
-        $data['kelas']=$model->findAll();
-        return view('admin/aturJadwalPertemuan',$data);
+        $model = new Kelas_Model();
+        $data['kelas'] = $model->findAll();
+        return view('admin/aturJadwalPertemuan', $data);
     }
 
     public function aturJadwalTryout()
     {
         $data['active'] = 'atur jadwal tryout';
-        $model=new Kelas_Model();
-        $data['kelas']=$model->findAll();
-        return view('admin/aturJadwalTryout',$data);
+        $model = new Kelas_Model();
+        $data['kelas'] = $model->findAll();
+        return view('admin/aturJadwalTryout', $data);
     }
 
     public function daftarKelas()
     {
-        $model=new Kelas_Model();
-        $data['user']=$model->findAll();
-        $data['active']='daftar kelas';
-        return view('admin/daftarKelas',$data);
+        $model = new Kelas_Model();
+        $data['user'] = $model->findAll();
+        $data['active'] = 'daftar kelas';
+        return view('admin/daftarKelas', $data);
     }
 
-    public function lihatJadwal($kode_kelas,$jenis=null)
+    public function lihatJadwal($kode_kelas, $jenis = null)
     {
         $model = new Jadwal_Model();
-        $result = $model->getJadwal($kode_kelas,$jenis);
+        $result = $model->getJadwal($kode_kelas, $jenis);
         echo json_encode($result);
     }
 
     public function tambahKelas()
     {
-        if(isset($_POST['submit'])){
-            $data=[
-                'nama'=>$this->request->getPost('nama'),
-                'link-meeting'=>$this->request->getPost('link-meeting')
+        if (isset($_POST['submit'])) {
+            $data = [
+                'nama' => $this->request->getPost('nama'),
+                'link-meeting' => $this->request->getPost('link-meeting')
             ];
             $rules = [
                 'nama' => [
@@ -64,7 +64,7 @@ class Admin extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                $model=new Kelas_Model();
+                $model = new Kelas_Model();
                 $model->save($data);
                 $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             Kelas <strong>berhasil</strong> ditambahkan
@@ -73,16 +73,16 @@ class Admin extends BaseController
                             </button>
                         </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->to(base_url().'/admin/daftarKelas');
-            }else{
-               $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                return redirect()->to(base_url() . '/admin/daftarKelas');
+            } else {
+                $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Gagal</strong>, pastikan nama kelas belum digunakan sebelumnya
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->to(base_url().'/admin/daftarKelas'); 
+                return redirect()->to(base_url() . '/admin/daftarKelas');
             }
         }
     }
@@ -91,8 +91,8 @@ class Admin extends BaseController
 
     public function hapusKelas($id)
     {
-        if(isset($id)){
-            $model=new Kelas_Model();
+        if (isset($id)) {
+            $model = new Kelas_Model();
             $model->delete($id);
             $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             Kelas <strong>berhasil</strong> dihapus
@@ -101,8 +101,8 @@ class Admin extends BaseController
                             </button>
                         </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url().'/admin/daftarKelas');
-        }else{
+            return redirect()->to(base_url() . '/admin/daftarKelas');
+        } else {
             $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Gagal</strong>, pastikan nama kelas belum digunakan sebelumnya
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -110,41 +110,40 @@ class Admin extends BaseController
                             </button>
                         </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url().'/admin/daftarKelas'); 
+            return redirect()->to(base_url() . '/admin/daftarKelas');
         }
     }
 
     public function tambahJadwal()
     {
-        if(isset($_POST["title"]))
-        {
-                $data=[
-                    'title' => $this->request->getPost('title'),
-                    'start_event' => $this->request->getPost('start'),
-                    'end_event' => $this->request->getPost('end'),
-                    'kode_kelas' => $this->request->getPost('kode_kelas'),
-                    'link-meeting' => $this->request->getPost('url'),
-                    'jenis' => $this->request->getPost('jenis'),
-                    'class_name' => $this->request->getPost('class_name'),
-                ];
-                if(isset($_POST['id'])){
-                    $data['id']=$this->request->getPost('id');
-                }
-                $model = new Jadwal_Model();
-                $model -> save($data);
+        if (isset($_POST["title"])) {
+            $data = [
+                'title' => $this->request->getPost('title'),
+                'start_event' => $this->request->getPost('start'),
+                'end_event' => $this->request->getPost('end'),
+                'kode_kelas' => $this->request->getPost('kode_kelas'),
+                'link-meeting' => $this->request->getPost('url'),
+                'jenis' => $this->request->getPost('jenis'),
+                'class_name' => $this->request->getPost('class_name'),
+            ];
+            if (isset($_POST['id'])) {
+                $data['id'] = $this->request->getPost('id');
+            }
+            $model = new Jadwal_Model();
+            $model->save($data);
         }
     }
 
     public function hapusJadwal()
     {
-        $id=$this->request->getPost('id');
+        $id = $this->request->getPost('id');
         $model = new Jadwal_Model();
-        $model -> delete($id);
+        $model->delete($id);
     }
 
     public function renderJadwal($kode_kelas)
     {
-        $model=new Jadwal_Model();
+        $model = new Jadwal_Model();
         return json_encode($model->getJadwal($kode_kelas));
     }
 
@@ -173,8 +172,8 @@ class Admin extends BaseController
 
     public function tambahRekaman()
     {
-        if(isset($_POST['submit'])){
-            $data=[
+        if (isset($_POST['submit'])) {
+            $data = [
                 'pertemuan' => $this->request->getPost('pertemuan'),
                 'materi' => $this->request->getPost('materi'),
                 'rekaman' => $this->request->getFile('rekaman'),
@@ -215,7 +214,7 @@ class Admin extends BaseController
                     ]
                 ]
             ];
-            
+
             $rekaman = $this->request->getFile('rekaman');
             $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
 
@@ -246,7 +245,7 @@ class Admin extends BaseController
 
     public function numberValidation(string $str, string $fields, array $data)
     {
-        if (preg_match( '/^[0-9]+/', $data['pertemuan'])) {
+        if (preg_match('/^[0-9]+/', $data['pertemuan'])) {
             return true;
         } else {
             return false;

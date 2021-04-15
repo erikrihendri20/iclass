@@ -13,7 +13,7 @@
       <li class="nav-item">
         <a class="nav-item nav-link <?php if ($active == 'beranda') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url(); ?>">Beranda</a>
       </li>
-      
+
       <li class="nav-item">
         <a class="nav-item nav-link <?php if ($active == 'pilih paket') echo 'active text-primary font-weight-bold'; ?>" href="<?= base_url('#paket'); ?>">Pilih Paket</a>
       </li>
@@ -30,12 +30,12 @@
         </li>
       <?php else : ?>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle <?php if ($active == 'kelasku') echo 'active text-primary font-weight-bold'; ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Kelasku
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?= base_url('Kelasku/jadwal'); ?>">Jadwal</a>
-            <a class="dropdown-item" href="<?= base_url('Kelasku/latihan'); ?>">Latihan Soal</a>
+            <a class="dropdown-item" href="<?= base_url('Kelasku/latihan_kode'); ?>">Latihan Soal</a>
             <a class="dropdown-item" href="<?= base_url('Kelasku/rekaman'); ?>">Rekaman Kelas</a>
           </div>
         </li>
