@@ -2,25 +2,76 @@
 
 <!-- footer -->
 <div class="bg-primary mt-3 p-5 edu">
-    <div class="row">
-        <div class="col mx-2">
-            <h5 class="" href="#"><span class="text-warning">[i]<span>Class Education</span></span></h5>
-            <p>iClass merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
-        </div>
-        <div class="col-2 mx-2">
-            Usefull Link
-            <div class="d-flex flex-column">
-                <a class="my-0"><span class="">&#10003;</span> Beranda</a>
-                <a class="my-0"><span class="">&#10003;</span> Pilih Paket</a>
-                <a class="my-0"><span class="">&#10003;</span> Pendaftaran</a>
-                <a class="my-0"><span class="">&#10003;</span> Masuk</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-6 p-3">
+                <h2 class="text-warning"> [i] <b>Class</b></h2>
+                <h1> <b class="text-dark">Education</b> </h1>
+            </div>
+            <div class="col-lg-3 col-6 p-3">
+                <h4 class="text-dark"> <b>Usefull Link</b> </h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="<?= base_url() ?>" class="text-white">
+                            <u>Beranda</u>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('#paket') ?>" class="text-white">
+                            <u>Paket Belajar</u>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('daftar') ?>" class="text-white">
+                            <u>Pendaftaran</u>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('masuk') ?>" class="text-white">
+                            <u>Login</u>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-lg-3 col-md-6 p-3">
+                <h4 class="text-dark"> <b>About</b> </h4>
+                <p class="mb-0 text-white text-justify">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 p-3">
+                <h4 class="text-dark"> <b>Follow us</b> </h4>
+                <div class="row">
+                    <div class="col-md-1">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white">
+                        <p class="my-0">
+                            <u>masukstis30@gmail.com</u>
+                        </p>
+                    </a>
+                    <div class="col-md-1">
+                        <i class="fa fa-instagram"></i>
+                    </div>
+                    <a href="https://www.instagram.com/iclass.education/" class="col-md-10 text-white">
+                        <p class="my-0">
+                            <u>iclass.education</u>
+                        </p>
+                    </a>
+                    <div class="col-md-1">
+                        <i class="fa fa-whatsapp"></i>
+                    </div>
+                    <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white">
+                        <p class="my-0">
+                            <u>+62 822 3220 7642</u>
+                        </p>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="col-3 mx-2">
-            Contact
-            <p class="my-0">Email : masukstis30@gmail.com</p>
-            <p class="my-0">Instagram : iclass.edu</p>
-            <p class="my-0">Whatsapp : +62 822 3220 7642</p>
+        <div class="row">
+            <div class="col-md-12 text-center text-white">
+                <b class="mb-0 mt-2">© 2021 iClass Education. All rights reserved</b>
+            </div>
         </div>
     </div>
 </div>
