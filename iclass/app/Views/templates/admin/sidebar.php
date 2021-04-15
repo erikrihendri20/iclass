@@ -53,9 +53,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(); ?>/admin/uploadRekaman">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/rekaman">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Upload Rekaman</span></a>
+                    <span>Rekaman</span></a>
             </li>
 
             <!-- Divider -->

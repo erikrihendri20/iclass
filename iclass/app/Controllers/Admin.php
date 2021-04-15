@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Users_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
+use App\Models\Rekaman_Model;
 
 class Admin extends BaseController
 {
@@ -153,6 +154,17 @@ class Admin extends BaseController
         return json_encode($model->findAll());
     }
     
+    public function rekaman()
+    {
+        $model = new Rekaman_Model();
+		$data['rekamans'] = $model->getAll();
+        $data['active'] = 'Kelas';
+
+        $data['css'] = ['admin/rekaman.css'];
+
+        return view('admin/rekaman', $data);
+    }
+
     public function uploadRekaman()
     {
         $data['active'] = 'Kelas';
@@ -171,10 +183,11 @@ class Admin extends BaseController
             $rules = [
                 'pertemuan' => [
                     'label'  => 'Pertemuan',
-                    'rules'  => 'required|max_length[3]',
+                    'rules'  => 'required|max_length[3]|is_unique[rekaman.id]',
                     'errors' => [
                         'required' => 'Pertemuan harus diisi',
-                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit'
+                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit',
+                        'is_unique' => 'Pertemuan tersebut telah diunggah'
                     ]
                 ],
                 'materi' => [
@@ -207,17 +220,26 @@ class Admin extends BaseController
             $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
 
             if ($this->validate($rules)) {
-                // $model=new Rekaman_Model();
-                // $model->postRekaman($data);
+                $data1=[
+                    'id' => $this->request->getPost('pertemuan'),
+                    'materi' => $this->request->getPost('materi'),
+                    'ext_tn' => $thumbnailRekaman->guessExtension()
+                ];
+
+                $model = new Rekaman_Model();
+                $model->postRekaman($data1);
+
                 $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.mp4');
                 $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.'.$thumbnailRekaman->guessExtension());
+                
                 session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-                return redirect()->to(base_url().'/admin/uploadRekaman');
+                return redirect()->to(base_url().'/admin/rekaman');
             } else {
                 $errors = $this->validator->getErrors();
                 session()->setFlashdata($errors);
+
                 session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
-                return redirect()->to(base_url().'/admin/uploadRekaman');
+                return redirect()->to(base_url().'/admin/rekaman');
             }
         }
     }

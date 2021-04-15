@@ -21,17 +21,28 @@ class Kelasku extends BaseController
         return json_encode($result);
     }
 
-    public function rekaman($id = NULL)
+    public function rekaman()
     {
-        if ($id == NULL) $id = 1;
-
         $model = new Rekaman_Model();
 		$data['rekamans'] = $model->getAll();
-        $data['rekamanPilihan'] = $model->getById($id);
+        $data['id'] = 0;
 
+        $data['javascript'] = ['rekaman.js'];
         $data['css'] = ['rekaman.css'];
 		$data['active'] = 'rekaman';
 		return view('kelasku/rekaman', $data);
+    }
+
+    public function pindahRekaman($id)
+    {
+        $model = new Rekaman_Model();
+        $data['rekaman'] = $model->where('id', $id)->first();
+        $data['thumbnail1'] = $model->where('id', $id+1)->first();
+        $data['thumbnail2'] = $model->where('id', $id+2)->first();
+        $data['thumbnail3'] = $model->where('id', $id+3)->first();
+
+        echo json_encode($data);
+
     }
     
     public function latihan()

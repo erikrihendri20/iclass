@@ -11,6 +11,7 @@
     <?php endforeach; ?>
     <!-- <link rel="stylesheet" href="<?= base_url(); ?>/css/tailwindcss/tailwind.css"> -->
     <link href='<?= base_url(); ?>/css/fullcalendar.css' rel='stylesheet' />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <title>Document</title>
 </head>
 

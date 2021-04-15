@@ -2,6 +2,10 @@
     color: white;
 }
 
+h1#judul {
+    font-size: 60px;
+}
+
 div#content-2-container, #rekaman-container {
     margin-left: 3rem;
     margin-right: 3rem;
@@ -15,7 +19,73 @@ div#thumbnail_rekaman {
     width: 30%;
 }
 
-@media (max-width:700px) {
+div#lefty {
+    position: absolute;
+    bottom: 50%;
+    left: 1.25rem;
+}
+
+div#lefty > p {
+    color: #a8a9b3;
+    font-size: 50px;
+}
+
+div#lefty > p:hover {
+    color: black;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #a8a9b3;
+}
+
+div#righty {
+    position: absolute;
+    bottom: 50%;
+    right: 1.25rem;
+}
+
+div#righty > p {
+    color: #a8a9b3;
+    font-size: 50px;
+}
+
+div#righty > p:hover {
+    color: black;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #a8a9b3;
+}
+
+div#atas {
+    float: left;
+    left: 1.25rem;
+    top: 0;
+}
+
+@media (max-width: 1100px) {
+    h1#judul {
+        font-size: 50px;
+    }
+
+    h1#pertemuan {
+        font-size: 32px;
+    }
+
+    h2#materi {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 700px) {
+    h1#judul {
+        font-size: 45px;
+    }
+
+    h1#pertemuan {
+        font-size: 30px;
+    }
+
+    h2#materi {
+        font-size: 22px;
+    }
+
     div#video_rekaman {
         width: 100%;
     }
@@ -23,5 +93,19 @@ div#thumbnail_rekaman {
     div#content-2-container, #materi-container {
         margin-left: 5px;
         margin-right: 5px;
+    }
+
+    div#thumbnail_rekaman {
+        margin-top: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    div#tengah {
+        padding-bottom: 120px;
+    }
+
+    div#bawah {
+        margin-top: 1rem;
     }
 }

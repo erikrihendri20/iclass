@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 08:22 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.3.27
+-- Generation Time: Apr 15, 2021 at 11:39 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -130,6 +131,28 @@ INSERT INTO `materi` (`id`, `name`, `parts`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rekaman`
+--
+
+CREATE TABLE `rekaman` (
+  `id` smallint(3) NOT NULL,
+  `materi` varchar(50) NOT NULL,
+  `ext_tn` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rekaman`
+--
+
+INSERT INTO `rekaman` (`id`, `materi`, `ext_tn`) VALUES
+(1, 'Aljabar', 'jpeg'),
+(2, 'Baris dan Deret', 'png'),
+(3, 'Awwkwkwk', 'jpg'),
+(4, 'Bablabla', 'jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -184,6 +207,12 @@ ALTER TABLE `kelas`
 -- Indexes for table `materi`
 --
 ALTER TABLE `materi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rekaman`
+--
+ALTER TABLE `rekaman`
   ADD PRIMARY KEY (`id`);
 
 --

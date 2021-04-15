@@ -13,6 +13,8 @@ class Rekaman_Model extends Model
 
     protected $returnType     = 'array';
 
+    protected $allowedFields = ['id', 'materi', 'ext_tn'];
+
     public function getAll()
     {
         return $this->findAll();
@@ -25,6 +27,6 @@ class Rekaman_Model extends Model
 
     public function postRekaman($data)
     {
-
+        $this->insert($data);
     }
 }
