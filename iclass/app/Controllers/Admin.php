@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Users_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
+use App\Models\Paket_Model;
 
 class Admin extends BaseController
 {
@@ -32,8 +33,10 @@ class Admin extends BaseController
 
     public function daftarKelas()
     {
-        $model = new Kelas_Model();
-        $data['user'] = $model->findAll();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $kelas_model->tampilkanKelas();
+        $data['paket'] = $paket_model->findAll();
         $data['active'] = 'daftar kelas';
         return view('admin/daftarKelas', $data);
     }
@@ -50,7 +53,8 @@ class Admin extends BaseController
         if (isset($_POST['submit'])) {
             $data = [
                 'nama' => $this->request->getPost('nama'),
-                'link-meeting' => $this->request->getPost('link-meeting')
+                'link-meeting' => $this->request->getPost('link-meeting'),
+                'kode_paket' =>$this->request->getPost('kode-paket')
             ];
             $rules = [
                 'nama' => [
