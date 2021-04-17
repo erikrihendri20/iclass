@@ -357,9 +357,21 @@ class Admin extends BaseController
         return view('admin/editPeserta', $data);
     }
 
+    public function tampilkanKonfirmasiPeserta($kode_paket=null)
+    {
+        $user_model = new Users_Model();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $user_model->tampilkanPeserta($kode_paket);
+        $data['kelas'] = $kelas_model->findAll();
+        $data['paket'] = $paket_model->findAll();
+        return view('admin/tampilkanKonfirmasiPeserta',$data);
+    }
 
     public function konfirmasiPeserta()
     {
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
         $data['active'] = 'konfirmasi peserta';
         return view('admin/konfirmasiPeserta', $data);
     }

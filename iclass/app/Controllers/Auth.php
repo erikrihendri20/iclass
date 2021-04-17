@@ -37,6 +37,34 @@ class Auth extends BaseController
                         'status' => $user[0]['status'],
                     ];
                     session()->set($data);
+                    if($user[0]['status']==0){
+                        $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Silahkan mengupload bukti pembayaran untuk menikmati layanan kami
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('uploadBuktiPembayaran');
+                    }elseif($user[0]['status']==1){
+                        $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Terimakasih telah melakukan pembayaran, admin akan segera memeriksa akun anda
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('ruangTunggu');
+                    }else{
+                        $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            anda berhasil masuk:D
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('peserta');
+                    }
                     $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             anda berhasil masuk:D
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
