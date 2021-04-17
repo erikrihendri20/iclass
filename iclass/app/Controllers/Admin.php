@@ -35,7 +35,11 @@ class Admin extends BaseController
     {
         $kelas_model = new Kelas_Model();
         $paket_model = new Paket_Model();
-        $data['user'] = $kelas_model->tampilkanKelas();
+        $data['kelas'] = $kelas_model->tampilkanKelas();
+        $user_model = new Users_Model();
+        for ($i=0; $i < count($data['kelas']) ; $i++) { 
+            $data['kelas'][$i]['jumlah-peserta']=$user_model->jumlahPeserta($data['kelas'][$i]['id']);
+        }
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'daftar kelas';
         return view('admin/daftarKelas', $data);
@@ -233,5 +237,133 @@ class Admin extends BaseController
         } else {
             return false;
         }
+    }
+
+    public function daftarPeserta()
+    {
+        $data['active'] = 'daftar peserta';
+        $model = new Paket_Model();
+        $data['paket'] = $model->findAll();
+        return view('admin/daftarPeserta', $data);
+    }
+
+    public function tampilkanPeserta($kode_paket)
+    {
+        $user_model = new Users_Model();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $user_model->tampilkanPeserta($kode_paket);
+        $data['kelas'] = $kelas_model->findAll();
+        $data['paket'] = $paket_model->findAll();
+        return view('admin/tampilkanPeserta',$data);
+    }
+
+    public function ubahKelasPeserta()
+    {
+        $id = $this->request->getPost('id');
+        $kode_kelas = $this->request->getPost('kode_kelas');
+        $model = new Users_Model();
+        $model->update($id,['kode_kelas'=>$kode_kelas]);
+        return json_encode($kode_kelas); 
+    }
+
+    public function hapusPeserta($id)
+    {
+        if (isset($id)) {
+            $model = new Users_Model();
+            $model->delete($id);
+            $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Peserta <strong>berhasil</strong> dihapus
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url() . '/admin/daftarPeserta');
+        } else {
+            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Gagal</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url() . '/admin/daftarPeserta');
+        }
+    }
+
+    public function editPeserta()
+    {
+        $rules = [
+            'nama' => [
+                'label'  => 'Nama',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Nama harus diisi'
+                ]
+            ],
+            'jurusan' => [
+                'label'  => 'Jurusan',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Jurusan harus diisi'
+                ]
+            ],
+            'telepon' => [
+                'label'  => 'Nomor Whatsapp',
+                'rules'  => 'required|numeric',
+                'errors' => [
+                    'required' => 'Nomor whatsapp harus diisi',
+                    'numeric' => 'Masukan whatsapp dengan benar',
+                ]
+            ],
+            'email' => [
+                'label'  => 'Email',
+                'rules'  => 'required|valid_email|is_unique[users.email]',
+                'errors' => [
+                    'required' => 'Email harus diisi',
+                    'valid_email' => 'Isikan email dengan format yang sesuai',
+                    'is_unique' => 'Email sudah pernah digunakan',
+                ]
+            ],
+            'username' => [
+                'label'  => 'Username',
+                'rules'  => 'required|min_length[5]|is_unique[users.username]',
+                'errors' => [
+                    'required' => 'Username harus diisi',
+                    'min_length' => 'Username harus terdiri dari 5 karakter',
+                    'is_unique' => 'Username sudah pernah digunakan',
+                ]
+            ]
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new Users_Model();
+            $id = $this->request->getPost('id');
+            $newuser = [
+                'nama' => $this->request->getPost('nama'),
+                'jurusan' => $this->request->getPost('jurusan'),
+                'telepon' => $this->request->getPost('telepon'),
+                'email' => $this->request->getPost('email'),
+                'username' => $this->request->getPost('username'),
+                'kode_kelas' => $this->request->getPost('kode-kelas'),
+                'kode_paket' => $this->request->getPost('kode-paket')
+            ];
+            dd($newuser);
+            $model->save($newuser);
+            $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
+                        selesaikan pembayaran untuk mendapatkan layanan iclass
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to('masuk');
+        } else {
+            return redirect()->back()->withInput();
+        }
+        
+        
     }
 }

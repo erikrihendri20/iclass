@@ -46,10 +46,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             </li>
 
             <!-- Nav Item - My-profile -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+            <li class="nav-item <?= ($active=='daftar peserta') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/daftarPeserta">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Peserta</span></a>
+                    <span>Daftar Peserta</span></a>
             </li>
 
             <li class="nav-item">
