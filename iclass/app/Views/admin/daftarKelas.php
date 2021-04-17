@@ -3,12 +3,16 @@
 <div class="container-fluid">
 
 <!-- Page Heading -->
+<div class="d-flex justify-content-between">
 <h1 class="h3 mb-4 text-gray-800">Daftar Kelas</h1>
-<?= session()->flash; ?>
-<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
   + Tambah Kelas
 </button>
+</div>
+
+<?= session()->flash; ?>
+<!-- Button trigger modal -->
+
 
     <table id="daftar-kelas" class="display nowrap" style="width:100%">
         <thead>
@@ -28,10 +32,44 @@
                 <td><a href="<?= $u['link-meeting']; ?>"><?= $u['link-meeting']; ?></a></td>
                 <td><?= $u['nama-paket']; ?></td>
                 <td>
-                    <a class="btn btn-success text-light" type="submit" name="edit" value="<?= $u['id']; ?>">Edit</a>
-                    <a class="btn btn-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $u['id']; ?>">Hapus</a>
+                <button class="badge badge-success" style="border: none;" data-toggle="modal" data-target="#edit<?= $u['id']; ?>">Edit</button>
+                <a class="badge badge-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $u['id']; ?>">Hapus</a>
                 </td>
             </tr>
+            <div class="modal fade" id="edit<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Kelas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="<?= base_url(); ?>/admin/tambahKelas" method="POST">
+                        <input type="hidden" name="id" value="<?= $u['id']; ?>">
+                        <div class="form-group">
+                            <input type="text" name="nama" class="form-control" placeholder="Nama Kelas" value="<?= $u['nama']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="link-meeting" class="form-control" placeholder="Link Meeting" value="<?= $u['link-meeting']; ?>">
+                        </div>
+                        <div class="form-group">
+                                    <select class="form-control" name="kode-paket" id="pilih-paket">
+                                      <?php foreach ($paket as $p) :?>
+                                        <option <?= ($p['id']==$u['kode_paket']) ? 'selected' : '' ?> value="<?= $p['id']; ?>"><?= $p['nama']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                          <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             <?php $no++; endforeach; ?>
         </tbody>
     </table>

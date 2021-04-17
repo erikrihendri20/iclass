@@ -52,6 +52,7 @@ class Admin extends BaseController
     {
         if (isset($_POST['submit'])) {
             $data = [
+                'id' => $this->request->getPost('id'),
                 'nama' => $this->request->getPost('nama'),
                 'link-meeting' => $this->request->getPost('link-meeting'),
                 'kode_paket' =>$this->request->getPost('kode-paket')

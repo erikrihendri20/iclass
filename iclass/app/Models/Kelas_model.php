@@ -13,7 +13,7 @@ class Kelas_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['nama', 'link-meeting' , 'kode_paket'];
+    protected $allowedFields = ['id','nama', 'link-meeting' , 'kode_paket'];
 
     public function getById($id)
     {
