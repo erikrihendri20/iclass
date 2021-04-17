@@ -45,6 +45,26 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     <span>Daftar Kelas</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/uploadRekaman">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Upload Rekaman</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Peserta
+            </div>
+
+            <!-- Nav Item - My-profile -->
+            <li class="nav-item <?= ($active=='konfirmasi peserta') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/konfirmasiPeserta">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Konfirmasi Peserta</span></a>
+            </li>
+
             <!-- Nav Item - My-profile -->
             <li class="nav-item <?= ($active=='daftar peserta') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin/daftarPeserta">
@@ -52,11 +72,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     <span>Daftar Peserta</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(); ?>/admin/uploadRekaman">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Upload Rekaman</span></a>
-            </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -65,13 +81,15 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <div class="sidebar-heading">
                 Materi
             </div>
-
+            
             <!-- Nav Item - My-profile -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Upload Materi</span></a>
             </li>
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">

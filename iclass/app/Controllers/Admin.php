@@ -264,7 +264,13 @@ class Admin extends BaseController
         $kode_kelas = $this->request->getPost('kode_kelas');
         $model = new Users_Model();
         $model->update($id,['kode_kelas'=>$kode_kelas]);
-        return json_encode($kode_kelas); 
+        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            kelas <strong>berhasil</strong> diubah
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+        return $flash;
     }
 
     public function hapusPeserta($id)
@@ -292,78 +298,69 @@ class Admin extends BaseController
         }
     }
 
-    public function editPeserta()
+    public function editPeserta($id)
     {
-        $rules = [
-            'nama' => [
-                'label'  => 'Nama',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => 'Nama harus diisi'
+        if (isset($_POST['submit'])) {
+            $rules = [
+                'nama' => [
+                    'label'  => 'Nama',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Nama harus diisi'
+                    ]
+                ],
+                'jurusan' => [
+                    'label'  => 'Jurusan',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Jurusan harus diisi'
+                    ]
+                ],
+                'telepon' => [
+                    'label'  => 'Nomor Whatsapp',
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Nomor whatsapp harus diisi',
+                        'numeric' => 'Masukan whatsapp dengan benar',
+                    ]
                 ]
-            ],
-            'jurusan' => [
-                'label'  => 'Jurusan',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => 'Jurusan harus diisi'
-                ]
-            ],
-            'telepon' => [
-                'label'  => 'Nomor Whatsapp',
-                'rules'  => 'required|numeric',
-                'errors' => [
-                    'required' => 'Nomor whatsapp harus diisi',
-                    'numeric' => 'Masukan whatsapp dengan benar',
-                ]
-            ],
-            'email' => [
-                'label'  => 'Email',
-                'rules'  => 'required|valid_email|is_unique[users.email]',
-                'errors' => [
-                    'required' => 'Email harus diisi',
-                    'valid_email' => 'Isikan email dengan format yang sesuai',
-                    'is_unique' => 'Email sudah pernah digunakan',
-                ]
-            ],
-            'username' => [
-                'label'  => 'Username',
-                'rules'  => 'required|min_length[5]|is_unique[users.username]',
-                'errors' => [
-                    'required' => 'Username harus diisi',
-                    'min_length' => 'Username harus terdiri dari 5 karakter',
-                    'is_unique' => 'Username sudah pernah digunakan',
-                ]
-            ]
-        ];
-
-        if ($this->validate($rules)) {
-            $model = new Users_Model();
-            $id = $this->request->getPost('id');
-            $newuser = [
-                'nama' => $this->request->getPost('nama'),
-                'jurusan' => $this->request->getPost('jurusan'),
-                'telepon' => $this->request->getPost('telepon'),
-                'email' => $this->request->getPost('email'),
-                'username' => $this->request->getPost('username'),
-                'kode_kelas' => $this->request->getPost('kode-kelas'),
-                'kode_paket' => $this->request->getPost('kode-paket')
             ];
-            dd($newuser);
-            $model->save($newuser);
-            $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
-                        selesaikan pembayaran untuk mendapatkan layanan iclass
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>';
-            session()->setFlashdata('flash', $flash);
-            return redirect()->to('masuk');
-        } else {
-            return redirect()->back()->withInput();
+            if ($this->validate($rules)) {
+                $model = new Users_Model();
+                $newuser = [
+                    'nama' => $this->request->getPost('nama'),
+                    'jurusan' => $this->request->getPost('jurusan'),
+                    'telepon' => $this->request->getPost('telepon'),
+                    'email' => $this->request->getPost('email'),
+                    'username' => $this->request->getPost('username'),
+                    'kode_paket' => $this->request->getPost('kode-paket')
+                ];
+                $model->update($id , $newuser);
+                $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $newuser['nama'] . ' <strong>berhasil</strong> diubah <br>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to(base_url().'/admin/daftarPeserta');
+            } else {
+                return redirect()->back()->withInput();
+            }
         }
-        
-        
+        $user_model = new Users_Model();
+        $data['user'] = $user_model->find($id);
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
+        $data['active'] = 'edit peserta';
+        $data['css'] = ['auth/edit-peserta.css'];
+        return view('admin/editPeserta', $data);
+    }
+
+
+    public function konfirmasiPeserta()
+    {
+        $data['active'] = 'konfirmasi peserta';
+        return view('admin/konfirmasiPeserta', $data);
     }
 }
