@@ -161,7 +161,7 @@
                                 kode_kelas:$(this).val()
                             },
                             function(result){
-                                alert('kelas berhasil diubah')
+                                $('#flash').html(result)
                             }
                         )
                     })

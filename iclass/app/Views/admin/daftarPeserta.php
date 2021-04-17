@@ -5,6 +5,8 @@
 <!-- Page Heading -->
 <div class="">
 <h1 class="h3 mb-4 text-gray-800">Daftar Peserta</h1>
+<?= session()->flash; ?>
+<div id="flash"></div>
 <form action="">
         <div class="form-group">
             <select class="form-control" name="kode_paket" id="kode_paket">
