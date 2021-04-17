@@ -15,7 +15,6 @@
         </div>
 </form>
 </div>
-<div class="container" id="tabel-peserta"></div>
+<div id="tabel-peserta"></div>
 </div>
 <?= $this->endSection(); ?>
-
