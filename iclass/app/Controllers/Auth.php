@@ -27,13 +27,13 @@ class Auth extends BaseController
                         'log' => true,
                         'id' => $user[0]['id'],
                         'nama' => $user[0]['nama'],
-                        'kelas_id' => $user[0]['kelas_id'],
+                        'kode-kelas' => $user[0]['kode_kelas'],
                         'jurusan' => $user[0]['jurusan'],
-                        'pilih_paket' => $user[0]['pilih-paket'],
+                        'kode-paket' => $user[0]['kode_paket'],
                         'telepon' => $user[0]['telepon'],
                         'email' => $user[0]['email'],
                         'username' => $user[0]['username'],
-                        'bukti_pembayaran' => $user[0]['bukti-pembayaran'],
+                        'bukti-pembayaran' => $user[0]['bukti_pembayaran'],
                         'status' => $user[0]['status'],
                     ];
                     session()->set($data);
@@ -176,7 +176,7 @@ class Auth extends BaseController
                         'required' => 'Jurusan harus diisi'
                     ]
                 ],
-                'pilih-paket' => [
+                'kode-paket' => [
                     'label'  => 'Pilihan paket',
                     'rules'  => 'required',
                     'errors' => [
@@ -230,7 +230,7 @@ class Auth extends BaseController
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),
                     'jurusan' => $this->request->getPost('jurusan'),
-                    'pilih-paket' => $this->request->getPost('pilih-paket'),
+                    'kode_paket' => $this->request->getPost('kode-paket'),
                     'telepon' => $this->request->getPost('telepon'),
                     'email' => $this->request->getPost('email'),
                     'username' => $this->request->getPost('username'),

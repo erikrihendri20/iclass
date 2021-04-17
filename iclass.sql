@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2021 at 06:43 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.14
+-- Generation Time: Apr 17, 2021 at 05:01 AM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,7 +64,10 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `jenis`, `class_name`, `allDay`) VALUES
 (109, 'sadsadasd', 1, '2021-04-15 00:00:00', '0000-00-00 00:00:00', 2, 'success', NULL),
-(111, 'dasdsada', 1, '2021-04-01 00:00:00', '0000-00-00 00:00:00', 1, 'info', NULL);
+(111, 'dasdsada', 1, '2021-04-01 00:00:00', '2021-04-03 00:00:00', 1, 'info', NULL),
+(116, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
+(117, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
+(118, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL);
 
 -- --------------------------------------------------------
 
@@ -76,6 +79,7 @@ CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `link-meeting` varchar(255) NOT NULL,
+  `kode_paket` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -85,12 +89,9 @@ CREATE TABLE `kelas` (
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `nama`, `link-meeting`, `created_at`, `deleted_at`, `updated_at`) VALUES
-(1, '326', 'https://zoom.us/', '2021-03-26 00:12:15', '2021-03-26 00:12:15', '2021-03-26 00:12:15'),
-(2, '316', 'https://zoom.us/', '2021-03-26 00:12:15', '2021-03-26 00:12:15', '2021-03-26 00:12:15'),
-(4, 'sadsadsad', 'asdsad', '2021-03-26 01:02:47', '2021-03-26 01:02:47', '2021-03-26 01:02:47'),
-(5, 'sadsadsad', 'asdsad', '2021-03-26 01:03:03', '2021-03-26 01:03:03', '2021-03-26 01:03:03'),
-(7, 'sdlsakdmasldaslkdmk', 'dsadsadsadad', '2021-03-26 01:07:14', '2021-03-26 01:07:14', '2021-03-26 01:07:14');
+INSERT INTO `kelas` (`id`, `nama`, `link-meeting`, `kode_paket`, `created_at`, `deleted_at`, `updated_at`) VALUES
+(1, '3si2', 'asdsadsada', 3, '2021-04-17 02:44:40', '2021-04-17 02:44:40', '2021-04-17 02:44:40'),
+(2, 'sadsadsadad', '', 1, '2021-04-17 02:52:09', '2021-04-17 02:52:09', '2021-04-17 02:52:09');
 
 -- --------------------------------------------------------
 
@@ -159,20 +160,40 @@ INSERT INTO `materi` (`id`, `name`, `parts`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paket`
+--
+
+CREATE TABLE `paket` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paket`
+--
+
+INSERT INTO `paket` (`id`, `nama`) VALUES
+(1, 'reguler'),
+(2, 'premium'),
+(3, 'premium+');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `kelas_id` int(1) NOT NULL DEFAULT 0,
+  `kode_kelas` int(1) NOT NULL DEFAULT 0,
   `jurusan` varchar(50) NOT NULL,
-  `pilih-paket` int(1) NOT NULL,
+  `kode_paket` int(1) NOT NULL,
   `telepon` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `bukti-pembayaran` varchar(255) NOT NULL,
+  `bukti_pembayaran` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -183,11 +204,15 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `kelas_id`, `jurusan`, `pilih-paket`, `telepon`, `email`, `username`, `password`, `bukti-pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telepon`, `email`, `username`, `password`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (16, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
 (17, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
 (18, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
-(19, 'Akhmad Fadil Mubarok', 2, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '', 0, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
+(19, 'Akhmad Fadil Mubarok', 2, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '', 0, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
+(20, 'erikrca', 0, 'fddfdf', 1, '121212121', 'erca.rihendri@gmail.com', 'erikrca', '$2y$10$5PQCIT.O3k8uNwxhJ2Wstuwj.KNUB64nsZ8Sa5iphRCoN1ygGo8.G', '', 0, '2021-04-15 07:11:52', '2021-04-15 07:11:52', '2021-04-15 07:11:52'),
+(21, 'erererere', 0, 'rererer', 3, '231238213213', 'nurani.aprilia@bps.go.id', 'erererer', '$2y$10$bukIa4t85bbjZipz2MPZuuH4021dgpSYkFORQmHmwGDHj3/flAHE6', '', 0, '2021-04-15 07:12:41', '2021-04-15 07:12:41', '2021-04-15 07:12:41'),
+(22, 'sadaskldjkl', 0, 'sadasdsadadas', 0, '832191273981278', 'kasdsl@sakd.sad', 'dasdsadsadfwr', '$2y$10$wtP7I1/UXX7Pmw4JoxtiFuLpdIhVKJt9cGV7R88ePOU9FvAeY7NFy', '', 0, '2021-04-17 02:38:57', '2021-04-17 02:38:57', '2021-04-17 02:38:57'),
+(23, 'sadsadaskjdsakjh', 0, 'sadksakldjadklasj', 3, '098765432', 'sadsad@sad.sada', 'sadjsakdkasdakj', '$2y$10$gHNz9C79ogUwY84wCB9xLOj18xX20AMshC5fDD3ZyoJ0x0DsJytWC', '', 0, '2021-04-17 02:40:35', '2021-04-17 02:40:35', '2021-04-17 02:40:35');
 
 --
 -- Indexes for dumped tables
@@ -224,6 +249,12 @@ ALTER TABLE `materi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `paket`
+--
+ALTER TABLE `paket`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -243,13 +274,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kuis`
@@ -258,10 +289,16 @@ ALTER TABLE `kuis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `paket`
+--
+ALTER TABLE `paket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
