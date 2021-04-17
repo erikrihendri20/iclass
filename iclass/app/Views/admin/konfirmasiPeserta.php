@@ -5,6 +5,7 @@
 <!-- Page Heading -->
     <div class="">
         <h1 class="h3 mb-4 text-gray-800">Konfirmasi Peserta</h1>
+        <div id="flash"></div>
         <form action="">
                 <div class="form-group">
                     <select class="form-control" name="kode_paket" id="kode_paket">

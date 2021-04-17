@@ -375,4 +375,26 @@ class Admin extends BaseController
         $data['active'] = 'konfirmasi peserta';
         return view('admin/konfirmasiPeserta', $data);
     }
+
+    public function ubahStatus($id,$status)
+    {
+        $user_model = new Users_Model();
+        $user_model->update($id,['status' => $status]);
+        $user = $user_model->find($id);
+        if($user['status']==0){
+            unlink('./img/bukti-pembayaran/'.$user['bukti_pembayaran']);
+            return '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        berhasil menonaktifkan user '.$user['nama'].'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+        }
+        return '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    berhasil mengaktifkan user '.$user['nama'].'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+    }
 }

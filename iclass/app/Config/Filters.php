@@ -21,6 +21,8 @@ class Filters extends BaseConfig
 		'honeypot' => Honeypot::class,
 		'masuk'		=> \App\Filters\AuthFilter::class,
 		'masukadmin'		=> \App\Filters\AuthFilterAdmin::class,
+		'is_upload' => \App\Filters\AuthFilterUpload::class,
+		'is_waiting' => \App\Filters\AuthFilterWaiting::class
 	];
 
 	/**
@@ -37,11 +39,14 @@ class Filters extends BaseConfig
 				'masuk' , 'daftar' , 'auth' , 'auth/*',
 				'landingpage', 'landingpage/*' , '/' ,
 				'admin/*' , 'admin/' , 'masukAdmin'
-				]]
+				]],
+			
 		],
+
 		'after'  => [
 			// 'toolbar',
 		],
+
 	];
 
 	/**
@@ -67,6 +72,12 @@ class Filters extends BaseConfig
 	public $filters = [
 		'masukadmin' => [
 			'before' => ['admin/*','admin']
+		],
+		'is_upload' => [
+			'before' => ['auth/uploadBuktiPembayaran']
+		],
+		'is_waiting' => [
+			'before' => ['auth/ruangTunggu']
 		]
 	];
 }

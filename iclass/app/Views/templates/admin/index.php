@@ -204,20 +204,32 @@
                         })
                     }
                     init()
-                    $('.paket').change(function(){
-                        $.post(
-                            'ubahKelasPeserta',
-                            {
-                                id:$(this).attr('id'),
-                                kode_kelas:$(this).val()
-                            },
+                    $('.konfirmasi').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/2',
                             function(result){
+                                tampilkanPeserta()
                                 $('#flash').html(result)
                             }
                         )
                     })
-                    $('.editPeserta').click(function(){
-                        console.log($(this).parent())
+                    $('.batalkan').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/0',
+                            function(result){
+                                tampilkanPeserta()
+                                $('#flash').html(result)
+                            }
+                        )
+                    })
+                    $('.tolak').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/0',
+                            function(result){
+                                tampilkanPeserta()
+                                $('#flash').html(result)
+                            }
+                        )
                     })
                 })
             }
