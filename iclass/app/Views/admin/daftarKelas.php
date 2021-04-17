@@ -16,6 +16,7 @@
                 <th>No</th>
                 <th>Nama</th>
                 <th>Link Meeting</th>
+                <th>Nama Paket</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                 <td><?= $no; ?></td>
                 <td><?= $u['nama']; ?></td>
                 <td><a href="<?= $u['link-meeting']; ?>"><?= $u['link-meeting']; ?></a></td>
+                <td><?= $u['nama-paket']; ?></td>
                 <td>
                     <a class="btn btn-success text-light" type="submit" name="edit" value="<?= $u['id']; ?>">Edit</a>
                     <a class="btn btn-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $u['id']; ?>">Hapus</a>
@@ -51,6 +53,13 @@
             </div>
             <div class="form-group">
                 <input type="text" name="link-meeting" class="form-control" placeholder="Link Meeting">
+            </div>
+            <div class="form-group">
+                        <select class="form-control" name="kode-paket" id="pilih-paket">
+                          <?php foreach ($paket as $p) :?>
+                            <option value="<?= $p['id']; ?>"><?= $p['nama']; ?></option>
+                          <?php endforeach; ?>
+                        </select>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

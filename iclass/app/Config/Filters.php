@@ -66,7 +66,7 @@ class Filters extends BaseConfig
 	 */
 	public $filters = [
 		'masukadmin' => [
-			'before' => ['admin/*']
+			'before' => ['admin/*','admin']
 		]
 	];
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Users_Model;
 use App\Models\Admin_model;
+use App\Models\Paket_model;
 
 class Auth extends BaseController
 {
@@ -253,6 +254,8 @@ class Auth extends BaseController
         }
         $data['active'] = 'daftar';
         $data['css'] = ['auth/daftar.css'];
+        $paket_model = new Paket_model();
+        $data['paket'] = $paket_model->findAll();
         return view('auth/daftar', $data);
     }
 
