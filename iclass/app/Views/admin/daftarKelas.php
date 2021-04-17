@@ -21,22 +21,24 @@
                 <th>Nama</th>
                 <th>Link Meeting</th>
                 <th>Nama Paket</th>
+                <th>Jumlah Peserta</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php $no=1; foreach ($user as $u): ?>
+            <?php $no=1; foreach ($kelas as $k): ?>
             <tr>
                 <td><?= $no; ?></td>
-                <td><?= $u['nama']; ?></td>
-                <td><a href="<?= $u['link-meeting']; ?>"><?= $u['link-meeting']; ?></a></td>
-                <td><?= $u['nama-paket']; ?></td>
+                <td><?= $k['nama']; ?></td>
+                <td><a href="<?= $k['link-meeting']; ?>"><?= $k['link-meeting']; ?></a></td>
+                <td><?= $k['nama-paket']; ?></td>
+                <td><?= $k['jumlah-peserta']; ?></td>
                 <td>
-                <button class="badge badge-success" style="border: none;" data-toggle="modal" data-target="#edit<?= $u['id']; ?>">Edit</button>
-                <a class="badge badge-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $u['id']; ?>">Hapus</a>
+                <button class="badge badge-success" style="border: none;" data-toggle="modal" data-target="#edit<?= $k['id']; ?>">Edit</button>
+                <a class="badge badge-danger text-light" type="submit" name="hapus" href="<?= base_url(); ?>/admin/hapusKelas/<?= $k['id']; ?>">Hapus</a>
                 </td>
             </tr>
-            <div class="modal fade" id="edit<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="edit<?= $k['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -47,17 +49,17 @@
                   </div>
                   <div class="modal-body">
                     <form action="<?= base_url(); ?>/admin/tambahKelas" method="POST">
-                        <input type="hidden" name="id" value="<?= $u['id']; ?>">
+                        <input type="hidden" name="id" value="<?= $k['id']; ?>">
                         <div class="form-group">
-                            <input type="text" name="nama" class="form-control" placeholder="Nama Kelas" value="<?= $u['nama']; ?>">
+                            <input type="text" name="nama" class="form-control" placeholder="Nama Kelas" value="<?= $k['nama']; ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="link-meeting" class="form-control" placeholder="Link Meeting" value="<?= $u['link-meeting']; ?>">
+                            <input type="text" name="link-meeting" class="form-control" placeholder="Link Meeting" value="<?= $k['link-meeting']; ?>">
                         </div>
                         <div class="form-group">
                                     <select class="form-control" name="kode-paket" id="pilih-paket">
                                       <?php foreach ($paket as $p) :?>
-                                        <option <?= ($p['id']==$u['kode_paket']) ? 'selected' : '' ?> value="<?= $p['id']; ?>"><?= $p['nama']; ?></option>
+                                        <option <?= ($p['id']==$k['kode_paket']) ? 'selected' : '' ?> value="<?= $p['id']; ?>"><?= $p['nama']; ?></option>
                                       <?php endforeach; ?>
                                     </select>
                         </div>
