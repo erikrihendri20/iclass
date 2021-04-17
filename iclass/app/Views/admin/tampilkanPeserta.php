@@ -21,6 +21,7 @@
                     <td>
                         <div class="form-group">
                             <select class="form-control paket" name="kode_kelas" id="<?= $u['id']; ?>">
+                                <option>-</option>
                                 <?php foreach($kelas as $k): ?>
                                     <?php if($k['kode_paket']==$u['kode_paket']): ?>
                                         <option <?= ($k['id']==$u['kode_kelas']) ? 'selected' : '' ?> value="<?= $k['id']; ?>"><?= $k['nama']; ?></option>
