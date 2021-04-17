@@ -357,10 +357,44 @@ class Admin extends BaseController
         return view('admin/editPeserta', $data);
     }
 
+    public function tampilkanKonfirmasiPeserta($kode_paket=null)
+    {
+        $user_model = new Users_Model();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $user_model->tampilkanPeserta($kode_paket);
+        $data['kelas'] = $kelas_model->findAll();
+        $data['paket'] = $paket_model->findAll();
+        return view('admin/tampilkanKonfirmasiPeserta',$data);
+    }
 
     public function konfirmasiPeserta()
     {
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
         $data['active'] = 'konfirmasi peserta';
         return view('admin/konfirmasiPeserta', $data);
+    }
+
+    public function ubahStatus($id,$status)
+    {
+        $user_model = new Users_Model();
+        $user_model->update($id,['status' => $status]);
+        $user = $user_model->find($id);
+        if($user['status']==0){
+            unlink('./img/bukti-pembayaran/'.$user['bukti_pembayaran']);
+            return '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        berhasil menonaktifkan user '.$user['nama'].'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+        }
+        return '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    berhasil mengaktifkan user '.$user['nama'].'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
     }
 }
