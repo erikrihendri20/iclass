@@ -356,4 +356,11 @@ class Admin extends BaseController
         $data['css'] = ['auth/edit-peserta.css'];
         return view('admin/editPeserta', $data);
     }
+
+
+    public function konfirmasiPeserta()
+    {
+        $data['active'] = 'konfirmasi peserta';
+        return view('admin/konfirmasiPeserta', $data);
+    }
 }
