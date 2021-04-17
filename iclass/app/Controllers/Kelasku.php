@@ -20,7 +20,7 @@ class Kelasku extends BaseController
 
     public function lihatJadwal()
     {
-        $kode_kelas = session('kelas_id');
+        $kode_kelas = session('kode-kelas');
         $model = new Jadwal_Model();
         $result = $model->getJadwal($kode_kelas);
         return json_encode($result);

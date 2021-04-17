@@ -25,14 +25,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="pilih-paket" class="text-primary">Pilih Paket</label>
-                        <select class="form-control <?= ($validation->hasError('pilih-paket')) ? 'is-invalid' : '' ?>" name="pilih-paket" id="pilih-paket">
+                        <label for="kode-paket" class="text-primary">Pilih Paket</label>
+                        <select class="form-control <?= ($validation->hasError('kode-paket')) ? 'is-invalid' : '' ?>" name="kode-paket" id="kode-paket">
                             <?php foreach ($paket as $p) :?>
-                            <option value="<?= $p['id']; ?>" <?php if (old('pilih-paket') == $p['id']) echo 'selected' ?>><?= $p['nama']; ?></option>
+                            <option value="<?= $p['id']; ?>" <?php if (old('kode-paket') == $p['id']) echo 'selected' ?>><?= $p['nama']; ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback">
-                            <?= service('validation')->getError('pilih-paket'); ?>
+                            <?= service('validation')->getError('kode-paket'); ?>
                         </div>
                     </div>
 

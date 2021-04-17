@@ -13,7 +13,7 @@ class Users_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['nama', 'kelas_id' , 'jurusan' , 'pilih-paket' , 'telepon' , 'email' , 'username' , 'password' , 'bukti-pembayaran' , 'status'];
+    protected $allowedFields = ['nama', 'kelas_id' , 'jurusan' , 'kode_paket' , 'telepon' , 'email' , 'username' , 'password' , 'bukti-pembayaran' , 'status'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
