@@ -208,18 +208,20 @@ class Admin extends BaseController
                 ],
                 'rekaman' => [
                     'label' => 'upload',
-                    'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]',
+                    'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]|max_size[rekaman,100000]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih video rekaman kelas',
-                        'ext_in' => 'Pilih file dengan format Mp4'
+                        'ext_in' => 'Pilih file dengan format Mp4',
+                        'max_size' => 'Ukuran file video tidak boleh melebihi 100 Mb'
                     ]
                 ],
                 'thumbnailRekaman' => [
                     'label' => 'upload',
-                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]',
+                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]|max_size[rekaman,5120]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih gambar thumbnail video rekaman kelas',
-                        'is_image' => 'Pilih gambar dengan jenis gambar'
+                        'is_image' => 'Pilih gambar dengan jenis gambar',
+                        'max_size' => 'Ukuran file thumbnail tidak boleh melebihi 5 Mb'
                     ]
                 ]
             ];
