@@ -7,7 +7,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-book-reader"></i>
+                    <i class="fas fa-tachometer-alt"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">iClass</div>
             </a>
@@ -26,7 +26,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
             <li class="nav-item <?= ($active=='dashboard') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -41,15 +41,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <!-- Nav Item - My-profile -->
             <li class="nav-item <?= ($active=='daftar kelas') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin/daftarKelas">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-school"></i>
                     <span>Daftar Kelas</span></a>
-            </li>
-
-            <!-- Nav Item - My-profile -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Peserta</span></a>
             </li>
 
             <li class="nav-item">
@@ -58,6 +51,29 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     <span>Rekaman</span></a>
             </li>
 
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Peserta
+            </div>
+
+            <!-- Nav Item - My-profile -->
+            <li class="nav-item <?= ($active=='konfirmasi peserta') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/konfirmasiPeserta">
+                    <i class="fas fa-fw fa-clipboard-check"></i>
+                    <span>Konfirmasi Peserta</span></a>
+            </li>
+
+            <!-- Nav Item - My-profile -->
+            <li class="nav-item <?= ($active=='daftar peserta') ? 'active' :  ' '; ?>">
+                <a class="nav-link" href="<?= base_url(); ?>/admin/daftarPeserta">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Daftar Peserta</span></a>
+            </li>
+
+            
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -65,13 +81,15 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <div class="sidebar-heading">
                 Materi
             </div>
-
+            
             <!-- Nav Item - My-profile -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-book"></i>
                     <span>Upload Materi</span></a>
             </li>
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -84,13 +102,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <!-- Nav Item - My-profile -->
             <li class="nav-item <?= ($active=='atur jadwal pertemuan') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalPertemuan">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Atur Jadwal Pertemuan</span></a>
             </li>
 
             <li class="nav-item <?= ($active=='atur jadwal tryout') ? 'active' :  ' '; ?>">
                 <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-pencil-alt"></i>
                     <span>Atur Jadwal Tryout</span></a>
             </li>
 

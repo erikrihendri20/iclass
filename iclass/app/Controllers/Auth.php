@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Users_Model;
 use App\Models\Admin_model;
+use App\Models\Paket_model;
 
 class Auth extends BaseController
 {
@@ -22,28 +23,68 @@ class Auth extends BaseController
             $user = $model->getByUserName($identitas);
             if ($user) {
                 if (password_verify($password, $user[0]['password'])) {
-                    $data = [
-                        'log' => true,
-                        'id' => $user[0]['id'],
-                        'nama' => $user[0]['nama'],
-                        'kelas_id' => $user[0]['kelas_id'],
-                        'jurusan' => $user[0]['jurusan'],
-                        'pilih_paket' => $user[0]['pilih-paket'],
-                        'telepon' => $user[0]['telepon'],
-                        'email' => $user[0]['email'],
-                        'username' => $user[0]['username'],
-                        'bukti_pembayaran' => $user[0]['bukti-pembayaran'],
-                        'status' => $user[0]['status'],
-                    ];
-                    session()->set($data);
-                    $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    if($user[0]['status']==0){
+                        $data = [
+                            'is_upload' => true,
+                            'id' => $user[0]['id'],
+                            'status' => $user[0]['status'],
+                        ];
+                        session()->set($data);
+                        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Silahkan mengupload bukti pembayaran untuk menikmati layanan kami
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('Auth/uploadBuktiPembayaran');
+                    }elseif($user[0]['status']==1){
+                        $data = [
+                            'is_waiting' => true,
+                            'id' => $user[0]['id'],
+                            'status' => $user[0]['status'],
+                        ];
+                        session()->set($data);
+                        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Terimakasih telah melakukan pembayaran, admin akan segera memeriksa akun anda:D
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('Auth/ruangTunggu');
+                    }else{
+                        $data = [
+                            'log' => true,
+                            'id' => $user[0]['id'],
+                            'nama' => $user[0]['nama'],
+                            'kode-kelas' => $user[0]['kode_kelas'],
+                            'jurusan' => $user[0]['jurusan'],
+                            'kode-paket' => $user[0]['kode_paket'],
+                            'telepon' => $user[0]['telepon'],
+                            'email' => $user[0]['email'],
+                            'username' => $user[0]['username'],
+                            'bukti-pembayaran' => $user[0]['bukti_pembayaran'],
+                            'status' => $user[0]['status'],
+                        ];
+                        session()->set($data);
+                        $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             anda berhasil masuk:D
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>';
-                    session()->setFlashdata('flash', $flash);
-                    return redirect()->to('peserta');
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->to('peserta');
+                    }
+                    // $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    //         anda berhasil masuk:D
+                    //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    //             <span aria-hidden="true">&times;</span>
+                    //         </button>
+                    //     </div>';
+                    // session()->setFlashdata('flash', $flash);
+                    // return redirect()->to('peserta');
                 } else {
                     $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             password salah!
@@ -175,7 +216,7 @@ class Auth extends BaseController
                         'required' => 'Jurusan harus diisi'
                     ]
                 ],
-                'pilih-paket' => [
+                'kode-paket' => [
                     'label'  => 'Pilihan paket',
                     'rules'  => 'required',
                     'errors' => [
@@ -229,7 +270,7 @@ class Auth extends BaseController
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),
                     'jurusan' => $this->request->getPost('jurusan'),
-                    'pilih-paket' => $this->request->getPost('pilih-paket'),
+                    'kode_paket' => $this->request->getPost('kode-paket'),
                     'telepon' => $this->request->getPost('telepon'),
                     'email' => $this->request->getPost('email'),
                     'username' => $this->request->getPost('username'),
@@ -253,6 +294,8 @@ class Auth extends BaseController
         }
         $data['active'] = 'daftar';
         $data['css'] = ['auth/daftar.css'];
+        $paket_model = new Paket_model();
+        $data['paket'] = $paket_model->findAll();
         return view('auth/daftar', $data);
     }
 
@@ -268,5 +311,98 @@ class Auth extends BaseController
         $data['active'] = 'masuk';
         $data['css'] = ['auth/masuk.css'];
         return view('auth/forgotPassword', $data);
+    }
+
+    public function uploadBuktiPembayaran()
+    {
+        $id=session()->id;
+        if(isset($_POST['submit'])){
+            $rules=[
+                'bukti-pembayaran' => 'uploaded[bukti-pembayaran]|max_size[bukti-pembayaran,1024]|is_image[bukti-pembayaran]'
+            ];
+            if($this->validate($rules)){
+                $file = $this->request->getFile('bukti-pembayaran');
+                $nama = $file->getRandomName();
+                $file->move('./img/bukti-pembayaran/', $nama);
+                $user_model = new Users_Model();
+                $user_model->update($id , ['bukti_pembayaran' => $nama , 'status' => 1]);
+                $data = [
+                    'is_waiting' => true,
+                    'id' => $id,
+                    'status' => 1,
+                ];
+                $this->keluarUpload();
+                session()->set($data);
+                $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Terimakasih telah melakukan pembayaran, admin akan segera memeriksa akun anda:D
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to('ruangTunggu');
+            }
+        }
+        $user_model = new Users_Model();
+        $data['user'] = $user_model->find($id);
+        $data['active'] = 'upload bukti pembayaran';
+        $data['css'] = ['auth/masuk.css'];
+        $paket_model = new Paket_model();
+        $data['paket'] = $paket_model->findAll();
+        return view('auth/uploadBuktiPembayaran', $data);
+    }
+
+    public function ruangTunggu()
+    {
+        $id = session()->id;
+        $data['active'] = 'ruang tunggu';
+        $data['css'] = ['auth/masuk.css'];
+        $user_model = new Users_Model();
+        $user = $user_model->find($id);
+        if($user['status']==2){
+            session()->remove('is_waiting');
+            session()->remove('id');
+            session()->remove('status');
+            $data = [
+                'log' => true,
+                'id' => $user['id'],
+                'nama' => $user['nama'],
+                'kode-kelas' => $user['kode_kelas'],
+                'jurusan' => $user['jurusan'],
+                'kode-paket' => $user['kode_paket'],
+                'telepon' => $user['telepon'],
+                'email' => $user['email'],
+                'username' => $user['username'],
+                'bukti-pembayaran' => $user['bukti_pembayaran'],
+                'status' => $user['status'],
+            ];
+            session()->set($data);
+            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                anda berhasil masuk:D
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to('../peserta');
+        }
+        $data['user'] = $user;
+        return view('auth/ruangTunggu', $data);
+    }
+
+    public function keluarUpload()
+    {
+        session()->remove('is_upload');
+        session()->remove('id');
+        session()->remove('status');
+        return redirect()->to(base_url().'/masuk');
+    }
+
+    public function keluarRuangTunggu()
+    {
+        session()->remove('is_waiting');
+        session()->remove('id');
+        session()->remove('status');
+        return redirect()->to(base_url().'/masuk');
     }
 }

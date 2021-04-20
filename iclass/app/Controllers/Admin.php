@@ -6,6 +6,7 @@ use App\Models\Users_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
 use App\Models\Rekaman_Model;
+use App\Models\Paket_Model;
 
 class Admin extends BaseController
 {
@@ -33,8 +34,14 @@ class Admin extends BaseController
 
     public function daftarKelas()
     {
-        $model = new Kelas_Model();
-        $data['user'] = $model->findAll();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['kelas'] = $kelas_model->tampilkanKelas();
+        $user_model = new Users_Model();
+        for ($i=0; $i < count($data['kelas']) ; $i++) { 
+            $data['kelas'][$i]['jumlah-peserta']=$user_model->jumlahPeserta($data['kelas'][$i]['id']);
+        }
+        $data['paket'] = $paket_model->findAll();
         $data['active'] = 'daftar kelas';
         return view('admin/daftarKelas', $data);
     }
@@ -50,8 +57,10 @@ class Admin extends BaseController
     {
         if (isset($_POST['submit'])) {
             $data = [
+                'id' => $this->request->getPost('id'),
                 'nama' => $this->request->getPost('nama'),
-                'link-meeting' => $this->request->getPost('link-meeting')
+                'link-meeting' => $this->request->getPost('link-meeting'),
+                'kode_paket' =>$this->request->getPost('kode-paket')
             ];
             $rules = [
                 'nama' => [
@@ -250,5 +259,164 @@ class Admin extends BaseController
         } else {
             return false;
         }
+    }
+
+    public function daftarPeserta()
+    {
+        $data['active'] = 'daftar peserta';
+        $model = new Paket_Model();
+        $data['paket'] = $model->findAll();
+        return view('admin/daftarPeserta', $data);
+    }
+
+    public function tampilkanPeserta($kode_paket)
+    {
+        $user_model = new Users_Model();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $user_model->tampilkanPeserta($kode_paket);
+        $data['kelas'] = $kelas_model->findAll();
+        $data['paket'] = $paket_model->findAll();
+        return view('admin/tampilkanPeserta',$data);
+    }
+
+    public function ubahKelasPeserta()
+    {
+        $id = $this->request->getPost('id');
+        $kode_kelas = $this->request->getPost('kode_kelas');
+        $model = new Users_Model();
+        $model->update($id,['kode_kelas'=>$kode_kelas]);
+        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            kelas <strong>berhasil</strong> diubah
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+        return $flash;
+    }
+
+    public function hapusPeserta($id)
+    {
+        if (isset($id)) {
+            $model = new Users_Model();
+            $model->delete($id);
+            $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Peserta <strong>berhasil</strong> dihapus
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url() . '/admin/daftarPeserta');
+        } else {
+            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Gagal</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url() . '/admin/daftarPeserta');
+        }
+    }
+
+    public function editPeserta($id)
+    {
+        if (isset($_POST['submit'])) {
+            $rules = [
+                'nama' => [
+                    'label'  => 'Nama',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Nama harus diisi'
+                    ]
+                ],
+                'jurusan' => [
+                    'label'  => 'Jurusan',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Jurusan harus diisi'
+                    ]
+                ],
+                'telepon' => [
+                    'label'  => 'Nomor Whatsapp',
+                    'rules'  => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Nomor whatsapp harus diisi',
+                        'numeric' => 'Masukan whatsapp dengan benar',
+                    ]
+                ]
+            ];
+            if ($this->validate($rules)) {
+                $model = new Users_Model();
+                $newuser = [
+                    'nama' => $this->request->getPost('nama'),
+                    'jurusan' => $this->request->getPost('jurusan'),
+                    'telepon' => $this->request->getPost('telepon'),
+                    'email' => $this->request->getPost('email'),
+                    'username' => $this->request->getPost('username'),
+                    'kode_paket' => $this->request->getPost('kode-paket')
+                ];
+                $model->update($id , $newuser);
+                $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $newuser['nama'] . ' <strong>berhasil</strong> diubah <br>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to(base_url().'/admin/daftarPeserta');
+            } else {
+                return redirect()->back()->withInput();
+            }
+        }
+        $user_model = new Users_Model();
+        $data['user'] = $user_model->find($id);
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
+        $data['active'] = 'edit peserta';
+        $data['css'] = ['auth/edit-peserta.css'];
+        return view('admin/editPeserta', $data);
+    }
+
+    public function tampilkanKonfirmasiPeserta($kode_paket=null)
+    {
+        $user_model = new Users_Model();
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['user'] = $user_model->tampilkanPeserta($kode_paket);
+        $data['kelas'] = $kelas_model->findAll();
+        $data['paket'] = $paket_model->findAll();
+        return view('admin/tampilkanKonfirmasiPeserta',$data);
+    }
+
+    public function konfirmasiPeserta()
+    {
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
+        $data['active'] = 'konfirmasi peserta';
+        return view('admin/konfirmasiPeserta', $data);
+    }
+
+    public function ubahStatus($id,$status)
+    {
+        $user_model = new Users_Model();
+        $user_model->update($id,['status' => $status]);
+        $user = $user_model->find($id);
+        if($user['status']==0){
+            unlink('./img/bukti-pembayaran/'.$user['bukti_pembayaran']);
+            return '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        berhasil menonaktifkan user '.$user['nama'].'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+        }
+        return '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    berhasil mengaktifkan user '.$user['nama'].'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
     }
 }

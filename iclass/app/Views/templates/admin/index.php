@@ -10,10 +10,9 @@
     <meta name="author" content="">
 
     <title>Dashboard IClass</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <!-- datatable -->
-
-
-
+    
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -122,6 +121,121 @@
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             } );
+            
+        } );
+    </script>
+    <?php elseif($active=='daftar peserta'): ?>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function tampilkanPeserta(){
+                $.get(
+                'tampilkanPeserta/'+$('#kode_paket').val(),
+                function(result){
+                    function init(){
+                        $('#tabel-peserta').html(result)
+                        $('#daftar-peserta').DataTable( {
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        })
+                    }
+                    init()
+                    $('.paket').change(function(){
+                        $.post(
+                            'ubahKelasPeserta',
+                            {
+                                id:$(this).attr('id'),
+                                kode_kelas:$(this).val()
+                            },
+                            function(result){
+                                $('#flash').html(result)
+                            }
+                        )
+                    })
+                    $('.editPeserta').click(function(){
+                        console.log($(this).parent())
+                    })
+                })
+            }
+            tampilkanPeserta()
+            $('#kode_paket').change(function(){
+                tampilkanPeserta()
+            })
+        } );
+    </script>
+    <?php elseif($active=='konfirmasi peserta'): ?>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function tampilkanPeserta(){
+                $.get(
+                'tampilkanKonfirmasiPeserta/'+$('#kode_paket').val(),
+                function(result){
+                    function init(){
+                        $('#tabel-peserta').html(result)
+                        $('#daftar-peserta').DataTable( {
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        })
+                    }
+                    init()
+                    $('.konfirmasi').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/2',
+                            function(result){
+                                tampilkanPeserta()
+                                $('#flash').html(result)
+                            }
+                        )
+                    })
+                    $('.batalkan').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/0',
+                            function(result){
+                                tampilkanPeserta()
+                                $('#flash').html(result)
+                            }
+                        )
+                    })
+                    $('.tolak').click(function(){
+                        $.get(
+                            'ubahStatus/' + $(this).val() + '/0',
+                            function(result){
+                                tampilkanPeserta()
+                                $('#flash').html(result)
+                            }
+                        )
+                    })
+                })
+            }
+            tampilkanPeserta()
+            $('#kode_paket').change(function(){
+                tampilkanPeserta()
+            })
         } );
     </script>
     <?php endif; ?>

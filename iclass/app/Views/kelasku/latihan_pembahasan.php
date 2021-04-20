@@ -4,7 +4,7 @@
     <!-- Content-->
 
     <form action="<?= base_url('kelasku/latihan_soal') ?>" method="post" id="next">
-        <input type="hidden" name="no" value="<?= session('no') ?>">
+        <input type="hidden" name="no_kuis" value="<?= $kuis[0]['no_kuis'] ?>">>
     </form>
 
     <div id="container-pembahasan">
