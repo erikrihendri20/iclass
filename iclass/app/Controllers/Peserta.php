@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Materi_Model;
 use App\Models\Users_Model;
 use App\Models\Kelas_Model;
+use App\Models\Paket_Model;
 
 class Peserta extends BaseController
 {
@@ -18,46 +19,37 @@ class Peserta extends BaseController
 	public function profil()
 	{
 		$model = new Users_Model;
+		$paket_model = new Paket_Model();
 		$user = $model->getByUserName(session('username'));
 
-		switch ($user[0]['pilih-paket']) {
-			case '1':
-				$paket = 'Reguler';
-				break;
+		$paket = $paket_model->getById($user[0]['kode_paket']);
+		// switch ($user[0]['kode_paket']) {
+		// 	case '1':
+		// 		$paket = 'Reguler';
+		// 		break;
 
-			case '2':
-				$paket = 'Premium';
-				break;
+		// 	case '2':
+		// 		$paket = 'Premium';
+		// 		break;
 
-			default:
-				$paket = 'Premium*';
-				break;
-		}
+		// 	default:
+		// 		$paket = 'Premium*';
+		// 		break;
+		// }
 
-		if ($user[0]['kelas_id'] == "0") {
+		if ($user[0]['kode_kelas'] == "0") {
 			$kelas = "Belum ada kelas";
 		} else {
 			$class = new Kelas_Model;
-			$userClass = $class->getByid($user[0]['kelas_id']);
+			$userClass = $class->getByid($user[0]['kode_kelas']);
 			$kelas = $userClass[0]['nama'];
-		}
-
-		switch ($user[0]['pilih-paket']) {
-			case '1':
-				$paket = 'Reguler';
-				break;
-			case '2':
-				$paket = 'Premium';
-				break;
-			default:
-				$paket = 'Premium*';
 		}
 
 		$data = [
 			'nama' => $user[0]['nama'],
 			'kelas' => $kelas,
 			'jurusan' => $user[0]['jurusan'],
-			'paket' => $paket,
+			'paket' => $paket[0]['nama'],
 			'username' => $user[0]['username'],
 			'email' => $user[0]['email'],
 			'no_wa' => $user[0]['telepon'],
@@ -99,19 +91,19 @@ class Peserta extends BaseController
 			session()->setFlashdata('flash', $flash);
 		}
 
-		if ($user[0]['kelas_id'] == "0") {
+		if ($user[0]['kode_kelas'] == "0") {
 			$kelas = "Belum ada kelas";
 		} else {
 			$class = new Kelas_Model;
-			$userClass = $class->getByid($user[0]['kelas_id']);
+			$userClass = $class->getByid($user[0]['kode_kelas']);
 			$kelas = $userClass[0]['nama'];
 		}
 		$data = [
 			'nama' => $user[0]['nama'],
 			'kelas' => $kelas,
-			'kelas_id' => $user[0]['kelas_id'],
+			// 'kelas_id' => $user[0]['kelas_id'],
 			'jurusan' => $user[0]['jurusan'],
-			'paket' => $user[0]['pilih-paket'],
+			'paket' => $user[0]['kode_paket'],
 			'username' => $user[0]['username'],
 			'email' => $user[0]['email'],
 			'no_wa' => $user[0]['telepon'],

@@ -41,7 +41,7 @@
             <div class="col-lg-3 col-md-6 p-3">
                 <h4 class="text-dark"> <b>Follow us</b> </h4>
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-envelope"></i>
                     </div>
                     <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white">
@@ -49,7 +49,7 @@
                             <u>masukstis30@gmail.com</u>
                         </p>
                     </a>
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-instagram"></i>
                     </div>
                     <a href="https://www.instagram.com/iclass.education/" class="col-md-10 text-white">
@@ -57,7 +57,7 @@
                             <u>iclass.education</u>
                         </p>
                     </a>
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-whatsapp"></i>
                     </div>
                     <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white">
