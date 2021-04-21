@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
 use App\Models\Kuis_Model;
+use App\Models\Users_Model;
 
 class Kelasku extends BaseController
 {
@@ -20,7 +21,8 @@ class Kelasku extends BaseController
 
     public function lihatJadwal()
     {
-        $kode_kelas = session('kode-kelas');
+        $user_model = new Users_Model();
+        $kode_kelas = $user_model->find(session('id'))['kode_kelas'];
         $model = new Jadwal_Model();
         $result = $model->getJadwal($kode_kelas);
         return json_encode($result);
