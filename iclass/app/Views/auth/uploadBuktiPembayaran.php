@@ -7,13 +7,13 @@
             <div class="col d-flex flex-column justify-content-center ">
                 <h1 class="text-primary align-self-center mb-5">Upload Bukti Pembayaran</h1>
                 <?= session()->flash; ?>
-                <form class="d-flex flex-column masuk" method="POST" action="" enctype="multipart/form-data">
+                <form class="d-flex flex-column masuk" class="d-flex" method="POST" action="" enctype="multipart/form-data">
                     <input type="hidden" name="id">
-
-                    <div class="custom-file mb-5">
-                        <input type="file" name="bukti-pembayaran" class="custom-file-input" id="validatedCustomFile" required>
-                        <label class="custom-file-label" for="validatedCustomFile">Pilih file</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <img src="../img/default.png" id="preview-bukti" class="img-thumbnail d-flex align-self-center" style="max-width: 40%;" alt="bukti transfer">
+                    <div class="custom-file my-5 d-flex align-self-center" style="max-width: 40%;">
+                        <input onchange="preview()" type="file" id="file-bukti" name="bukti-pembayaran" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" id="label-bukti" for="validatedCustomFile">Pilih file</label>
+                        <div class="invalid-feedback">file salah</div>
                     </div>
 
                     <div class="d-flex justify-content-center">

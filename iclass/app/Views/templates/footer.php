@@ -89,6 +89,28 @@
     <script src="<?= base_url(); ?>/js/jadwal.js"></script>
 <?php endif; ?>
 
+<?php if ($active == 'upload bukti pembayaran') : ?>
+    <script>
+
+    
+    function preview(){
+        const bukti = document.querySelector('#file-bukti')
+        const label = document.querySelector('#label-bukti')
+        const preview = document.querySelector('#preview-bukti')
+        
+        label.textContent = bukti.files[0].name
+
+        file = new FileReader()
+        file.readAsDataURL(bukti.files[0])
+
+        file.onload = function(e){
+            preview.src = e.target.result
+        }
+    }
+
+    </script>
+<?php endif; ?>
+
 </body>
 
 </html>
