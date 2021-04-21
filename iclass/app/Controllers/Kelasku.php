@@ -29,7 +29,7 @@ class Kelasku extends BaseController
     public function rekaman()
     {
         $model = new Rekaman_Model();
-		$data['rekamans'] = $model->getAll();
+        $data['rekamans'] = $model->getAll();
         $data['id'] = 0;
 
         $data['javascript'] = ['rekaman.js'];
@@ -42,15 +42,14 @@ class Kelasku extends BaseController
     {
         $model = new Rekaman_Model();
         $data['rekaman'] = $model->where('id', $id)->first();
-        $data['thumbnail1'] = $model->where('id', $id+1)->first();
-        $data['thumbnail2'] = $model->where('id', $id+2)->first();
-        $data['thumbnail3'] = $model->where('id', $id+3)->first();
+        $data['thumbnail1'] = $model->where('id', $id + 1)->first();
+        $data['thumbnail2'] = $model->where('id', $id + 2)->first();
+        $data['thumbnail3'] = $model->where('id', $id + 3)->first();
 
         echo json_encode($data);
-
     }
-    
-    public function latihan()
+
+    public function latihan_kode()
     {
         // session()->remove('kode_kuis');
 
