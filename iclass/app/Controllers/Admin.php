@@ -170,7 +170,7 @@ class Admin extends BaseController
         $data['rekamans'] = $model->getAll();
         $data['active'] = 'Kelas';
 
-        $data['css'] = ['admin/rekaman.css'];
+        $data['css'] = 'admin/rekaman.css';
 
         return view('admin/rekaman', $data);
     }
@@ -379,7 +379,7 @@ class Admin extends BaseController
         $paket_model = new Paket_Model();
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'edit peserta';
-        $data['css'] = ['auth/edit-peserta.css'];
+        $data['css'] = 'auth/edit-peserta.css';
         return view('admin/editPeserta', $data);
     }
 
@@ -509,7 +509,6 @@ class Admin extends BaseController
                         'jawaban'   => $this->request->getPost($name)
                     ];
                     $model->db->table('kuis_soal_jawaban')->insert($data);
-
                     $img->move($path . '/soal');
 
                     $i++;
@@ -536,6 +535,7 @@ class Admin extends BaseController
                     return redirect()->back();
                 } else {
                     $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+                    $path = $path . '/soal';
 
                     foreach ($imagefile as $img) {
 
@@ -548,8 +548,6 @@ class Admin extends BaseController
                             'jawaban'   => $this->request->getPost($name)
                         ];
                         $model->db->table('kuis_soal_jawaban')->insert($data);
-                        $path = $path . '/soal';
-                        echo $path;
                         $img->move($path);
 
                         $i++;
@@ -638,6 +636,8 @@ class Admin extends BaseController
         if ($this->validate($rules)) {
             $kode = $this->request->getPost('kode');
             $imagefile = $this->request->getFileMultiple('file');
+            $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+            $path = $path . '/pembahasan';
 
             $model = new KuisSoalJawaban_Model();
 
@@ -673,6 +673,7 @@ class Admin extends BaseController
                                 ->set('pembahasan', $img->getName())
                                 ->where('id', $check[0]['id'])
                                 ->update();
+                            $img->move($path);
                         } else {
                             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia. Apabila anda akan mengeditnya, mohon melalui <a href="' . base_url('admin/edit_kuis') . '">edit soal kuis</a>.
@@ -707,7 +708,22 @@ class Admin extends BaseController
         }
     }
 
-    public function soal_kuis()
+    public function edit_soal_kuis()
     {
+        helper('kode');
+        $model = new Kuis_Model();
+
+        $kuis = $model->findAll();
+        // dd($kuis);
+
+        // echo $kuis[0]['materi'];
+        // die();
+        $data = [
+            'data'      => $kuis,
+            'active'    => 'kuis_edit',
+            'css'       => 'admin/kuis_soal.css'
+        ];
+
+        return view('admin/edit_soal_kuis', $data);
     }
 }

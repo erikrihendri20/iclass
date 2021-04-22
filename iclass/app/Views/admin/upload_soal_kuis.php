@@ -17,6 +17,11 @@
                         <div class="col">
                             <h5><i class="fas fa-fw fa-book text-secondary"></i>&ensp;Upload Soal Kuis</h5>
                         </div>
+                        <div class="col d-flex justify-content-end">
+                            <a href="<?= base_url('admin/kuis_pembahasan') ?>" class="btn btn-sm btn-outline-primary btn-user">
+                                upload pembahasan
+                            </a>
+                        </div>
                     </div>
                     <div class="row my-2 pl-4">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload_modal">

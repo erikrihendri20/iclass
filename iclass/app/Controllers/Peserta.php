@@ -11,7 +11,7 @@ class Peserta extends BaseController
 {
 	public function index()
 	{
-		$data['css'] = ['peserta/index.css'];
+		$data['css'] = 'peserta/index.css';
 		$data['active'] = 'beranda';
 		return view('peserta/index', $data);
 	}
@@ -55,7 +55,7 @@ class Peserta extends BaseController
 			'no_wa' => $user[0]['telepon'],
 			'password' => $user[0]['password'],
 		];
-		$data['css'] = ['peserta/profil.css'];
+		$data['css'] = 'peserta/profil.css';
 		$data['active'] = 'profil';
 		return view('peserta/profil', $data);
 	}
@@ -110,7 +110,7 @@ class Peserta extends BaseController
 			'password' => $user[0]['password'],
 		];
 
-		$data['css'] = ['peserta/edit.css'];
+		$data['css'] = 'peserta/edit.css';
 		$data['active'] = 'edit';
 		return view('peserta/edit', $data);
 	}
@@ -239,7 +239,7 @@ class Peserta extends BaseController
 
 	public function after_tryout()
 	{
-		$data['css'] = ['peserta/index.css'];
+		$data['css'] = 'peserta/index.css';
 		$data['active'] = 'beranda';
 		return view('peserta/tryout/after', $data);
 	}
