@@ -3,7 +3,7 @@
 <div class="content my-3 bg-white">
     <!-- Content-->
 
-    <form action="<?= base_url('kelasku/latihan_soal') ?>" method="post" id="next">
+    <form action="<?= base_url('kelasku/kuis_soal') ?>" method="post" id="next">
         <input type="hidden" name="no_kuis" value="<?= $kuis[0]['no_kuis'] ?>">>
     </form>
 

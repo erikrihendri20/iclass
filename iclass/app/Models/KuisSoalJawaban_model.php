@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Kuis_Model extends Model
+class KuisSoalJawaban_Model extends Model
 {
-    protected $table      = 'kuis';
+    protected $table      = 'kuis_soal_jawaban';
 
     protected $returnType     = 'array';
 
@@ -16,9 +16,9 @@ class Kuis_Model extends Model
         return $this->builder()->get()->getResultArray();
     }
 
-    public function getByMateri($materi)
+    public function getSoal($code, $no)
     {
-        $this->builder()->where('materi', $materi);
+        $this->builder()->where('kode_kuis', $code)->where('no_kuis', $no);
         return $this->builder()->get()->getResultArray();
     }
 }

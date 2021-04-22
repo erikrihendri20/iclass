@@ -12,13 +12,15 @@
     <title>Dashboard IClass</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <!-- datatable -->
-    
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
     <!-- Custom styles for this template-->
     <link href="<?= base_url(); ?>/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <?php if (isset($css)) : ?>
+        <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
+    <?php endif; ?>
 
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -74,8 +76,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -100,165 +101,164 @@
 
 
     <!-- datatable -->
-    <?php if($active=='daftar kelas'): ?>
-        
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#daftar-kelas').DataTable( {
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            } );
-            
-        } );
-    </script>
-    <?php elseif($active=='daftar peserta'): ?>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function tampilkanPeserta(){
-                $.get(
-                'tampilkanPeserta/'+$('#kode_paket').val(),
-                function(result){
-                    function init(){
-                        $('#tabel-peserta').html(result)
-                        $('#daftar-peserta').DataTable( {
-                            dom: 'Bfrtip',
-                            buttons: [
-                                'copy', 'csv', 'excel', 'pdf', 'print'
-                            ]
-                        })
-                    }
-                    init()
-                    $('.paket').change(function(){
-                        $.post(
-                            'ubahKelasPeserta',
-                            {
-                                id:$(this).attr('id'),
-                                kode_kelas:$(this).val()
-                            },
-                            function(result){
-                                $('#flash').html(result)
-                            }
-                        )
-                    })
-                    $('.editPeserta').click(function(){
-                        console.log($(this).parent())
-                    })
-                })
-            }
-            tampilkanPeserta()
-            $('#kode_paket').change(function(){
-                tampilkanPeserta()
-            })
-        } );
-    </script>
-    <?php elseif($active=='konfirmasi peserta'): ?>
+    <?php if ($active == 'daftar kelas') : ?>
+
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function tampilkanPeserta(){
-                $.get(
-                'tampilkanKonfirmasiPeserta/'+$('#kode_paket').val(),
-                function(result){
-                    function init(){
-                        $('#tabel-peserta').html(result)
-                        $('#daftar-peserta').DataTable( {
-                            dom: 'Bfrtip',
-                            buttons: [
-                                'copy', 'csv', 'excel', 'pdf', 'print'
-                            ]
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#daftar-kelas').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+
+            });
+        </script>
+    <?php elseif ($active == 'daftar peserta') : ?>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                function tampilkanPeserta() {
+                    $.get(
+                        'tampilkanPeserta/' + $('#kode_paket').val(),
+                        function(result) {
+                            function init() {
+                                $('#tabel-peserta').html(result)
+                                $('#daftar-peserta').DataTable({
+                                    dom: 'Bfrtip',
+                                    buttons: [
+                                        'copy', 'csv', 'excel', 'pdf', 'print'
+                                    ]
+                                })
+                            }
+                            init()
+                            $('.paket').change(function() {
+                                $.post(
+                                    'ubahKelasPeserta', {
+                                        id: $(this).attr('id'),
+                                        kode_kelas: $(this).val()
+                                    },
+                                    function(result) {
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                            $('.editPeserta').click(function() {
+                                console.log($(this).parent())
+                            })
                         })
-                    }
-                    init()
-                    $('.konfirmasi').click(function(){
-                        $.get(
-                            'ubahStatus/' + $(this).val() + '/2',
-                            function(result){
-                                tampilkanPeserta()
-                                $('#flash').html(result)
-                            }
-                        )
-                    })
-                    $('.batalkan').click(function(){
-                        $.get(
-                            'ubahStatus/' + $(this).val() + '/0',
-                            function(result){
-                                tampilkanPeserta()
-                                $('#flash').html(result)
-                            }
-                        )
-                    })
-                    $('.tolak').click(function(){
-                        $.get(
-                            'ubahStatus/' + $(this).val() + '/0',
-                            function(result){
-                                tampilkanPeserta()
-                                $('#flash').html(result)
-                            }
-                        )
-                    })
-                })
-            }
-            tampilkanPeserta()
-            $('#kode_paket').change(function(){
+                }
                 tampilkanPeserta()
-            })
-        } );
-    </script>
+                $('#kode_paket').change(function() {
+                    tampilkanPeserta()
+                })
+            });
+        </script>
+    <?php elseif ($active == 'konfirmasi peserta') : ?>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                function tampilkanPeserta() {
+                    $.get(
+                        'tampilkanKonfirmasiPeserta/' + $('#kode_paket').val(),
+                        function(result) {
+                            function init() {
+                                $('#tabel-peserta').html(result)
+                                $('#daftar-peserta').DataTable({
+                                    dom: 'Bfrtip',
+                                    buttons: [
+                                        'copy', 'csv', 'excel', 'pdf', 'print'
+                                    ]
+                                })
+                            }
+                            init()
+                            $('.konfirmasi').click(function() {
+                                $.get(
+                                    'ubahStatus/' + $(this).val() + '/2',
+                                    function(result) {
+                                        tampilkanPeserta()
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                            $('.batalkan').click(function() {
+                                $.get(
+                                    'ubahStatus/' + $(this).val() + '/0',
+                                    function(result) {
+                                        tampilkanPeserta()
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                            $('.tolak').click(function() {
+                                $.get(
+                                    'ubahStatus/' + $(this).val() + '/0',
+                                    function(result) {
+                                        tampilkanPeserta()
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                        })
+                }
+                tampilkanPeserta()
+                $('#kode_paket').change(function() {
+                    tampilkanPeserta()
+                })
+            });
+        </script>
     <?php endif; ?>
 
     <!-- calendar -->
-    <?php if($active=='atur jadwal pertemuan'): ?>
-    <link href='<?= base_url(); ?>/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src='<?= base_url(); ?>/js/jquery-1.10.2.js' type="text/javascript"></script>
-    <script src='<?= base_url(); ?>/js/jquery-ui.custom.min.js' type="text/javascript"></script>
-    <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
+    <?php if ($active == 'atur jadwal pertemuan') : ?>
+        <link href='<?= base_url(); ?>/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        <script src='<?= base_url(); ?>/js/jquery-1.10.2.js' type="text/javascript"></script>
+        <script src='<?= base_url(); ?>/js/jquery-ui.custom.min.js' type="text/javascript"></script>
+        <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
 
-    <script src="<?= base_url(); ?>/js/atur-jadwal-pertemuan.js"></script>
-    <?php elseif($active=='atur jadwal tryout'): ?>
+        <script src="<?= base_url(); ?>/js/atur-jadwal-pertemuan.js"></script>
+    <?php elseif ($active == 'atur jadwal tryout') : ?>
 
-    <link href='<?= base_url(); ?>/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src='<?= base_url(); ?>/js/jquery-1.10.2.js' type="text/javascript"></script>
-    <script src='<?= base_url(); ?>/js/jquery-ui.custom.min.js' type="text/javascript"></script>
-    <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
+        <link href='<?= base_url(); ?>/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        <script src='<?= base_url(); ?>/js/jquery-1.10.2.js' type="text/javascript"></script>
+        <script src='<?= base_url(); ?>/js/jquery-ui.custom.min.js' type="text/javascript"></script>
+        <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
 
-    <script src="<?= base_url(); ?>/js/atur-jadwal-tryout.js"></script>
+        <script src="<?= base_url(); ?>/js/atur-jadwal-tryout.js"></script>
 
     <?php endif; ?>
-    
+
     <!-- Custom scripts for all pages-->
 
 </body>

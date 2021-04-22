@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
-use App\Models\Kuis_Model;
+use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 
 class Kelasku extends BaseController
@@ -51,14 +51,14 @@ class Kelasku extends BaseController
         echo json_encode($data);
     }
 
-    public function latihan_kode()
+    public function kuis_kode()
     {
         // session()->remove('kode_kuis');
 
         // Pengecekan kode kuis
         if ($this->request->getPost('kode_kuis') != null) {
             $kode = $this->request->getPost('kode_kuis');
-            $model = new Kuis_Model();
+            $model = new KuisSoalJawaban_Model();
 
             $kuis = $model->getByCode($kode);
 
@@ -84,21 +84,20 @@ class Kelasku extends BaseController
 
         // Jika sudah pernah mengisi kode kuis dan latihan belum selesai, maka diarahkan ke soal
         if (session('kode_kuis') != NULL) {
-            return redirect()->to(base_url('kelasku/latihan_soal'));
+            return redirect()->to(base_url('kelasku/kuis_soal'));
         }
 
         $data = [
-            'css'       => ['kelasku.css'],
             'active'    => 'kelasku',
         ];
-        return view('kelasku/latihan_kode', $data);
+        return view('kelasku/kuis_kode', $data);
     }
 
-    public function latihan_soal()
+    public function kuis_soal()
     {
         // Jika tidak terdapat session('kode_kuis), maka diarahkan ke pengisian kode kuis
         if (session('kode_kuis') == NULL) {
-            return redirect()->to(base_url('kelasku/latihan_kode'));
+            return redirect()->to(base_url('kelasku/kuis_kode'));
         }
 
         if ($this->request->getPost('no_kuis') == null) {
@@ -122,30 +121,29 @@ class Kelasku extends BaseController
 
         $kode = session('kode_kuis');
         // $no = session('no');
-        $model = new Kuis_Model();
+        $model = new KuisSoalJawaban_Model();
 
         // pengambilan soal berdasarkan kode dan no soal (untuk mengambil soal)
         $kuis = $model->getSoal($kode, $no);
 
         // jika soal sudah melebihi no soal yang terdaftar di database, maka diarahkan ke laman hasil
         if ($kuis == null) {
-            return redirect()->to(base_url('kelasku/latihan_hasil'));
+            return redirect()->to(base_url('kelasku/kuis_hasil'));
         }
 
         $data = [
-            'css'       => ['kelasku.css'],
             'active'    => 'kelasku',
             'kuis'      => $kuis
         ];
 
-        return view('kelasku/latihan_soal', $data);
+        return view('kelasku/kuis_soal', $data);
     }
 
-    public function latihan_pembahasan()
+    public function kuis_pembahasan()
     {
         // Jika tidak terdapat session('kode_kuis), maka diarahkan ke pengisian kode kuis
         if (session('kode_kuis') == NULL) {
-            return redirect()->to(base_url('kelasku/latihan_kode'));
+            return redirect()->to(base_url('kelasku/kuis_kode'));
         }
 
         // Jika terdapat data jawaban
@@ -155,7 +153,7 @@ class Kelasku extends BaseController
             // $no = session('no');
 
             $kode = session('kode_kuis');
-            $model = new Kuis_Model();
+            $model = new KuisSoalJawaban_Model();
 
             // pengambilan soal berdasarkan kode dan no soal (untuk mengambil jawaban)
             $kuis = $model->getSoal($kode, $no);
@@ -207,24 +205,23 @@ class Kelasku extends BaseController
                 }
             }
         } else {
-            return redirect()->to(base_url('kelasku/latihan_kode'));
+            return redirect()->to(base_url('kelasku/kuis_kode'));
         }
 
         $data = [
-            'css'       => ['kelasku.css'],
             'active'    => 'kelasku',
             'kuis'      => $kuis
         ];
 
-        return view('kelasku/latihan_pembahasan', $data);
+        return view('kelasku/kuis_pembahasan', $data);
     }
 
 
-    public function latihan_hasil()
+    public function kuis_hasil()
     {
         // Jika tidak terdapat session('kode_kuis), maka diarahkan ke pengisian kode kuis
         if (session('hasil') == NULL) {
-            return redirect()->to(base_url('kelasku/latihan_kode'));
+            return redirect()->to(base_url('kelasku/kuis_kode'));
         }
 
         // Penghitungan hasil (benar, salah, kosong, skor, passing grade)
@@ -255,7 +252,6 @@ class Kelasku extends BaseController
         $pass_grade = $skor['skor'] / $skor['max'] * 100;
 
         $data = [
-            'css'           => ['kelasku.css'],
             'active'        => 'kelasku',
             'benar'         => $benar,
             'salah'         => $salah,
@@ -265,10 +261,10 @@ class Kelasku extends BaseController
             'pass_grade'    => $pass_grade
         ];
 
-        // Menghapus semua session untuk latihan 
+        // Menghapus semua session untuk kuis 
         session()->remove('kode_kuis');
         session()->remove('hasil');
 
-        return view('kelasku/latihan_hasil', $data);
+        return view('kelasku/kuis_hasil', $data);
     }
 }
