@@ -82,7 +82,7 @@ class Kelasku extends BaseController
             }
         }
 
-        // Jika sudah pernah mengisi kode kuis dan latihan belum selesai, maka diarahkan ke soal
+        // Jika sudah pernah mengisi kode kuis dan kuis belum selesai, maka diarahkan ke soal
         if (session('kode_kuis') != NULL) {
             return redirect()->to(base_url('kelasku/kuis_soal'));
         }
@@ -266,5 +266,14 @@ class Kelasku extends BaseController
         session()->remove('hasil');
 
         return view('kelasku/kuis_hasil', $data);
+    }
+
+    public function latihan()
+    {
+        $data = [
+            'active' => 'kelasku',
+            'page'  => 'latihan'
+        ];
+        return view('kelasku/latihan', $data);
     }
 }

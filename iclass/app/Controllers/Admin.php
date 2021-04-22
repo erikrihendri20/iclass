@@ -710,20 +710,32 @@ class Admin extends BaseController
 
     public function edit_soal_kuis()
     {
-        helper('kode');
-        $model = new Kuis_Model();
+        if ($this->request->getPost('kode') == null) {
+            $model = new Kuis_Model();
 
-        $kuis = $model->findAll();
-        // dd($kuis);
+            $kuis = $model->findAll();
+            $data = [
+                'data'      => $kuis,
+                'active'    => 'kuis_edit',
+            ];
 
-        // echo $kuis[0]['materi'];
-        // die();
-        $data = [
-            'data'      => $kuis,
-            'active'    => 'kuis_edit',
-            'css'       => 'admin/kuis_soal.css'
-        ];
+            return view('admin/edit_soal_kuis', $data);
+        } else {
+            $kode = $this->request->getPost('kode');
 
-        return view('admin/edit_soal_kuis', $data);
+            $model = new KuisSoalJawaban_Model();
+            $kuis = $model->getByCode($kode);
+            // dd($kuis);
+            $data = [
+                'data'      => $kuis,
+                'active'    => 'kuis_edit',
+            ];
+            return view('admin/edit_kuis', $data);
+        }
+    }
+
+    public function edit_jawaban()
+    {
+        dd($_POST);
     }
 }

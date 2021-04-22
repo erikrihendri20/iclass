@@ -3,12 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2021 at 05:01 AM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: Apr 22, 2021 at 03:03 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -102,22 +101,24 @@ INSERT INTO `kelas` (`id`, `nama`, `link-meeting`, `kode_paket`, `created_at`, `
 
 CREATE TABLE `kuis` (
   `id` int(11) NOT NULL,
-  `kode_kuis` varchar(10) NOT NULL,
+  `materi` varchar(50) NOT NULL,
+  `kode_kuis` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kuis_soal_jawaban`
+--
+
+CREATE TABLE `kuis_soal_jawaban` (
+  `id` int(11) NOT NULL,
+  `kode_kuis` varchar(5) NOT NULL,
   `no_kuis` int(11) NOT NULL,
   `soal` varchar(150) NOT NULL,
   `jawaban` varchar(1) NOT NULL,
-  `pembahasan` varchar(150) NOT NULL
+  `pembahasan` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kuis`
---
-
-INSERT INTO `kuis` (`id`, `kode_kuis`, `no_kuis`, `soal`, `jawaban`, `pembahasan`) VALUES
-(1, 'kzka', 1, '001.png', 'A', '001.png'),
-(2, 'kzka', 2, '002.png', 'B', '002.png'),
-(3, 'kzka', 3, '003.png', 'C', '003.png'),
-(4, 'kzka', 4, '004.png', 'D', '004.png');
 
 -- --------------------------------------------------------
 
@@ -161,6 +162,26 @@ INSERT INTO `materi` (`id`, `name`, `parts`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paket`
+--
+
+CREATE TABLE `paket` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paket`
+--
+
+INSERT INTO `paket` (`id`, `nama`) VALUES
+(1, 'reguler'),
+(2, 'premium'),
+(3, 'premium+');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rekaman`
 --
 
@@ -179,22 +200,6 @@ INSERT INTO `rekaman` (`id`, `materi`, `ext_tn`) VALUES
 (2, 'Baris dan Deret', 'png'),
 (3, 'Awwkwkwk', 'jpg'),
 (4, 'Bablabla', 'jpg');
--- Table structure for table `paket`
---
-
-CREATE TABLE `paket` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `paket`
---
-
-INSERT INTO `paket` (`id`, `nama`) VALUES
-(1, 'reguler'),
-(2, 'premium'),
-(3, 'premium+');
 
 -- --------------------------------------------------------
 
@@ -227,7 +232,7 @@ INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telep
 (16, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
 (17, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
 (18, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
-(19, 'Akhmad Fadil Mubarok', 2, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '', 0, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
+(19, 'Akhmad Fadil Mubarok', 2, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
 (20, 'erikrca', 0, 'fddfdf', 1, '121212121', 'erca.rihendri@gmail.com', 'erikrca', '$2y$10$5PQCIT.O3k8uNwxhJ2Wstuwj.KNUB64nsZ8Sa5iphRCoN1ygGo8.G', '', 0, '2021-04-15 07:11:52', '2021-04-15 07:11:52', '2021-04-15 07:11:52'),
 (21, 'erererere', 0, 'rererer', 3, '231238213213', 'nurani.aprilia@bps.go.id', 'erererer', '$2y$10$bukIa4t85bbjZipz2MPZuuH4021dgpSYkFORQmHmwGDHj3/flAHE6', '', 0, '2021-04-15 07:12:41', '2021-04-15 07:12:41', '2021-04-15 07:12:41'),
 (22, 'sadaskldjkl', 0, 'sadasdsadadas', 0, '832191273981278', 'kasdsl@sakd.sad', 'dasdsadsadfwr', '$2y$10$wtP7I1/UXX7Pmw4JoxtiFuLpdIhVKJt9cGV7R88ePOU9FvAeY7NFy', '', 0, '2021-04-17 02:38:57', '2021-04-17 02:38:57', '2021-04-17 02:38:57'),
@@ -259,7 +264,17 @@ ALTER TABLE `kelas`
 -- Indexes for table `kuis`
 --
 ALTER TABLE `kuis`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode_kuis` (`kode_kuis`),
+  ADD KEY `kode_kuis_2` (`kode_kuis`),
+  ADD KEY `kode_kuis_3` (`kode_kuis`);
+
+--
+-- Indexes for table `kuis_soal_jawaban`
+--
+ALTER TABLE `kuis_soal_jawaban`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kode_kuis` (`kode_kuis`);
 
 --
 -- Indexes for table `materi`
@@ -268,9 +283,6 @@ ALTER TABLE `materi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `rekaman`
---
-ALTER TABLE `rekaman`
 -- Indexes for table `paket`
 --
 ALTER TABLE `paket`
@@ -308,7 +320,13 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kuis`
 --
 ALTER TABLE `kuis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kuis_soal_jawaban`
+--
+ALTER TABLE `kuis_soal_jawaban`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `paket`
@@ -321,6 +339,16 @@ ALTER TABLE `paket`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `kuis_soal_jawaban`
+--
+ALTER TABLE `kuis_soal_jawaban`
+  ADD CONSTRAINT `kuis_soal_jawaban_ibfk_1` FOREIGN KEY (`kode_kuis`) REFERENCES `kuis` (`kode_kuis`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
