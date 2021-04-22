@@ -41,7 +41,7 @@
             <div class="col-lg-3 col-md-6 p-3">
                 <h4 class="text-dark"> <b>Follow us</b> </h4>
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-envelope"></i>
                     </div>
                     <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white">
@@ -49,7 +49,7 @@
                             <u>masukstis30@gmail.com</u>
                         </p>
                     </a>
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-instagram"></i>
                     </div>
                     <a href="https://www.instagram.com/iclass.education/" class="col-md-10 text-white">
@@ -57,7 +57,7 @@
                             <u>iclass.education</u>
                         </p>
                     </a>
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-white">
                         <i class="fa fa-whatsapp"></i>
                     </div>
                     <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white">
@@ -87,6 +87,28 @@
     <script src='<?= base_url(); ?>/js/fullcalendar.js' type="text/javascript"></script>
 
     <script src="<?= base_url(); ?>/js/jadwal.js"></script>
+<?php endif; ?>
+
+<?php if ($active == 'upload bukti pembayaran') : ?>
+    <script>
+
+    
+    function preview(){
+        const bukti = document.querySelector('#file-bukti')
+        const label = document.querySelector('#label-bukti')
+        const preview = document.querySelector('#preview-bukti')
+        
+        label.textContent = bukti.files[0].name
+
+        file = new FileReader()
+        file.readAsDataURL(bukti.files[0])
+
+        file.onload = function(e){
+            preview.src = e.target.result
+        }
+    }
+
+    </script>
 <?php endif; ?>
 
 </body>

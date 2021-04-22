@@ -3,7 +3,7 @@
 <div class="content my-3 bg-white">
     <!-- Content-->
     <div class="display-4 text-primary text-center font-weight-bold mb-4 mx-5">
-        <p>Latihan Soal</p>
+        <p>KUIS RUTIN</p>
     </div>
     <div class="p-5 m-5 w-75 bg-white rounded text-center mx-auto" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         -moz-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
@@ -49,13 +49,12 @@
         </button>
     </div>
 
-    <form action="<?= base_url('kelasku/latihan_pembahasan') ?>" method="post" id='soal'>
+    <form action="<?= base_url('kelasku/kuis_pembahasan') ?>" method="post" id='soal'>
         <input type="hidden" name="jawaban" id="jawaban_soal">
         <input type="hidden" name="no_kuis" value="<?= $kuis[0]['no_kuis'] ?>">>
     </form>
 
 </div>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 <script>
     A = document.getElementById('A');
     B = document.getElementById('B');

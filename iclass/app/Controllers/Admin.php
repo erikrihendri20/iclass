@@ -7,6 +7,8 @@ use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
 use App\Models\Rekaman_Model;
 use App\Models\Paket_Model;
+use App\Models\Kuis_Model;
+use App\Models\KuisSoalJawaban_Model;
 
 class Admin extends BaseController
 {
@@ -38,8 +40,8 @@ class Admin extends BaseController
         $paket_model = new Paket_Model();
         $data['kelas'] = $kelas_model->tampilkanKelas();
         $user_model = new Users_Model();
-        for ($i=0; $i < count($data['kelas']) ; $i++) { 
-            $data['kelas'][$i]['jumlah-peserta']=$user_model->jumlahPeserta($data['kelas'][$i]['id']);
+        for ($i = 0; $i < count($data['kelas']); $i++) {
+            $data['kelas'][$i]['jumlah-peserta'] = $user_model->jumlahPeserta($data['kelas'][$i]['id']);
         }
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'daftar kelas';
@@ -60,7 +62,7 @@ class Admin extends BaseController
                 'id' => $this->request->getPost('id'),
                 'nama' => $this->request->getPost('nama'),
                 'link-meeting' => $this->request->getPost('link-meeting'),
-                'kode_paket' =>$this->request->getPost('kode-paket')
+                'kode_paket' => $this->request->getPost('kode-paket')
             ];
             $rules = [
                 'nama' => [
@@ -161,14 +163,14 @@ class Admin extends BaseController
         $model = new Jadwal_Model();
         return json_encode($model->findAll());
     }
-    
+
     public function rekaman()
     {
         $model = new Rekaman_Model();
-		$data['rekamans'] = $model->getAll();
+        $data['rekamans'] = $model->getAll();
         $data['active'] = 'Kelas';
 
-        $data['css'] = ['admin/rekaman.css'];
+        $data['css'] = 'admin/rekaman.css';
 
         return view('admin/rekaman', $data);
     }
@@ -230,7 +232,7 @@ class Admin extends BaseController
             $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
 
             if ($this->validate($rules)) {
-                $data1=[
+                $data1 = [
                     'id' => $this->request->getPost('pertemuan'),
                     'materi' => $this->request->getPost('materi'),
                     'ext_tn' => $thumbnailRekaman->guessExtension()
@@ -239,17 +241,17 @@ class Admin extends BaseController
                 $model = new Rekaman_Model();
                 $model->postRekaman($data1);
 
-                $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.mp4');
-                $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan '.$data['pertemuan'].' - '.$data['materi'].'.'.$thumbnailRekaman->guessExtension());
-                
+                $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.mp4');
+                $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $thumbnailRekaman->guessExtension());
+
                 session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-                return redirect()->to(base_url().'/admin/rekaman');
+                return redirect()->to(base_url() . '/admin/rekaman');
             } else {
                 $errors = $this->validator->getErrors();
                 session()->setFlashdata($errors);
 
                 session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
-                return redirect()->to(base_url().'/admin/rekaman');
+                return redirect()->to(base_url() . '/admin/rekaman');
             }
         }
     }
@@ -279,7 +281,7 @@ class Admin extends BaseController
         $data['user'] = $user_model->tampilkanPeserta($kode_paket);
         $data['kelas'] = $kelas_model->findAll();
         $data['paket'] = $paket_model->findAll();
-        return view('admin/tampilkanPeserta',$data);
+        return view('admin/tampilkanPeserta', $data);
     }
 
     public function ubahKelasPeserta()
@@ -287,7 +289,7 @@ class Admin extends BaseController
         $id = $this->request->getPost('id');
         $kode_kelas = $this->request->getPost('kode_kelas');
         $model = new Users_Model();
-        $model->update($id,['kode_kelas'=>$kode_kelas]);
+        $model->update($id, ['kode_kelas' => $kode_kelas]);
         $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             kelas <strong>berhasil</strong> diubah
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -359,7 +361,7 @@ class Admin extends BaseController
                     'username' => $this->request->getPost('username'),
                     'kode_paket' => $this->request->getPost('kode-paket')
                 ];
-                $model->update($id , $newuser);
+                $model->update($id, $newuser);
                 $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             ' . $newuser['nama'] . ' <strong>berhasil</strong> diubah <br>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -367,7 +369,7 @@ class Admin extends BaseController
                             </button>
                         </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->to(base_url().'/admin/daftarPeserta');
+                return redirect()->to(base_url() . '/admin/daftarPeserta');
             } else {
                 return redirect()->back()->withInput();
             }
@@ -377,11 +379,11 @@ class Admin extends BaseController
         $paket_model = new Paket_Model();
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'edit peserta';
-        $data['css'] = ['auth/edit-peserta.css'];
+        $data['css'] = 'auth/edit-peserta.css';
         return view('admin/editPeserta', $data);
     }
 
-    public function tampilkanKonfirmasiPeserta($kode_paket=null)
+    public function tampilkanKonfirmasiPeserta($kode_paket = null)
     {
         $user_model = new Users_Model();
         $kelas_model = new Kelas_Model();
@@ -389,7 +391,7 @@ class Admin extends BaseController
         $data['user'] = $user_model->tampilkanPeserta($kode_paket);
         $data['kelas'] = $kelas_model->findAll();
         $data['paket'] = $paket_model->findAll();
-        return view('admin/tampilkanKonfirmasiPeserta',$data);
+        return view('admin/tampilkanKonfirmasiPeserta', $data);
     }
 
     public function konfirmasiPeserta()
@@ -400,25 +402,340 @@ class Admin extends BaseController
         return view('admin/konfirmasiPeserta', $data);
     }
 
-    public function ubahStatus($id,$status)
+    public function ubahStatus($id, $status)
     {
         $user_model = new Users_Model();
-        $user_model->update($id,['status' => $status]);
+        $user_model->update($id, ['status' => $status]);
         $user = $user_model->find($id);
-        if($user['status']==0){
-            unlink('./img/bukti-pembayaran/'.$user['bukti_pembayaran']);
+        if ($user['status'] == 0) {
+            unlink('./img/bukti-pembayaran/' . $user['bukti_pembayaran']);
             return '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        berhasil menonaktifkan user '.$user['nama'].'
+                        berhasil menonaktifkan user ' . $user['nama'] . '
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>';
         }
         return '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    berhasil mengaktifkan user '.$user['nama'].'
+                    berhasil mengaktifkan user ' . $user['nama'] . '
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>';
+    }
+
+    public function kuis_soal()
+    {
+        helper('kode');
+
+        $kode = generate_kode(5, false, 'set');
+
+        $data = [
+            'kode'      => $kode,
+            'active'    => 'kuis_soal',
+            'css'       => 'admin/kuis_soal.css'
+        ];
+
+        return view('admin/upload_soal_kuis', $data);
+    }
+
+    public function upload_kuis_soal()
+    {
+        $rules = [
+            'materi' => [
+                'label'  => 'Materi',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Materi harus diisi'
+                ]
+            ],
+            'kode' => [
+                'label'  => 'Kode',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Kode harus diisi'
+                ]
+            ],
+            'kode' => [
+                'label'  => 'Kode',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Kode harus diisi'
+                ]
+            ],
+            'file' => 'uploaded[file]|mime_in[file,image/jpg,image/jpeg,image/png]'
+        ];
+        if ($this->validate($rules)) {
+            $materi = $this->request->getPost('materi');
+            $kode = $this->request->getPost('kode');
+            $imagefile = $this->request->getFileMultiple('file');
+
+            $model = new Kuis_Model();
+
+            $i = 1;
+
+            $check = $model->getByMateri($materi);
+            if ($check == NULL) {
+                $check = $model->getByCode($kode);
+                if ($check == NULL) {
+                    $data = [
+                        'materi'        => $materi,
+                        'kode_kuis'     => $kode,
+                    ];
+                    $model->db->table('kuis')->insert($data);
+                } else {
+                    $kode = generate_kode(5, false, 'set');
+                    $data = [
+                        'materi'        => $materi,
+                        'kode_kuis'     => $kode,
+                    ];
+                    $model->db->table('kuis')->insert($data);
+                }
+
+                $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+
+                if (!is_dir($path)) {
+                    mkdir($path . '/soal', 0700, true);
+                    mkdir($path . '/pembahasan', 0700, true);
+                }
+
+                foreach ($imagefile as $img) {
+                    $name = "jawaban_" . $i;
+                    $no = explode(".", $img->getName())[0];
+                    $data = [
+                        'kode_kuis' => $kode,
+                        'no_kuis'   => $no,
+                        'soal'      => $img->getName(),
+                        'jawaban'   => $this->request->getPost($name)
+                    ];
+                    $model->db->table('kuis_soal_jawaban')->insert($data);
+                    $img->move($path . '/soal');
+
+                    $i++;
+                }
+
+                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Upload sukses!</strong> soal berhasil ditambahkan.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->back();
+            } else {
+                $check = $model->getByCode($kode);
+                if ($check == NULL) {
+                    $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Upload gagal!</strong> kode salah (apabila anda menambahkan soal ke materi sebelumnya).
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+                    session()->setFlashdata('flash', $flash);
+                    return redirect()->back();
+                } else {
+                    $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+                    $path = $path . '/soal';
+
+                    foreach ($imagefile as $img) {
+
+                        $name = "jawaban_" . $i;
+                        $no = explode(".", $img->getName())[0];
+                        $data = [
+                            'kode_kuis' => $kode,
+                            'no_kuis'   => $no,
+                            'soal'      => $img->getName(),
+                            'jawaban'   => $this->request->getPost($name)
+                        ];
+                        $model->db->table('kuis_soal_jawaban')->insert($data);
+                        $img->move($path);
+
+                        $i++;
+                    }
+                    $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Upload sukses!</strong> soal berhasil ditambahkan.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+                    session()->setFlashdata('flash', $flash);
+                    return redirect()->back();
+                }
+            }
+        } else {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Upload gagal!</strong> format input salah.
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function kuis_pembahasan()
+    {
+        helper('kode');
+        $model = new Kuis_Model();
+
+        $kuis = $model->findAll();
+        // dd($kuis);
+
+        // echo $kuis[0]['materi'];
+        // die();
+        $data = [
+            'data'      => $kuis,
+            'active'    => 'kuis_pembahasan',
+            'css'       => 'admin/kuis_soal.css'
+        ];
+
+        return view('admin/upload_pembahasan_kuis', $data);
+    }
+
+    function get_kode()
+    {
+        $rules = [
+            'materi' => 'required'
+        ];
+        if ($this->validate($rules)) {
+            $materi = $this->request->getPost('materi');
+            $model = new Kuis_Model();
+
+            $kode = $model->getByMateri($materi);
+
+            $status['kode'] = $kode[0]['kode_kuis'];
+            $status['status'] = 1;
+            $status['pesan'] = '';
+        } else {
+            $status['status'] = 0;
+            $status['pesan'] = "Materi harus dipilih";
+        }
+        echo json_encode($status);
+    }
+
+    public function upload_kuis_pembahasan()
+    {
+        $rules = [
+            'kode' => [
+                'label'  => 'Kode',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Kode harus diisi'
+                ]
+            ],
+            'kode' => [
+                'label'  => 'Kode',
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Kode harus diisi'
+                ]
+            ],
+            'file' => 'uploaded[file]|mime_in[file,image/jpg,image/jpeg,image/png]'
+        ];
+        if ($this->validate($rules)) {
+            $kode = $this->request->getPost('kode');
+            $imagefile = $this->request->getFileMultiple('file');
+            $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+            $path = $path . '/pembahasan';
+
+            $model = new KuisSoalJawaban_Model();
+
+            $check = $model->getByCode($kode);
+
+            if ($check == NULL) {
+                $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Upload gagal!</strong> tidak ada soal yang sesuai kode.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->back();
+            } else {
+                foreach ($imagefile as $img) {
+
+                    $no = explode(".", $img->getName())[0];
+                    $check = $model->getSoal($kode, $no);
+
+                    if ($check == NULL) {
+                        $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Upload gagal!</strong> tidak ada soal no ' . $no . '. Mohon upload soal tersebut sebelum mengupload pembahasan.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->back();
+                    } else {
+                        if ($check[0]['pembahasan'] == NULL) {
+                            $model->db->table('kuis_soal_jawaban')
+                                ->set('pembahasan', $img->getName())
+                                ->where('id', $check[0]['id'])
+                                ->update();
+                            $img->move($path);
+                        } else {
+                            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia. Apabila anda akan mengeditnya, mohon melalui <a href="' . base_url('admin/edit_kuis') . '">edit soal kuis</a>.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                            session()->setFlashdata('flash', $flash);
+                            return redirect()->back()->withInput();
+                        }
+                    }
+                }
+                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Upload sukses!</strong> pembahasan berhasil ditambahkan.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->back();
+                die();
+            }
+        } else {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Upload gagal!</strong> format input salah.
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function edit_soal_kuis()
+    {
+        if ($this->request->getPost('kode') == null) {
+            $model = new Kuis_Model();
+
+            $kuis = $model->findAll();
+            $data = [
+                'data'      => $kuis,
+                'active'    => 'kuis_edit',
+            ];
+
+            return view('admin/edit_soal_kuis', $data);
+        } else {
+            $kode = $this->request->getPost('kode');
+
+            $model = new KuisSoalJawaban_Model();
+            $kuis = $model->getByCode($kode);
+            // dd($kuis);
+            $data = [
+                'data'      => $kuis,
+                'active'    => 'kuis_edit',
+            ];
+            return view('admin/edit_kuis', $data);
+        }
+    }
+
+    public function edit_jawaban()
+    {
+        dd($_POST);
     }
 }

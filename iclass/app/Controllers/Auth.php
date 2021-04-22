@@ -23,7 +23,7 @@ class Auth extends BaseController
             $user = $model->getByUserName($identitas);
             if ($user) {
                 if (password_verify($password, $user[0]['password'])) {
-                    if($user[0]['status']==0){
+                    if ($user[0]['status'] == 0) {
                         $data = [
                             'is_upload' => true,
                             'id' => $user[0]['id'],
@@ -38,7 +38,7 @@ class Auth extends BaseController
                         </div>';
                         session()->setFlashdata('flash', $flash);
                         return redirect()->to('Auth/uploadBuktiPembayaran');
-                    }elseif($user[0]['status']==1){
+                    } elseif ($user[0]['status'] == 1) {
                         $data = [
                             'is_waiting' => true,
                             'id' => $user[0]['id'],
@@ -53,7 +53,7 @@ class Auth extends BaseController
                         </div>';
                         session()->setFlashdata('flash', $flash);
                         return redirect()->to('Auth/ruangTunggu');
-                    }else{
+                    } else {
                         $data = [
                             'log' => true,
                             'id' => $user[0]['id'],
@@ -108,7 +108,7 @@ class Auth extends BaseController
         }
 
         $data['active'] = 'masuk';
-        $data['css'] = ['auth/masuk.css'];
+        $data['css'] = 'auth/masuk.css';
         return view('auth/masuk', $data);
     }
 
@@ -293,7 +293,7 @@ class Auth extends BaseController
             dd($this->request->getVar());
         }
         $data['active'] = 'daftar';
-        $data['css'] = ['auth/daftar.css'];
+        $data['css'] = 'auth/daftar.css';
         $paket_model = new Paket_model();
         $data['paket'] = $paket_model->findAll();
         return view('auth/daftar', $data);
@@ -302,30 +302,30 @@ class Auth extends BaseController
     public function caraDaftar()
     {
         $data['active'] = 'daftar';
-        $data['css'] = ['auth/daftar.css'];
+        $data['css'] = 'auth/daftar.css';
         return view('auth/caraDaftar', $data);
     }
 
     public function lupaPassword()
     {
         $data['active'] = 'masuk';
-        $data['css'] = ['auth/masuk.css'];
+        $data['css'] = 'auth/masuk.css';
         return view('auth/forgotPassword', $data);
     }
 
     public function uploadBuktiPembayaran()
     {
-        $id=session()->id;
-        if(isset($_POST['submit'])){
-            $rules=[
+        $id = session()->id;
+        if (isset($_POST['submit'])) {
+            $rules = [
                 'bukti-pembayaran' => 'uploaded[bukti-pembayaran]|max_size[bukti-pembayaran,1024]|is_image[bukti-pembayaran]'
             ];
-            if($this->validate($rules)){
+            if ($this->validate($rules)) {
                 $file = $this->request->getFile('bukti-pembayaran');
                 $nama = $file->getRandomName();
                 $file->move('./img/bukti-pembayaran/', $nama);
                 $user_model = new Users_Model();
-                $user_model->update($id , ['bukti_pembayaran' => $nama , 'status' => 1]);
+                $user_model->update($id, ['bukti_pembayaran' => $nama, 'status' => 1]);
                 $data = [
                     'is_waiting' => true,
                     'id' => $id,
@@ -346,7 +346,7 @@ class Auth extends BaseController
         $user_model = new Users_Model();
         $data['user'] = $user_model->find($id);
         $data['active'] = 'upload bukti pembayaran';
-        $data['css'] = ['auth/masuk.css'];
+        $data['css'] = 'auth/masuk.css';
         $paket_model = new Paket_model();
         $data['paket'] = $paket_model->findAll();
         return view('auth/uploadBuktiPembayaran', $data);
@@ -356,10 +356,10 @@ class Auth extends BaseController
     {
         $id = session()->id;
         $data['active'] = 'ruang tunggu';
-        $data['css'] = ['auth/masuk.css'];
+        $data['css'] = 'auth/masuk.css';
         $user_model = new Users_Model();
         $user = $user_model->find($id);
-        if($user['status']==2){
+        if ($user['status'] == 2) {
             session()->remove('is_waiting');
             session()->remove('id');
             session()->remove('status');
@@ -395,7 +395,7 @@ class Auth extends BaseController
         session()->remove('is_upload');
         session()->remove('id');
         session()->remove('status');
-        return redirect()->to(base_url().'/masuk');
+        return redirect()->to(base_url() . '/masuk');
     }
 
     public function keluarRuangTunggu()
@@ -403,6 +403,6 @@ class Auth extends BaseController
         session()->remove('is_waiting');
         session()->remove('id');
         session()->remove('status');
-        return redirect()->to(base_url().'/masuk');
+        return redirect()->to(base_url() . '/masuk');
     }
 }

@@ -18,7 +18,7 @@ class AuthFilter implements FilterInterface
                             </button>
                         </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url('masuk'));
+            return redirect()->to(base_url().'/masuk');
         }
     }
 

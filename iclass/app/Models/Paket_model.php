@@ -15,5 +15,9 @@ class Paket_model extends Model
 
     protected $allowedFields = ['nama'];
 
-    
+    public function getById($id)
+    {
+        $this->builder()->where('id', $id);
+        return $this->builder()->get()->getResultArray();
+    }
 }
