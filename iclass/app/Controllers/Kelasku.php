@@ -283,13 +283,28 @@ class Kelasku extends BaseController
 
     public function view_pdf($file)
     {
-        // $model = new Latihan_Model();
-        // $latihan = $model->findAll();
-        // dd($latihan);
-        $data = [
-            'file'      => $file,
-            'active'    => 'kelasku',
-        ];
-        return view('kelasku/viewer_pdf', $data);
+        if (is_file(ROOTPATH . "/../public_html/latihan/" . $file)) {
+            $data = [
+                'file'      => $file,
+                'active'    => 'kelasku',
+            ];
+            return view('kelasku/viewer_pdf', $data);
+        } else {
+            $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
+                    <strong>File tidak ada!</strong> hubungi admin untuk informasi lebih lanjut.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+
+            $model = new Latihan_Model();
+            $latihan = $model->findAll();
+            $data = [
+                'data'      => $latihan,
+                'active'    => 'kelasku',
+            ];
+            return view('kelasku/latihan', $data);
+        }
     }
 }

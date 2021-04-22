@@ -1,9 +1,9 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="container-fluid my-5">
+    <?= session('flash'); ?>
 
     <div class="row mx-2">
-
         <div class="col-xl-5 col-md-10 mx-md-auto h-100">
             <img class="mx-auto d-block w-md-75 w-xl-100 my-auto" src="<?= base_url() . '/img/3.png' ?>" alt="..." style="height:25em;">
         </div>
