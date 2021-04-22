@@ -52,5 +52,29 @@
             <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
         </div>
     </div>
+
+    <!--Modal untuk Mind Mapping-->
+    <div id="mindMap" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-white rounded" role="document">
+            <div class="modal-header d-flex justify-content-between align-text-center">
+                <h3 class="text-primary ml-1">Mind Mapping</h3>
+                <p class="fa fa-close btn mr-1" style="font-size:36px;" onclick="tutupMindMap();"></p>
+            </div>
+
+            <div class="modal-body d-flex justify-content-center align-text-center">
+                <img src="<?= base_url() ?>/img/Mind Map/ALJABAR.jpg" alt="Mind Mapping" class="img-fluid img-thumbnail">
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function bukaMindMap(){
+        $('#mindMap').modal('show');
+    }
+
+    function tutupMindMap(){
+        $('#mindMap').modal('hide');
+    }
+</script>
 <?= $this->endSection(); ?>

@@ -27,7 +27,7 @@ div#lefty {
 
 div#lefty > p {
     color: #a8a9b3;
-    font-size: 50px;
+    font-size: 60px;
 }
 
 div#lefty > p:hover {
@@ -44,7 +44,7 @@ div#righty {
 
 div#righty > p {
     color: #a8a9b3;
-    font-size: 50px;
+    font-size: 60px;
 }
 
 div#righty > p:hover {

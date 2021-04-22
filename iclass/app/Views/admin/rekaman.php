@@ -5,7 +5,7 @@
     <h1 class="h3 mb-4 text-gray-800">Rekaman Kelas</h1>
 
     <div class="mt-3">
-        <button id="tombolTambah" class="btn btn-primary rounded display-4" onclick="unggahRekaman();">Unggah Rekaman</button>
+        <button id="tombolTambah" class="btn btn-primary rounded display-4" onclick="bukaModal();">Unggah Rekaman</button>
     </div>
 
     <div class="col mt-3">
@@ -45,10 +45,11 @@
             </script>
             <?php endif; ?>
             
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header d-flex justify-content-center align-text-center">
-                        <h3 class="text-primary">Unggah Rekaman Pertemuan</h3>
+                    <div class="modal-header d-flex justify-content-between align-text-center">
+                        <h3 class="text-primary ml-1">Unggah Rekaman Pertemuan</h3>
+                        <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal();"></p>
                     </div>
 
                     <div class="modal-body">
@@ -106,8 +107,12 @@
         <?php endif; ?>
     }
 
-    function unggahRekaman(){
+    function bukaModal(){
         $('#modalUnggah').modal('show');
+    }
+
+    function tutupModal(){
+        $('#modalUnggah').modal('hide');
     }
 </script>
 

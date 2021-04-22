@@ -57,8 +57,8 @@
             <div id="bab_materi" style="position: float; float: right;" class="fluid">
                 <?php foreach($materis as $materi) : ?>
 
-                    <div class="bab row fluid bg-light rounded mx-2 my-1">
-                        <a href="<?= base_url() ?>/materi/<?= $materi['id'] ?>" 
+                    <div class="bab row fluid btn-light rounded mx-4 my-2">
+                        <a href="<?= base_url() ?>/materi/<?= $materi['id'] ?>"
                             class="abab text-primary w-100 ml-3 my-1 font-weight-bold">
                             <?= $materi['name'] ?>
                         </a>
