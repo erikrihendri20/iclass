@@ -1,6 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="container-fluid my-5">
+
     <div class="row mx-2">
 
         <div class="col-xl-5 col-md-10 mx-md-auto h-100">
@@ -15,18 +16,9 @@
                     <div class="card card-secondary card-outline">
                         <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 17em; overflow-x: hidden; overflow-y: auto;">
                             <div class="col text-center">
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
-                                <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" href="#" style="border-radius: 15px;">Secondary</a>
+                                <?php foreach ($data as $dt) : ?>
+                                    <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold materi" id="materi<?= $dt['index_latihan'] ?>" onclick="clicked('materi<?= $dt['index_latihan'] ?>', 'soal<?= $dt['index_latihan'] ?>')" style="border-radius: 15px;"><?= $dt['materi'] ?></a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -38,18 +30,9 @@
 
     <div class="row bg-light mt-3">
         <div class="col mx-4">
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">First</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Algoritma dan Struktur Data</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Persamaan Trigonometri</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
-            <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded" href="#">Secondary</a>
+            <?php foreach ($data as $dt) : ?>
+                <a class="btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded soal" id="soal<?= $dt['index_latihan'] ?>" href="<?= base_url('kelasku/view_pdf/' . $dt['pdf_path']) ?>">Latihan dan Pembahasan <?= $dt['index_latihan'] ?></a>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -69,12 +52,29 @@
 </div>
 
 <script>
-    function bukaMindMap(){
+    function bukaMindMap() {
         $('#mindMap').modal('show');
     }
 
-    function tutupMindMap(){
+    function tutupMindMap() {
         $('#mindMap').modal('hide');
+    }
+
+    function clicked(a, b) {
+        $('.materi').removeClass('btn-secondary');
+        $('.materi').removeClass('btn-light');
+
+        $('.materi').addClass('btn-light');
+        $('#' + a).removeClass('btn-light');
+        $('#' + a).addClass('btn-secondary');
+
+        $('.soal').removeClass('btn-warning');
+        $('.soal').removeClass('btn-primary');
+
+        $('.soal').addClass('btn-primary');
+        $('#' + b).removeClass('btn-primary');
+        $('#' + b).addClass('btn-warning');
+
     }
 </script>
 <?= $this->endSection(); ?>

@@ -6,6 +6,7 @@ use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
+use App\Models\Latihan_Model;
 
 class Kelasku extends BaseController
 {
@@ -270,10 +271,25 @@ class Kelasku extends BaseController
 
     public function latihan()
     {
+        $model = new Latihan_Model();
+        $latihan = $model->findAll();
+        // dd($latihan);
         $data = [
-            'active' => 'kelasku',
-            'page'  => 'latihan'
+            'data'      => $latihan,
+            'active'    => 'kelasku',
         ];
         return view('kelasku/latihan', $data);
+    }
+
+    public function view_pdf($file)
+    {
+        // $model = new Latihan_Model();
+        // $latihan = $model->findAll();
+        // dd($latihan);
+        $data = [
+            'file'      => $file,
+            'active'    => 'kelasku',
+        ];
+        return view('kelasku/viewer_pdf', $data);
     }
 }
