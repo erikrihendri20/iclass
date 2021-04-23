@@ -32,7 +32,7 @@
                                     if ($h <= $i) :
                             ?>
                                 <td width="22%" class="border-0">
-                                    <div class="d-flex justify-content-center align-items-center bg-primary rounded">
+                                    <div class="d-flex justify-content-center align-items-center btn btn-primary rounded">
                                         <a href="<?= base_url() ?>/materi/<?= $materiPilihan['id'] ?>/<?= $h ?>"
                                             class="bagian text-white font-weight-bold my-1">
                                             Bagian <?= $h ?>
