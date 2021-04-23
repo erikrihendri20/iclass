@@ -6,6 +6,9 @@ class Landingpage extends BaseController
 {
 	public function index()
 	{
+		if (session('log') == TRUE)
+			return redirect()->to('peserta');
+
 		$data['css'] = 'landingpage/index.css';
 		$data['active'] = 'beranda';
 		return view('landingpage/index', $data);

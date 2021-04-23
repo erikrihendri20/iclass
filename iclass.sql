@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2021 at 01:29 PM
+-- Generation Time: Apr 24, 2021 at 12:30 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -134,7 +134,6 @@ CREATE TABLE `kuis_soal_jawaban` (
 
 CREATE TABLE `latihan` (
   `id` int(11) NOT NULL,
-  `index_latihan` int(11) NOT NULL,
   `materi` varchar(100) NOT NULL,
   `pdf_path` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,11 +142,18 @@ CREATE TABLE `latihan` (
 -- Dumping data for table `latihan`
 --
 
-INSERT INTO `latihan` (`id`, `index_latihan`, `materi`, `pdf_path`) VALUES
-(1, 1, 'Percobaan', 'soal 1.pdf'),
-(2, 2, 'Persamaan Trigonometri', 'Persamaan Trigonometri.pdf'),
-(3, 3, 'Aljabar Linear', 'Aljabar Linear.pdf'),
-(4, 4, 'Algoritma dan Struktur Data', 'Algoritma dan Struktur Data.pdf');
+INSERT INTO `latihan` (`id`, `materi`, `pdf_path`) VALUES
+(1, 'Percobaan', 'soal 1.pdf'),
+(5, 'Percobaan', 'soal 1_2.pdf'),
+(6, 'Percobaan', 'soal 1_3.pdf'),
+(7, 'Aljabar Linear', 'Aljabar Linear.pdf'),
+(8, 'Aljabar Linear', 'Aljabar Linear_2.pdf'),
+(9, 'Aljabar Linear', 'Aljabar Linear_3.pdf'),
+(10, 'Aljabar Linear', 'Aljabar Linear_4.pdf'),
+(11, 'Algoritma dan Struktur Data', 'Algoritma dan Struktur Data.pdf'),
+(12, 'Algoritma dan Struktur Data', 'Algoritma dan Struktur Data_2.pdf'),
+(13, 'Persamaan Trigonometri', 'Persamaan Trigonometri.pdf'),
+(14, 'Persamaan Trigonometri', 'Persamaan Trigonometri.pdf');
 
 -- --------------------------------------------------------
 
@@ -344,7 +350,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -368,7 +374,7 @@ ALTER TABLE `kuis_soal_jawaban`
 -- AUTO_INCREMENT for table `latihan`
 --
 ALTER TABLE `latihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `paket`

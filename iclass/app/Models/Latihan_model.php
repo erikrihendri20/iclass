@@ -10,4 +10,16 @@ class Latihan_Model extends Model
     protected $primaryKey = 'id';
 
     protected $returnType     = 'array';
+
+    public function getMateri($id)
+    {
+        $this->builder()->groupBy($id)->orderBy('id', 'ASC');
+        return $this->builder()->get()->getResultArray();
+    }
+
+    public function getByMateri($id)
+    {
+        $this->builder()->where('materi', $id);
+        return $this->builder()->get()->getResultArray();
+    }
 }

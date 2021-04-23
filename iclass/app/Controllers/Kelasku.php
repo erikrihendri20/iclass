@@ -315,12 +315,19 @@ class Kelasku extends BaseController
     public function latihan()
     {
         $model = new Latihan_Model();
-        $latihan = $model->findAll();
+        $materi = $model->getMateri('materi');
         $data = [
-            'data'      => $latihan,
+            'materi'    => $materi,
             'active'    => 'kelasku',
         ];
         return view('kelasku/latihan', $data);
+    }
+
+    function get_latihan($materi)
+    {
+        $model = new Latihan_Model();
+        $result = $model->getByMateri($materi);
+        return json_encode($result);
     }
 
     public function view_pdf($file)
