@@ -36,4 +36,10 @@ class Jadwal_Model extends Model
         $this->builder()->where('jenis', $id);
         return $this->builder()->get()->getResultArray();
     }
+
+    public function getKuis($title, $kelas)
+    {
+        $this->builder()->where('title', $title)->where('kode_kelas', $kelas);
+        return $this->builder()->get()->getResultArray();
+    }
 }

@@ -936,12 +936,14 @@ class Admin extends BaseController
     public function edit_jadwal_kuis()
     {
         $id = $this->request->getPost('id');
-        $datetime = $this->request->getPost('datetime');
+        $start = new Time($this->request->getPost('datetime'));
+        $end = new Time($start . ' + 23 Hours 59 Minutes');
 
         $model = new Jadwal_Model();
 
         try {
-            $model->set('datetime', $datetime)
+            $model->set('start_event', $start)
+                ->set('end_event', $end)
                 ->where('id', $id)
                 ->update();
 
