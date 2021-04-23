@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2021 at 02:31 AM
+-- Generation Time: Apr 23, 2021 at 01:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -67,7 +67,13 @@ INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `
 (111, 'dasdsada', 1, '2021-04-01 00:00:00', '2021-04-03 00:00:00', 1, 'info', NULL),
 (116, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
 (117, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
-(118, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL);
+(118, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL),
+(119, 'test', 1, '2021-04-16 00:00:00', '2021-04-16 00:00:00', 2, 'success', NULL),
+(120, 'test', 1, '2021-04-23 00:00:00', '2021-04-23 00:00:00', 1, 'info', NULL),
+(121, 'cek', 1, '2021-04-16 00:00:00', '2021-04-16 00:00:00', 1, 'info', NULL),
+(125, 'test', 1, '2021-04-29 00:00:00', '2021-04-29 00:00:00', 2, 'success', NULL),
+(126, 'test', 1, '2021-04-22 00:00:00', '2021-04-22 00:00:00', 1, 'info', 1),
+(127, 'test', 1, '2021-04-22 00:00:00', '2021-04-22 00:00:00', 2, 'success', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,7 +97,7 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `nama`, `link-meeting`, `kode_paket`, `created_at`, `deleted_at`, `updated_at`) VALUES
 (1, '3si2', 'asdsadsada', 3, '2021-04-17 02:44:40', '2021-04-17 02:44:40', '2021-04-17 02:44:40'),
-(2, 'sadsadsadad', '', 1, '2021-04-17 02:52:09', '2021-04-17 02:52:09', '2021-04-17 02:52:09');
+(2, 'sadsadsadad', 'test', 1, '2021-04-17 02:52:09', '2021-04-17 02:52:09', '2021-04-17 02:52:09');
 
 -- --------------------------------------------------------
 
@@ -255,7 +261,7 @@ INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telep
 (16, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
 (17, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
 (18, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
-(19, 'Akhmad Fadil Mubarok', 2, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
+(19, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
 (20, 'erikrca', 0, 'fddfdf', 1, '121212121', 'erca.rihendri@gmail.com', 'erikrca', '$2y$10$5PQCIT.O3k8uNwxhJ2Wstuwj.KNUB64nsZ8Sa5iphRCoN1ygGo8.G', '', 0, '2021-04-15 07:11:52', '2021-04-15 07:11:52', '2021-04-15 07:11:52'),
 (21, 'erererere', 0, 'rererer', 3, '231238213213', 'nurani.aprilia@bps.go.id', 'erererer', '$2y$10$bukIa4t85bbjZipz2MPZuuH4021dgpSYkFORQmHmwGDHj3/flAHE6', '', 0, '2021-04-15 07:12:41', '2021-04-15 07:12:41', '2021-04-15 07:12:41'),
 (22, 'sadaskldjkl', 0, 'sadasdsadadas', 0, '832191273981278', 'kasdsl@sakd.sad', 'dasdsadsadfwr', '$2y$10$wtP7I1/UXX7Pmw4JoxtiFuLpdIhVKJt9cGV7R88ePOU9FvAeY7NFy', '', 0, '2021-04-17 02:38:57', '2021-04-17 02:38:57', '2021-04-17 02:38:57'),
@@ -289,6 +295,7 @@ ALTER TABLE `kelas`
 ALTER TABLE `kuis`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kode_kuis` (`kode_kuis`),
+  ADD UNIQUE KEY `materi` (`materi`),
   ADD KEY `kode_kuis_2` (`kode_kuis`),
   ADD KEY `kode_kuis_3` (`kode_kuis`);
 
@@ -337,7 +344,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `kelas`

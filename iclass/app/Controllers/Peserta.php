@@ -23,19 +23,6 @@ class Peserta extends BaseController
 		$user = $model->getByUserName(session('username'));
 
 		$paket = $paket_model->getById($user[0]['kode_paket']);
-		// switch ($user[0]['kode_paket']) {
-		// 	case '1':
-		// 		$paket = 'Reguler';
-		// 		break;
-
-		// 	case '2':
-		// 		$paket = 'Premium';
-		// 		break;
-
-		// 	default:
-		// 		$paket = 'Premium*';
-		// 		break;
-		// }
 
 		if ($user[0]['kode_kelas'] == "0") {
 			$kelas = "Belum ada kelas";
@@ -101,7 +88,6 @@ class Peserta extends BaseController
 		$data = [
 			'nama' => $user[0]['nama'],
 			'kelas' => $kelas,
-			// 'kelas_id' => $user[0]['kelas_id'],
 			'jurusan' => $user[0]['jurusan'],
 			'paket' => $user[0]['kode_paket'],
 			'username' => $user[0]['username'],

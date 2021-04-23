@@ -126,7 +126,7 @@
 
             });
         </script>
-    <?php elseif ($active == 'kuis_edit') : ?>
+    <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal') : ?>
         <script>
             $(document).ready(function() {
                 $('#daftar-kuis').DataTable({

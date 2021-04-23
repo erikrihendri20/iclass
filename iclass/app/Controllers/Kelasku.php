@@ -13,7 +13,6 @@ class Kelasku extends BaseController
     public function jadwal()
     {
         $data = [
-            'css' => 'kelasku/jadwal.css',
             'active' => 'kelasku',
             'page'  => 'jadwal'
         ];

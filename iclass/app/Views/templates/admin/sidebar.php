@@ -96,25 +96,31 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Soal Kuis
+        Kuis
     </div>
 
     <!-- Nav Item - My-profile -->
+    <li class="nav-item <?= ($active == 'kuis_jadwal') ? 'active' :  ' '; ?>">
+        <a class="nav-link" href="<?= base_url(); ?>/admin/kuis_jadwal">
+            <i class="fas fa-fw fa-calendar-alt"></i>
+            <span>Jadwal Kuis</span></a>
+    </li>
+
     <li class="nav-item <?= ($active == 'kuis_edit') ? 'active' :  ' '; ?>">
         <a class="nav-link" href="<?= base_url(); ?>/admin/edit_soal_kuis">
             <i class="fas fa-fw fa-pencil-alt"></i>
-            <span>Edit Soal Kuis</span></a>
+            <span>Edit Kuis</span></a>
     </li>
 
     <li class="nav-item <?= ($active == 'kuis_soal') ? 'active' :  ' '; ?>">
         <a class="nav-link" href="<?= base_url('admin/kuis_soal'); ?>">
-            <i class="fas fa-fw fa-book"></i>
+            <i class="fas fa-paper-plane"></i>
             <span>Upload Soal</span></a>
     </li>
 
     <li class="nav-item <?= ($active == 'kuis_pembahasan') ? 'active' :  ' '; ?>">
         <a class="nav-link" href="<?= base_url('admin/kuis_pembahasan'); ?>">
-            <i class="fas fa-fw fa-book"></i>
+            <i class="fas fa-paper-plane"></i>
             <span>Upload Pembahasan</span></a>
     </li>
 

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\I18n\Time;
 use App\Models\Users_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
@@ -502,6 +503,18 @@ class Admin extends BaseController
                 foreach ($imagefile as $img) {
                     $name = "jawaban_" . $i;
                     $no = explode(".", $img->getName())[0];
+
+                    if ($this->request->getPost($name) == NULL) {
+                        $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Upload terganggu!</strong> jawaban no ' . $no . ' belum terisi.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                        session()->setFlashdata('flash', $flash);
+                        return redirect()->back();
+                    }
+
                     $data = [
                         'kode_kuis' => $kode,
                         'no_kuis'   => $no,
@@ -580,10 +593,7 @@ class Admin extends BaseController
         $model = new Kuis_Model();
 
         $kuis = $model->findAll();
-        // dd($kuis);
 
-        // echo $kuis[0]['materi'];
-        // die();
         $data = [
             'data'      => $kuis,
             'active'    => 'kuis_pembahasan',
@@ -676,7 +686,7 @@ class Admin extends BaseController
                             $img->move($path);
                         } else {
                             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia. Apabila anda akan mengeditnya, mohon melalui <a href="' . base_url('admin/edit_kuis') . '">edit soal kuis</a>.
+                                <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia. Apabila anda akan mengeditnya, mohon melalui <a href="' . base_url('admin/edit_kuis') . '">edit kuis</a>.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -718,24 +728,240 @@ class Admin extends BaseController
                 'data'      => $kuis,
                 'active'    => 'kuis_edit',
             ];
-
-            return view('admin/edit_soal_kuis', $data);
+            return view('admin/edit_kuis', $data);
         } else {
             $kode = $this->request->getPost('kode');
 
             $model = new KuisSoalJawaban_Model();
             $kuis = $model->getByCode($kode);
-            // dd($kuis);
             $data = [
                 'data'      => $kuis,
                 'active'    => 'kuis_edit',
             ];
-            return view('admin/edit_kuis', $data);
+            return view('admin/edit_soal_kuis', $data);
         }
     }
 
     public function edit_jawaban()
     {
-        dd($_POST);
+        $id = $this->request->getPost('id');
+        $jawaban = $this->request->getPost('edit_jawaban');
+
+        $model = new Kuis_Model();
+
+        try {
+            $model->db->table('kuis_soal_jawaban')
+                ->set('jawaban', $jawaban)
+                ->where('id', $id)
+                ->update();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Edit jawaban sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        } catch (Throwable $th) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Edit jawaban gagal!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
+    }
+
+    public function hapus_kuis($kode)
+    {
+        function removedir($path)
+        {
+            $files = glob($path . '/*');
+            foreach ($files as $file) {
+                is_dir($file) ? removedir($file) : unlink($file);
+            }
+            rmdir($path);
+        }
+
+        $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
+
+        if (is_dir($path)) {
+            removedir($path);
+        }
+
+        $model = new Kuis_Model();
+
+        try {
+            $model->db->table('kuis')
+                ->where('kode_kuis', $kode)
+                ->delete();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hapus kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
+    }
+
+    public function kuis_jadwal()
+    {
+        $model = new Jadwal_Model();
+
+        $kuis = $model->getByJenis('3');
+
+        $class = array();
+        $i = 0;
+
+        $model = new Kelas_Model;
+        foreach ($kuis as $id) {
+            $cls = $model->getByid($id['kode_kelas']);
+            $kelas = $cls[0]['nama'];
+            $class[$i] = $kelas;
+            $i++;
+        }
+
+        $kelas = $model->findAll();
+
+        $code = array();
+        $i = 0;
+
+        $model = new Kuis_Model;
+        foreach ($kuis as $id) {
+            $cd = $model->getByMateri($id['title']);
+            $kode = $cd[0]['kode_kuis'];
+            $code[$i] = $kode;
+            $i++;
+        }
+
+        $kode = $model->findAll();
+
+        $data = [
+            'kelas'         => $class,
+            'kode'          => $code,
+            'data'          => $kuis,
+            'list_kelas'    => $kelas,
+            'list_materi'   => $kode,
+            'active'        => 'kuis_jadwal',
+        ];
+        return view('admin/jadwal_kuis', $data);
+    }
+
+    public function add_jadwal_kuis()
+    {
+        $id_kelas = $this->request->getPost('kelas');
+        $materi = $this->request->getPost('materi');
+        $start = new Time($this->request->getPost('datetime'));
+        $end = new Time($start . ' + 23 Hours 59 Minutes');
+
+        try {
+            $model = new Jadwal_Model();
+
+            $data = [
+                'title'         => $materi,
+                'kode_kelas'    => $id_kelas,
+                'start_event'   => $start,
+                'end_event'     => $end,
+                'jenis'         => 3,
+                'class_name'    => 'important',
+                'allDay'        => 1,
+            ];
+            $model->insert($data);
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+
+            return redirect()->back();
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
+    }
+
+    public function hapus_jadwal($id)
+    {
+        $model = new Jadwal_Model();
+
+        try {
+            $model->db->table('events')
+                ->where('id', $id)
+                ->delete();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hapus kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penghapusan jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
+    }
+
+    public function edit_jadwal_kuis()
+    {
+        $id = $this->request->getPost('id');
+        $datetime = $this->request->getPost('datetime');
+
+        $model = new Jadwal_Model();
+
+        try {
+            $model->set('datetime', $datetime)
+                ->where('id', $id)
+                ->update();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Edit jadwal kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Edit jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
     }
 }
