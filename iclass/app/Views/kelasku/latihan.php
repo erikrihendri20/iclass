@@ -42,7 +42,7 @@
             </div>
 
             <div class="modal-body d-flex justify-content-center align-text-center">
-                <img src="<?= base_url() ?>/img/Mind Map/ALJABAR.jpg" alt="Mind Mapping" class="img-fluid img-thumbnail">
+                <img id="imgMindMap" src="<?= base_url() ?>/img/Mind Map/ALJABAR.jpg" alt="Mind Mapping" class="img-fluid img-thumbnail">
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
     }
 
     function materi(id) {
-        <?php header('Content-type: application/json'); ?>
+           <?php header('Content-type: application/json'); ?>
         $.ajax({
             url: "<?= base_url('kelasku/get_latihan') ?>/" + id,
             type: 'GET',
@@ -69,6 +69,7 @@
                 for (var i = 0; i < data.length; i++) {
                     $('#latihan').append("<a class='btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded' href='<?= base_url('kelasku/view_pdf/') ?>/" + data[i]['pdf_path'] + "'> Latihan dan Pembahasan " + (i + 1) + " </a>");
                 }
+                document.getElementById('imgMindMap').src="<?= base_url() ?>/img/Mind Map/" + id + ".jpg";
             }
         });
     }
