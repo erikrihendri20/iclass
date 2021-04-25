@@ -287,13 +287,31 @@ class Kelasku extends BaseController
         if (isset($count['kosong']))
             $kosong = $count['kosong'];
         else
-            $kosong = '0';
+            $kosong = 0;
 
         $skor = [
             'skor'  => $benar * 4,
             'max'   => $jumlah * 4
         ];
         $pass_grade = $skor['skor'] / $skor['max'] * 100;
+
+        $model = new Kuis_Model();
+        $kuis = $model->getByCode(session('kode_kuis'));
+
+        $model = new Jadwal_Model();
+        $event = $model->getKuis($kuis[0]['materi'], session('kode-kelas'));
+
+        $data = [
+            'kuis_id'           => $kuis[0]['id'],
+            'events_id'         => $event[0]['id'],
+            'users_id'          => session('id'),
+            'jawaban_benar'     => $benar,
+            'jawaban_salah'     => $salah,
+            'jawaban_kosong'    => $kosong,
+            'jawaban_jumlah'    => $jumlah,
+            'skor'              => $skor['skor'],
+        ];
+        $model->db->table('kuis_hasil')->insert($data);
 
         $data = [
             'active'        => 'kelasku',

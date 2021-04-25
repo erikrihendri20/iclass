@@ -22,4 +22,16 @@ class Latihan_Model extends Model
         $this->builder()->where('materi', $id);
         return $this->builder()->get()->getResultArray();
     }
+
+    public function getById($id)
+    {
+        $this->builder()->where('id', $id);
+        return $this->builder()->get()->getResultArray();
+    }
+
+    public function getSpecific($name, $id)
+    {
+        $this->builder()->where('materi', $name)->where('pdf_path', $id);
+        return $this->builder()->get()->getResultArray();
+    }
 }

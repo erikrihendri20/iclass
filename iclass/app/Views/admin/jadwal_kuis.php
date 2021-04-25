@@ -12,7 +12,7 @@
 
 
         <div class="col d-flex justify-content-end">
-          <a href="<?= base_url('admin/kuis_soal') ?>" class="btn btn-sm btn-outline-primary btn-user" data-toggle="modal" data-target="#tambah_jadwal">
+          <a class="btn btn-sm btn-outline-primary btn-user" data-toggle="modal" data-target="#tambah_jadwal">
             tambah jadwal
           </a>
         </div>

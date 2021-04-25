@@ -1,8 +1,7 @@
 <?= $this->extend('templates/admin/index'); ?>
 <?= $this->section('content'); ?>
-<?php if (session('flash')) : ?>
-    <?= session('flash'); ?>
-<?php endif; ?>
+<?= session()->flash; ?>
+
 <?php $validation = service('validation') ?>
 
 <div class="content-wrapper">

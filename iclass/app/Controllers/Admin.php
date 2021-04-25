@@ -10,6 +10,7 @@ use App\Models\Rekaman_Model;
 use App\Models\Paket_Model;
 use App\Models\Kuis_Model;
 use App\Models\KuisSoalJawaban_Model;
+use App\Models\Latihan_Model;
 
 class Admin extends BaseController
 {
@@ -512,7 +513,7 @@ class Admin extends BaseController
                             </button>
                         </div>';
                         session()->setFlashdata('flash', $flash);
-                        return redirect()->back();
+                        return redirect()->to(base_url('admin/kuis_soal'));
                     }
 
                     $data = [
@@ -534,7 +535,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->back();
+                return redirect()->to(base_url('admin/kuis_soal'));
             } else {
                 $check = $model->getByCode($kode);
                 if ($check == NULL) {
@@ -545,7 +546,7 @@ class Admin extends BaseController
                         </button>
                     </div>';
                     session()->setFlashdata('flash', $flash);
-                    return redirect()->back();
+                    return redirect()->to(base_url('admin/kuis_soal'));
                 } else {
                     $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
                     $path = $path . '/soal';
@@ -572,7 +573,7 @@ class Admin extends BaseController
                         </button>
                     </div>';
                     session()->setFlashdata('flash', $flash);
-                    return redirect()->back();
+                    return redirect()->to(base_url('admin/kuis_soal'));
                 }
             }
         } else {
@@ -583,7 +584,7 @@ class Admin extends BaseController
 				</button>
 			</div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back()->withInput();
+            return redirect()->to(base_url('admin/kuis_soal'))->withInput();
         }
     }
 
@@ -661,7 +662,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->back();
+                return redirect()->to(base_url('admin/kuis_pembahasan'));
             } else {
                 foreach ($imagefile as $img) {
 
@@ -676,7 +677,7 @@ class Admin extends BaseController
                             </button>
                         </div>';
                         session()->setFlashdata('flash', $flash);
-                        return redirect()->back();
+                        return redirect()->to(base_url('admin/kuis_pembahasan'));
                     } else {
                         if ($check[0]['pembahasan'] == NULL) {
                             $model->db->table('kuis_soal_jawaban')
@@ -686,13 +687,13 @@ class Admin extends BaseController
                             $img->move($path);
                         } else {
                             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia. Apabila anda akan mengeditnya, mohon melalui <a href="' . base_url('admin/edit_kuis') . '">edit kuis</a>.
+                                <strong>Upload gagal!</strong> pembahasan untuk no ' . $no . ' sudah tersedia.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>';
                             session()->setFlashdata('flash', $flash);
-                            return redirect()->back()->withInput();
+                            return redirect()->to(base_url('admin/kuis_pembahasan'))->withInput();
                         }
                     }
                 }
@@ -703,7 +704,7 @@ class Admin extends BaseController
                                 </button>
                             </div>';
                 session()->setFlashdata('flash', $flash);
-                return redirect()->back();
+                return redirect()->to(base_url('admin/kuis_pembahasan'));
                 die();
             }
         } else {
@@ -714,7 +715,7 @@ class Admin extends BaseController
 				</button>
 			</div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back()->withInput();
+            return redirect()->to(base_url('admin/kuis_pembahasan'))->withInput();
         }
     }
 
@@ -762,7 +763,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/edit_soal_kuis'));
         } catch (Throwable $th) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Edit jawaban gagal!</strong>
@@ -771,7 +772,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/edit_soal_kuis'));
         }
     }
 
@@ -806,7 +807,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/edit_soal_kuis'));
         } catch (Throwable $e) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis gagal!</strong> (' . $e . '
@@ -815,7 +816,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/edit_soal_kuis'));
         }
     }
 
@@ -891,7 +892,7 @@ class Admin extends BaseController
                 </div>';
             session()->setFlashdata('flash', $flash);
 
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
         } catch (Throwable $e) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis gagal!</strong> (' . $e . '
@@ -900,7 +901,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
         }
     }
 
@@ -920,7 +921,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
         } catch (Throwable $e) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Penghapusan jadwal kuis gagal!</strong> (' . $e . '
@@ -929,7 +930,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
         }
     }
 
@@ -954,7 +955,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
         } catch (Throwable $e) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Edit jadwal kuis gagal!</strong> (' . $e . '
@@ -963,7 +964,192 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->back();
+            return redirect()->to(base_url('admin/kuis_jadwal'));
+        }
+    }
+
+    public function latihan()
+    {
+
+        $model = new Latihan_Model();
+        $materi = $model->getMateri('materi');
+
+        $latihan = array();
+        $i = 0;
+        foreach ($materi as $mt) {
+            $model = new Latihan_Model();
+            $result = $model->getByMateri($mt['materi']);
+            $latihan[$i] = $result;
+            $i++;
+        }
+
+        $data = [
+            // 'materi'    => $materi,
+            'latihan'   => $latihan,
+            'active'    => 'latihan',
+        ];
+
+        // dd($data);
+        return view('admin/latihan', $data);
+    }
+
+    public function view_pdf($file)
+    {
+        if (is_file(ROOTPATH . "/../public_html/latihan/" . $file)) {
+            $data = [
+                'file'      => $file,
+                'active'    => 'latihan',
+            ];
+            return view('admin/view_latihan', $data);
+        } else {
+            $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
+                    <strong>File tidak ada!</strong> hubungi admin untuk informasi lebih lanjut.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+
+            $model = new Latihan_Model();
+            $latihan = $model->findAll();
+            $data = [
+                'data'      => $latihan,
+                'active'    => 'latihan',
+            ];
+            return view('admin/view_latihan', $data);
+        }
+    }
+
+    public function hapus_latihan($id)
+    {
+        $model = new Latihan_Model();
+
+        try {
+            $latihan = $model->getById($id);
+            $path = ROOTPATH . "/../public_html/latihan/" . $latihan[0]['pdf_path'];
+
+            if (is_file($path)) {
+                unlink($path);
+            }
+
+            $model->where('id', $id)
+                ->delete();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hapus latihan sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/latihan'));
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hapus latihan gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/latihan'));
+        }
+    }
+
+    public function hapus_materi($id)
+    {
+        $model = new Latihan_Model();
+
+        try {
+            $latihan = $model->getByMateri($id);
+            foreach ($latihan as $lt) {
+                $path = ROOTPATH . "/../public_html/latihan/" . $lt['pdf_path'];
+
+                if (is_file($path)) {
+                    unlink($path);
+                }
+            }
+
+            $model->where('materi', $id)
+                ->delete();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hapus latihan sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/latihan'));
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hapus latihan gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/latihan'));
+        }
+    }
+
+    public function add_latihan()
+    {
+
+        $rules = [
+            'materi' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'Nama harus diisi',
+                ]
+            ],
+            'file' => 'uploaded[file]|mime_in[file,application/pdf]'
+        ];
+
+        if ($this->validate($rules)) {
+            $materi = $this->request->getPost('materi');
+            $file = $this->request->getFile('file');
+
+            $model = new Latihan_Model();
+
+            $path = ROOTPATH . "/../public_html/latihan";
+
+            $check = $model->getSpecific($materi, $file);
+
+            if ($check == NULL) {
+                $data = [
+                    'materi'        => $materi,
+                    'pdf_path'      => $file->getName()
+                ];
+                $model->db->table('latihan')->insert($data);
+                $file->move($path);
+
+                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to(base_url('admin/latihan'));
+            } else {
+                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Upload gagal!</strong> latihan sudah ada atau nama file sama.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to(base_url('admin/latihan'));
+            }
+        } else {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Upload gagal!</strong> format input salah.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/latihan'))->withInput();
         }
     }
 }

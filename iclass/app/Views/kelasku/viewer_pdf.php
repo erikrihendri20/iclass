@@ -7,31 +7,4 @@
         <h2 class="text-center"><a href="<?= base_url() . "/latihan/" . $file ?>">di sini!</a></h2>
     </object>
 </div>
-
-<script>
-    function bukaMindMap() {
-        $('#mindMap').modal('show');
-    }
-
-    function tutupMindMap() {
-        $('#mindMap').modal('hide');
-    }
-
-    function clicked(a, b) {
-        $('.materi').removeClass('btn-secondary');
-        $('.materi').removeClass('btn-light');
-
-        $('.materi').addClass('btn-light');
-        $('#' + a).removeClass('btn-light');
-        $('#' + a).addClass('btn-secondary');
-
-        $('.soal').removeClass('btn-warning');
-        $('.soal').removeClass('btn-primary');
-
-        $('.soal').addClass('btn-primary');
-        $('#' + b).removeClass('btn-primary');
-        $('#' + b).addClass('btn-warning');
-
-    }
-</script>
 <?= $this->endSection(); ?>

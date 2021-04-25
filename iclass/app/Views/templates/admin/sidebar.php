@@ -131,6 +131,22 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
     <!-- Heading -->
     <div class="sidebar-heading">
+        Latihan
+    </div>
+
+    <!-- Nav Item - My-profile -->
+    <li class="nav-item <?= ($active == 'latihan') ? 'active' :  ' '; ?>">
+        <a class="nav-link" href="<?= base_url(); ?>/admin/latihan">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Latihan</span></a>
+    </li>
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
         Jadwal
     </div>
 
