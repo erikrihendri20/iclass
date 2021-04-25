@@ -6,13 +6,25 @@ use App\Models\Materi_Model;
 use App\Models\Users_Model;
 use App\Models\Kelas_Model;
 use App\Models\Paket_Model;
+use App\Models\Jadwal_Model;
+use App\Models\Kuis_Model;
 
 class Peserta extends BaseController
 {
 	public function index()
 	{
-		$data['css'] = 'peserta/index.css';
-		$data['active'] = 'beranda';
+		$model = new Jadwal_Model;
+		$kuis = $model->getClosestEvents(session('kode-kelas'), '3');
+
+		$model = new Kuis_Model;
+		$kuis = $model->getByMateri($kuis[0]['title']);
+
+		$data = [
+			'code'		=> $kuis[0]['kode_kuis'],
+			'css'		=> 'peserta/index.css',
+			'active'	=> 'beranda'
+		];
+
 		return view('peserta/index', $data);
 	}
 

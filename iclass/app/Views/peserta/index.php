@@ -42,13 +42,13 @@
                 <div class="col d-flex justify-content-center mb-1">
                     <div class="card align-self-start d-flex bg-light" style="width: 20rem; height: 33rem;">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Latihan</h1>
-                            <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Latihan Soal.png" alt="zoom">
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Kuis</h1>
+                            <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Kuis.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
                                 <h1 class="font-weight-bold text-primary">-01:50</h1>
                                 <h3 class="font-weight-bold text-primary">Menit</h3>
                             </div>
-                            <a href="#" class="btn card-link bg-primary text-white font-weight-bold">Link Latihan Soal</a>
+                            <a href="<?= base_url('kelasku/kuis_kode?code=' . $code) ?>" class="btn card-link bg-primary text-white font-weight-bold">Link Kuis</a>
                         </div>
                     </div>
                 </div>

@@ -19,9 +19,17 @@
                 <input type="hidden" name="no_kuis" value="0">
             </div>
             <div class="text-center mx-5 my-3">
-                <button type="submit" name="submit" class="btn btn-primary align-self-center mx-1">Submit</button>
+                <button type="submit" name="submit" id="submit" class="btn btn-primary align-self-center mx-1">Submit</button>
             </div>
         </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<?php if (isset($_GET['code'])) : ?>
+    <script>
+        $('#kode_kuis').val('<?= $_GET['code'] ?>');
+        $("#submit").click();
+    </script>
+<?php endif; ?>
 <?= $this->endSection(); ?>

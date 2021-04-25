@@ -125,15 +125,20 @@ class Kelasku extends BaseController
                 }
             }
         }
+        // if ($_GET['code'] != NULL) {
+        //     $data = [
+        //         'code'      => $_GET['code'],
+        //         'active'    => 'kelasku'
+        //     ];
+        //     return view('kelasku/kuis_kode', $data);
+        // }
 
         // Jika sudah pernah mengisi kode kuis dan kuis belum selesai, maka diarahkan ke soal
         if (session('kode_kuis') != NULL) {
             return redirect()->to(base_url('kelasku/kuis_soal'));
         }
 
-        $data = [
-            'active'    => 'kelasku',
-        ];
+        $data['active'] = 'kelasku';
         return view('kelasku/kuis_kode', $data);
     }
 
