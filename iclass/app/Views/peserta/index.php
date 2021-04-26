@@ -63,88 +63,96 @@
 
         <!-- Carousel -->
         <div id="carouselExampleControls" class="carousel slide my-5" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col">
-                            <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
-                        </div>
-                        <div class="col">
-                            <h1 class="text-primary">Microblog</h1>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
-                            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
+            <div class="row">
+                <div class="col-xl-1 col-md-0 bg-secondary d-md-none d-xl-block">
+                    <a class="carousel-control-prev w-100" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </div>
+                <div class="col-xl-10 col-md-12">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
+                                </div>
+                                <div class="col">
+                                    <h1 class="text-primary">Microblog</h1>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
+                                    </div>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
+                                </div>
+                                <div class="col">
+                                    <h1 class="text-primary">Microblog</h1>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
+                                    </div>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
+                                </div>
+                                <div class="col">
+                                    <h1 class="text-primary">Microblog</h1>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
+                                    </div>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
+                                </div>
+                                <div class="col">
+                                    <h1 class="text-primary">Microblog</h1>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
+                                    </div>
+                                    <div class="my-2">
+                                        <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col">
-                            <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
-                        </div>
-                        <div class="col">
-                            <h1 class="text-primary">Microblog</h1>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
-                            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
-                            </div>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col">
-                            <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
-                        </div>
-                        <div class="col">
-                            <h1 class="text-primary">Microblog</h1>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
-                            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
-                            </div>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col">
-                            <img class="d-block w-100" src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="First slide">
-                        </div>
-                        <div class="col">
-                            <h1 class="text-primary">Microblog</h1>
-                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum nam pariatur architecto. Dolorem neque, est recusandae laborum earum nobis ut voluptate reiciendis.</p>
-                            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum culpa voluptatem consectetur molestias nesciunt delectus reprehenderit</p>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Selengkapnya</a>
-                            </div>
-                            <div class="my-2">
-                                <a href="#" class="btn btn-primary card-link w-50">Lebih Banyak</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xl-1 col-md-0 bg-secondary d-md-none d-xl-block">
+                    <a class="carousel-control-next w-100" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
     </div>
 </div>
