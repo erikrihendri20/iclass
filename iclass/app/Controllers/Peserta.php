@@ -14,13 +14,30 @@ class Peserta extends BaseController
 	public function index()
 	{
 		$model = new Jadwal_Model;
-		$kuis = $model->getClosestEvents(session('kode-kelas'), '3');
+		$event = $model->getClosestEvents(session('kode-kelas'), '3');
 
-		$model = new Kuis_Model;
-		$kuis = $model->getByMateri($kuis[0]['title']);
+		if (count($event) > 0) {
+			$model = new Kuis_Model;
+			$kuis = $model->getByMateri($event[0]['title']);
 
+			$code = $kuis[0]['kode_kuis'];
+			$end = '0';
+
+			date_default_timezone_set("Asia/Bangkok");
+			$now = date("Y-m-d H:i:s");
+
+			if (count($event) > 1) {
+				$end = strtotime($event[1]['start_event']) - strtotime($now);
+			} else {
+				$end = strtotime($event[0]['end_event']) - strtotime($now);
+			}
+		} else {
+			$code = "";
+			$end = '0';
+		}
 		$data = [
-			'code'		=> $kuis[0]['kode_kuis'],
+			'end'		=> $end,
+			'code'		=> $code,
 			'css'		=> 'peserta/index.css',
 			'active'	=> 'beranda'
 		];

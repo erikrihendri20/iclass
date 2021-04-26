@@ -3960,6 +3960,7 @@ function AgendaEventRenderer() {
 		var url = event.url;
 		var skinCss = getSkinCss(event, opt);
 		var classes = ['fc-event', 'fc-event-vert'];
+
 		if (isEventDraggable(event)) {
 			classes.push('fc-event-draggable');
 		}
@@ -3977,7 +3978,7 @@ function AgendaEventRenderer() {
             if (event.className[0] != "important")
 			    html += "a href='" + htmlEscape(event.url) + "'";
             else
-                html += "a href='" + htmlEscape('kuis_kode') + "'";
+                html += "a href='" + htmlEscape('kuis_kode') + "?materi=" + event.title + "'";
 		}else{
 			html += "div";
 		}
@@ -5343,7 +5344,7 @@ function DayEventRenderer() {
             if (event.className[0] != "important")
 			    html += "<a href='" + htmlEscape(url) + "'";
             else
-                html += "<a href='" + htmlEscape('kuis_kode') + "'";
+                html += "<a href='" + htmlEscape('kuis_kode') + "?materi=" + event.title + "'";
 		}else{
 			html += "<div";
 		}

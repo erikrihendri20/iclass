@@ -45,7 +45,7 @@ class Jadwal_Model extends Model
 
     public function getClosestEvents($class, $event)
     {
-        $query = "SELECT * FROM events WHERE `kode_kelas` = '$class' AND `jenis` = '$event' AND `end_event` > NOW() ORDER BY `start_event` LIMIT 1";
+        $query = "SELECT * FROM events WHERE `kode_kelas` = '$class' AND `jenis` = '$event' AND `end_event` > NOW() ORDER BY `start_event` LIMIT 2";
         return $this->db->query($query)->getResultArray();
     }
 }

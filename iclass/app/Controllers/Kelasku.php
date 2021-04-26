@@ -57,6 +57,13 @@ class Kelasku extends BaseController
         // dd($_SESSION);
         // session()->remove('kode_kuis');
 
+        if (isset($_GET['materi'])) {
+            $model = new Kuis_Model;
+            $kuis = $model->getByMateri($_GET['materi']);
+
+            return redirect()->to(base_url('kelasku/kuis_kode?code=' . $kuis[0]['kode_kuis']));
+        }
+
         // Pengecekan kode kuis
         if ($this->request->getPost('kode_kuis') != null) {
             $kode = $this->request->getPost('kode_kuis');
@@ -125,13 +132,6 @@ class Kelasku extends BaseController
                 }
             }
         }
-        // if ($_GET['code'] != NULL) {
-        //     $data = [
-        //         'code'      => $_GET['code'],
-        //         'active'    => 'kelasku'
-        //     ];
-        //     return view('kelasku/kuis_kode', $data);
-        // }
 
         // Jika sudah pernah mengisi kode kuis dan kuis belum selesai, maka diarahkan ke soal
         if (session('kode_kuis') != NULL) {

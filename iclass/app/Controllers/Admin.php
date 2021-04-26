@@ -873,6 +873,19 @@ class Admin extends BaseController
         try {
             $model = new Jadwal_Model();
 
+            $check = $model->getKuis($materi, $id_kelas);
+            if ($check != NULL) {
+                $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis gagal!</strong> jadwal kuis ' . $materi . ' untuk kelas tersebut sudah ada.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                session()->setFlashdata('flash', $flash);
+
+                return redirect()->to(base_url('admin/kuis_jadwal'));
+            }
+
             $data = [
                 'title'         => $materi,
                 'kode_kelas'    => $id_kelas,
