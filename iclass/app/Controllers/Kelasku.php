@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
 use App\Models\Kuis_Model;
+use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 use App\Models\Latihan_Model;
@@ -91,44 +92,59 @@ class Kelasku extends BaseController
                 $model = new Jadwal_Model();
                 $kuis = $model->getKuis($kuis[0]['materi'], session('kode-kelas'));
 
-                if ($kuis == NULL) {
-                    $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
-                        <strong>Jadwal kuis belum terdaftar!</strong> hubungi admin untuk informasi lebih lanjut.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>';
+                $model = new KuisHasil_Model();
 
-                    session()->setFlashdata('flash', $flash);
-                } else {
-                    date_default_timezone_set("Asia/Bangkok");
-                    $now = date("Y-m-d H:i:s");
+                $check = $model->getHasil($kuis[0]['id'], session('id'));
+                // dd($check);
+                if ($check == NULL) {
+                    if ($kuis == NULL) {
+                        $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
+                            <strong>Jadwal kuis belum terdaftar!</strong> hubungi admin untuk informasi lebih lanjut.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
 
-                    if (strtotime($now) > strtotime($kuis[0]['start_event'])) {
-                        if (strtotime($now) < strtotime($kuis[0]['end_event'])) {
-                            session()->set([
-                                'kode_kuis' => $this->request->getPost('kode_kuis'),
-                            ]);
+                        session()->setFlashdata('flash', $flash);
+                    } else {
+                        date_default_timezone_set("Asia/Bangkok");
+                        $now = date("Y-m-d H:i:s");
+
+                        if (strtotime($now) > strtotime($kuis[0]['start_event'])) {
+                            if (strtotime($now) < strtotime($kuis[0]['end_event'])) {
+                                session()->set([
+                                    'kode_kuis' => $this->request->getPost('kode_kuis'),
+                                ]);
+                            } else {
+                                $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
+                                    <strong>Jadwal kuis telah melewati batas!</strong> hubungi admin untuk informasi lebih lanjut.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
+
+                                session()->setFlashdata('flash', $flash);
+                            }
                         } else {
-                            $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
-                                <strong>Jadwal kuis telah melewati batas!</strong> hubungi admin untuk informasi lebih lanjut.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>';
+                            $flash = '<div class="alert alert-warning alert-dismissible fade show w-50 mx-auto" role="alert">
+                                    <strong>Jadwal kuis belum dimulai!</strong> hubungi admin untuk informasi lebih lanjut.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
 
                             session()->setFlashdata('flash', $flash);
                         }
-                    } else {
-                        $flash = '<div class="alert alert-warning alert-dismissible fade show w-50 mx-auto" role="alert">
-                                <strong>Jadwal kuis belum dimulai!</strong> hubungi admin untuk informasi lebih lanjut.
+                    }
+                } else {
+                    $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
+                                <strong>Gagal memasuki kuis!</strong> anda sudah pernah mengerjakan kuis tersebut.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>';
 
-                        session()->setFlashdata('flash', $flash);
-                    }
+                    session()->setFlashdata('flash', $flash);
                 }
             }
         }
