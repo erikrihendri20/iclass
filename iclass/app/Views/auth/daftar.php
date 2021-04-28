@@ -27,9 +27,19 @@
                     <div class="form-group">
                         <label for="kode-paket" class="text-primary">Pilih Paket</label>
                         <select class="form-control <?= ($validation->hasError('kode-paket')) ? 'is-invalid' : '' ?>" name="kode-paket" id="kode-paket">
-                            <?php foreach ($paket as $p) :?>
-                            <option value="<?= $p['id']; ?>" <?php if (old('kode-paket') == $p['id']) echo 'selected' ?>><?= $p['nama']; ?></option>
-                            <?php endforeach; ?>
+                            <?php if(old('kode-paket')!=null): ?>
+                                <?php foreach ($paket as $p) :?>
+                                    <option value="<?= $p['id']; ?>" <?php if (old('kode-paket') == $p['id']) echo 'selected' ?>><?= $p['nama']; ?></option>
+                                <?php endforeach; ?>
+                            <?php elseif($pilihPaket!=null): ?>
+                                <?php foreach ($paket as $p) :?>
+                                    <option value="<?= $p['id']; ?>" <?php if ($pilihPaket == $p['id']) echo 'selected' ?>><?= $p['nama']; ?></option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php foreach ($paket as $p) :?>
+                                    <option value="<?= $p['id']; ?>"><?= $p['nama']; ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </select>
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('kode-paket'); ?>

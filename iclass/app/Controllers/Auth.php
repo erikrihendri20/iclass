@@ -285,6 +285,7 @@ class Auth extends BaseController
             dd($this->request->getVar());
         }
         $data['active'] = 'daftar';
+        $data['pilihPaket'] = $this->request->getGet('paket');
         $data['css'] = 'auth/daftar.css';
         $paket_model = new Paket_model();
         $data['paket'] = $paket_model->findAll();

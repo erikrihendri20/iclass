@@ -72,7 +72,7 @@
                             <p class="my-0"><span class="check-reguler">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-primary">199rb</h5>
-                        <a href="#" class="btn btn-warning card-link">Daftar Sekarang</a>
+                        <a href="daftar?paket=1" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                             <p class="my-0"><span class="check-premium-plus">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-center">279rb</h5>
-                        <a href="#" class="btn btn-warning card-link align-self-center">Daftar Sekarang</a>
+                        <a href="daftar?paket=3" class="btn btn-warning card-link align-self-center">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                             <p class="my-0"><span class="check-premium">&#10003;</span> Tentor berpengalaman</p>
                         </div>
                         <h5 class="text-primary">259rb</h5>
-                        <a href="#" class="btn btn-warning card-link">Daftar Sekarang</a>
+                        <a href="daftar?paket=2" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
