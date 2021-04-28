@@ -19,23 +19,35 @@
                             <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Zoom</h1>
                             <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
-                                <h1 class="font-weight-bold text-primary">H-4</h1>
+                                <h1 class="font-weight-bold text-primary">
+                                    <?php if($meetingDate!=null) :?>
+                                    <?php 
+                                        $tanggal1 = date('d');
+                                        $tanggal2 = date('d',strtotime($meetingDate['start_event']));
+                                        $selisih = $tanggal2-$tanggal1;
+                                        echo 'H-' . $selisih;
+                                    ?>
+                                    <?php else: echo '-'?>
+                                    <?php endif ?>
+                                    </h1>
                                 <h3 class="font-weight-bold text-primary">Zoom</h3>
                             </div>
-                            <a href="#" class="btn card-link bg-primary text-white font-weight-bold">Link Zoom</a>
+                            <?php if($meetingDate!=null) :?>
+                                <a href="<?= $meetingDate['link-meeting']; ?>" class="btn card-link bg-primary text-white font-weight-bold">link zoom</a>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
                 <div class="col d-flex justify-content-center mb-1">
                     <div class="card align-self-start d-flex bg-primary" style="width: 20rem; height: 33rem;">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Try Out</h1>
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Zoom</h1>
                             <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Try Out.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
                                 <h1 class="font-weight-bold text-primary">H-24</h1>
                                 <h3 class="font-weight-bold text-primary">Zoom</h3>
                             </div>
-                            <a href="#" class="btn card-link bg-warning text-white font-weight-bold">Link Try Out</a>
+                            <a  class="btn card-link bg-warning text-white font-weight-bold">Link Try Out</a>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,14 @@ class Peserta extends BaseController
 			'css'		=> 'peserta/index.css',
 			'active'	=> 'beranda'
 		];
-
+		$userModel = new Users_Model();
+		$user = $userModel->find(session('id'));
+		$meetingDate = $model->getJadwalMeeting($user['kode_kelas']);
+		if($meetingDate!=null){
+			$data['meetingDate'] = $meetingDate[0];
+		}else{
+			$data['meetingDate'] = null;
+		}
 		return view('peserta/index', $data);
 	}
 

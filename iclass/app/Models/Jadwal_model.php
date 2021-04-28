@@ -48,4 +48,16 @@ class Jadwal_Model extends Model
         $query = "SELECT * FROM events WHERE `kode_kelas` = '$class' AND `jenis` = '$event' AND `end_event` > NOW() ORDER BY `start_event` LIMIT 2";
         return $this->db->query($query)->getResultArray();
     }
+
+    public function getJadwalMeeting($kode_kelas=null)
+    {
+        if($kode_kelas!=null){
+            $this->builder()->join('kelas','kelas.id=kode_kelas');
+            $this->builder()->where('kode_kelas',$kode_kelas);
+            $this->builder()->where('jenis',1);
+            $this->builder()->where('start_event>=',$now = date("Y-m-d"));
+            $this->builder()->orderBy('start_event');
+            return $this->builder()->get()->getResultArray();
+        }
+    }
 }
