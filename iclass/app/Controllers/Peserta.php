@@ -43,7 +43,8 @@ class Peserta extends BaseController
 		];
 		$userModel = new Users_Model();
 		$user = $userModel->find(session('id'));
-		$meetingDate = $model->getJadwalMeeting($user['kode_kelas']);
+		$jadwalModel = new Jadwal_Model;
+		$meetingDate = $jadwalModel->getJadwalMeeting($user['kode_kelas']);
 		if($meetingDate!=null){
 			$data['meetingDate'] = $meetingDate[0];
 		}else{
