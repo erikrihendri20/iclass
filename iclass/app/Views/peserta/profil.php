@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="content mb-0">
     <div class="mx-5 pt-5 border rounded">
-        <form class="w-75 mx-auto">
+        <form class="w-75 pb-5 mx-auto">
             <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
 
             <div class="form-group">
@@ -33,10 +33,10 @@
                 <label class="text-primary font-weight-bold" for="whatsapp">No WhatsApps</label>
                 <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="<?= $no_wa; ?>" readonly>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="text-primary font-weight-bold" for="pass">Password</label>
                 <input type="text" class="form-control" id="pass" name="pass" value="<?= $password; ?>" readonly>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>

@@ -45,9 +45,9 @@ class Peserta extends BaseController
 		$user = $userModel->find(session('id'));
 		$jadwalModel = new Jadwal_Model;
 		$meetingDate = $jadwalModel->getJadwalMeeting($user['kode_kelas']);
-		if($meetingDate!=null){
+		if ($meetingDate != null) {
 			$data['meetingDate'] = $meetingDate[0];
-		}else{
+		} else {
 			$data['meetingDate'] = null;
 		}
 		return view('peserta/index', $data);
@@ -87,6 +87,7 @@ class Peserta extends BaseController
 	public function edit()
 	{
 		$model = new Users_Model;
+		$paket_model = new Paket_Model();
 		$user = $model->getByUserName(session('username'));
 
 		if (session('flash') != null) {
@@ -115,6 +116,8 @@ class Peserta extends BaseController
 			session()->setFlashdata('flash', $flash);
 		}
 
+		$paket = $paket_model->getById($user[0]['kode_paket']);
+
 		if ($user[0]['kode_kelas'] == "0") {
 			$kelas = "Belum ada kelas";
 		} else {
@@ -126,7 +129,7 @@ class Peserta extends BaseController
 			'nama' => $user[0]['nama'],
 			'kelas' => $kelas,
 			'jurusan' => $user[0]['jurusan'],
-			'paket' => $user[0]['kode_paket'],
+			'paket' => $paket[0]['nama'],
 			'username' => $user[0]['username'],
 			'email' => $user[0]['email'],
 			'no_wa' => $user[0]['telepon'],
@@ -156,13 +159,13 @@ class Peserta extends BaseController
 						'required' => 'Jurusan harus diisi'
 					]
 				],
-				'pilih-paket' => [
-					'label'  => 'Pilihan paket',
-					'rules'  => 'required',
-					'errors' => [
-						'required' => 'Pilihan Paket harus diisi'
-					]
-				],
+				// 'pilih-paket' => [
+				// 	'label'  => 'Pilihan paket',
+				// 	'rules'  => 'required',
+				// 	'errors' => [
+				// 		'required' => 'Pilihan Paket harus diisi'
+				// 	]
+				// ],
 				'telepon' => [
 					'label'  => 'Nomor Whatsapp',
 					'rules'  => 'required|numeric',
@@ -231,7 +234,7 @@ class Peserta extends BaseController
 					$user = [
 						'nama' => $this->request->getPost('nama'),
 						'jurusan' => $this->request->getPost('jurusan'),
-						'pilih-paket' => $this->request->getPost('pilih-paket'),
+						// 'pilih-paket' => $this->request->getPost('pilih-paket'),
 						'telepon' => $this->request->getPost('telepon'),
 						'email' => $this->request->getPost('email'),
 						'username' => $this->request->getPost('username'),

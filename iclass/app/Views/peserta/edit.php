@@ -31,11 +31,13 @@
             </div>
             <div class="form-group">
                 <label class="text-primary font-weight-bold" for="pilih-paket">Pilihan Paket</label>
-                <select class="custom-select form-control <?= ($validation->hasError('pilih-paket')) ? 'is-invalid' : '' ?>" id="pilih-paket" name="pilih-paket">
+                <input type="text" class="form-control <?= ($validation->hasError('pilih-paket')) ? 'is-invalid' : '' ?>" id="pilih-paket" name="pilih-paket" value="<?= $paket; ?>" disabled="true" readonly>
+
+                <!-- <select class="custom-select form-control <?= ($validation->hasError('pilih-paket')) ? 'is-invalid' : '' ?>" id="pilih-paket" name="pilih-paket">
                     <option value="1" <?php if ($paket == 1) echo 'selected'; ?>>Paket Reguler</option>
                     <option value="2" <?php if ($paket == 2) echo 'selected'; ?>>Paket Premium</option>
                     <option value="3" <?php if ($paket == 3) echo 'selected'; ?>>Paket Premium*</option>
-                </select>
+                </select> -->
                 <div class="invalid-feedback">
                     <?= service('validation')->getError('pilih-paket'); ?>
                 </div>
@@ -70,14 +72,14 @@
             </div>
             <div class="form-group">
                 <label class="text-primary font-weight-bold" for="pass-baru">Password Baru</label>
-                <input type="password" class="form-control <?= ($validation->hasError('pass-baru')) ? 'is-invalid' : '' ?>" id="pass-baru" name="pass-baru">
+                <input type="password" class="form-control <?= ($validation->hasError('pass-baru')) ? 'is-invalid' : '' ?>" id="pass-baru" name="pass-baru" placeholder="isi jika anda akan mengganti password, kosongi jika tidak">
                 <div class="invalid-feedback">
                     <?= service('validation')->getError('pass-baru'); ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="text-primary font-weight-bold" for="pass-konfirmasi">Konfirmasi Password</label>
-                <input type="password" class="form-control <?= ($validation->hasError('pass-konfirmasi')) ? 'is-invalid' : '' ?>" id="pass-konfirmasi" name="pass-konfirmasi">
+                <input type="password" class="form-control <?= ($validation->hasError('pass-konfirmasi')) ? 'is-invalid' : '' ?>" id="pass-konfirmasi" name="pass-konfirmasi" placeholder="isi jika anda akan mengganti password, kosongi jika tidak">
                 <div class="invalid-feedback">
                     <?= service('validation')->getError('pass-konfirmasi'); ?>
                 </div>
