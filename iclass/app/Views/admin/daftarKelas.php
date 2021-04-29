@@ -5,9 +5,11 @@
   <!-- Page Heading -->
   <div class="d-flex justify-content-between">
     <h1 class="h3 mb-4 text-gray-800">Daftar Kelas</h1>
+    <?php if(session()->role==1): ?>
     <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
       + Tambah Kelas
     </button>
+    <?php endif; ?>
   </div>
 
   <?= session()->flash; ?>
@@ -78,6 +80,7 @@
     </tbody>
   </table>
 
+  <?php if(session()->role==1): ?>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -113,5 +116,7 @@
       </div>
     </div>
   </div>
+  <?php endif; ?>
+
 </div>
 <?= $this->endSection(); ?>

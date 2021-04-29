@@ -133,6 +133,8 @@ class Auth extends BaseController
                         'logadmin' => true,
                         'admin_id' => $user[0]['id'],
                         'admin_nama' => $user[0]['nama'],
+                        'role' => $user[0]['role'],
+                        'admin_status' => $user['0']['status']
                     ];
                     session()->set($data);
                     $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -165,6 +167,68 @@ class Auth extends BaseController
             }
         }
         return view('auth/masukAdmin');
+    }
+
+    public function daftarAdmin()
+    {
+        if (isset($_POST['submit'])) {
+            $rules = [
+                'nama' => [
+                    'label'  => 'Nama',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Nama harus diisi'
+                    ]
+                ],
+                'username' => [
+                    'label'  => 'Username',
+                    'rules'  => 'required|min_length[5]|is_unique[users.username]',
+                    'errors' => [
+                        'required' => 'Username harus diisi',
+                        'min_length' => 'Username harus terdiri dari 5 karakter',
+                        'is_unique' => 'Username sudah pernah digunakan',
+                    ]
+                ],
+                'password' => [
+                    'label'  => 'Password',
+                    'rules'  => 'required|min_length[8]',
+                    'errors' => [
+                        'required' => 'Password harus diisi',
+                        'min_length' => 'Password harus terdiri dari 8 karakter',
+                    ]
+                ],
+                'konfirmasi-password' => [
+                    'label'  => 'Konfirmasi password',
+                    'rules'  => 'matches[password]',
+                    'errors' => [
+                        'matches' => 'Konfirmasi password tidak cocok',
+                    ]
+                ],
+            ];
+            if ($this->validate($rules)) {
+                $model = new Admin_model();
+                $newuser = [
+                    'nama' => $this->request->getPost('nama'),
+                    'username' => $this->request->getPost('username'),
+                    'password' => $this->request->getPost('password'),
+                    'role' => 2,
+                    'status' => 0
+                ];
+                $model->save($newuser);
+                $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
+                            selesaikan pembayaran untuk mendapatkan layanan iclass
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to('masukAdmin');
+            } else {
+                return redirect()->back()->withInput();
+            }
+        }
+        return view('auth/daftarAdmin');
     }
 
     public function keluar()

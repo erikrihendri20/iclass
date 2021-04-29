@@ -11,6 +11,7 @@ use App\Models\Paket_Model;
 use App\Models\Kuis_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Latihan_Model;
+use App\Models\Admin_model;
 
 class Admin extends BaseController
 {
@@ -1190,4 +1191,39 @@ class Admin extends BaseController
             return redirect()->to(base_url('admin/latihan'))->withInput();
         }
     }
+
+    public function daftarAdmin()
+    {
+        $data['active'] = 'daftar admin';
+        return view('admin/daftarAdmin', $data);
+    }
+    
+    public function tampilkanAdmin()
+    {
+        $admin_model = new Admin_model();
+        $data['admin'] = $admin_model->findAll();
+        return view('admin/tampilkanAdmin', $data);
+    }
+
+    public function ubahStatusAdmin($id, $status)
+    {
+        $user_model = new Admin_model();
+        $user_model->update($id, ['status' => $status]);
+        $user = $user_model->find($id);
+        if ($user['status'] == 0) {
+            return '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        berhasil menonaktifkan admin ' . $user['nama'] . '
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+        }
+        return '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    berhasil mengaktifkan admin ' . $user['nama'] . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+    }
+
 }

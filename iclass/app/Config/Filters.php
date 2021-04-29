@@ -21,6 +21,7 @@ class Filters extends BaseConfig
 		'honeypot' => Honeypot::class,
 		'masuk'		=> \App\Filters\AuthFilter::class,
 		'masukadmin'		=> \App\Filters\AuthFilterAdmin::class,
+		'leveladmin'		=> \App\Filters\AuthFilterLevelAdmin::class,
 		'is_upload' => \App\Filters\AuthFilterUpload::class,
 		'is_waiting' => \App\Filters\AuthFilterWaiting::class
 	];
@@ -78,6 +79,9 @@ class Filters extends BaseConfig
 		],
 		'is_waiting' => [
 			'before' => ['auth/ruangTunggu']
+		],
+		'leveladmin' => [
+			'before' => ['admin/konfirmasiPeserta' , 'admin/daftarPeserta' , 'admin/kuis_jadwal' , 'admin/edit_soal_kuis' , 'admin/kuis_soal' , 'admin/kuis_pembahasan' , 'admin/latihan' , 'admin/aturJadwalTryout']
 		]
 	];
 }

@@ -36,23 +36,45 @@
                             <div class="col-lg">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Admin</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Daftar Pengajar</h1>
                                     </div>
+                                    <?php $validation = service('validation') ?>
                                     <?= session()->flash; ?>
-                                    <form class="user" action="<?= base_url(); ?>/auth/masukAdmin" method="POST">
+                                    <form class="user" action="<?= base_url(); ?>/auth/daftarAdmin" method="POST">
+                                        
                                         <div class="form-group">
-                                            <input name="username" type="text" class="form-control form-control-user" placeholder="Masukan Username">
+                                            <input type="text" value="<?= old('nama'); ?>" class="form-control form-control-user <?= ($validation->hasError('nama')) ? 'is-invalid' : '' ?>" id="nama" name="nama" placeholder="Nama">
+                                            <div class="invalid-feedback">
+                                                <?= service('validation')->getError('nama'); ?>
+                                            </div>
                                         </div>
+
                                         <div class="form-group">
-                                            <input name="password" type="password" class="form-control form-control-user" placeholder="Password">
+                                            <input type="text" value="<?= old('username'); ?>" class="form-control form-control-user <?= ($validation->hasError('username')) ? 'is-invalid' : '' ?>" id="username" name="username" placeholder="Username">
+                                            <div class="invalid-feedback">
+                                                <?= service('validation')->getError('username'); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user <?= ($validation->hasError('password')) ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password">
+                                            <div class="invalid-feedback">
+                                                <?= service('validation')->getError('password'); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user <?= ($validation->hasError('konfirmasi-password')) ? 'is-invalid' : '' ?>" id="konfirmasi-password" name="konfirmasi-password" placeholder="Konfirmasi Password">
+                                            <div class="invalid-feedback">
+                                                <?= service('validation')->getError('konfirmasi-password'); ?>
+                                            </div>
                                         </div>
                                         <button name="submit" class="btn btn-primary btn-user btn-block">
-                                            Masuk
+                                            Daftar
                                         </button>
-                                        <p class="d-block text-center mb-0 mt-4">Belum punya akun?</p>
-                                        <a class="d-block text-center" href="<?= base_url(); ?>/auth/daftarAdmin">Daftar</a>
+                                        <p class="d-block text-center mb-0 mt-4">Sudah punya akun?</p>
+                                        <a class="d-block text-center" href="<?= base_url(); ?>/auth/masukAdmin">Masuk</a>
                                     </form>
-                                    
                                 </div>
                             </div>
                         </div>
