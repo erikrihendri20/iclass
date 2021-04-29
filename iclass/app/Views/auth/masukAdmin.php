@@ -49,6 +49,8 @@
                                         <button name="submit" class="btn btn-primary btn-user btn-block">
                                             Masuk
                                         </button>
+                                        <p class="d-block text-center mb-0 mt-4">Belum punya akun?</p>
+                                        <a class="d-block text-center" href="<?= base_url(); ?>/auth/daftarAdmin">Daftar</a>
                                     </form>
                                     
                                 </div>

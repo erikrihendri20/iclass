@@ -72,6 +72,8 @@
                                         <button name="submit" class="btn btn-primary btn-user btn-block">
                                             Daftar
                                         </button>
+                                        <p class="d-block text-center mb-0 mt-4">Sudah punya akun?</p>
+                                        <a class="d-block text-center" href="<?= base_url(); ?>/auth/masukAdmin">Masuk</a>
                                     </form>
                                 </div>
                             </div>
