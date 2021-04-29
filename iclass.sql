@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2021 at 05:12 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.14
+-- Generation Time: Apr 29, 2021 at 10:52 AM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,15 +31,19 @@ CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` int(1) NOT NULL DEFAULT 2,
+  `status` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `nama`, `username`, `password`) VALUES
-(1, 'erik', 'erik', 'erik');
+INSERT INTO `admin` (`id`, `nama`, `username`, `password`, `role`, `status`) VALUES
+(1, 'erik', 'erik', 'erik', 1, 1),
+(2, 'pengajar1', 'pengajar1', 'pengajar1', 2, 0),
+(3, 'erikik', 'erikerik', 'erik2005', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -67,7 +71,9 @@ INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `
 (2, 'dasdsada', 1, '2021-04-01 00:00:00', '2021-04-03 00:00:00', 1, 'info', NULL),
 (3, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
 (4, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
-(5, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL);
+(5, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL),
+(6, '213123213213213213', 1, '2021-04-30 00:00:00', '2021-04-30 00:00:00', 1, 'info', NULL),
+(8, 'coba', 1, '2021-04-28 00:00:01', '2021-04-28 23:59:01', 3, 'important', 1);
 
 -- --------------------------------------------------------
 
@@ -105,6 +111,13 @@ CREATE TABLE `kuis` (
   `kode_kuis` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `kuis`
+--
+
+INSERT INTO `kuis` (`id`, `materi`, `kode_kuis`) VALUES
+(2, 'coba', 'ScVat');
+
 -- --------------------------------------------------------
 
 --
@@ -137,6 +150,13 @@ CREATE TABLE `kuis_soal_jawaban` (
   `jawaban` varchar(1) NOT NULL,
   `pembahasan` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kuis_soal_jawaban`
+--
+
+INSERT INTO `kuis_soal_jawaban` (`id`, `kode_kuis`, `no_kuis`, `soal`, `jawaban`, `pembahasan`) VALUES
+(1, 'ScVat', 0, 'tumpak-sewu.jpg', 'C', 'VB APEL TK 3.png');
 
 -- --------------------------------------------------------
 
@@ -260,7 +280,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telepon`, `email`, `username`, `password`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
-(2, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
+(2, 'erik', 1, 'erik', 3, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '1619615032_a013148b0a009edf16ff.jpg', 2, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
 (3, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
 (4, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
 
@@ -344,13 +364,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -362,7 +382,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kuis`
 --
 ALTER TABLE `kuis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kuis_hasil`
@@ -374,7 +394,7 @@ ALTER TABLE `kuis_hasil`
 -- AUTO_INCREMENT for table `kuis_soal_jawaban`
 --
 ALTER TABLE `kuis_soal_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `latihan`
