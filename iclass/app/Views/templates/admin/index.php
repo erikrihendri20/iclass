@@ -94,7 +94,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/logout">Logout</a>
+                    <a class="btn btn-primary" href="../auth/keluarAdmin">Keluar</a>
                 </div>
             </div>
         </div>
@@ -230,6 +230,48 @@
                 })
             });
         </script>
+    
+    <?php elseif ($active == 'daftar admin') : ?>
+        <script>
+            $(document).ready(function() {
+                function tampilkanAdmin() {
+                    $.get(
+                        'tampilkanAdmin',
+                        function(result) {
+                            function init() {
+                                $('#tabel-admin').html(result)
+                                $('#daftar-admin').DataTable({
+                                    dom: 'Bfrtip',
+                                    buttons: [
+                                        'copy', 'csv', 'excel', 'pdf', 'print'
+                                    ]
+                                })
+                            }
+                            init()
+                            $('.konfirmasi').click(function() {
+                                $.get(
+                                    'ubahStatusAdmin/' + $(this).val() + '/1',
+                                    function(result) {
+                                        tampilkanAdmin()
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                            $('.tolak').click(function() {
+                                $.get(
+                                    'ubahStatusAdmin/' + $(this).val() + '/0',
+                                    function(result) {
+                                        tampilkanAdmin()
+                                        $('#flash').html(result)
+                                    }
+                                )
+                            })
+                        })
+                }
+                tampilkanAdmin()
+            });
+        </script>
+    
     <?php endif; ?>
 
     <!-- calendar -->

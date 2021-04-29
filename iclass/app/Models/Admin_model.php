@@ -13,7 +13,7 @@ class Admin_model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['nama', 'username' , 'password'];
+    protected $allowedFields = ['nama', 'username' , 'password' , 'status' , 'role'];
 
     public function getByUserName($identitas)
     {

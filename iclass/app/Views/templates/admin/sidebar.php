@@ -12,6 +12,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
         <div class="sidebar-brand-text mx-3">iClass</div>
     </a>
 
+    
 
 
     <!-- Divider -->
@@ -52,7 +53,25 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </li>
 
     <hr class="sidebar-divider">
+    
+    <?php if(session()->role == 1): ?>
 
+
+    <div class="sidebar-heading">
+        Admin
+    </div>
+
+    <!-- Nav Item - My-profile -->
+    <li class="nav-item <?= ($active == 'daftar admin') ? 'active' :  ' '; ?>">
+        <a class="nav-link" href="<?= base_url(); ?>/admin/daftarAdmin">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Daftar Pengajar</span></a>
+    </li>
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+        
     <!-- Heading -->
     <div class="sidebar-heading">
         Peserta
@@ -73,26 +92,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </li>
 
 
-
     <!-- Divider -->
     <hr class="sidebar-divider">
+    
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Materi
-    </div>
-
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Upload Materi</span></a>
-    </li>
-
-
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
@@ -145,6 +148,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <?php endif; ?>
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Jadwal
@@ -157,11 +162,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <span>Atur Jadwal Pertemuan</span></a>
     </li>
 
+    <?php if(session()->role==1): ?>
     <li class="nav-item <?= ($active == 'atur jadwal tryout') ? 'active' :  ' '; ?>">
         <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
             <i class="fas fa-fw fa-pencil-alt"></i>
             <span>Atur Jadwal Tryout</span></a>
     </li>
+    <?php endif; ?>
 
     <!-- Nav Item - Tables -->
     <!-- <li class="nav-item">
@@ -173,9 +180,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     <hr class="sidebar-divider">
 
     <li class="nav-item">
-        <a href="/logout" class="nav-link" href="tables.html">
+        <a href="../auth/keluarAdmin" class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-sign-out-alt"></i>
-            <span>Logout</span></a>
+            <span>Keluar</span></a>
     </li>
 
     <!-- Divider -->
