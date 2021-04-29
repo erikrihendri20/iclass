@@ -168,4 +168,7 @@
         </div>
     </div>
 </div>
+<?php if (session()->has('info')) : ?>
+    <?= session()->info; ?>
+<?php endif; ?>
 <?= $this->endSection(); ?>

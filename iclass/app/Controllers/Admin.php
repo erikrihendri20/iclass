@@ -168,6 +168,11 @@ class Admin extends BaseController
 
     public function rekaman()
     {
+        $kelas_model = new Kelas_Model();
+        $paket_model = new Paket_Model();
+        $data['kelases'] = $kelas_model->tampilkanKelas();
+        $data['paket'] = $paket_model->findAll();
+
         $model = new Rekaman_Model();
         $data['rekamans'] = $model->getAll();
         $data['active'] = 'Kelas';
@@ -187,19 +192,27 @@ class Admin extends BaseController
     {
         if (isset($_POST['submit'])) {
             $data = [
+                'kelas' => $this->request->getPost('kelas'),
                 'pertemuan' => $this->request->getPost('pertemuan'),
                 'materi' => $this->request->getPost('materi'),
                 'rekaman' => $this->request->getFile('rekaman'),
-                'thumbnailRekaman' => $this->request->getFile('thumbnailRekaman')
+                'thumbnailRekaman' => $this->request->getFile('thumbnailRekaman'),
+                'ppt' => $this->request->getFile('ppt')
             ];
             $rules = [
+                'kelas' => [
+                    'label'  => 'Kelas',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required' => 'Kelas harus diisi'
+                    ]
+                ],
                 'pertemuan' => [
                     'label'  => 'Pertemuan',
-                    'rules'  => 'required|max_length[3]|is_unique[rekaman.id]',
+                    'rules'  => 'required|max_length[3]',
                     'errors' => [
                         'required' => 'Pertemuan harus diisi',
-                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit',
-                        'is_unique' => 'Pertemuan tersebut telah diunggah'
+                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit'
                     ]
                 ],
                 'materi' => [
@@ -211,7 +224,7 @@ class Admin extends BaseController
                     ]
                 ],
                 'rekaman' => [
-                    'label' => 'upload',
+                    'label' => 'Video',
                     'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]|max_size[rekaman,100000]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih video rekaman kelas',
@@ -220,31 +233,43 @@ class Admin extends BaseController
                     ]
                 ],
                 'thumbnailRekaman' => [
-                    'label' => 'upload',
+                    'label' => 'Tumbnail',
                     'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]|max_size[rekaman,5120]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih gambar thumbnail video rekaman kelas',
                         'is_image' => 'Pilih gambar dengan jenis gambar',
                         'max_size' => 'Ukuran file thumbnail tidak boleh melebihi 5 Mb'
                     ]
+                ],
+                'ppt' => [
+                    'label' => 'PowerPoint',
+                    'rules' => 'uploaded[ppt]|ext_in[ppt,ppt|pptx|pdf]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih file powerpoint yang digunakan pada rekaman kelas',
+                        'ext_in' => 'Pilih file dengan jenis pptx'
+                    ]
                 ]
             ];
 
             $rekaman = $this->request->getFile('rekaman');
             $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
+            $ppt = $this->request->getFile('ppt');
 
             if ($this->validate($rules)) {
                 $data1 = [
-                    'id' => $this->request->getPost('pertemuan'),
+                    'kelas' => $this->request->getPost('kelas'),
+                    'pertemuan' => $this->request->getPost('pertemuan'),
                     'materi' => $this->request->getPost('materi'),
-                    'ext_tn' => $thumbnailRekaman->guessExtension()
+                    'ext_tn' => $thumbnailRekaman->guessExtension(),
+                    'ext_ppt' => $ppt->guessExtension()
                 ];
 
                 $model = new Rekaman_Model();
                 $model->postRekaman($data1);
 
-                $rekaman->move('./vid/Rekaman Kelas/', 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.mp4');
-                $thumbnailRekaman->move('./img/Rekaman Kelas/', 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $thumbnailRekaman->guessExtension());
+                $rekaman->move("./vid/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.mp4');
+                $thumbnailRekaman->move("./img/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $thumbnailRekaman->guessExtension());
+                $ppt->move("./ppt/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $ppt->guessExtension());
 
                 session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
                 return redirect()->to(base_url() . '/admin/rekaman');

@@ -48,7 +48,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url(); ?>/admin/rekaman">
             <i class="fas fa-fw fa-user"></i>
-            <span>Rekaman</span></a>
+            <span>Rekaman Kelas</span></a>
     </li>
 
     <hr class="sidebar-divider">

@@ -13,7 +13,7 @@ class Rekaman_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['id', 'materi', 'ext_tn'];
+    protected $allowedFields = ['kelas', 'pertemuan', 'materi', 'ext_tn', 'ext_ppt'];
 
     public function getAll()
     {
@@ -23,6 +23,12 @@ class Rekaman_Model extends Model
     public function getById($id)
     {
         return $this->where('id', $id)->first();
+    }
+
+    public function getByClass($kelas)
+    {
+        $this->builder()->where('kelas', $kelas);
+        return $this->builder()->get()->getResultArray();
     }
 
     public function postRekaman($data)

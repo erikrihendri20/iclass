@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
+use App\Models\Kelas_Model;
 use App\Models\Kuis_Model;
 use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
@@ -32,14 +33,41 @@ class Kelasku extends BaseController
 
     public function rekaman()
     {
-        $model = new Rekaman_Model();
-        $data['rekamans'] = $model->getAll();
+
         $data['id'] = 0;
+        $user = new Users_Model;
+        $user = $user->getByUserName(session('username'));
+
+        if ($user[0]['kode_kelas'] == "0") {
+			session()->setFlashdata('info', "<script>swal('X','Maaf, kamu belum tergabung ke dalam kelas manapun.','error')</script>");
+            return redirect()->to(base_url() . '/peserta');
+		} else {
+			$class = new Kelas_Model;
+			$userClass = $class->getByid($user[0]['kode_kelas']);
+			$data['kelas'] = $userClass[0]['nama'];
+		}
+
+        $model = new Rekaman_Model();
+        $data['rekamans'] = $model->getByClass($data['kelas']);
 
         $data['javascript'] = ['rekaman.js'];
         $data['css'] = 'rekaman.css';
         $data['active'] = 'kelasku';
         return view('kelasku/rekaman', $data);
+    }
+
+    public function downloadPpt($kelas, $pertemuan, $materi, $ext_ppt)
+    {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/force-download');
+        header("Content-Disposition: attachment; filename=\"" . base_url() . "/ppt/Rekaman Kelas/{$kelas}/Pertemuan {$pertemuan} - {$materi}.{$ext_ppt}\";");
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        ob_clean();
+        flush();
+        exit;
     }
 
     public function pindahRekaman($id)

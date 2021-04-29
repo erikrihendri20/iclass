@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2021 at 05:12 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.14
+-- Generation Time: Apr 29, 2021 at 07:48 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -63,11 +64,17 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `jenis`, `class_name`, `allDay`) VALUES
-(1, 'sadsadasd', 1, '2021-04-15 00:00:00', '0000-00-00 00:00:00', 2, 'success', NULL),
-(2, 'dasdsada', 1, '2021-04-01 00:00:00', '2021-04-03 00:00:00', 1, 'info', NULL),
-(3, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
-(4, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
-(5, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL);
+(109, 'sadsadasd', 1, '2021-04-15 00:00:00', '0000-00-00 00:00:00', 2, 'success', NULL),
+(111, 'dasdsada', 1, '2021-04-01 00:00:00', '2021-04-03 00:00:00', 1, 'info', NULL),
+(116, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
+(117, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
+(118, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL),
+(119, 'test', 1, '2021-04-16 00:00:00', '2021-04-16 00:00:00', 2, 'success', NULL),
+(120, 'test', 1, '2021-04-23 00:00:00', '2021-04-23 00:00:00', 1, 'info', NULL),
+(121, 'cek', 1, '2021-04-16 00:00:00', '2021-04-16 00:00:00', 1, 'info', NULL),
+(125, 'test', 1, '2021-04-29 00:00:00', '2021-04-29 00:00:00', 2, 'success', NULL),
+(126, 'test', 1, '2021-04-22 00:00:00', '2021-04-22 00:00:00', 1, 'info', 1),
+(127, 'test', 1, '2021-04-22 00:00:00', '2021-04-22 00:00:00', 2, 'success', NULL);
 
 -- --------------------------------------------------------
 
@@ -108,24 +115,6 @@ CREATE TABLE `kuis` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kuis_hasil`
---
-
-CREATE TABLE `kuis_hasil` (
-  `id` int(11) NOT NULL,
-  `kuis_id` int(11) NOT NULL,
-  `events_id` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL,
-  `jawaban_benar` int(11) NOT NULL,
-  `jawaban_salah` int(11) NOT NULL,
-  `jawaban_kosong` int(11) NOT NULL,
-  `jawaban_jumlah` int(11) NOT NULL,
-  `skor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `kuis_soal_jawaban`
 --
 
@@ -146,9 +135,20 @@ CREATE TABLE `kuis_soal_jawaban` (
 
 CREATE TABLE `latihan` (
   `id` int(11) NOT NULL,
+  `index_latihan` int(11) NOT NULL,
   `materi` varchar(100) NOT NULL,
   `pdf_path` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `latihan`
+--
+
+INSERT INTO `latihan` (`id`, `index_latihan`, `materi`, `pdf_path`) VALUES
+(1, 1, 'Percobaan', 'soal 1.pdf'),
+(2, 2, 'Persamaan Trigonometri', 'Persamaan Trigonometri.pdf'),
+(3, 3, 'Aljabar Linear', 'Aljabar Linear.pdf'),
+(4, 4, 'Algoritma dan Struktur Data', 'Algoritma dan Struktur Data.pdf');
 
 -- --------------------------------------------------------
 
@@ -216,20 +216,21 @@ INSERT INTO `paket` (`id`, `nama`) VALUES
 --
 
 CREATE TABLE `rekaman` (
-  `id` smallint(3) NOT NULL,
+  `id` smallint(6) NOT NULL,
+  `kelas` varchar(255) NOT NULL,
+  `pertemuan` smallint(3) NOT NULL,
   `materi` varchar(50) NOT NULL,
-  `ext_tn` varchar(10) NOT NULL
+  `ext_tn` varchar(10) NOT NULL,
+  `ext_ppt` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rekaman`
 --
 
-INSERT INTO `rekaman` (`id`, `materi`, `ext_tn`) VALUES
-(1, 'Aljabar', 'jpeg'),
-(2, 'Baris dan Deret', 'png'),
-(3, 'Awwkwkwk', 'jpg'),
-(4, 'Bablabla', 'jpg');
+INSERT INTO `rekaman` (`id`, `kelas`, `pertemuan`, `materi`, `ext_tn`, `ext_ppt`) VALUES
+(1, 'sadsadsadad', 1, 'Awwkwkwk', 'jpg', 'pptx'),
+(2, 'sadsadsadad', 2, 'Aljabar', 'jpg', 'pptx');
 
 -- --------------------------------------------------------
 
@@ -259,10 +260,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telepon`, `email`, `username`, `password`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
-(2, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
-(3, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
-(4, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
+(16, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
+(17, 'erik', 0, 'erik', 1, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '', 0, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
+(18, 'Rian Alfa', 2, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '1619278424_07f428e6b31ccfcb29d0.jpg', 2, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
+(19, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07'),
+(20, 'erikrca', 0, 'fddfdf', 1, '121212121', 'erca.rihendri@gmail.com', 'erikrca', '$2y$10$5PQCIT.O3k8uNwxhJ2Wstuwj.KNUB64nsZ8Sa5iphRCoN1ygGo8.G', '', 0, '2021-04-15 07:11:52', '2021-04-15 07:11:52', '2021-04-15 07:11:52'),
+(21, 'erererere', 0, 'rererer', 3, '231238213213', 'nurani.aprilia@bps.go.id', 'erererer', '$2y$10$bukIa4t85bbjZipz2MPZuuH4021dgpSYkFORQmHmwGDHj3/flAHE6', '', 0, '2021-04-15 07:12:41', '2021-04-15 07:12:41', '2021-04-15 07:12:41'),
+(22, 'sadaskldjkl', 0, 'sadasdsadadas', 0, '832191273981278', 'kasdsl@sakd.sad', 'dasdsadsadfwr', '$2y$10$wtP7I1/UXX7Pmw4JoxtiFuLpdIhVKJt9cGV7R88ePOU9FvAeY7NFy', '', 0, '2021-04-17 02:38:57', '2021-04-17 02:38:57', '2021-04-17 02:38:57'),
+(23, 'sadsadaskjdsakjh', 0, 'sadksakldjadklasj', 3, '098765432', 'sadsad@sad.sada', 'sadjsakdkasdakj', '$2y$10$gHNz9C79ogUwY84wCB9xLOj18xX20AMshC5fDD3ZyoJ0x0DsJytWC', '', 0, '2021-04-17 02:40:35', '2021-04-17 02:40:35', '2021-04-17 02:40:35');
 
 --
 -- Indexes for dumped tables
@@ -297,15 +302,6 @@ ALTER TABLE `kuis`
   ADD KEY `kode_kuis_3` (`kode_kuis`);
 
 --
--- Indexes for table `kuis_hasil`
---
-ALTER TABLE `kuis_hasil`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `kuis_id` (`kuis_id`,`events_id`,`users_id`),
-  ADD KEY `events_id` (`events_id`),
-  ADD KEY `users_id` (`users_id`);
-
---
 -- Indexes for table `kuis_soal_jawaban`
 --
 ALTER TABLE `kuis_soal_jawaban`
@@ -331,6 +327,12 @@ ALTER TABLE `paket`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rekaman`
+--
+ALTER TABLE `rekaman`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -350,7 +352,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -365,12 +367,6 @@ ALTER TABLE `kuis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kuis_hasil`
---
-ALTER TABLE `kuis_hasil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `kuis_soal_jawaban`
 --
 ALTER TABLE `kuis_soal_jawaban`
@@ -380,7 +376,7 @@ ALTER TABLE `kuis_soal_jawaban`
 -- AUTO_INCREMENT for table `latihan`
 --
 ALTER TABLE `latihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `paket`
@@ -389,22 +385,20 @@ ALTER TABLE `paket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `rekaman`
+--
+ALTER TABLE `rekaman`
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `kuis_hasil`
---
-ALTER TABLE `kuis_hasil`
-  ADD CONSTRAINT `kuis_hasil_ibfk_1` FOREIGN KEY (`events_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `kuis_hasil_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `kuis_hasil_ibfk_3` FOREIGN KEY (`kuis_id`) REFERENCES `kuis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kuis_soal_jawaban`
