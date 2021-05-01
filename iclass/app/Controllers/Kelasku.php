@@ -10,6 +10,7 @@ use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 use App\Models\Latihan_Model;
+use App\Models\Mindmap_model;
 
 class Kelasku extends BaseController
 {
@@ -383,9 +384,12 @@ class Kelasku extends BaseController
     {
         $model = new Latihan_Model();
         $materi = $model->getMateri('materi');
+        $model_Mindmap = new Mindmap_model();
+        $mindmap = $model_Mindmap->findAll();
         $data = [
             'materi'    => $materi,
             'active'    => 'kelasku',
+            'mindmaps'  => $mindmap
         ];
         return view('kelasku/latihan', $data);
     }

@@ -32,6 +32,42 @@
         <div class="col mx-4" id="latihan">
         </div>
     </div>
+
+    <!-- Modal Mind Map -->
+    <div id="modalMindMap" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header d-flex justify-content-between align-text-center">
+                    <h3 class="text-primary ml-1">Mind Map</h3>
+                    <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal();"></p>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col">
+                        <div class="row">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" style="width: 250px;" type="button" id="buttonMindMap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?=$mindmaps[0]['materi']?>
+                                </button>
+                                <div class="dropdown-menu" style="width: 250px; height: auto; max-height: 300px; overflow-y: auto;" aria-labelledby="dropdownMindMap">
+                                    <?php foreach ($mindmaps as $mindmap) : ?>
+                                        <button class="dropdown-item" type="button" onclick="gantiMindMap('<?=$mindmap['materi']?>.<?=$mindmap['ext']?>');"><?=$mindmap['materi']?></button>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <img id="imgMindMap" src="<?=base_url()?>/img/Mind Map/<?=$mindmaps[0]['materi']?>.<?=$mindmaps[0]['ext']?>" alt="" class="img-fluid border border-light rounded">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -47,9 +83,22 @@
                 for (var i = 0; i < data.length; i++) {
                     $('#latihan').append("<a class='btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded' href='<?= base_url('kelasku/view_pdf/') ?>/" + data[i]['pdf_path'] + "'> Latihan dan Pembahasan " + (i + 1) + " </a>");
                 }
-                document.getElementById('imgMindMap').src="<?= base_url() ?>/img/Mind Map/" + id + ".jpg";
+                $('#latihan').append("<button class='btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded' onclick='bukaModal();'> Mind Mapping </button>");
             }
         });
+    }
+
+    function bukaModal(){
+        $('#modalMindMap').modal('show');
+    }
+
+    function tutupModal(){
+        $('#modalMindMap').modal('hide');
+    }
+
+    function gantiMindMap(s) {
+        document.getElementById('buttonMindMap').innerHTML=s.substring(0, s.length-4);
+        document.getElementById('imgMindMap').src=`<?=base_url()?>/img/Mind Map/${s}`;
     }
 </script>
 <?= $this->endSection(); ?>
