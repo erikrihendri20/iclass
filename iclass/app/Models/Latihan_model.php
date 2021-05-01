@@ -29,9 +29,9 @@ class Latihan_Model extends Model
         return $this->builder()->get()->getResultArray();
     }
 
-    public function getSpecific($name, $id)
+    public function getSpecific($name, $kelas)
     {
-        $this->builder()->where('materi', $name)->where('pdf_path', $id);
+        $this->builder()->where('materi', $name)->where('kelas_id', $kelas);
         return $this->builder()->get()->getResultArray();
     }
 }

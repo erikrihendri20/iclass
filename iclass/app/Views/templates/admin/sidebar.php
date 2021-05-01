@@ -12,7 +12,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
         <div class="sidebar-brand-text mx-3">iClass</div>
     </a>
 
-    
+
 
 
     <!-- Divider -->
@@ -53,100 +53,101 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </li>
 
     <hr class="sidebar-divider">
-    
-    <?php if(session()->role == 1): ?>
+
+    <?php if (session()->role == 1) : ?>
 
 
-    <div class="sidebar-heading">
-        Admin
-    </div>
+        <div class="sidebar-heading">
+            Admin
+        </div>
 
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'daftar admin') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/daftarAdmin">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Daftar Pengajar</span></a>
-    </li>
-
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-        
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Peserta
-    </div>
-
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'konfirmasi peserta') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/konfirmasiPeserta">
-            <i class="fas fa-fw fa-clipboard-check"></i>
-            <span>Konfirmasi Peserta</span></a>
-    </li>
-
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'daftar peserta') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/daftarPeserta">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Daftar Peserta</span></a>
-    </li>
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'daftar admin') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/daftarAdmin">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Daftar Pengajar</span></a>
+        </li>
 
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Peserta
+        </div>
+
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'konfirmasi peserta') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/konfirmasiPeserta">
+                <i class="fas fa-fw fa-clipboard-check"></i>
+                <span>Konfirmasi Peserta</span></a>
+        </li>
+
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'daftar peserta') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/daftarPeserta">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Daftar Peserta</span></a>
+        </li>
 
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Kuis
-    </div>
-
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'kuis_jadwal') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/kuis_jadwal">
-            <i class="fas fa-fw fa-calendar-alt"></i>
-            <span>Jadwal Kuis</span></a>
-    </li>
-
-    <li class="nav-item <?= ($active == 'kuis_edit') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/edit_soal_kuis">
-            <i class="fas fa-fw fa-pencil-alt"></i>
-            <span>Edit Kuis</span></a>
-    </li>
-
-    <li class="nav-item <?= ($active == 'kuis_soal') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url('admin/kuis_soal'); ?>">
-            <i class="fas fa-paper-plane"></i>
-            <span>Upload Soal</span></a>
-    </li>
-
-    <li class="nav-item <?= ($active == 'kuis_pembahasan') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url('admin/kuis_pembahasan'); ?>">
-            <i class="fas fa-paper-plane"></i>
-            <span>Upload Pembahasan</span></a>
-    </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
 
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Kuis
+        </div>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Latihan
-    </div>
+        <!-- Nav Item - My-profile -->
 
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'latihan') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/latihan">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Latihan</span></a>
-    </li>
+        <li class="nav-item <?= ($active == 'kuis_soal') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url('admin/kuis_soal'); ?>">
+                <i class="fas fa-paper-plane"></i>
+                <span>Upload Soal</span></a>
+        </li>
+
+        <li class="nav-item <?= ($active == 'kuis_pembahasan') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url('admin/kuis_pembahasan'); ?>">
+                <i class="fas fa-paper-plane"></i>
+                <span>Upload Pembahasan</span></a>
+        </li>
+
+        <li class="nav-item <?= ($active == 'kuis_jadwal') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/kuis_jadwal">
+                <i class="fas fa-fw fa-calendar-alt"></i>
+                <span>Jadwal Kuis</span></a>
+        </li>
+
+        <li class="nav-item <?= ($active == 'kuis_edit') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/edit_soal_kuis">
+                <i class="fas fa-fw fa-pencil-alt"></i>
+                <span>Edit Kuis</span></a>
+        </li>
 
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Latihan
+        </div>
+
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'latihan') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/latihan">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Latihan</span></a>
+        </li>
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
     <?php endif; ?>
 
@@ -162,12 +163,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <span>Atur Jadwal Pertemuan</span></a>
     </li>
 
-    <?php if(session()->role==1): ?>
-    <li class="nav-item <?= ($active == 'atur jadwal tryout') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
-            <i class="fas fa-fw fa-pencil-alt"></i>
-            <span>Atur Jadwal Tryout</span></a>
-    </li>
+    <?php if (session()->role == 1) : ?>
+        <li class="nav-item <?= ($active == 'atur jadwal tryout') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
+                <i class="fas fa-fw fa-pencil-alt"></i>
+                <span>Atur Jadwal Tryout</span></a>
+        </li>
     <?php endif; ?>
 
     <!-- Nav Item - Tables -->

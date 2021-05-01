@@ -11,6 +11,7 @@ use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 use App\Models\Latihan_Model;
 use App\Models\Mindmap_model;
+use App\Models\Materi_Model;
 
 class Kelasku extends BaseController
 {
@@ -40,13 +41,13 @@ class Kelasku extends BaseController
         $user = $user->getByUserName(session('username'));
 
         if ($user[0]['kode_kelas'] == "0") {
-			session()->setFlashdata('info', "<script>swal('X','Maaf, kamu belum tergabung ke dalam kelas manapun.','error')</script>");
+            session()->setFlashdata('info', "<script>swal('X','Maaf, kamu belum tergabung ke dalam kelas manapun.','error')</script>");
             return redirect()->to(base_url() . '/peserta');
-		} else {
-			$class = new Kelas_Model;
-			$userClass = $class->getByid($user[0]['kode_kelas']);
-			$data['kelas'] = $userClass[0]['nama'];
-		}
+        } else {
+            $class = new Kelas_Model;
+            $userClass = $class->getByid($user[0]['kode_kelas']);
+            $data['kelas'] = $userClass[0]['nama'];
+        }
 
         $model = new Rekaman_Model();
         $data['rekamans'] = $model->getByClass($data['kelas']);
@@ -340,7 +341,7 @@ class Kelasku extends BaseController
             $kosong = 0;
 
         $skor = [
-            'skor'  => $benar * 4,
+            'skor'  => ($benar * 4) - ($salah * 1),
             'max'   => $jumlah * 4
         ];
         $pass_grade = $skor['skor'] / $skor['max'] * 100;
@@ -382,8 +383,8 @@ class Kelasku extends BaseController
 
     public function latihan()
     {
-        $model = new Latihan_Model();
-        $materi = $model->getMateri('materi');
+        $model = new Materi_Model();
+        $materi = $model->findAll();
         $model_Mindmap = new Mindmap_model();
         $mindmap = $model_Mindmap->findAll();
         $data = [
@@ -397,7 +398,7 @@ class Kelasku extends BaseController
     function get_latihan($materi)
     {
         $model = new Latihan_Model();
-        $result = $model->getByMateri($materi);
+        $result = $model->getSpecific($materi, session('kode-kelas'));
         return json_encode($result);
     }
 
@@ -418,10 +419,10 @@ class Kelasku extends BaseController
                 </div>';
             session()->setFlashdata('flash', $flash);
 
-            $model = new Latihan_Model();
-            $latihan = $model->findAll();
+            $model = new Materi_Model();
+            $materi = $model->findAll();
             $data = [
-                'data'      => $latihan,
+                'materi'      => $latihan,
                 'active'    => 'kelasku',
             ];
             return view('kelasku/latihan', $data);

@@ -12,6 +12,7 @@ use App\Models\Kuis_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Latihan_Model;
 use App\Models\Admin_model;
+use App\Models\Materi_Model;
 
 class Admin extends BaseController
 {
@@ -1009,12 +1010,12 @@ class Admin extends BaseController
 
     public function latihan()
     {
-
         $model = new Latihan_Model();
         $materi = $model->getMateri('materi');
 
         $latihan = array();
         $i = 0;
+
         foreach ($materi as $mt) {
             $model = new Latihan_Model();
             $result = $model->getByMateri($mt['materi']);
@@ -1022,9 +1023,27 @@ class Admin extends BaseController
             $i++;
         }
 
+        $model = new Kelas_Model();
+        $kelas = $model->findAll();
+
+        $kelas_out = array();
+        $j = 0;
+        foreach ($latihan as $dt) {
+            $i = 0;
+            foreach ($dt as $d) {
+                // dd($d);
+                $result = $model->getById($d['kelas_id']);
+                $latihan[$j][$i]['kelas'] = $result[0]['nama'];
+                $i++;
+            }
+            $j++;
+        }
+        $model = new Materi_Model();
+
         $data = [
-            // 'materi'    => $materi,
+            'materi'    => $model->findAll(),
             'latihan'   => $latihan,
+            'kelas'     => $kelas,
             'active'    => 'latihan',
         ];
 
@@ -1135,29 +1154,25 @@ class Admin extends BaseController
     {
 
         $rules = [
-            'materi' => [
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => 'Nama harus diisi',
-                ]
-            ],
             'file' => 'uploaded[file]|mime_in[file,application/pdf]'
         ];
 
         if ($this->validate($rules)) {
             $materi = $this->request->getPost('materi');
             $file = $this->request->getFile('file');
+            $kelas = $this->request->getPost('kelas');
 
             $model = new Latihan_Model();
 
             $path = ROOTPATH . "/../public_html/latihan";
 
-            $check = $model->getSpecific($materi, $file);
+            $check = $model->getSpecific($materi, $kelas);
 
             if ($check == NULL) {
                 $data = [
                     'materi'        => $materi,
-                    'pdf_path'      => $file->getName()
+                    'pdf_path'      => $file->getName(),
+                    'kelas_id'      => $kelas
                 ];
                 $model->db->table('latihan')->insert($data);
                 $file->move($path);
@@ -1171,7 +1186,7 @@ class Admin extends BaseController
                 session()->setFlashdata('flash', $flash);
                 return redirect()->to(base_url('admin/latihan'));
             } else {
-                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Upload gagal!</strong> latihan sudah ada atau nama file sama.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -1197,7 +1212,7 @@ class Admin extends BaseController
         $data['active'] = 'daftar admin';
         return view('admin/daftarAdmin', $data);
     }
-    
+
     public function tampilkanAdmin()
     {
         $admin_model = new Admin_model();
@@ -1225,5 +1240,4 @@ class Admin extends BaseController
                     </button>
                 </div>';
     }
-
 }

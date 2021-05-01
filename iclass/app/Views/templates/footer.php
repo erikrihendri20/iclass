@@ -1,7 +1,7 @@
 <?= $this->renderSection('content'); ?>
 
 <!-- footer -->
-<div class="bg-primary mt-3 p-5 edu">
+<div class="bg-primary p-3 edu">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-6 p-3">
@@ -91,23 +91,20 @@
 
 <?php if ($active == 'upload bukti pembayaran') : ?>
     <script>
+        function preview() {
+            const bukti = document.querySelector('#file-bukti')
+            const label = document.querySelector('#label-bukti')
+            const preview = document.querySelector('#preview-bukti')
 
-    
-    function preview(){
-        const bukti = document.querySelector('#file-bukti')
-        const label = document.querySelector('#label-bukti')
-        const preview = document.querySelector('#preview-bukti')
-        
-        label.textContent = bukti.files[0].name
+            label.textContent = bukti.files[0].name
 
-        file = new FileReader()
-        file.readAsDataURL(bukti.files[0])
+            file = new FileReader()
+            file.readAsDataURL(bukti.files[0])
 
-        file.onload = function(e){
-            preview.src = e.target.result
+            file.onload = function(e) {
+                preview.src = e.target.result
+            }
         }
-    }
-
     </script>
 <?php endif; ?>
 

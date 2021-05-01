@@ -31,17 +31,24 @@
               <div class="modal-body">
                 <form action="<?= base_url('admin/add_latihan') ?>" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
                   <div class="form-group">
-                    <label for="browser" class="form-label">Materi:</label>
+                    <label for="materi" class="form-label">Materi:</label>
                     <div class="row w-100 ml-2 p-2">
-                      <input list="list_materi" name="materi" id="materi" class="form-control form-control-sm border border-secondary rounded <?= ($validation->hasError('file')) ? 'is-invalid' : '' ?>" placeholder="Pilih materi ... ">
-                      <datalist id="list_materi">
-                        <?php foreach ($latihan as $dt) : ?>
-                          <option value="<?= $dt[0]['materi'] ?>">
-                          <?php endforeach; ?>
-                      </datalist>
-                      <div class=" invalid-feedback">
-                        <?= service('validation')->getError('file'); ?>
-                      </div>
+                      <select name="materi" id="materi" class="form-control form-control-sm border border-secondary rounded" value="">
+                        <?php foreach ($materi as $dt) : ?>
+                          <option value="<?= $dt['name'] ?>"><?= $dt['name'] ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="kelas" class="form-label">Kelas:</label>
+                    <div class="row w-100 ml-2 p-2">
+                      <select name="kelas" id="kelas" class="form-control form-control-sm border border-secondary rounded" value="">
+                        <?php foreach ($kelas as $dt) : ?>
+                          <option value="<?= $dt['id'] ?>"><?= $dt['nama'] ?></option>
+                        <?php endforeach; ?>
+                      </select>
                     </div>
                   </div>
 
@@ -84,6 +91,7 @@
               <tr>
                 <th>No</th>
                 <th>Materi</th>
+                <th>Kelas</th>
                 <th>Latihan</th>
                 <th>Action</th>
               </tr>
@@ -97,6 +105,14 @@
                   </td>
                   <td>
                     <?= $dt[0]['materi'] ?>
+                  </td>
+                  <td>
+                    <?php foreach ($dt as $d) : ?>
+                      <div class="row">
+                        <?= $d['kelas'] ?>
+                      </div>
+                    <?php endforeach; ?>
+
                   </td>
                   <td>
                     <?php foreach ($dt as $d) : ?>

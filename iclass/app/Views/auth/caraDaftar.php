@@ -1,6 +1,6 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content my-3 bg-light">
+<div class="content mt-3">
     <!-- Content-->
     <div class="display-3 text-primary font-weight-bold mb-4 mx-5">
         <p>Tata Cara</p>
@@ -26,7 +26,7 @@
             <li class="my-3">Selesai dan selamat bergabung bersama kami</li>
         </ol>
     </div>
-    <div class="text-right mx-5 my-3">
+    <div class="text-right mx-5 mt-3">
         <a href="<?= base_url('daftar'); ?>" class="btn btn-primary card-link">Lanjutkan</a>
     </div>
 </div>

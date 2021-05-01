@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2021 at 05:43 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: May 02, 2021 at 01:08 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -112,13 +111,6 @@ CREATE TABLE `kuis` (
   `kode_kuis` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `kuis`
---
-
-INSERT INTO `kuis` (`id`, `materi`, `kode_kuis`) VALUES
-(2, 'coba', 'ScVat');
-
 -- --------------------------------------------------------
 
 --
@@ -134,13 +126,6 @@ CREATE TABLE `kuis_soal_jawaban` (
   `pembahasan` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `kuis_soal_jawaban`
---
-
-INSERT INTO `kuis_soal_jawaban` (`id`, `kode_kuis`, `no_kuis`, `soal`, `jawaban`, `pembahasan`) VALUES
-(1, 'ScVat', 0, 'tumpak-sewu.jpg', 'C', 'VB APEL TK 3.png');
-
 -- --------------------------------------------------------
 
 --
@@ -149,20 +134,10 @@ INSERT INTO `kuis_soal_jawaban` (`id`, `kode_kuis`, `no_kuis`, `soal`, `jawaban`
 
 CREATE TABLE `latihan` (
   `id` int(11) NOT NULL,
-  `index_latihan` int(11) NOT NULL,
   `materi` varchar(100) NOT NULL,
-  `pdf_path` varchar(150) NOT NULL
+  `pdf_path` varchar(150) NOT NULL,
+  `kelas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `latihan`
---
-
-INSERT INTO `latihan` (`id`, `index_latihan`, `materi`, `pdf_path`) VALUES
-(1, 1, 'Percobaan', 'soal 1.pdf'),
-(2, 2, 'Persamaan Trigonometri', 'Persamaan Trigonometri.pdf'),
-(3, 3, 'Aljabar Linear', 'Aljabar Linear.pdf'),
-(4, 4, 'Algoritma dan Struktur Data', 'Algoritma dan Struktur Data.pdf');
 
 -- --------------------------------------------------------
 
@@ -316,7 +291,7 @@ INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telep
 (1, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
 (2, 'erik', 1, 'erik', 3, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '1619615032_a013148b0a009edf16ff.jpg', 2, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
 (3, 'Rian Alfa', 1, 'IPA', 3, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '1619800159_deafae0883f0cb11029a.jpg', 2, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
-(4, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
+(4, 'Akhmad Fadil Mubarok', 1, 'IPA', 2, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
 
 --
 -- Indexes for dumped tables
@@ -361,7 +336,8 @@ ALTER TABLE `kuis_soal_jawaban`
 -- Indexes for table `latihan`
 --
 ALTER TABLE `latihan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kelas_id` (`kelas_id`);
 
 --
 -- Indexes for table `materi`
@@ -419,19 +395,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kuis`
 --
 ALTER TABLE `kuis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kuis_soal_jawaban`
 --
 ALTER TABLE `kuis_soal_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `latihan`
 --
 ALTER TABLE `latihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mindmap`
@@ -466,6 +442,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `kuis_soal_jawaban`
   ADD CONSTRAINT `kuis_soal_jawaban_ibfk_1` FOREIGN KEY (`kode_kuis`) REFERENCES `kuis` (`kode_kuis`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `latihan`
+--
+ALTER TABLE `latihan`
+  ADD CONSTRAINT `latihan_ibfk_1` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
