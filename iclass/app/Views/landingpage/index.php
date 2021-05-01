@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="content mb-0">
     <div class="mx-5 pt-5">
-
+        
         <!-- About -->
         <div class="row d-flex">
             <div class="col d-flex flex-column justify-content-center align-items-start ml-5 mr-3">
@@ -57,9 +57,11 @@
             </div>
         </div>
 
+        
+
         <div class="row d-flex mt-5">
-            <div class="col d-flex justify-content-center mb-1">
-                <div class="card align-self-start d-flex " style="width: 18rem;">
+            <div class="col d-flex justify-content-center mb-5 ">
+                <div class="card align-self-start d-flex " style="width: 18rem; box-shadow: 5px 5px 5px 5px grey;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
                         <h5 class="card-title text-primary py-2">Reguler</h5>
                         <div class="list-paket">
@@ -76,8 +78,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center premium mb-1">
-                <div class="card align-self-start d-flex bg-primary d-flex" style="width: 18rem;">
+            <div class="col d-flex justify-content-center premium mb-5">
+                <div class="card align-self-start d-flex bg-primary d-flex" style="width: 18rem; box-shadow: 5px 5px 5px 5px lightblue;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column">
                         <h5 class="card-title text-center bg-warning header-paket py-2">Premium<sup>*</sup></h5>
                         <div class="list-premium-plus">
@@ -96,8 +98,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center mb-1">
-                <div class="card align-self-start d-flex d-flex" style="width: 18rem;">
+            <div class="col d-flex justify-content-center mb-5">
+                <div class="card align-self-start d-flex d-flex" style="width: 18rem; box-shadow: 5px 5px 5px 5px grey;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
                         <h5 class="card-title text-primary py-2">Premium</h5>
                         <div class="list-premium-plus">
