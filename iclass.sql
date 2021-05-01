@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 07:48 PM
+-- Generation Time: May 01, 2021 at 05:43 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -198,10 +198,49 @@ INSERT INTO `materi` (`id`, `name`, `parts`) VALUES
 (15, 'Integral tak tentu', 0),
 (16, 'Lingkaran', 5),
 (17, 'Transformasi Geometri', 3),
-(18, 'Kaidah Pencacahan, Permutasi, Kombinasi, dan Pelua', 4),
+(18, 'Statistika 1', 4),
 (19, 'Geometri Bidang Datar', 4),
 (20, 'Geometri Bidang Ruang', 3),
-(21, 'Statistika', 7);
+(21, 'Statistika 2', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mindmap`
+--
+
+CREATE TABLE `mindmap` (
+  `id` int(11) NOT NULL,
+  `materi` varchar(50) NOT NULL,
+  `ext` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mindmap`
+--
+
+INSERT INTO `mindmap` (`id`, `materi`, `ext`) VALUES
+(1, 'Aljabar', 'jpg'),
+(2, 'Barisan dan Deret', 'png'),
+(3, 'Eksponen', 'jpg'),
+(4, 'Fungsi Kuadrat', 'jpg'),
+(5, 'Fungsi', 'jpg'),
+(6, 'Integral', 'jpg'),
+(7, 'Limit', 'png'),
+(8, 'Logaritma', 'jpg'),
+(9, 'Matematika Keuangan', 'jpg'),
+(10, 'Matriks', 'jpg'),
+(11, 'Peluang', 'jpg'),
+(12, 'Persamaan Garis', 'jpg'),
+(13, 'Persamaan Kuadrat', 'jpg'),
+(14, 'Persamaan Lingkaran', 'jpg'),
+(15, 'Pertidaksamaan', 'jpg'),
+(16, 'Statistika', 'png'),
+(17, 'Suku Banyak', 'jpg'),
+(18, 'Transformasi Geometri', 'jpg'),
+(19, 'Trigonometri', 'jpg'),
+(20, 'Turunan', 'jpg'),
+(21, 'Vektor', 'jpg');
 
 -- --------------------------------------------------------
 
@@ -276,7 +315,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `kode_kelas`, `jurusan`, `kode_paket`, `telepon`, `email`, `username`, `password`, `bukti_pembayaran`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'erik', 0, 'erik', 1, '09876543', '221810270@stis.ac.id', 'erca2005', '$2y$10$QYUYjLDOF.o4fwCaOA/6iOnVGtQ0MayXWT1aX4J3Xl3U1YCoBLtgG', '', 0, '2021-03-25 19:14:35', '2021-03-25 19:14:35', '2021-03-25 19:14:35'),
 (2, 'erik', 1, 'erik', 3, '09876543', 'erik@gmail.com', 'erik2005', '$2y$10$3T24mxeFiyj5fgzw2J7xcO83hsDXmpNf3/AQQYJNutfGIgwEN3jpq', '1619615032_a013148b0a009edf16ff.jpg', 2, '2021-04-12 01:23:13', '2021-04-12 01:23:13', '2021-04-12 01:23:13'),
-(3, 'Rian Alfa', 0, 'IPA', 1, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '', 0, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
+(3, 'Rian Alfa', 1, 'IPA', 3, '083180405022', 'rianalfa14@gmail.com', 'rianalfa', '$2y$10$g9bEiHvKLsPzVc9bTvm71.QTvl/sEFHqf/5OmIJMZ/Qwiqw5urZQy', '1619800159_deafae0883f0cb11029a.jpg', 2, '2021-04-11 04:10:40', '2021-04-11 04:10:40', '2021-04-11 04:10:40'),
 (4, 'Akhmad Fadil Mubarok', 1, 'IPA', 1, '082226602929', '221810129@stis.ac.id', 'Dummy', '$2y$10$76TVuHvbxMqa6KniCCtw9uFPfgsYU6191LUB0naoe.8Bqxl4SN6gS', '1618813387_006ad5fcecd46f9f9feb.png', 2, '2021-04-12 06:25:07', '2021-04-13 07:21:44', '2021-04-12 06:25:07');
 
 --
@@ -328,6 +367,12 @@ ALTER TABLE `latihan`
 -- Indexes for table `materi`
 --
 ALTER TABLE `materi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mindmap`
+--
+ALTER TABLE `mindmap`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -387,6 +432,12 @@ ALTER TABLE `kuis_soal_jawaban`
 --
 ALTER TABLE `latihan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `mindmap`
+--
+ALTER TABLE `mindmap`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `paket`
