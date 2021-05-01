@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="content mb-0">
     <div class="mx-5 pt-5">
-
+        
         <!-- About -->
         <div class="row d-flex">
             <div class="col d-flex flex-column justify-content-center align-items-start ml-5 mr-3">
@@ -29,13 +29,16 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <!-- <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75" style="width: 1000px;"> -->
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/1.png" alt="" class="w-100 h-75">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/2.png" alt="" class="w-100 h-75">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/3.png" alt="" class="w-100 h-75">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/landingpage/4.png" alt="" class="w-100 h-75">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -57,9 +60,11 @@
             </div>
         </div>
 
+        
+
         <div class="row d-flex mt-5">
-            <div class="col d-flex justify-content-center mb-1">
-                <div class="card align-self-start d-flex " style="width: 18rem;">
+            <div class="col d-flex justify-content-center mb-5 ">
+                <div class="card align-self-start d-flex " style="width: 18rem; height: 100%; box-shadow: 5px 5px 5px 5px grey;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
                         <h5 class="card-title text-primary py-2">Reguler</h5>
                         <div class="list-paket">
@@ -71,13 +76,13 @@
                             <p class="my-0"><span class="check-reguler">&#10003;</span> Grup belajar siswa</p>
                             <p class="my-0"><span class="check-reguler">&#10003;</span> Tentor berpengalaman</p>
                         </div>
-                        <h5 class="text-primary">199rb</h5>
+                        <h5 class="text-primary mt-auto">199rb</h5>
                         <a href="daftar?paket=1" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center premium mb-1">
-                <div class="card align-self-start d-flex bg-primary d-flex" style="width: 18rem;">
+            <div class="col d-flex justify-content-center premium mb-5">
+                <div class="card align-self-start d-flex bg-primary d-flex" style="width: 18rem; box-shadow: 5px 5px 5px 5px grey;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column">
                         <h5 class="card-title text-center bg-warning header-paket py-2">Premium<sup>*</sup></h5>
                         <div class="list-premium-plus">
@@ -91,13 +96,13 @@
                             <p class="my-0"><span class="check-premium-plus">&#10003;</span> Grup belajar siswa</p>
                             <p class="my-0"><span class="check-premium-plus">&#10003;</span> Tentor berpengalaman</p>
                         </div>
-                        <h5 class="text-center">279rb</h5>
-                        <a href="daftar?paket=3" class="btn btn-warning card-link align-self-center">Daftar Sekarang</a>
+                        <h5 class="text-center mt-auto">279rb</h5>
+                        <a href="daftar?paket=3" class="btn btn-warning card-link align-self-center" style="color: black;">Daftar Sekarang</a>
                     </div>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center mb-1">
-                <div class="card align-self-start d-flex d-flex" style="width: 18rem;">
+            <div class="col d-flex justify-content-center mb-5">
+                <div class="card align-self-start d-flex d-flex" style="width: 18rem; box-shadow: 5px 5px 5px 5px grey;">
                     <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
                         <h5 class="card-title text-primary py-2">Premium</h5>
                         <div class="list-premium-plus">
@@ -111,7 +116,7 @@
                             <p class="my-0"><span class="check-premium">&#10003;</span> Grup belajar siswa</p>
                             <p class="my-0"><span class="check-premium">&#10003;</span> Tentor berpengalaman</p>
                         </div>
-                        <h5 class="text-primary">259rb</h5>
+                        <h5 class="text-primary mt-auto">259rb</h5>
                         <a href="daftar?paket=2" class="btn btn-warning card-link">Daftar Sekarang</a>
                     </div>
                 </div>
@@ -122,14 +127,10 @@
 <div class="bg-light mt-5">
     <div class="container pt-3">
         <div class="row">
-            <div class="col-5">
+            <div class="col">
                 <h5>Articles or contents about everything</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus aliquid sit deleniti provident excepturi totam officiis, corporis illo repudiandae in fugiat odit, magnam quidem, dicta at voluptatum amet ab ipsa.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus aliquid sit deleniti provident excepturi totam officiis, corporis illo repudiandae in fugiat odit, magnam quidem, dicta at voluptatum amet ab ipsa.</p>
+                <p>Tentor berpengalaman Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, quam! Eligendi commodi perspiciatis sequi dolore architecto quisquam! Minus pariatur, doloribus sint consectetur quo, magnam adipisci praesentium vero inventore sed hic.</p>
                 <a href="" class="btn btn-primary">Selengkapnya</a>
-            </div>
-            <div class="col-7">
-                <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" class="w-100" alt="">
             </div>
         </div>
     </div>
