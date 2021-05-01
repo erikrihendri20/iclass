@@ -29,13 +29,16 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <!-- <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75" style="width: 1000px;"> -->
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/1.png" alt="" class="w-100 h-75">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/2.png" alt="" class="w-100 h-75">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" alt="" class="w-100 h-75">
+                            <img src="img/landingpage/3.png" alt="" class="w-100 h-75">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/landingpage/4.png" alt="" class="w-100 h-75">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -124,14 +127,10 @@
 <div class="bg-light mt-5">
     <div class="container pt-3">
         <div class="row">
-            <div class="col-5">
+            <div class="col">
                 <h5>Articles or contents about everything</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus aliquid sit deleniti provident excepturi totam officiis, corporis illo repudiandae in fugiat odit, magnam quidem, dicta at voluptatum amet ab ipsa.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus aliquid sit deleniti provident excepturi totam officiis, corporis illo repudiandae in fugiat odit, magnam quidem, dicta at voluptatum amet ab ipsa.</p>
+                <p>Tentor berpengalaman Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, quam! Eligendi commodi perspiciatis sequi dolore architecto quisquam! Minus pariatur, doloribus sint consectetur quo, magnam adipisci praesentium vero inventore sed hic.</p>
                 <a href="" class="btn btn-primary">Selengkapnya</a>
-            </div>
-            <div class="col-7">
-                <img src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png" class="w-100" alt="">
             </div>
         </div>
     </div>
