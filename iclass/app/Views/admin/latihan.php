@@ -9,7 +9,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col">
-          <h5><i class="fas fa-fw fa-calendar-alt text-secondary"></i>&ensp;Atur Jadwal Kuis</h5>
+          <h5><i class="fas fa-fw fa-calendar-alt text-secondary"></i>&ensp;Latihan</h5>
         </div>
 
 

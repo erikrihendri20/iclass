@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2021 at 01:08 AM
+-- Generation Time: May 02, 2021 at 05:25 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -73,7 +73,7 @@ INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `
 (4, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
 (5, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL),
 (6, '213123213213213213', 1, '2021-04-30 00:00:00', '2021-04-30 00:00:00', 1, 'info', NULL),
-(8, 'coba', 1, '2021-04-28 00:00:01', '2021-04-28 23:59:01', 3, 'important', 1);
+(9, 'Aljabar Linear', 1, '2021-05-02 00:00:01', '2021-05-02 23:59:01', 3, 'important', 1);
 
 -- --------------------------------------------------------
 
@@ -109,6 +109,24 @@ CREATE TABLE `kuis` (
   `id` int(11) NOT NULL,
   `materi` varchar(50) NOT NULL,
   `kode_kuis` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kuis_hasil`
+--
+
+CREATE TABLE `kuis_hasil` (
+  `id` int(11) NOT NULL,
+  `kuis_id` int(11) NOT NULL,
+  `events_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `jawaban_benar` int(11) NOT NULL,
+  `jawaban_salah` int(11) NOT NULL,
+  `jawaban_kosong` int(11) NOT NULL,
+  `jawaban_jumlah` int(11) NOT NULL,
+  `skor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -326,6 +344,15 @@ ALTER TABLE `kuis`
   ADD KEY `kode_kuis_3` (`kode_kuis`);
 
 --
+-- Indexes for table `kuis_hasil`
+--
+ALTER TABLE `kuis_hasil`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kuis_id` (`kuis_id`,`events_id`,`users_id`),
+  ADD KEY `events_id` (`events_id`),
+  ADD KEY `users_id` (`users_id`);
+
+--
 -- Indexes for table `kuis_soal_jawaban`
 --
 ALTER TABLE `kuis_soal_jawaban`
@@ -383,7 +410,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -395,6 +422,12 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kuis`
 --
 ALTER TABLE `kuis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kuis_hasil`
+--
+ALTER TABLE `kuis_hasil`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -436,6 +469,14 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `kuis_hasil`
+--
+ALTER TABLE `kuis_hasil`
+  ADD CONSTRAINT `kuis_hasil_ibfk_1` FOREIGN KEY (`events_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kuis_hasil_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kuis_hasil_ibfk_3` FOREIGN KEY (`kuis_id`) REFERENCES `kuis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kuis_soal_jawaban`

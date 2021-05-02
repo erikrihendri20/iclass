@@ -9,6 +9,7 @@ use App\Models\Kelas_Model;
 use App\Models\Rekaman_Model;
 use App\Models\Paket_Model;
 use App\Models\Kuis_Model;
+use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Latihan_Model;
 use App\Models\Admin_model;
@@ -868,7 +869,6 @@ class Admin extends BaseController
 
         $code = array();
         $i = 0;
-
         $model = new Kuis_Model;
         foreach ($kuis as $id) {
             $cd = $model->getByMateri($id['title']);
@@ -1005,6 +1005,85 @@ class Admin extends BaseController
                 </div>';
             session()->setFlashdata('flash', $flash);
             return redirect()->to(base_url('admin/kuis_jadwal'));
+        }
+    }
+
+    public function hasil_kuis()
+    {
+        $model = new KuisHasil_Model();
+
+        $hasil = $model->findAll();
+
+        $id = array();
+        $user = array();
+        $kelas = array();
+        $event = array();
+        $benar = array();
+        $salah = array();
+        $kosong = array();
+        $skor = array();
+        $i = 0;
+        foreach ($hasil as $k) {
+            $user_model = new Users_Model();
+            $user = $user_model->getById($k['users_id']);
+            $event_model = new Jadwal_Model();
+            $event = $event_model->getById($k['events_id']);
+            $kelas_model = new Kelas_Model();
+            $class = $kelas_model->getById($user[0]['kode_kelas']);
+
+            $id[$i] = $k['id'];
+            $user[$i] = $user[0]['nama'];
+            $kelas[$i] = $class[0]['nama'];
+            $event[$i] = $event[0]['title'];
+            $benar[$i] = $k['jawaban_benar'];
+            $salah[$i] = $k['jawaban_salah'];
+            $kosong[$i] = $k['jawaban_kosong'];
+            $skor[$i] = $k['skor'];
+
+            $i++;
+        }
+
+        $data = [
+            'id'        => $id,
+            'user'      => $user,
+            'kelas'     => $kelas,
+            'event'     => $event,
+            'benar'     => $benar,
+            'salah'     => $salah,
+            'kosong'    => $kosong,
+            'skor'      => $skor,
+            'active'    => 'kuis_hasil',
+        ];
+        // dd($data);
+        return view('admin/hasil_kuis', $data);
+    }
+
+    public function hapus_hasil($id)
+    {
+        $model = new KuisHasil_Model();
+
+        try {
+            $model->db->table('kuis_hasil')
+                ->where('id', $id)
+                ->delete();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hapus hasil kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/hasil_kuis'));
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penghapusan hasil kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/hasil_kuis'));
         }
     }
 

@@ -15,6 +15,12 @@ class Jadwal_Model extends Model
 
     protected $allowedFields = ['title', 'start_event', 'url', 'kode_kelas', 'end_event', 'jenis', 'class_name', 'allDay'];
 
+    public function getById($id)
+    {
+        $this->builder()->select('title')->where('id', $id);
+        return $this->builder()->get()->getResultArray();
+    }
+
     public function getJadwal($kode_kelas = null, $jenis = null)
     {
         $this->builder()->join('kelas', 'kelas.id=events.kode_kelas');
@@ -49,13 +55,13 @@ class Jadwal_Model extends Model
         return $this->db->query($query)->getResultArray();
     }
 
-    public function getJadwalMeeting($kode_kelas=null)
+    public function getJadwalMeeting($kode_kelas = null)
     {
-        if($kode_kelas!=null){
-            $this->builder()->join('kelas','kelas.id=kode_kelas');
-            $this->builder()->where('kode_kelas',$kode_kelas);
-            $this->builder()->where('jenis',1);
-            $this->builder()->where('start_event>=',$now = date("Y-m-d"));
+        if ($kode_kelas != null) {
+            $this->builder()->join('kelas', 'kelas.id=kode_kelas');
+            $this->builder()->where('kode_kelas', $kode_kelas);
+            $this->builder()->where('jenis', 1);
+            $this->builder()->where('start_event>=', $now = date("Y-m-d"));
             $this->builder()->orderBy('start_event');
             return $this->builder()->get()->getResultArray();
         }

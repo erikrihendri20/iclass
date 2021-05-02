@@ -126,7 +126,7 @@
 
             });
         </script>
-    <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal' ||  $active == 'latihan') : ?>
+    <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal' || $active == 'kuis_hasil' ||  $active == 'latihan') : ?>
         <script>
             $(document).ready(function() {
                 $('#daftar-kuis').DataTable({
@@ -230,7 +230,7 @@
                 })
             });
         </script>
-    
+
     <?php elseif ($active == 'daftar admin') : ?>
         <script>
             $(document).ready(function() {
@@ -271,7 +271,7 @@
                 tampilkanAdmin()
             });
         </script>
-    
+
     <?php endif; ?>
 
     <!-- calendar -->

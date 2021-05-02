@@ -9,11 +9,6 @@
         <div class="col">
           <h5><i class="fas fa-fw fa-pencil-alt text-secondary"></i>&ensp;Edit Soal Kuis</h5>
         </div>
-        <div class="col d-flex justify-content-end">
-          <a href="<?= base_url('admin/kuis_soal') ?>" class="btn btn-sm btn-outline-primary btn-user">
-            upload soal
-          </a>
-        </div>
       </div>
       <br>
       <div class="row">

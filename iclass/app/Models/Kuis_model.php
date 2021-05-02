@@ -16,6 +16,12 @@ class Kuis_Model extends Model
         return $this->builder()->get()->getResultArray();
     }
 
+    public function getById($id)
+    {
+        $this->builder()->where('id', $id);
+        return $this->builder()->get()->getResultArray();
+    }
+
     public function getByMateri($materi)
     {
         $this->builder()->where('materi', $materi);
