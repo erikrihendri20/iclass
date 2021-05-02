@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2021 at 05:25 AM
+-- Generation Time: May 02, 2021 at 07:14 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -72,8 +72,7 @@ INSERT INTO `events` (`id`, `title`, `kode_kelas`, `start_event`, `end_event`, `
 (3, 'assasdsadsa', 1, '2021-04-01 00:00:00', '2021-04-01 00:00:00', 2, 'success', NULL),
 (4, 'sadsadsadsadsad', 1, '2021-04-07 00:00:00', '2021-04-07 00:00:00', 1, 'info', NULL),
 (5, 'sasaddsadas', 2, '2021-04-06 00:00:00', '2021-04-06 00:00:00', 2, 'success', NULL),
-(6, '213123213213213213', 1, '2021-04-30 00:00:00', '2021-04-30 00:00:00', 1, 'info', NULL),
-(9, 'Aljabar Linear', 1, '2021-05-02 00:00:01', '2021-05-02 23:59:01', 3, 'important', 1);
+(6, '213123213213213213', 1, '2021-04-30 00:00:00', '2021-04-30 00:00:00', 1, 'info', NULL);
 
 -- --------------------------------------------------------
 
@@ -270,14 +269,6 @@ CREATE TABLE `rekaman` (
   `ext_ppt` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `rekaman`
---
-
-INSERT INTO `rekaman` (`id`, `kelas`, `pertemuan`, `materi`, `ext_tn`, `ext_ppt`) VALUES
-(1, 'sadsadsadad', 1, 'Awwkwkwk', 'jpg', 'pptx'),
-(2, 'sadsadsadad', 2, 'Aljabar', 'jpg', 'pptx');
-
 -- --------------------------------------------------------
 
 --
@@ -458,7 +449,7 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT for table `rekaman`
 --
 ALTER TABLE `rekaman`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
