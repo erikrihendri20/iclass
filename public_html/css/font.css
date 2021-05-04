@@ -1,137 +1,136 @@
 body {
-  /* font-family: "Open Sans", sans-serif; */
   font-family: "Meticula";
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Regular.ttf") format("truetype");
+  src: url("../font/Meticula-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Italic.ttf") format("truetype");
+  src: url("../font/Meticula-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-ExtraBoldItalic.ttf") format("truetype");
+  src: url("../font/Meticula-ExtraBoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-ExtraLight.ttf") format("truetype");
+  src: url("../font/Meticula-ExtraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-LightItalic.ttf") format("truetype");
+  src: url("../font/Meticula-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-ExtraBold.ttf") format("truetype");
+  src: url("../font/Meticula-ExtraBold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Light.ttf") format("truetype");
+  src: url("../font/Meticula-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-ExtraLightItalic.ttf") format("truetype");
+  src: url("../font/Meticula-ExtraLightItalic.ttf") format("truetype");
   font-weight: 200;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Bold.ttf") format("truetype");
+  src: url("../font/Meticula-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-BoldItalic.ttf") format("truetype");
+  src: url("../font/Meticula-BoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula-OutlineItalic";
-  src: url("../font/subset-Meticula-OutlineItalic.ttf") format("truetype");
+  src: url("../font/Meticula-OutlineItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-MediumItalic.ttf") format("truetype");
+  src: url("../font/Meticula-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Medium.ttf") format("truetype");
+  src: url("../font/Meticula-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula-Outline";
-  src: url("../font/subset-Meticula-Outline.ttf") format("truetype");
+  src: url("../font/Meticula-Outline.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Regular_1.ttf") format("truetype");
+  src: url("../font/Meticula-Regular_1.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-SemiBoldItalic.ttf") format("truetype");
+  src: url("../font/Meticula-SemiBoldItalic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-Thin.ttf") format("truetype");
+  src: url("../font/Meticula-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-SemiBold.ttf") format("truetype");
+  src: url("../font/Meticula-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Meticula";
-  src: url("../font/subset-Meticula-ThinItalic.ttf") format("truetype");
+  src: url("../font/Meticula-ThinItalic.ttf") format("truetype");
   font-weight: 100;
   font-style: italic;
 }
