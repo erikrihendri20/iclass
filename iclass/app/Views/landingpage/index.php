@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="content mb-0">
     <div class="mx-5 pt-5">
-        
+
         <!-- About -->
         <div class="row d-flex">
             <div class="col d-flex flex-column justify-content-center align-items-start ml-5 mr-3">
@@ -42,12 +42,12 @@
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                        <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                        <!-- <span class="sr-only">Previous</span> -->
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+                        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                        <!-- <span class="sr-only">Next</span> -->
                     </a>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        
+
 
         <div class="row d-flex mt-5">
             <div class="col d-flex justify-content-center mb-5 ">
@@ -125,7 +125,7 @@
     </div>
 </div>
 <div class="bg-light mt-5">
-    <div class="container pt-3">
+    <div class="container py-3">
         <div class="row">
             <div class="col">
                 <h5>Articles or contents about everything</h5>

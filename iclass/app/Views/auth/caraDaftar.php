@@ -1,6 +1,6 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mt-3">
+<div class="content mt-3 py-3">
     <!-- Content-->
     <div class="display-3 text-primary font-weight-bold mb-4 mx-5">
         <p>Tata Cara</p>
