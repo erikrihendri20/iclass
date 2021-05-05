@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-6 p-3">
-                <h2 class="text-warning"> [i] <b>Class</b></h2>
+                <h2 class="text-warning"> <span class="text-light">[i]</span> <b>Class</b></h2>
                 <h1> <b class="text-dark">Education</b> </h1>
             </div>
             <div class="col-lg-3 col-6 p-3">
