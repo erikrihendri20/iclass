@@ -5,12 +5,12 @@
 
         <!-- About -->
         <div class="row d-flex">
-            <div class="col d-flex flex-column justify-content-center align-items-start ml-5 mr-3">
+            <div class="col d-flex flex-column justify-content-center align-items-start ml-5 mr-3" id="tentang">
                 <h1 class="font-weight-bold display-1 mb-0">
                     <span class="text-warning">i<span class="text-primary">Class</span></span>
                 </h1>
                 <h2 class="font-weight-bold display-1 mt-0"><span class="text-primary">Education</span></h2>
-                <p class="h4 w-75">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
+                <p class="h4 w-75" id="deskripsi">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
                 <button class="btn btn-warning sm">Selengkapnya</button>
             </div>
             <div class="col d-flex justify-content-center align-items-center flex-1">

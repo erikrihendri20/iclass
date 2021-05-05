@@ -2,6 +2,16 @@ body {
   font-family: "Meticula";
 }
 
+#tentang{
+  font-family: "Meticula";
+  font-weight: bold;
+}
+
+#deskripsi{
+  font-family: "Meticula";
+  font-weight: 600;
+}
+
 @font-face {
   font-family: "Meticula";
   src: url("../font/Meticula-Regular.ttf") format("truetype");

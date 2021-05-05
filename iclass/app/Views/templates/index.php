@@ -15,7 +15,9 @@
 
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
-    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="<?= base_url('css/font.css'); ?>">
+
+
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
     <title>Document</title>
