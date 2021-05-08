@@ -12,6 +12,18 @@ body {
   font-weight: 600;
 }
 
+.pilihan-paket{
+  font-family: "Meticula";
+  font-weight: 600;
+}
+
+.judul-paket, .pilihan-paket{
+  font-family: "Meticula";
+  font-weight: bold;
+}
+
+
+
 @font-face {
   font-family: "Meticula";
   src: url("../font/Meticula-Regular.ttf") format("truetype");

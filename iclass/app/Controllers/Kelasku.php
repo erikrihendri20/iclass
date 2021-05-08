@@ -10,7 +10,7 @@ use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 use App\Models\Latihan_Model;
-use App\Models\Mindmap_model;
+use App\Models\Mindmap_Model;
 use App\Models\Materi_Model;
 
 class Kelasku extends BaseController
@@ -21,6 +21,7 @@ class Kelasku extends BaseController
             'active' => 'kelasku',
             'page'  => 'jadwal'
         ];
+        $data['title'] = 'Jadwal';
         return view('kelasku/jadwal', $data);
     }
 
@@ -55,6 +56,7 @@ class Kelasku extends BaseController
         $data['javascript'] = ['rekaman.js'];
         $data['css'] = 'rekaman.css';
         $data['active'] = 'kelasku';
+        $data['title'] = 'Rekaman';
         return view('kelasku/rekaman', $data);
     }
 
@@ -185,6 +187,7 @@ class Kelasku extends BaseController
         }
 
         $data['active'] = 'kelasku';
+        $data['title'] = 'Kuis';
         return view('kelasku/kuis_kode', $data);
     }
 
@@ -231,6 +234,7 @@ class Kelasku extends BaseController
             'kuis'      => $kuis
         ];
 
+        $data['title'] = 'Soal';
         return view('kelasku/kuis_soal', $data);
     }
 
@@ -306,8 +310,9 @@ class Kelasku extends BaseController
         $data = [
             'active'    => 'kelasku',
             'kuis'      => $kuis
-        ];
+        ]; 
 
+        $data['title'] = 'Pembahasan';
         return view('kelasku/kuis_pembahasan', $data);
     }
 
@@ -378,6 +383,7 @@ class Kelasku extends BaseController
         session()->remove('kode_kuis');
         session()->remove('hasil');
 
+        $data['title'] = 'Hasil';
         return view('kelasku/kuis_hasil', $data);
     }
 
@@ -392,6 +398,7 @@ class Kelasku extends BaseController
             'active'    => 'kelasku',
             'mindmaps'  => $mindmap
         ];
+        $data['title'] = 'Latihan';
         return view('kelasku/latihan', $data);
     }
 
@@ -425,6 +432,7 @@ class Kelasku extends BaseController
                 'materi'      => $latihan,
                 'active'    => 'kelasku',
             ];
+            $data['title'] = 'Latihan';
             return view('kelasku/latihan', $data);
         }
     }

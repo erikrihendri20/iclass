@@ -15,6 +15,7 @@ class Materi extends BaseController
 
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
+		$data['title'] = 'Materi';
 		return view('peserta/materi', $data);
 	}
 
@@ -30,6 +31,7 @@ class Materi extends BaseController
 
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
+		$data['title'] = 'Materi';
 		return view('peserta/materi', $data);
 	}
 }

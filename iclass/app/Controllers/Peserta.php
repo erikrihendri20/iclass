@@ -50,6 +50,7 @@ class Peserta extends BaseController
 		} else {
 			$data['meetingDate'] = null;
 		}
+		$data['title'] = 'Beranda';
 		return view('peserta/index', $data);
 	}
 
@@ -81,6 +82,7 @@ class Peserta extends BaseController
 		];
 		$data['css'] = 'peserta/profil.css';
 		$data['active'] = 'profil';
+		$data['title'] = 'Profil';
 		return view('peserta/profil', $data);
 	}
 
@@ -89,7 +91,7 @@ class Peserta extends BaseController
 		$model = new Users_Model;
 		$paket_model = new Paket_Model();
 		$user = $model->getByUserName(session('username'));
-
+		$data['title'] = 'Edit';
 		if (session('flash') != null) {
 			if (session('flash') == "sukses") {
 				$flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -113,6 +115,7 @@ class Peserta extends BaseController
 				</button>
 			</div>';
 			}
+			
 			session()->setFlashdata('flash', $flash);
 		}
 
@@ -267,6 +270,7 @@ class Peserta extends BaseController
 	{
 		$data['css'] = 'peserta/index.css';
 		$data['active'] = 'beranda';
+		$data['title'] = 'Try out';
 		return view('peserta/tryout/after', $data);
 	}
 }

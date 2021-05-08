@@ -15,9 +15,9 @@
       </li>
 
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-item nav-link <?php if ($active == 'blog') echo 'active text-primary font-weight-bold'; ?> " href="<?= base_url('landingpage/blog'); ?>">Blog</a>
-      </li>
+      </li> -->
 
       <?php if (!session('username')) : ?>
         <li class="nav-item">

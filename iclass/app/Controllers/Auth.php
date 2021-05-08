@@ -3,16 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\Users_Model;
-use App\Models\Admin_model;
-use App\Models\Paket_model;
+use App\Models\Admin_Model;
+use App\Models\Paket_Model;
 
 class Auth extends BaseController
 {
 
-    public function text()
-    {
-        dd(session()->pilih_paket);
-    }
 
     public function masuk()
     {
@@ -98,7 +94,7 @@ class Auth extends BaseController
                 return redirect()->to('masuk');
             }
         }
-
+        $data['title'] = 'Masuk';
         $data['active'] = 'masuk';
         $data['css'] = 'auth/masuk.css';
         return view('auth/masuk', $data);
@@ -166,6 +162,7 @@ class Auth extends BaseController
                 return redirect()->to('masukAdmin');
             }
         }
+        $data['title'] = 'Masuk';
         return view('auth/masukAdmin');
     }
 
@@ -228,6 +225,7 @@ class Auth extends BaseController
                 return redirect()->back()->withInput();
             }
         }
+        $data['title'] = 'Daftar';
         return view('auth/daftarAdmin');
     }
 
@@ -346,12 +344,13 @@ class Auth extends BaseController
                 return redirect()->back()->withInput();
             }
         } else if (isset($_POST['kembali'])) {
-            dd($this->request->getVar());
+            return redirect()->back()->withInput();
         }
         $data['active'] = 'daftar';
         $data['pilihPaket'] = $this->request->getGet('paket');
         $data['css'] = 'auth/daftar.css';
         $paket_model = new Paket_model();
+        $data['title'] = 'Daftar';
         $data['paket'] = $paket_model->findAll();
         return view('auth/daftar', $data);
     }
@@ -360,6 +359,7 @@ class Auth extends BaseController
     {
         $data['active'] = 'daftar';
         $data['css'] = 'auth/daftar.css';
+        $data['title'] = 'Cara Daftar';
         return view('auth/caraDaftar', $data);
     }
 
@@ -367,6 +367,7 @@ class Auth extends BaseController
     {
         $data['active'] = 'masuk';
         $data['css'] = 'auth/masuk.css';
+        $data['title'] = 'Lupa Password';
         return view('auth/forgotPassword', $data);
     }
 
@@ -406,6 +407,7 @@ class Auth extends BaseController
         $data['css'] = 'auth/masuk.css';
         $paket_model = new Paket_model();
         $data['paket'] = $paket_model->findAll();
+        $data['title'] = 'Upload Bukti Pembayaran';
         return view('auth/uploadBuktiPembayaran', $data);
     }
 
@@ -444,6 +446,7 @@ class Auth extends BaseController
             return redirect()->to('../peserta');
         }
         $data['user'] = $user;
+        $data['title'] = 'Ruang Tunggu';
         return view('auth/ruangTunggu', $data);
     }
 

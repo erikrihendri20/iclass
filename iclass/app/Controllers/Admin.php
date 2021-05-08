@@ -12,7 +12,7 @@ use App\Models\Kuis_Model;
 use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Latihan_Model;
-use App\Models\Admin_model;
+use App\Models\Admin_Model;
 use App\Models\Materi_Model;
 
 class Admin extends BaseController
@@ -20,6 +20,7 @@ class Admin extends BaseController
     public function index()
     {
         $data['active'] = 'dashboard';
+        $data['title'] = 'Dashboard Admin';
         return view('admin/index', $data);
     }
 
@@ -28,6 +29,7 @@ class Admin extends BaseController
         $data['active'] = 'atur jadwal pertemuan';
         $model = new Kelas_Model();
         $data['kelas'] = $model->findAll();
+        $data['title'] = 'Atur Jadwal Pertemuan';
         return view('admin/aturJadwalPertemuan', $data);
     }
 
@@ -36,6 +38,7 @@ class Admin extends BaseController
         $data['active'] = 'atur jadwal tryout';
         $model = new Kelas_Model();
         $data['kelas'] = $model->findAll();
+        $data['title'] = 'Atur Jadwal Tryout';
         return view('admin/aturJadwalTryout', $data);
     }
 
@@ -50,6 +53,7 @@ class Admin extends BaseController
         }
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'daftar kelas';
+        $data['title'] = 'Daftar Kelas';
         return view('admin/daftarKelas', $data);
     }
 
@@ -182,12 +186,14 @@ class Admin extends BaseController
 
         $data['css'] = 'admin/rekaman.css';
 
+        $data['title'] = 'Rekaman';
         return view('admin/rekaman', $data);
     }
 
     public function uploadRekaman()
     {
         $data['active'] = 'Kelas';
+        $data['title'] = 'Upload Rekaman';
         return view('admin/uploadRekaman', $data);
     }
 
@@ -300,6 +306,7 @@ class Admin extends BaseController
         $data['active'] = 'daftar peserta';
         $model = new Paket_Model();
         $data['paket'] = $model->findAll();
+        $data['title'] = 'Daftar Peserta';
         return view('admin/daftarPeserta', $data);
     }
 
@@ -311,6 +318,7 @@ class Admin extends BaseController
         $data['user'] = $user_model->tampilkanPeserta($kode_paket);
         $data['kelas'] = $kelas_model->findAll();
         $data['paket'] = $paket_model->findAll();
+        $data['title'] = 'Tampilkan Peserta';
         return view('admin/tampilkanPeserta', $data);
     }
 
@@ -410,6 +418,7 @@ class Admin extends BaseController
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'edit peserta';
         $data['css'] = 'auth/edit-peserta.css';
+        $data['title'] = 'Edit Peserta';
         return view('admin/editPeserta', $data);
     }
 
@@ -421,6 +430,7 @@ class Admin extends BaseController
         $data['user'] = $user_model->tampilkanPeserta($kode_paket);
         $data['kelas'] = $kelas_model->findAll();
         $data['paket'] = $paket_model->findAll();
+        $data['title'] = 'Konfirmasi Peserta';
         return view('admin/tampilkanKonfirmasiPeserta', $data);
     }
 
@@ -429,6 +439,7 @@ class Admin extends BaseController
         $paket_model = new Paket_Model();
         $data['paket'] = $paket_model->findAll();
         $data['active'] = 'konfirmasi peserta';
+        $data['title'] = 'Konfirmasi Peserta';
         return view('admin/konfirmasiPeserta', $data);
     }
 
@@ -466,6 +477,7 @@ class Admin extends BaseController
             'css'       => 'admin/kuis_soal.css'
         ];
 
+        $data['title'] = 'Upload Kuis';
         return view('admin/upload_soal_kuis', $data);
     }
 
@@ -525,8 +537,8 @@ class Admin extends BaseController
                 $path = ROOTPATH . "/../public_html/img/kuis/" . $kode;
 
                 if (!is_dir($path)) {
-                    mkdir($path . '/soal', 0700, true);
-                    mkdir($path . '/pembahasan', 0700, true);
+                    mkdir($path . '/soal', 0755, true);
+                    mkdir($path . '/pembahasan', 0755, true);
                 }
 
                 foreach ($imagefile as $img) {
@@ -629,6 +641,7 @@ class Admin extends BaseController
             'css'       => 'admin/kuis_soal.css'
         ];
 
+        $data['title'] = 'Pembahasan';
         return view('admin/upload_pembahasan_kuis', $data);
     }
 
@@ -757,6 +770,7 @@ class Admin extends BaseController
                 'data'      => $kuis,
                 'active'    => 'kuis_edit',
             ];
+            $data['title'] = 'Edit Kuis';
             return view('admin/edit_kuis', $data);
         } else {
             $kode = $this->request->getPost('kode');
@@ -767,6 +781,7 @@ class Admin extends BaseController
                 'data'      => $kuis,
                 'active'    => 'kuis_edit',
             ];
+            $data['title'] = 'Edit Soal';
             return view('admin/edit_soal_kuis', $data);
         }
     }
@@ -887,6 +902,7 @@ class Admin extends BaseController
             'list_materi'   => $kode,
             'active'        => 'kuis_jadwal',
         ];
+        $data['title'] = 'Jadwal Kuis';
         return view('admin/jadwal_kuis', $data);
     }
 
@@ -1055,6 +1071,7 @@ class Admin extends BaseController
             'active'    => 'kuis_hasil',
         ];
         // dd($data);
+        $data['title'] = 'Hasil Kuis';
         return view('admin/hasil_kuis', $data);
     }
 
@@ -1127,6 +1144,7 @@ class Admin extends BaseController
         ];
 
         // dd($data);
+        $data['title'] = 'Latihan';
         return view('admin/latihan', $data);
     }
 
@@ -1137,6 +1155,7 @@ class Admin extends BaseController
                 'file'      => $file,
                 'active'    => 'latihan',
             ];
+            $data['title'] = 'Latihan';
             return view('admin/view_latihan', $data);
         } else {
             $flash = '<div class="alert alert-danger alert-dismissible fade show w-50 mx-auto" role="alert">
@@ -1153,6 +1172,7 @@ class Admin extends BaseController
                 'data'      => $latihan,
                 'active'    => 'latihan',
             ];
+            $data['title'] = 'Latihan';
             return view('admin/view_latihan', $data);
         }
     }
@@ -1289,6 +1309,7 @@ class Admin extends BaseController
     public function daftarAdmin()
     {
         $data['active'] = 'daftar admin';
+        $data['title'] = 'Daftar Admin';
         return view('admin/daftarAdmin', $data);
     }
 
@@ -1296,6 +1317,7 @@ class Admin extends BaseController
     {
         $admin_model = new Admin_model();
         $data['admin'] = $admin_model->findAll();
+        $data['title'] = 'Tampilkan Admin';
         return view('admin/tampilkanAdmin', $data);
     }
 

@@ -5,11 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-6 p-3">
-                <h2 class="text-warning"> <span class="text-light">[i]</span> <b>Class</b></h2>
-                <h1> <b class="text-dark">Education</b> </h1>
+                <h2 class="text-light"> <span class="text-warning">[i]</span> <b>Class</b></h2>
+                <h1> <b class="text-light">Education</b> </h1>
             </div>
             <div class="col-lg-3 col-6 p-3">
-                <h4 class="text-dark"> <b>Usefull Link</b> </h4>
+                <h4 class="text-light"> <b>Usefull Link</b> </h4>
                 <ul class="list-unstyled">
                     <li>
                         <a href="<?= base_url() ?>" class="text-white">
@@ -35,11 +35,11 @@
 
             </div>
             <div class="col-lg-3 col-md-6 p-3">
-                <h4 class="text-dark"> <b>About</b> </h4>
+                <h4 class="text-light"> <b>About</b> </h4>
                 <p class="mb-0 text-white text-justify">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika.</p>
             </div>
             <div class="col-lg-3 col-md-6 p-3">
-                <h4 class="text-dark"> <b>Follow us</b> </h4>
+                <h4 class="text-light"> <b>Follow us</b> </h4>
                 <div class="row">
                     <div class="col-md-1 text-white">
                         <i class="fa fa-envelope"></i>
