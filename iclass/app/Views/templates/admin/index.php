@@ -117,25 +117,14 @@
     <?php if ($active == 'daftar kelas') : ?>
         <script>
             $(document).ready(function() {
-                $('#daftar-kelas').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
-                    ]
-                });
+                $('#daftar-kelas').DataTable();
 
             });
         </script>
     <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal' || $active == 'kuis_hasil' ||  $active == 'latihan') : ?>
         <script>
             $(document).ready(function() {
-                $('#daftar-kuis').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
-                    ],
-                    "iDisplayLength": 10
-                });
+                $('#daftar-kuis').DataTable();
 
             });
         </script>
@@ -148,12 +137,7 @@
                         function(result) {
                             function init() {
                                 $('#tabel-peserta').html(result)
-                                $('#daftar-peserta').DataTable({
-                                    dom: 'Bfrtip',
-                                    buttons: [
-                                        'copy', 'csv', 'excel', 'pdf', 'print'
-                                    ]
-                                })
+                                $('#daftar-peserta').DataTable()
                             }
                             init()
                             $('.paket').change(function() {
@@ -187,12 +171,7 @@
                         function(result) {
                             function init() {
                                 $('#tabel-peserta').html(result)
-                                $('#daftar-peserta').DataTable({
-                                    dom: 'Bfrtip',
-                                    buttons: [
-                                        'copy', 'csv', 'excel', 'pdf', 'print'
-                                    ]
-                                })
+                                $('#daftar-peserta').DataTable()
                             }
                             init()
                             $('.konfirmasi').click(function() {
@@ -240,12 +219,7 @@
                         function(result) {
                             function init() {
                                 $('#tabel-admin').html(result)
-                                $('#daftar-admin').DataTable({
-                                    dom: 'Bfrtip',
-                                    buttons: [
-                                        'copy', 'csv', 'excel', 'pdf', 'print'
-                                    ]
-                                })
+                                $('#daftar-admin').DataTable()
                             }
                             init()
                             $('.konfirmasi').click(function() {

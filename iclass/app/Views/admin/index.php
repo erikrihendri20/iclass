@@ -4,6 +4,8 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+    <?= session()->flash; ?>
+
 
                     <div class="row">
                         <div class="col">
@@ -99,6 +101,7 @@
                             <a href="<?= base_url('admin/hapusSemua/'.json_encode($pta)); ?>" class="btn btn-danger float-right">Hapus Semua</a>
                         </div>
                     </div>
+                    
 
                     <div class="row">
                         <div class="col">

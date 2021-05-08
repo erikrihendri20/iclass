@@ -372,8 +372,25 @@ class Admin extends BaseController
     public function hapusSemua($id)
     {
         $id = json_decode($id);
+        if($id==null){
+            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Gagal</strong>, tidak ada peserta
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->back();
+        }
         $model = new Users_Model();
         $model->delete($id);
+        $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Peserta <strong>berhasil</strong> dihapus
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+        session()->setFlashdata('flash', $flash);
         return redirect()->back();
     }
 
