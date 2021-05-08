@@ -19,6 +19,13 @@ class Admin extends BaseController
 {
     public function index()
     {
+        $user_model = new Users_Model();
+        $data['peserta'] = $user_model->jumlahPesertaByStatus();
+        $data['belumMembayar'] = $user_model->jumlahPesertaByStatus(0);
+        $data['sudahMembayar'] = $user_model->jumlahPesertaByStatus(1);
+        $data['sudahDikonfirmasi'] = $user_model->jumlahPesertaByStatus(2);
+        
+        $data['pesertaTidakAktif'] = $user_model->pesertaTidakAktif();
         $data['active'] = 'dashboard';
         $data['title'] = 'Dashboard Admin';
         return view('admin/index', $data);
@@ -349,7 +356,7 @@ class Admin extends BaseController
                             </button>
                         </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url() . '/admin/daftarPeserta');
+            return redirect()->back();
         } else {
             $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Gagal</strong>
@@ -358,8 +365,16 @@ class Admin extends BaseController
                             </button>
                         </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url() . '/admin/daftarPeserta');
+            return redirect()->back();
         }
+    }
+
+    public function hapusSemua($id)
+    {
+        $id = json_decode($id);
+        $model = new Users_Model();
+        $model->delete($id);
+        return redirect()->back();
     }
 
     public function editPeserta($id)
@@ -1341,4 +1356,6 @@ class Admin extends BaseController
                     </button>
                 </div>';
     }
+
+
 }

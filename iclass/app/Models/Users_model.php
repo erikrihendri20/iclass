@@ -43,4 +43,22 @@ class Users_Model extends Model
         $this->builder()->where('kode_kelas', $id);
         return $this->builder()->countAllResults();
     }
+
+    public function jumlahPesertaByStatus($status=3)
+    {
+        if($status==0||$status==1||$status==2){
+            $this->builder()->where('status', $status);
+            return $this->builder()->countAllResults();
+        }else{
+            return $this->builder()->countAllResults();
+        }
+    }
+
+    public function pesertaTidakAktif()
+    {
+        $date = date('Y-m-d H:i:s',strtotime(date('Y-m-d H:i:s').' -3 days'));
+        $this->builder()->where('created_at<=',$date);
+        $this->builder()->where('status<=',0);
+        return $this->builder()->get()->getResultArray();
+    }
 }

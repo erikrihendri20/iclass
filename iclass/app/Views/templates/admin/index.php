@@ -271,7 +271,14 @@
                 tampilkanAdmin()
             });
         </script>
-
+    <?php elseif ($active == 'dashboard'): ?>
+        <script>
+            $(document).ready(function() {
+                $('#peserta-tidak-aktif').DataTable()
+                
+            });
+            
+        </script>
     <?php endif; ?>
 
     <!-- calendar -->
