@@ -1,68 +1,68 @@
 <?= $this->renderSection('content'); ?>
 
 <!-- footer -->
-<div class="bg-primary p-3 edu">
-    <div class="container">
+<div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center">
+    <div class="col-lg-11 pt-3">
         <div class="row">
-            <div class="col-lg-3 col-6 p-3">
-                <h2 class="text-light"> <span class="text-warning">[i]</span> <b>Class</b></h2>
-                <h1> <b class="text-light">Education</b> </h1>
+            <div class="col-lg-6 col-6">
+                <h2 class="text-light"> <span class="text-warning">[i]</span> <b>Class Education</b></h2>
+                <p class="my-0 w-75 text-white text-justify">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
             </div>
-            <div class="col-lg-3 col-6 p-3">
+            <div class="col-lg-3 col-6">
                 <h4 class="text-light"> <b>Usefull Link</b> </h4>
                 <ul class="list-unstyled">
                     <li>
                         <a href="<?= base_url() ?>" class="text-white">
-                            <u>Beranda</u>
+                            <span class="fas fa-chevron-right h6"></span>
+                            <span> Beranda</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= base_url('#paket') ?>" class="text-white">
-                            <u>Paket Belajar</u>
+                            <span class="fas fa-chevron-right h6"></span>
+                            <span>Paket Belajar</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= base_url('daftar') ?>" class="text-white">
-                            <u>Pendaftaran</u>
+                            <span class="fas fa-chevron-right h6"></span>
+                            <span>Pendaftaran</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= base_url('masuk') ?>" class="text-white">
-                            <u>Login</u>
+                            <span class="fas fa-chevron-right h6"></span>
+                            <span>Login</span>
                         </a>
                     </li>
                 </ul>
 
             </div>
-            <div class="col-lg-3 col-md-6 p-3">
-                <h4 class="text-light"> <b>About</b> </h4>
-                <p class="mb-0 text-white text-justify">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika.</p>
-            </div>
-            <div class="col-lg-3 col-md-6 p-3">
+            <div class="col-lg-3 col-md-6">
                 <h4 class="text-light"> <b>Follow us</b> </h4>
                 <div class="row">
                     <div class="col-md-1 text-white">
                         <i class="fa fa-envelope"></i>
                     </div>
-                    <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white">
+                    <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white text-decoration-none">
                         <p class="my-0">
-                            <u>masukstis30@gmail.com</u>
+                            <span>masukstis30@gmail.com</span>
                         </p>
                     </a>
                     <div class="col-md-1 text-white">
                         <i class="fa fa-instagram"></i>
                     </div>
-                    <a href="https://www.instagram.com/iclass.education/" class="col-md-10 text-white">
+                    <a href="https://www.instagram.com/iclass.education/" class="col-md-10 text-white text-decoration-none">
                         <p class="my-0">
-                            <u>iclass.education</u>
+                            <span>iclass.education</span>
                         </p>
                     </a>
                     <div class="col-md-1 text-white">
                         <i class="fa fa-whatsapp"></i>
                     </div>
-                    <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white">
+                    <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white text-decoration-none">
                         <p class="my-0">
-                            <u>+62 822 3220 7642</u>
+                            <span>+62 822 3220 7642</span>
                         </p>
                     </a>
                 </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center text-white">
-                <b class="mb-0 mt-2">© 2021 iClass Education. All rights reserved</b>
+                <!-- <b class="mb-0 mt-2">© 2021 iClass Education. All rights reserved</b> -->
             </div>
         </div>
     </div>

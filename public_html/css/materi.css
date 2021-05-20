@@ -15,7 +15,6 @@ div#bab_materi {
     width: 27%;
     height: 530px;
     overflow-y: auto;
-    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.175);
 }
 
 @media (max-width:700px) {
@@ -52,7 +51,7 @@ div#bab_materi {
         font-size: xx-large;
     }
 
-    a.bagian, .abab {
+    a.bagian {
         font-size: small;
     }
 }

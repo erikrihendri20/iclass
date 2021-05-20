@@ -5,11 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col d-flex flex-column justify-content-center ">
-                <h1 class="text-primary align-self-center">Formulir Pendaftaran</h1>
+                <h1 class="text-primary align-self-center font-weight-bold">Formulir Pendaftaran</h1>
                 <form class="d-flex flex-column masuk" method="POST" action="" enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label for="nama" class="text-primary">Nama</label>
+                        <label for="nama" class="text-primary font-weight-bold h5">Nama</label>
                         <input type="text" value="<?= old('nama'); ?>" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : '' ?>" id="nama" name="nama" placeholder="Nama">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('nama'); ?>
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="jurusan" class="text-primary">Jurusan</label>
+                        <label for="jurusan" class="text-primary font-weight-bold h5">Jurusan</label>
                         <input type="text" value="<?= old('jurusan'); ?>" class="form-control <?= ($validation->hasError('jurusan')) ? 'is-invalid' : '' ?>" id="jurusan" name="jurusan" placeholder="Jurusan">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('jurusan'); ?>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kode-paket" class="text-primary">Pilih Paket</label>
+                        <label for="kode-paket" class="text-primary font-weight-bold h5">Pilih Paket</label>
                         <select class="form-control <?= ($validation->hasError('kode-paket')) ? 'is-invalid' : '' ?>" name="kode-paket" id="kode-paket">
                             <?php if(old('kode-paket')!=null): ?>
                                 <?php foreach ($paket as $p) :?>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="telepon" class="text-primary">Nomor Whatsapp</label>
+                        <label for="telepon" class="text-primary font-weight-bold h5">Nomor Whatsapp</label>
                         <input type="text" value="<?= old('telepon'); ?>" class="form-control <?= ($validation->hasError('telepon')) ? 'is-invalid' : '' ?>" id="telepon" name="telepon" placeholder="Nomor Whatsapp">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('telepon'); ?>
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="text-primary">Email</label>
+                        <label for="email" class="text-primary font-weight-bold h5">Email</label>
                         <input type="email" value="<?= old('email'); ?>" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid' : '' ?>" id="email" name="email" placeholder="Email">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('email'); ?>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="username" class="text-primary">Username</label>
+                        <label for="username" class="text-primary font-weight-bold h5">Username</label>
                         <input type="text" value="<?= old('username'); ?>" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : '' ?>" id="username" name="username" placeholder="Username">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('username'); ?>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="text-primary">Password</label>
+                        <label for="password" class="text-primary font-weight-bold h5">Password</label>
                         <input type="password" class="form-control <?= ($validation->hasError('password')) ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('password'); ?>
@@ -79,17 +79,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="konfirmasi-password" class="text-primary">Konfirmasi Password</label>
+                        <label for="konfirmasi-password" class="text-primary font-weight-bold h5">Konfirmasi Password</label>
                         <input type="password" class="form-control <?= ($validation->hasError('konfirmasi-password')) ? 'is-invalid' : '' ?>" id="konfirmasi-password" name="konfirmasi-password" placeholder="Konfirmasi Password">
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('konfirmasi-password'); ?>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center mt-3">
 
-                        <button type="submit" name="kembali" class="btn btn-warning align-self-center mx-1">Kembali</button>
-                        <button type="submit" name="submit" class="btn btn-primary align-self-center mx-1">lanjutkan</button>
+                        <button type="submit" name="kembali" class="btn btn-warning align-self-center mx-1" style="border-radius: 10px;">
+                            <span class="text-light h4 px-4">Kembali</span>
+                        </button>
+                        <button type="submit" name="submit" class="btn btn-primary align-self-center mx-1" style="border-radius: 10px;">
+                            <span class="text-light h4 px-4">Lanjutkan</span>
+                        </button>
                     </div>
                 </form>
             </div>

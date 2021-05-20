@@ -1,13 +1,13 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div id="content-2-container" class="pt-5">
+    <div id="content-2-container" class="pt-5 d-flex justify-content-center">
 
-        <div id="lefty">
-            <p id="kekiri" onclick="keKiri();" class='fas fa-chevron-circle-left'></p>
+        <div id="lefty" class="btn">
+            <a id="kekiri" onclick="keKiri();" class='fas fa-chevron-circle-left display-4 text-secondary'></a>
         </div>
-        <div id="righty">
-            <p id="kekanan" onclick="keKanan();" class='fas fa-chevron-circle-right'></p>
+        <div id="righty" class="btn">
+            <a id="kekanan" onclick="keKanan();" class='fas fa-chevron-circle-right display-4 text-secondary'></a>
         </div>
 
 
@@ -31,7 +31,7 @@
                         <p style="position: absolute; bottom: 50%; left: 50%;" class="text-black">Waduh, sepertinya rekaman pertemuannya belum tersedia.</p>
                         <?php endif; ?>
                     </div>
-                    <div class="row m-2">
+                    <div class="row mx-2 mt-3">
                         <button class="btn btn-lg btn-primary" onclick="downloadPpt('<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');"><i class="fa fa-download"></i>  Download PowerPoint</button>
                     </div>
                 </div>

@@ -21,21 +21,20 @@
                 <div id="bagian_materi" class="row w-100 mx-1">
                     <?php for ($i = 1; $i <= $materiPilihan['parts']; $i++) : ?>
                         <div class="w-25 align-items-center mt-3">
-                            <button class="btn btn-primary" style="width: 90%;" onclick="gantiVideo('<?=$i?>');">Bagian <?=$i?></button>
+                            <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="gantiVideo('<?=$i?>');">
+                                <span class="h5">Bagian <?=$i?></span>
+                            </button>
                         </div>
                     <?php endfor; ?>
-                    <div class="w-25 align-items-center mt-3">
-                        <button class="btn btn-primary" style="width: 90%;" onclick="bukaMindMap();">Mind Mapping</button>
-                    </div>
                 </div>
             </div>
 
-            <div id="bab_materi" style="position: float; float: right;" class="card fluid mt-5 ml-3">
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid mt-5 ml-3 pb-2">
                 <?php foreach($materis as $materi) : ?>
 
-                    <div class="bab row fluid btn-light rounded mx-4 my-2">
+                    <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">
                         <a href="<?= base_url() ?>/materi/<?= $materi['id'] ?>"
-                            class="abab text-primary w-100 ml-3 my-1 font-weight-bold">
+                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold">
                             <?= $materi['name'] ?>
                         </a>
                     </div>
@@ -45,34 +44,12 @@
         </div>
 
     </div>
-
-    <!--Modal untuk Mind Mapping-->
-    <div id="mindMap" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg bg-white rounded" role="document">
-            <div class="modal-header d-flex justify-content-between align-text-center">
-                <h3 class="text-primary ml-1">Mind Mapping</h3>
-                <p class="fa fa-close btn mr-1" style="font-size:36px;" onclick="tutupMindMap();"></p>
-            </div>
-
-            <div class="modal-body d-flex justify-content-center align-text-center">
-                <img id="imgMindMap" src="<?= base_url() ?>/img/Mind Map/<?= $materiPilihan['name'] ?>.jpg" alt="Mind Mapping" class="img-fluid img-thumbnail">
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
     function gantiVideo(bagian) {
         document.getElementById('vidsrc').src=`<?= base_url() ?>/vid/Materi/<?= $materiPilihan['name'] ?>/<?= $materiPilihan['name'] ?> part ${bagian}.mp4`
         document.getElementById('vid').load();
-    }
-
-    function bukaMindMap() {
-        $('#mindMap').modal('show');
-    }
-
-    function tutupMindMap() {
-        $('#mindMap').modal('hide');
     }
 </script>
 <?= $this->endSection(); ?>

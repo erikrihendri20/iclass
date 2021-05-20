@@ -5,7 +5,7 @@
 
     <div class="row mx-2">
         <div class="col-xl-5 col-md-10 mx-md-auto h-100">
-            <img class="mx-auto d-block w-md-75 w-xl-100 my-auto" src="<?= base_url() . '/img/3.png' ?>" alt="..." style="height:25em;">
+            <img class="img-fluid" src="<?= base_url() . '/img/3.png' ?>" alt="..." style="height:25em;">
         </div>
         <div class="col-xl-6">
             <div class="row">
@@ -19,7 +19,7 @@
                                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
                                     <div class="col text-center">
                                         <?php foreach ($materi as $dt) : ?>
-                                            <a class="btn btn-light card-link w-75 mx-auto my-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px;"><?= $dt['name'] ?></a>
+                                            <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px;"><?= $dt['name'] ?></a>
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
@@ -27,23 +27,6 @@
                         </div>
                     </div>
                 <?php else : ?>
-                    <div class="col-md-6 text-center mt-md-5 mt-xl-2">
-                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px; height:1.5em;">Modul Bimbel</div>
-                        <div class="bg-light m-0 mx-auto" style="height: 20em; width:72%;">
-                            <div class="d-flex w-100" style="height:12em;">
-                                <div class="row justify-content-center align-self-center w-100 mx-auto">
-                                    <img class="mx-auto border" src="<?= base_url() ?>/img/Buku.jpg" alt="" style="height: 10em; width:7em;">
-                                </div>
-                            </div>
-                            <div class="container" style="height:4em;">
-                                <p class="text-justify font-weight-bold" style="font-size:small;">
-                                    Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
-                                </p>
-                                <a href="#" class="badge card-link bg-warning text-white font-weight-bold m-0 w-50 mx-auto h4" style="border-radius:5px;">lihat</a>
-                            </div>
-                        </div>
-                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px;">Premium</div>
-                    </div>
                     <div class="col-md-6">
                         <div class="w-100 mx-auto">
                             <div class="h1 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
@@ -54,7 +37,7 @@
                                     <div class="col text-center">
                                         <?php foreach ($materi as $dt) : ?>
                                             <div>
-                                                <a class="btn btn-light card-link mx-auto my-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px; width:fit-content;"><?= $dt['name'] ?></a>
+                                                <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary text-left font-weight-bold w-100" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px; width:fit-content;"><?= $dt['name'] ?></a>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
@@ -62,13 +45,32 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6 text-center mt-md-5 mt-xl-2">
+                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px; height:1.5em;">Modul Bimbel</div>
+                        <div class="bg-light m-0 mx-auto" style="height: 20em; width:72%;">
+                            <div class="d-flex w-100" style="height:12em;">
+                                <div class="row justify-content-center align-self-center w-100 mx-auto">
+                                    <img class="mx-auto border" src="<?= base_url() ?>/img/Buku.jpg" alt="" style="height: 10em; width:7em;">
+                                </div>
+                            </div>
+                            <div class="container" style="height:4em;">
+                                <p class="text-justify font-weight-bold" style="font-size: small; padding: 0px; margin: 0px;">
+                                    Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
+                                </p>
+                                <a href="#" class="badge card-link bg-warning text-white font-weight-bold m-0 w-50 mx-auto h4" style="border-radius: 5px;">lihat</a>
+                            </div>
+                        </div>
+                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px;">Premium</div>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 
     <div class="mindmap-latihan bg-light mt-3 pb-3">
-        <button class='btn btn-primary card-link mx-2 my-2 text-white font-weight-bold rounded m-4' onclick='bukaModal();'> Mind Mapping </button>
+        <button class='btn btn-primary card-link m-4' style="border-radius: 5px;" onclick='bukaModal();'> 
+        <span class="text-white font-weight-bold px-4">Mind Mapping</span>
+        </button>
         <div class="row ">
             <div class="col mx-4" id="latihan">
             </div>

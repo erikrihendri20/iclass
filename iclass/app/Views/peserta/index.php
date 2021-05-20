@@ -12,11 +12,11 @@
                 </div>
             </div>
 
-            <div class="row d-flex mt-3">
-                <div class="col d-flex justify-content-center mb-1">
-                    <div class="card align-self-start d-flex bg-dark" style="width: 20rem; height: 33rem;">
+            <div class="d-flex mt-3 d-flex justify-content-center">
+                <div class="d-flex justify-content-center mb-1 mx-4">
+                    <div class="card align-self-start d-flex bg-dark" style="width: 20rem; height: 33rem; border-radius: 20px;">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Zoom</h1>
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Zoom</h1>
                             <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
                                 <h1 class="font-weight-bold text-primary">
@@ -33,34 +33,40 @@
                                 <h3 class="font-weight-bold text-primary">Zoom</h3>
                             </div>
                             <?php if($meetingDate!=null) :?>
-                                <a href="<?= $meetingDate['link-meeting']; ?>" class="btn card-link bg-primary text-white font-weight-bold">link zoom</a>
+                                <div class="btn card-link bg-primary">
+                                    <a href="<?= $meetingDate['link-meeting']; ?>" class="text-white font-weight-bold px-4  ">link zoom</a>
+                                </div>
                             <?php endif ?>
                         </div>
                     </div>
                 </div>
-                <div class="col d-flex justify-content-center mb-1">
-                    <div class="card align-self-start d-flex bg-primary" style="width: 20rem; height: 33rem;">
+                <div class="d-flex justify-content-center mb-1 mx-4">
+                    <div class="card align-self-start d-flex bg-primary" style="width: 20rem; height: 33rem; border-radius: 20px;">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Try Out</h1>
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Try Out</h1>
                             <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Try Out.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
                                 <h1 class="font-weight-bold text-primary">H-24</h1>
                                 <h3 class="font-weight-bold text-primary">Try Out</h3>
                             </div>
-                            <a  class="btn card-link bg-warning text-white font-weight-bold">Link Try Out</a>
+                            <div class="btn card-link bg-warning">
+                                <a  class="text-white font-weight-bold px-4">Link Try Out</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col d-flex justify-content-center mb-1">
-                    <div class="card align-self-start d-flex bg-light" style="width: 20rem; height: 33rem;">
+                <div class="d-flex justify-content-center mb-1 mx-4">
+                    <div class="card align-self-start d-flex bg-light" style="width: 20rem; height: 33rem; border-radius: 20px;">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold display-4">Kuis</h1>
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Kuis</h1>
                             <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Kuis.png" alt="zoom">
-                            <div class="my-4 text-blue bg-white w-75 rounded text-center">
-                                <h1 class="font-weight-bold text-primary"><?= gmdate("H:i:s", $end) ?></h1>
-                                <h3 class="font-weight-bold text-primary">Berakhir</h3>
+                            <div class="my-4 text-blue bg-white rounded text-center">
+                                <h1 class="font-weight-bold text-primary px-4"><?= gmdate("H:i:s", $end) ?></h1>
+                                <h3 class="font-weight-bold text-primary px-4">Berakhir</h3>
                             </div>
-                            <a href="<?= base_url('kelasku/kuis_kode?code=' . $code) ?>" class="btn card-link bg-primary text-white font-weight-bold">Link Kuis</a>
+                            <div class="btn card-link bg-primary">
+                                <a href="<?= base_url('kelasku/kuis_kode?code=' . $code) ?>" class="text-white font-weight-bold px-4">Link Kuis</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +80,7 @@
 
 
         <!-- Carousel -->
-        <div id="carouselExampleControls" class="carousel slide my-5" data-ride="carousel">
+        <!-- <div id="carouselExampleControls" class="carousel slide my-5" data-ride="carousel">
             <div class="row">
                 <div class="col-xl-1 col-md-0 bg-secondary d-md-none d-xl-block">
                     <a class="carousel-control-prev w-100" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -165,7 +171,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <?php if (session()->has('info')) : ?>

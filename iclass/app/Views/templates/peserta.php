@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= base_url() ?>/css/bootstrap/bootstrap.css">
     <?php if (isset($css)) : ?>
         <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
     <?php endif; ?>
@@ -21,16 +21,16 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="ml-0 border rounded-right mx-auto position-relative" style="height: 17em">
+            <div class="ml-0 border border-top-0 mx-auto position-relative" style="height: 17em; box-shadow: 2px 2px 2px 0 lightgrey; border-radius: 0 10px 10px 0;">
                 <div class="row">
                     <div class="col text-center">
-                        <a href="<?= base_url('peserta/profil'); ?>" class="my-2 btn btn-light text-primary rounded w-50">Profil akun</a>
-                        <a href="<?= base_url('peserta/edit'); ?>" class="my-2 btn btn-light text-primary rounded w-50">Edit akun</a>
+                        <a href="<?= base_url('peserta/profil'); ?>" class="my-2 btn btn-light text-primary font-weight-bold rounded w-50">Profil akun</a>
+                        <a href="<?= base_url('peserta/edit'); ?>" class="my-2 btn btn-light text-primary font-weight-bold rounded w-50">Edit akun</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col text-right position-absolute" style="bottom: 5%;">
-                        <a href="<?= base_url('keluar'); ?>" class="btn btn-light text-primary rounded">Keluar</a>
+                        <a href="<?= base_url('keluar'); ?>" class="btn btn-light btn-sm text-dark font-weight-bold rounded">Keluar</a>
                     </div>
                 </div>
             </div>

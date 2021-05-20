@@ -42,7 +42,7 @@ class Kelasku extends BaseController
         $user = $user->getByUserName(session('username'));
 
         if ($user[0]['kode_kelas'] == "0") {
-            session()->setFlashdata('info', "<script>swal('X','Maaf, kamu belum tergabung ke dalam kelas manapun.','error')</script>");
+            session()->setFlashdata('info', "<script>swal('Maaf, kamu belum tergabung ke dalam kelas manapun.','','error')</script>");
             return redirect()->to(base_url() . '/peserta');
         } else {
             $class = new Kelas_Model;
@@ -53,11 +53,17 @@ class Kelasku extends BaseController
         $model = new Rekaman_Model();
         $data['rekamans'] = $model->getByClass($data['kelas']);
 
-        $data['javascript'] = ['rekaman.js'];
-        $data['css'] = 'rekaman.css';
-        $data['active'] = 'kelasku';
-        $data['title'] = 'Rekaman';
-        return view('kelasku/rekaman', $data);
+        if (empty($data['rekamans'])) {
+            session()->setFlashdata('info', "<script>swal('Maaf, kelas mu belum punya rekaman pertemuan.','','error')</script>");
+            return redirect()->to(base_url() . '/peserta');
+        } else {
+            $data['javascript'] = ['rekaman.js'];
+            $data['css'] = 'rekaman.css';
+            $data['active'] = 'kelasku';
+            $data['title'] = 'Rekaman';
+
+            return view('kelasku/rekaman', $data);   
+        }
     }
 
     public function downloadPpt($kelas, $pertemuan, $materi, $ext_ppt)

@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://localhost/iclass';
+	public $baseURL = 'http://localhost/iclass/public_html';
 
 	/**
 	 * --------------------------------------------------------------------------

@@ -9,20 +9,22 @@
                 <div class="card-body">
                     <form class="d-flex flex-column" method="POST" action="">
                         <div class="form-group d-flex flex-column">
-                            <label for="username" class="text-center">Username</label>
-                            <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+                            <label for="username" class="text-center text-primary h4 font-weight-bold">Username</label>
+                            <input name="username" type="text" class="form-control" style="border-radius: 10px;" id="username" placeholder="Username" required>
                         </div>
 
-                        <div class="form-group form-group d-flex flex-column">
-                            <label for="password" class="text-center">Password</label>
-                            <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                        <div class="form-group form-group d-flex flex-column mt-0">
+                            <label for="password" class="text-center text-primary h4 font-weight-bold">Password</label>
+                            <input name="password" type="password" class="form-control" style="border-radius: 10px;" id="password" placeholder="Password" required>
                         </div>
 
                         <div>
                             <br>
                         </div>
 
-                        <button type="submit" name="submit" class="btn btn-primary">Masuk</button>
+                        <button type="submit" name="submit" class="btn btn-primary mt-0" style="border-radius: 10px;">
+                            <span class="h5">Masuk</span>
+                        </button>
                     </form>
                 </div>
             </div>
