@@ -9,6 +9,7 @@
     <?php if (isset($css)) : ?>
         <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
     <?php endif; ?>
+    <link rel="icon" href="<?=base_url()?>/img/LOGO.jpg" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/font.css">
 
     <!-- <link rel="stylesheet" href="<?= base_url(); ?>/css/tailwindcss/tailwind.css"> -->

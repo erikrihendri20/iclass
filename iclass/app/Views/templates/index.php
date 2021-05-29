@@ -9,6 +9,7 @@
     <?php if (isset($css)) : ?>
         <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
     <?php endif; ?>
+    <link rel="icon" href="<?=base_url()?>/img/LOGO.jpg" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='<?= base_url(); ?>/css/fullcalendar.css' rel='stylesheet' />

@@ -421,6 +421,7 @@ class Kelasku extends BaseController
             $data = [
                 'file'      => $file,
                 'active'    => 'kelasku',
+                'title'     => 'Kelasku',
             ];
             return view('kelasku/viewer_pdf', $data);
         } else {

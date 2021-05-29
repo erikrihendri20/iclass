@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
     <?php endif; ?>
 
+    <link rel="icon" href="<?=base_url()?>/img/LOGO.jpg" type="image/x-icon"/>
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 

@@ -36,8 +36,8 @@
                                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
                                     <div class="col text-center">
                                         <?php foreach ($materi as $dt) : ?>
-                                            <div>
-                                                <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary text-left font-weight-bold w-100" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px; width:fit-content;"><?= $dt['name'] ?></a>
+                                            <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px;">
+                                                <a class="btn text-primary text-left h6 w-100 mx-1 my-auto py-2 font-weight-bold" onclick="materi('<?= $dt['name'] ?>')"><?= $dt['name'] ?></a>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
@@ -50,17 +50,17 @@
                         <div class="bg-light m-0 mx-auto" style="height: 20em; width:72%;">
                             <div class="d-flex w-100" style="height:12em;">
                                 <div class="row justify-content-center align-self-center w-100 mx-auto">
-                                    <img class="mx-auto border" src="<?= base_url() ?>/img/Buku.jpg" alt="" style="height: 10em; width:7em;">
+                                    <img class="mx-auto border" src="<?= base_url() ?>/img/1.jpg" alt="" style="height: 10em; width:7em;">
                                 </div>
                             </div>
                             <div class="container" style="height:4em;">
-                                <p class="text-justify font-weight-bold" style="font-size: small; padding: 0px; margin: 0px;">
+                                <p class="text-left font-weight-bold" style="font-size: small;">
                                     Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
                                 </p>
-                                <a href="#" class="badge card-link bg-warning text-white font-weight-bold m-0 w-50 mx-auto h4" style="border-radius: 5px;">lihat</a>
+                                <a href="<?=base_url()?>/kelasku/view_pdf/ebook.pdf" class="card-link bg-warning h5 text-white font-weight-bold px-5 rounded">lihat</a>
                             </div>
                         </div>
-                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px;">Premium</div>
+                        <div class="card-link bg-primary h4 text-white font-weight-bold m-0 w-75 mx-auto rounded">Premium</div>
                     </div>
                 <?php endif; ?>
             </div>
