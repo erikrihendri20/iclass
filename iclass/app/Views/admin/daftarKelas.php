@@ -16,7 +16,7 @@
   <!-- Button trigger modal -->
 
 
-  <table id="daftar-kelas" class="display nowrap" style="width:100%">
+  <table id="daftar-kelas" class="display nowrap">
     <thead>
       <tr>
         <th>No</th>
@@ -33,7 +33,7 @@
         <tr>
           <td><?= $no; ?></td>
           <td><?= $k['nama']; ?></td>
-          <td><a href="<?= $k['link-meeting']; ?>"><?= $k['link-meeting']; ?></a></td>
+          <td style="overflow: auto; max-width: 650px;"><a href="<?= $k['link-meeting']; ?>"><?= $k['link-meeting']; ?></a></td>
           <td><?= $k['nama-paket']; ?></td>
           <td><?= $k['jumlah-peserta']; ?></td>
           <td>

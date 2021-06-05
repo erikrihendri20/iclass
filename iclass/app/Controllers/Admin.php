@@ -1160,7 +1160,7 @@ class Admin extends BaseController
             $i = 0;
             foreach ($dt as $d) {
                 // dd($d);
-                $result = $model->getById($d['kelas_id']);
+                $result = $model->getById($d['id']);
                 $latihan[$j][$i]['kelas'] = $result[0]['nama'];
                 $i++;
             }
@@ -1283,49 +1283,70 @@ class Admin extends BaseController
 
     public function add_latihan()
     {
-
+    
         $rules = [
             'file' => 'uploaded[file]|mime_in[file,application/pdf]'
         ];
 
         if ($this->validate($rules)) {
             $materi = $this->request->getPost('materi');
-            $file = $this->request->getFile('file');
+            $files = $this->request->getFiles('files')['files'];
             $kelas = $this->request->getPost('kelas');
 
             $model = new Latihan_Model();
 
             $path = ROOTPATH . "/../public_html/latihan";
-
-            $check = $model->getSpecific($materi, $kelas);
-
-            if ($check == NULL) {
-                $data = [
-                    'materi'        => $materi,
-                    'pdf_path'      => $file->getName(),
-                    'kelas_id'      => $kelas
-                ];
-                $model->db->table('latihan')->insert($data);
-                $file->move($path);
-
-                $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>';
-                session()->setFlashdata('flash', $flash);
-                return redirect()->to(base_url('admin/latihan'));
-            } else {
-                $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Upload gagal!</strong> latihan sudah ada atau nama file sama.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>';
-                session()->setFlashdata('flash', $flash);
-                return redirect()->to(base_url('admin/latihan'));
+            
+            foreach ($kelas as $k) {
+                foreach ($files as $file) {
+                    $check = $model->getSpecific($materi, $k);
+        
+                    if ($check == NULL) {
+                        $data = [
+                            'materi'        => $materi,
+                            'pdf_path'      => $file->getName(),
+                            'kelas_id'      => $k
+                        ];
+                        $model->db->table('latihan')->insert($data);
+                        $file->move($path);
+        
+                        $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
+                        session()->setFlashdata('flash', $flash);
+                    } else {
+                        if ($check[0]['pdf_path'] == $file->getName()) {
+                            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Upload gagal!</strong> latihan sudah ada atau nama file sama.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
+                            session()->setFlashdata('flash', $flash);
+                        } else {
+                            $data = [
+                                'materi'        => $materi,
+                                'pdf_path'      => $file->getName(),
+                                'kelas_id'      => $k
+                            ];
+                            $model->db->table('latihan')->insert($data);
+                            $file->move($path);
+        
+                            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>';
+                            session()->setFlashdata('flash', $flash);
+                        }
+                    }
+                }
             }
+            return redirect()->to(base_url('admin/latihan'));
         } else {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Upload gagal!</strong> format input salah.

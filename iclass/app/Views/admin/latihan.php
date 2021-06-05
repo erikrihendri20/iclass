@@ -44,7 +44,7 @@
                   <div class="form-group">
                     <label for="kelas" class="form-label">Kelas:</label>
                     <div class="row w-100 ml-2 p-2">
-                      <select name="kelas" id="kelas" class="form-control form-control-sm border border-secondary rounded" value="">
+                      <select name="kelas[]" id="kelas" class="form-control form-control-sm border border-secondary rounded" value="" multiple>
                         <?php foreach ($kelas as $dt) : ?>
                           <option value="<?= $dt['id'] ?>"><?= $dt['nama'] ?></option>
                         <?php endforeach; ?>
@@ -55,7 +55,7 @@
                   <div class="form-group">
                     <label for="pdf" class="form-label">File latihan:</label>
                     <div class="row w-100 ml-2 p-2">
-                      <input class=" <?= ($validation->hasError('file')) ? 'is-invalid' : '' ?>" type="file" name="file" id="pdf" accept=".pdf">
+                      <input class=" <?= ($validation->hasError('file')) ? 'is-invalid' : '' ?>" type="file" name="files[]" id="pdf" accept=".pdf" multiple>
                       <div class=" invalid-feedback">
                         <?= service('validation')->getError('file'); ?>
                       </div>
@@ -89,11 +89,10 @@
           <table id="daftar-kuis" class="display nowrap" style="width:100%">
             <thead>
               <tr>
-                <th>No</th>
-                <th>Materi</th>
-                <th>Kelas</th>
-                <th>Latihan</th>
-                <th>Action</th>
+                <th class="text-center">No</th>
+                <th class="text-center">Materi</th>
+                <th class="text-center">Kelas - Latihan</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -108,22 +107,21 @@
                   </td>
                   <td>
                     <?php foreach ($dt as $d) : ?>
-                      <div class="row">
-                        <?= $d['kelas'] ?>
-                      </div>
-                    <?php endforeach; ?>
-
-                  </td>
-                  <td>
-                    <?php foreach ($dt as $d) : ?>
-                      <div class="row w-100">
-                        <div class="col-9 text-right">
-                          <a class='badge badge-primary mx-2 my-2 text-white font-weight-bold rounded' href='<?= base_url('admin/view_pdf/' . $d['pdf_path']) ?>'> <?= $d['pdf_path'] ?> </a>
+                        <div class="row justify-content-around align-items-center">
+                          <div class="col mx-auto">
+                            <?= $d['kelas'] ?>
+                          </div>
+                          <div class="col mx-auto">
+                            <div class="row justify-content-end">
+                                <div class="col-9 text-right">
+                                  <a class='badge badge-primary mx-2 my-2 text-white font-weight-bold rounded' href='<?= base_url('admin/view_pdf/' . $d['pdf_path']) ?>'> <?= $d['pdf_path'] ?> </a>
+                                </div>
+                                <div class="col-2 text-left">
+                                  <a class="badge badge-warning text-light rounded mx-2 my-2" type="submit" name="hapus" href="<?= base_url('admin/hapus_latihan/' . $d['id']) ?>">X</a>
+                                </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-2 text-left">
-                          <a class="badge badge-warning text-light rounded mx-2 my-2" type="submit" name="hapus" href="<?= base_url('admin/hapus_latihan/' . $d['id']) ?>">X</a>
-                        </div>
-                      </div>
                     <?php endforeach; ?>
                   </td>
                   <td>
