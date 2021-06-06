@@ -1284,21 +1284,21 @@ class Admin extends BaseController
     public function add_latihan()
     {
     
-        $rules = [
-            'file' => 'uploaded[file]|mime_in[file,application/pdf]'
-        ];
+        $materi = $this->request->getPost('materi');
+        $files = $this->request->getFiles('files')['files'];
+        $kelas = $this->request->getPost('kelas');
+        $path = ROOTPATH . "/../public_html/latihan";
+        $model = new Latihan_Model();
 
-        if ($this->validate($rules)) {
-            $materi = $this->request->getPost('materi');
-            $files = $this->request->getFiles('files')['files'];
-            $kelas = $this->request->getPost('kelas');
+        foreach ($kelas as $k) {
+            $i = 0;
+            foreach ($files as $file) {
+                $i++;
+                $rules = [
+                    'files' => 'uploaded[files.'.$i.']|mime_in[files.'.$i.',application/pdf]'
+                ];
 
-            $model = new Latihan_Model();
-
-            $path = ROOTPATH . "/../public_html/latihan";
-            
-            foreach ($kelas as $k) {
-                foreach ($files as $file) {
+                if ($this->validate($rules)) {
                     $check = $model->getSpecific($materi, $k);
         
                     if ($check == NULL) {
@@ -1344,19 +1344,18 @@ class Admin extends BaseController
                             session()->setFlashdata('flash', $flash);
                         }
                     }
+                } else {
+                    $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Upload gagal!</strong> format input salah.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+                    session()->setFlashdata('flash', $flash);
                 }
             }
-            return redirect()->to(base_url('admin/latihan'));
-        } else {
-            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Upload gagal!</strong> format input salah.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>';
-            session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url('admin/latihan'))->withInput();
         }
+        return redirect()->to(base_url('admin/latihan'));
     }
 
     public function daftarAdmin()
