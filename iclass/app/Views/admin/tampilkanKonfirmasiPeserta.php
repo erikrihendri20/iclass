@@ -1,4 +1,4 @@
-<table id="daftar-peserta" class="display nowrap" style="width:100%">
+    <table id="daftar-peserta" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
@@ -18,13 +18,13 @@
                     <td><?= $u['nama']; ?></td>
                     <td><?= $u['username']; ?></td>
                     <td><button type="button" class="btn" data-toggle="modal" data-target="#zoom<?= $u['id']; ?>"><img style="max-height: 100px;" src="../img/bukti-pembayaran/<?= $u['bukti_pembayaran']; ?>" class="rounded mx-auto d-block" alt="..."></button></td>
-                    <td><?= $u['status']; ?></td>
-                    <td>
+                    <td id="bagianStatus<?= $u['id']; ?>"><?= $u['status']; ?></td>
+                    <td id="bagianTombol<?= $u['id']; ?>">
                         <?php if($u['status']==1): ?>
-                            <button type="button" style="border: none;" class="konfirmasi badge badge-success" value="<?= $u['id']; ?>">Konfirmasi</button>
-                            <button type="button" style="border: none;" class="tolak badge badge-danger" value="<?= $u['id']; ?>">Tolak</button>
+                            <button type="button" style="border: none;" class="konfirmasi badge badge-success" value="<?= $u['id']; ?>" onclick="konfirmasi(<?= $u['id']; ?>);">Konfirmasi</button>
+                            <button type="button" style="border: none;" class="tolak badge badge-danger" value="<?= $u['id']; ?>" onclick="tolak(<?= $u['id']; ?>);">Tolak</button>
                         <?php elseif($u['status']==2): ?>
-                            <button type="button" style="border: none;" class="batalkan badge badge-warning" value="<?= $u['id']; ?>">Batalkan</button>
+                            <button type="button" style="border: none;" class="batalkan badge badge-warning" value="<?= $u['id']; ?>" onclick="batalkan(<?= $u['id']; ?>);">Batalkan</button>
                         <?php endif; ?>
                     </td>
                     <div class="modal fade" id="zoom<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -165,50 +165,57 @@
         </script>
     <?php elseif ($active == 'konfirmasi peserta') : ?>
         <script>
+            function tampilkanPeserta() {
+                $.get(
+                    'tampilkanKonfirmasiPeserta/' + $('#kode_paket').val(),
+                    function(result) {
+                        function init() {
+                            $('#tabel-peserta').html(result)
+                            $('#daftar-peserta').DataTable()
+                        }
+                        init()
+                    })
+            }
+            
             $(document).ready(function() {
-                function tampilkanPeserta() {
-                    $.get(
-                        'tampilkanKonfirmasiPeserta/' + $('#kode_paket').val(),
-                        function(result) {
-                            function init() {
-                                $('#tabel-peserta').html(result)
-                                $('#daftar-peserta').DataTable()
-                            }
-                            init()
-                            $('.konfirmasi').click(function() {
-                                $.get(
-                                    'ubahStatus/' + $(this).val() + '/2',
-                                    function(result) {
-                                        tampilkanPeserta()
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
-                            $('.batalkan').click(function() {
-                                $.get(
-                                    'ubahStatus/' + $(this).val() + '/0',
-                                    function(result) {
-                                        tampilkanPeserta()
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
-                            $('.tolak').click(function() {
-                                $.get(
-                                    'ubahStatus/' + $(this).val() + '/0',
-                                    function(result) {
-                                        tampilkanPeserta()
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
-                        })
-                }
-                tampilkanPeserta()
+                tampilkanPeserta();
                 $('#kode_paket').change(function() {
-                    tampilkanPeserta()
+                    tampilkanPeserta();
                 })
             });
+
+            function konfirmasi(id) {
+                $.get(
+                    'ubahStatus/' + id + '/2',
+                    function(result) {
+                        $('#flash').html(result)
+                    }
+                );
+                document.getElementById(`bagianTombol${id}`).innerHTML='<button type="button" style="border: none;" class="batalkan badge badge-warning" value="'+id+'" onclick="batalkan('+id+');">Batalkan</button>';
+                document.getElementById(`bagianStatus${id}`).innerHTML='2';
+            }
+
+            function batalkan(id) {
+                $.get(
+                    'ubahStatus/' + id + '/1',
+                    function(result) {
+                        $('#flash').html(result)
+                    }
+                );
+                document.getElementById(`bagianTombol${id}`).innerHTML='<button type="button" style="border: none;" class="konfirmasi badge badge-success" value="'+id+'" onclick="konfirmasi('+id+');">Konfirmasi</button> <button type="button" style="border: none;" class="tolak badge badge-danger" value="'+id+'" onclick="tolak('+id+');">Tolak</button>';
+                document.getElementById(`bagianStatus${id}`).innerHTML='1';
+            }
+
+            function tolak(id) {
+                $.get(
+                    'ubahStatus/' + id + '/1',
+                    function(result) {
+                        $('#flash').html(result)
+                    }
+                );
+                document.getElementById(`bagianTombol${id}`).innerHTML='<button type="button" style="border: none;" class="konfirmasi badge badge-success" value="'+id+'" onclick="konfirmasi('+id+');">Konfirmasi</button> <button type="button" style="border: none;" class="tolak badge badge-danger" value="'+id+'" onclick="tolak('+id+');">Tolak</button>';
+                document.getElementById(`bagianStatus${id}`).innerHTML='1';
+            }
         </script>
 
     <?php elseif ($active == 'daftar admin') : ?>
