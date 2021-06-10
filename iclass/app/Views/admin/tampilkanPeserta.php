@@ -20,7 +20,7 @@
                 <td><?= $u['username']; ?></td>
                 <td>
                     <div class="form-group">
-                        <select class="form-control paket" name="kode_kelas" id="<?= $u['id']; ?>">
+                        <select class="form-control paket" name="kode_kelas" id="<?= $u['id']; ?>" onchange="ubahKelasPeserta(<?= $u['id']; ?>);">
                             <option>-</option>
                             <?php foreach ($kelas as $k) : ?>
                                 <?php if ($k['kode_paket'] == $u['kode_paket']) : ?>

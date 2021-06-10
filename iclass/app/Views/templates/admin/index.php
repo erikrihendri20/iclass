@@ -131,37 +131,39 @@
         </script>
     <?php elseif ($active == 'daftar peserta') : ?>
         <script>
-            $(document).ready(function() {
-                function tampilkanPeserta() {
-                    $.get(
-                        'tampilkanPeserta/' + $('#kode_paket').val(),
-                        function(result) {
-                            function init() {
-                                $('#tabel-peserta').html(result)
-                                $('#daftar-peserta').DataTable()
-                            }
-                            init()
-                            $('.paket').change(function() {
-                                $.post(
-                                    'ubahKelasPeserta', {
-                                        id: $(this).attr('id'),
-                                        kode_kelas: $(this).val()
-                                    },
-                                    function(result) {
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
-                            $('.editPeserta').click(function() {
-                                console.log($(this).parent())
-                            })
+            function tampilkanPeserta() {
+                $.get(
+                    'tampilkanPeserta/' + $('#kode_paket').val(),
+                    function(result) {
+                        function init() {
+                            $('#tabel-peserta').html(result)
+                            $('#daftar-peserta').DataTable()
+                        }
+                        init()
+                        $('.editPeserta').click(function() {
+                            console.log($(this).parent())
                         })
-                }
+                    })
+            }
+
+            $(document).ready(function() {
                 tampilkanPeserta()
                 $('#kode_paket').change(function() {
                     tampilkanPeserta()
                 })
             });
+
+            function ubahKelasPeserta(id) {
+                $.post(
+                    'ubahKelasPeserta', {
+                        id: id,
+                        kode_kelas: document.getElementById(id).value
+                    },
+                    function(result) {
+                        $('#flash').html(result)
+                    }
+                )
+            }
         </script>
     <?php elseif ($active == 'konfirmasi peserta') : ?>
         <script>
