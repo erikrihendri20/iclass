@@ -16,7 +16,7 @@
     <title>Document</title>
 </head>
 
-<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative">
+<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="overflow-x: hidden;">
 
     <?= $this->include('templates/navbar'); ?>
 
@@ -43,6 +43,8 @@
 
         </div>
     </div>
+
+    <div style="padding-bottom: 250px;"></div>
 
     <?= $this->include('templates/footer'); ?>
 

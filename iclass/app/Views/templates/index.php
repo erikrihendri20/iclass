@@ -24,12 +24,14 @@
     <title><?= $title; ?></title>
 </head>
 
-<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative">
+<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="overflow-x: hidden; min-height: 100vh;">
 
     <?= $this->include('templates/navbar'); ?>
 
     <!-- Begin Page Content -->
     <?= $this->renderSection('content'); ?>
+
+    <div style="padding-bottom: 250px;"></div>
 
     <?= $this->include('templates/footer'); ?>
 

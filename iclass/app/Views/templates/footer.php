@@ -1,7 +1,7 @@
 <?= $this->renderSection('content'); ?>
 
 <!-- footer -->
-<div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center">
+<div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center position-absolute w-100" style="bottom: 0; height: 220px;">
     <div class="col-lg-11 pt-3">
         <div class="row">
             <div class="col-lg-6 col-6">
