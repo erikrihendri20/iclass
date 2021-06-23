@@ -1160,7 +1160,7 @@ class Admin extends BaseController
             $i = 0;
             foreach ($dt as $d) {
                 // dd($d);
-                $result = $model->getById($d['id']);
+                $result = $model->getById($d['kelas_id']);
                 $latihan[$j][$i]['kelas'] = $result[0]['nama'];
                 $i++;
             }
@@ -1289,16 +1289,13 @@ class Admin extends BaseController
         $kelas = $this->request->getPost('kelas');
         $path = ROOTPATH . "/../public_html/latihan";
         $model = new Latihan_Model();
-
+        
         foreach ($kelas as $k) {
             $i = 0;
             foreach ($files as $file) {
                 $i++;
-                $rules = [
-                    'files' => 'uploaded[files.'.$i.']|mime_in[files.'.$i.',application/pdf]'
-                ];
-
-                if ($this->validate($rules)) {
+                
+                if ($file->isValid() && ($file->getClientExtension() == "pdf")) {
                     $check = $model->getSpecific($materi, $k);
         
                     if ($check == NULL) {
@@ -1308,7 +1305,6 @@ class Admin extends BaseController
                             'kelas_id'      => $k
                         ];
                         $model->db->table('latihan')->insert($data);
-                        $file->move($path);
         
                         $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                                     <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
@@ -1333,7 +1329,6 @@ class Admin extends BaseController
                                 'kelas_id'      => $k
                             ];
                             $model->db->table('latihan')->insert($data);
-                            $file->move($path);
         
                             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Upload sukses!</strong> latihan berhasil ditambahkan.
@@ -1352,8 +1347,12 @@ class Admin extends BaseController
                         </button>
                     </div>';
                     session()->setFlashdata('flash', $flash);
+                    return redirect()->to(base_url('admin/latihan'))->withInput();
                 }
             }
+        }
+        foreach($files as $file) {
+            $file->move($path);
         }
         return redirect()->to(base_url('admin/latihan'));
     }
