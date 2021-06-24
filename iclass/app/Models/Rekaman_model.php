@@ -13,7 +13,7 @@ class Rekaman_Model extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['kelas', 'pertemuan', 'materi', 'ext_tn', 'ext_ppt'];
+    protected $allowedFields = ['kelas', 'pertemuan', 'materi', 'ext_tn', 'ext_ppt', 'admin'];
 
     public function getAll()
     {

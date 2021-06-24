@@ -24,7 +24,7 @@
                     <div class="embed-responsive embed-responsive-16by9 bg-white ml-0">
                         <?php if (isset($rekamans[$id])) : ?>
                         <video id="vid" class="embed-responsive-item mx-2" controls controlsList="nodownload">
-                            <source id="vidsrc" src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $kelas ?>/Pertemuan <?= $rekamans[$id]['pertemuan'] ?> - <?= $rekamans[$id]['materi'] ?>.mp4" type="video/mp4">
+                            <source id="vidsrc" src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id]['pertemuan'] ?> - <?= $rekamans[$id]['materi'] ?>.mp4" type="video/mp4">
                             Waduh, sepertinya rekaman pertemuannya belum tersedia.
                         </video>
                         <?php else : ?>
@@ -32,7 +32,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="row mx-2 mt-3">
-                        <button class="btn btn-lg btn-primary" onclick="downloadPpt('<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');"><i class="fa fa-download"></i>  Download PowerPoint</button>
+                        <button id="downloadppt" class="btn btn-lg btn-primary" onclick="downloadPpt('<?= $rekamans[$id]['admin'] ?>', '<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');"><i class="fa fa-download"></i>  Download PowerPoint</button>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <div id="tn1" class="bg-white mx-2">
                         <?php if (isset($rekamans[$id+1])) : ?>
                         <img id="thumbnail1" class="img-fluid" alt=""
-                            src="<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan <?= $rekamans[$id+1]['pertemuan'] ?> - <?= $rekamans[$id+1]['materi'] ?>.<?= $rekamans[$id+1]['ext_tn'] ?>">
+                            src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+1]['pertemuan'] ?> - <?= $rekamans[$id+1]['materi'] ?>.<?= $rekamans[$id+1]['ext_tn'] ?>">
                         <?php endif; ?>
                     </div>
 
@@ -55,13 +55,13 @@
                         <div id="tn2" class="col bg-white mx-2">
                             <?php if (isset($rekamans[$id+2])) : ?>
                             <img id="thumbnail2" class="img-fluid" alt=""
-                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan <?= $rekamans[$id+2]['pertemuan'] ?> - <?= $rekamans[$id+2]['materi'] ?>.<?= $rekamans[$id+2]['ext_tn'] ?>">
+                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+2]['pertemuan'] ?> - <?= $rekamans[$id+2]['materi'] ?>.<?= $rekamans[$id+2]['ext_tn'] ?>">
                             <?php endif; ?>
                         </div>
                         <div id="tn3" class="col bg-white mx-2">
                             <?php if (isset($rekamans[$id+3])) : ?>
                             <img id="thumbnail3" class="img-fluid" alt=""
-                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan <?= $rekamans[$id+3]['pertemuan'] ?> - <?= $rekamans[$id+3]['materi'] ?>.<?= $rekamans[$id+3]['ext_tn'] ?>">
+                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+3]['pertemuan'] ?> - <?= $rekamans[$id+3]['materi'] ?>.<?= $rekamans[$id+3]['ext_tn'] ?>">
                             <?php endif; ?>
                         </div>
                     </div>
@@ -74,10 +74,11 @@
 </div>
 
 <script defer>
-    var id = <?= $id+1 ?>;
+    var id = <?= $id ?>;
     var maks = <?= sizeof($rekamans) ?>;
+    maks-=1;
 
-    if (id == 1) {
+    if (id == 0) {
         document.getElementById('kekiri').setAttribute('style', 'visibility: hidden');
     } else {
         document.getElementById('kekiri').setAttribute('style', 'visibility: visible');
@@ -93,7 +94,7 @@
         id-=1;
         <?php header('Content-type: application/json'); ?>
         $.ajax({
-            url : "<?= base_url() ?>/Kelasku/pindahRekaman/" + id,
+            url : "<?= base_url() ?>/Kelasku/pindahRekaman/<?=$rekamans[$id]['kelas']?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -112,7 +113,7 @@
         id+=1;
         <?php header('Content-type: application/json'); ?>
         $.ajax({
-            url : "<?= base_url() ?>/Kelasku/pindahRekaman/" + id,
+            url : "<?= base_url() ?>/Kelasku/pindahRekaman/<?=$rekamans[$id]['kelas']?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -130,10 +131,12 @@
     function perubahan(data) {
         if (data['rekaman'] != null) {
             document.getElementById('vid').setAttribute('style', 'visibility: visible');
-            document.getElementById('vidsrc').src = "<?= base_url() ?>/vid/Rekaman Kelas/<?= $kelas ?>/Pertemuan "+data['rekaman']['pertemuan']+" - "+data['rekaman']['materi']+".mp4";
+            document.getElementById('vidsrc').src = "<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['rekaman']['pertemuan']+" - "+data['rekaman']['materi']+".mp4";
             document.getElementById('vid').load();
             document.getElementById('pertemuan').innerHTML = "Pertemuan "+data['rekaman']['pertemuan'];
             document.getElementById('materi').innerHTML = data['rekaman']['materi'];
+
+            document.getElementById('downloadppt').setAttribute("onclick", "downloadPpt('"+data['rekaman']['admin']+"', '<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');");
         } else {
             document.getElementById('vid').setAttribute('style', 'visibility: hidden');
             document.getElementById('video_rekaman').innerHTML=`<div class="embed-responsive embed-responsive-16by9 bg-white ml-0">
@@ -145,27 +148,27 @@
 
         if (data['thumbnail1'] != null) {
             document.getElementById('tn1').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail1').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan "+data['thumbnail1']['pertemuan']+" - "+data['thumbnail1']['materi']+"."+data['thumbnail1']['ext_tn'];
+            document.getElementById('thumbnail1').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail1']['pertemuan']+" - "+data['thumbnail1']['materi']+"."+data['thumbnail1']['ext_tn'];
         } else {
             document.getElementById('tn1').setAttribute('style', 'visibility: hidden');
         }
 
         if (data['thumbnail2'] != null) {
             document.getElementById('tn2').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail2').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan "+data['thumbnail2']['pertemuan']+" - "+data['thumbnail2']['materi']+"."+data['thumbnail2']['ext_tn'];
+            document.getElementById('thumbnail2').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail2']['pertemuan']+" - "+data['thumbnail2']['materi']+"."+data['thumbnail2']['ext_tn'];
         } else {
             document.getElementById('tn2').setAttribute('style', 'visibility: hidden');
         }
 
         if (data['thumbnail3'] != null) {
             document.getElementById('tn3').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail3').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $kelas ?>/Pertemuan "+data['thumbnail3']['pertemuan']+" - "+data['thumbnail3']['materi']+"."+data['thumbnail3']['ext_tn'];
+            document.getElementById('thumbnail3').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail3']['pertemuan']+" - "+data['thumbnail3']['materi']+"."+data['thumbnail3']['ext_tn'];
         } else {
             document.getElementById('tn3').setAttribute('style', 'visibility: hidden');
         }
         
         document.getElementById('kekiri').setAttribute('style', 'visibility: visible');
-        if (id == 1) {
+        if (id == 0) {
             document.getElementById('kekiri').setAttribute('style', 'visibility: hidden');
         }
 
@@ -175,10 +178,11 @@
         }
     }
 
-    function downloadPpt(pertemuan, materi, ext_ppt) {
+    function downloadPpt(admin, pertemuan, materi, ext_ppt) {
         var link=document.createElement('a');
-        link.href=`<?= base_url(); ?>/ppt/Rekaman Kelas/<?= $kelas ?>/Pertemuan ${pertemuan} - ${materi}.${ext_ppt}`;
-        link.download=`Pertemuan ${pertemuan} - ${materi}`;
+        link.href=`<?= base_url(); ?>/ppt/Rekaman Kelas/${admin}/Pertemuan ${pertemuan} - ${materi}.${ext_ppt}`;
+        alert(link.href);
+        link.download=`Pertemuan ${pertemuan} - ${materi}.${ext_ppt}`;
         link.click();
     }
 </script>

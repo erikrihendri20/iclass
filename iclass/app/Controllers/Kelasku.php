@@ -51,7 +51,7 @@ class Kelasku extends BaseController
         }
 
         $model = new Rekaman_Model();
-        $data['rekamans'] = $model->getByClass($data['kelas']);
+        $data['rekamans'] = $model->where('kelas', $data['kelas'])->findAll();
 
         if (empty($data['rekamans'])) {
             session()->setFlashdata('info', "<script>swal('Maaf, kelas mu belum punya rekaman pertemuan.','','error')</script>");
@@ -80,13 +80,14 @@ class Kelasku extends BaseController
         exit;
     }
 
-    public function pindahRekaman($id)
+    public function pindahRekaman($kelas, $id)
     {
         $model = new Rekaman_Model();
-        $data['rekaman'] = $model->where('id', $id)->first();
-        $data['thumbnail1'] = $model->where('id', $id + 1)->first();
-        $data['thumbnail2'] = $model->where('id', $id + 2)->first();
-        $data['thumbnail3'] = $model->where('id', $id + 3)->first();
+        $data['rekamanes'] = $model->where('kelas', $kelas)->findAll();
+        $data['rekaman'] = (!empty($data['rekamanes'][$id])) ? $data['rekamanes'][$id] : null;
+        $data['thumbnail1'] = (!empty($data['rekamanes'][$id+1])) ? $data['rekamanes'][$id+1] : null;
+        $data['thumbnail2'] = (!empty($data['rekamanes'][$id+2])) ? $data['rekamanes'][$id+2] : null;
+        $data['thumbnail3'] = (!empty($data['rekamanes'][$id+3])) ? $data['rekamanes'][$id+3] : null;
 
         echo json_encode($data);
     }

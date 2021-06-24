@@ -206,23 +206,16 @@ class Admin extends BaseController
 
     public function tambahRekaman()
     {
+        $kelas = $this->request->getPost('kelas');
+        $pertemuan = $this->request->getPost('pertemuan');
+        $materi = $this->request->getPost('materi');
+
+        $rekaman = $this->request->getFile('rekaman');
+        $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
+        $ppt = $this->request->getFile('ppt');
+
         if (isset($_POST['submit'])) {
-            $data = [
-                'kelas' => $this->request->getPost('kelas'),
-                'pertemuan' => $this->request->getPost('pertemuan'),
-                'materi' => $this->request->getPost('materi'),
-                'rekaman' => $this->request->getFile('rekaman'),
-                'thumbnailRekaman' => $this->request->getFile('thumbnailRekaman'),
-                'ppt' => $this->request->getFile('ppt')
-            ];
             $rules = [
-                'kelas' => [
-                    'label'  => 'Kelas',
-                    'rules'  => 'required',
-                    'errors' => [
-                        'required' => 'Kelas harus diisi'
-                    ]
-                ],
                 'pertemuan' => [
                     'label'  => 'Pertemuan',
                     'rules'  => 'required|max_length[3]',
@@ -250,7 +243,7 @@ class Admin extends BaseController
                 ],
                 'thumbnailRekaman' => [
                     'label' => 'Tumbnail',
-                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]|max_size[rekaman,5120]',
+                    'rules' => 'uploaded[thumbnailRekaman]|is_image[thumbnailRekaman]|max_size[thumbnailRekaman,5120]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih gambar thumbnail video rekaman kelas',
                         'is_image' => 'Pilih gambar dengan jenis gambar',
@@ -259,43 +252,48 @@ class Admin extends BaseController
                 ],
                 'ppt' => [
                     'label' => 'PowerPoint',
-                    'rules' => 'uploaded[ppt]|ext_in[ppt,ppt|pptx|pdf]',
+                    'rules' => 'uploaded[ppt]|ext_in[ppt,ppt,pptx,pdf]',
                     'errors' => [
                         'uploaded' => 'Silahkan pilih file powerpoint yang digunakan pada rekaman kelas',
-                        'ext_in' => 'Pilih file dengan jenis pptx'
+                        'ext_in' => 'Pilih file dengan jenis pptx atau pdf'
                     ]
                 ]
             ];
 
-            $rekaman = $this->request->getFile('rekaman');
-            $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
-            $ppt = $this->request->getFile('ppt');
-
-            if ($this->validate($rules)) {
-                $data1 = [
-                    'kelas' => $this->request->getPost('kelas'),
-                    'pertemuan' => $this->request->getPost('pertemuan'),
-                    'materi' => $this->request->getPost('materi'),
-                    'ext_tn' => $thumbnailRekaman->guessExtension(),
-                    'ext_ppt' => $ppt->guessExtension()
-                ];
-
-                $model = new Rekaman_Model();
-                $model->postRekaman($data1);
-
-                $rekaman->move("./vid/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.mp4');
-                $thumbnailRekaman->move("./img/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $thumbnailRekaman->guessExtension());
-                $ppt->move("./ppt/Rekaman Kelas/{$this->request->getPost('kelas')}", 'Pertemuan ' . $data['pertemuan'] . ' - ' . $data['materi'] . '.' . $ppt->guessExtension());
-
-                session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-                return redirect()->to(base_url() . '/admin/rekaman');
-            } else {
-                $errors = $this->validator->getErrors();
-                session()->setFlashdata($errors);
-
+            if (empty($kelas)) {
+                session()->setFlashdata('kelas', 'Pilih kelas untuk rekaman ini');
                 session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
                 return redirect()->to(base_url() . '/admin/rekaman');
             }
+
+            foreach ($kelas as $k) {
+                if ($this->validate($rules)) {
+                    $data1 = [
+                        'kelas' => $k,
+                        'pertemuan' => $pertemuan,
+                        'materi' => $materi,
+                        'ext_tn' => $thumbnailRekaman->guessExtension(),
+                        'ext_ppt' => $ppt->guessExtension(),
+                        'admin' => session('admin_username')
+                    ];
+
+                    $model = new Rekaman_Model();
+                    $model->insert($data1);
+                } else {
+                    $errors = $this->validator->getErrors();
+                    session()->setFlashdata($errors);
+
+                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
+                    return redirect()->to(base_url() . '/admin/rekaman');
+                }
+            }
+
+            $rekaman->move("./vid/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.mp4");
+            $thumbnailRekaman->move("./img/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.{$thumbnailRekaman->guessExtension()}");
+            $ppt->move("./ppt/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.{$ppt->guessExtension()}");
+        
+            session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
+            return redirect()->to(base_url() . '/admin/rekaman');
         }
     }
 

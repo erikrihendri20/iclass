@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <label class="col col-form-label" for="kelas">Kelas</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="kelas" name="kelas">
+                                <select class="form-control" id="kelas" name="kelas[]" value="" multiple>
                                     <?php foreach($kelases as $kelas) : ?>
                                         <option value="<?=$kelas['nama'] ?>"><?=$kelas['nama'] ?></option>
                                     <?php endforeach; ?>
@@ -138,11 +138,10 @@
         rekaman.innerHTML="";
         <?php foreach($rekamans as $rekaman) : ?>
             if ('<?= $rekaman['kelas'] ?>' == s) {
-                rekaman.innerHTML+=`<div class="col mx-2" style="width: 30%;">
+                rekaman.innerHTML+=`<div class="col-3 mx-2">
                                         <h1 class="text-primary font-weight-bold">Pertemuan <?= $rekaman['pertemuan'] ?></h1>
                                         <h2 class="text-primary"><?= $rekaman['materi'] ?></h2>
-                                        <img id="thumbnail1" class="img-fluid" alt=""
-                                            src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekaman['kelas'] ?>/Pertemuan <?= $rekaman['id'] ?> - <?= $rekaman['materi'] ?>.<?= $rekaman['ext_tn'] ?>">
+                                        <img class="img-fluid" alt="" src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekaman['admin'] ?>/Pertemuan <?= $rekaman['pertemuan'] ?> - <?= $rekaman['materi'] ?>.<?= $rekaman['ext_tn'] ?>">
                                     </div>`;
             }
         <?php endforeach; ?>

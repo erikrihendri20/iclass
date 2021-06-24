@@ -129,6 +129,7 @@ class Auth extends BaseController
                         'logadmin' => true,
                         'admin_id' => $user[0]['id'],
                         'admin_nama' => $user[0]['nama'],
+                        'admin_username' => $user[0]['username'],
                         'role' => $user[0]['role'],
                         'admin_status' => $user['0']['status']
                     ];
