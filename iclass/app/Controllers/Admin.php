@@ -184,7 +184,7 @@ class Admin extends BaseController
     {
         $kelas_model = new Kelas_Model();
         $paket_model = new Paket_Model();
-        $data['kelases'] = $kelas_model->tampilkanKelas();
+        $data['kelases'] = $kelas_model->findAll();
         $data['paket'] = $paket_model->findAll();
 
         $model = new Rekaman_Model();
@@ -206,15 +206,16 @@ class Admin extends BaseController
 
     public function tambahRekaman()
     {
-        $kelas = $this->request->getPost('kelas');
-        $pertemuan = $this->request->getPost('pertemuan');
-        $materi = $this->request->getPost('materi');
+        $kelas = strval($this->request->getPost('kelas'));
+        $data['kelas'] = preg_split('@,@', $kelas, NULL, PREG_SPLIT_NO_EMPTY);
+        $data['pertemuan'] = $this->request->getPost('pertemuan');
+        $data['materi'] = $this->request->getPost('materi');
+        
+        $data['rekaman'] = $this->request->getFile('rekaman');
+        $data['thumbnailRekaman'] = $this->request->getFile('thumbnailRekaman');
+        $data['ppt'] = $this->request->getFile('ppt');
 
-        $rekaman = $this->request->getFile('rekaman');
-        $thumbnailRekaman = $this->request->getFile('thumbnailRekaman');
-        $ppt = $this->request->getFile('ppt');
-
-        if (isset($_POST['submit'])) {
+        if (!empty($this->request->getPost())) {
             $rules = [
                 'pertemuan' => [
                     'label'  => 'Pertemuan',
@@ -260,40 +261,45 @@ class Admin extends BaseController
                 ]
             ];
 
-            if (empty($kelas)) {
-                session()->setFlashdata('kelas', 'Pilih kelas untuk rekaman ini');
-                session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
-                return redirect()->to(base_url() . '/admin/rekaman');
+            if (empty($data['kelas'])) {
+                $data2['kelas'] = 'Silahkan pilih kelas yang diinginkan';
+                $data2['judul'] = 'Upload Gagal!';
+                $data2['pesan'] = 'Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar';
+                $data2['tipe'] = 'error';
+                return json_encode($data2);
             }
 
-            foreach ($kelas as $k) {
-                if ($this->validate($rules)) {
+            foreach ($data['kelas'] as $k) {
+                if ($this->validate($rules, $data)) {
                     $data1 = [
                         'kelas' => $k,
-                        'pertemuan' => $pertemuan,
-                        'materi' => $materi,
-                        'ext_tn' => $thumbnailRekaman->guessExtension(),
-                        'ext_ppt' => $ppt->guessExtension(),
+                        'pertemuan' => $data['pertemuan'],
+                        'materi' => $data['materi'],
+                        'ext_tn' => $data['thumbnailRekaman']->guessExtension(),
+                        'ext_ppt' => $data['ppt']->guessExtension(),
                         'admin' => session('admin_username')
                     ];
 
                     $model = new Rekaman_Model();
                     $model->insert($data1);
                 } else {
-                    $errors = $this->validator->getErrors();
-                    session()->setFlashdata($errors);
+                    $data2 = $this->validator->getErrors();
 
-                    session()->setFlashdata('flash', "<script>swal('Upload Gagal!','Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar','error')</script>");
-                    return redirect()->to(base_url() . '/admin/rekaman');
+                    $data2['judul'] = 'Upload Gagal!';
+                    $data2['pesan'] = 'Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar';
+                    $data2['tipe'] = 'error';
+                    return json_encode($data2);
                 }
             }
 
-            $rekaman->move("./vid/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.mp4");
-            $thumbnailRekaman->move("./img/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.{$thumbnailRekaman->guessExtension()}");
-            $ppt->move("./ppt/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$pertemuan} - {$materi}.{$ppt->guessExtension()}");
+            $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.mp4");
+            $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
+            $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.{$data['ppt']->guessExtension()}");
         
-            session()->setFlashdata('flash', "<script>swal('Upload Berhasil!','Rekaman Kelas Berhasil Diupload','success')</script>");
-            return redirect()->to(base_url() . '/admin/rekaman');
+            $data2['judul'] = 'Upload Berhasil!';
+            $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
+            $data2['tipe'] = 'success';
+            return json_encode($data2);
         }
     }
 

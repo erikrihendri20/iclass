@@ -22,7 +22,7 @@
         </div>
 
         <div class="mt-3 ml-3">
-            <button id="tombolTambah" class="btn btn-primary rounded display-4" onclick="bukaModal();">Unggah Rekaman</button>
+            <button id="tombolTambah" class="btn btn-primary rounded display-4" onclick="bukaModal('modalUnggah');">Unggah Rekaman</button>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Modal Unggah Rekaman Kelas -->
-    <form action="<?= base_url(); ?>/admin/tambahRekaman" method="POST" enctype="multipart/form-data">
+    <form id="tambahRekaman" enctype="multipart/form-data">
         <div id="modalUnggah" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?php if (session()->has('pertemuan')) :
             ?>
@@ -47,7 +47,7 @@
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-between align-text-center">
                         <h3 class="text-primary ml-1">Unggah Rekaman Pertemuan</h3>
-                        <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal();"></p>
+                        <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal('modalUnggah');"></p>
                     </div>
 
                     <div class="modal-body">
@@ -59,23 +59,23 @@
                                         <option value="<?=$kelas['nama'] ?>"><?=$kelas['nama'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <?php if (session()->has('kelas')) :?><small class="form-text text-danger"><?= session()->kelas ?></small><?php endif; ?>
+                                <small id="errKelas" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col col-form-label" for="pertemuan">Pertemuan ke-</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control text-black" id="pertemuan" name="pertemuan" placeholder="1">
-                                <?php if (session()->has('pertemuan')) :?><small class="form-text text-danger"><?= session()->pertemuan ?></small><?php endif; ?>
+                                <input type="text" class="form-control text-dark" id="pertemuan" name="pertemuan" placeholder="1">
+                                <small id="errPertemuan" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col col-form-label" for="materi">Materi</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control text-black" id="materi" name="materi" placeholder="Aljabar">
-                                <?php if (session()->has('materi')) :?><small class="form-text text-danger"><?= session()->materi ?></small><?php endif; ?>
+                                <input type="text" class="form-control text-dark" id="materi" name="materi" placeholder="Aljabar">
+                                <small id="errMateri" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                             <label class="col col-form-label" for="rekaman">Rekaman Pertemuan</label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control-file" id="rekaman" name="rekaman">
-                                <?php if (session()->has('rekaman')) :?><small class="form-text text-danger"><?= session()->rekaman ?></small><?php endif; ?>
+                                <small id="errRekaman" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
 
@@ -91,7 +91,7 @@
                             <label class="col col-form-label" for="thumbnailRekaman">Thumbnail Rekaman</label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control-file" id="thumbnailRekaman" name="thumbnailRekaman">
-                                <?php if (session()->has('thumbnailRekaman')) :?><small class="form-text text-danger"><?= session()->thumbnailRekaman ?></small><?php endif; ?>
+                                <small id="errThumbnail" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
 
@@ -99,18 +99,37 @@
                             <label class="col col-form-label" for="ppt">PowerPoint</label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control-file" id="ppt" name="ppt">
-                                <?php if (session()->has('ppt')) :?><small class="form-text text-danger"><?= session()->ppt ?></small><?php endif; ?>
+                                <small id="errPpt" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="submit" class="btn btn-primary">Upload</button>
+                        <button type="button" name="submit" class="btn btn-primary" onclick="formSubmit();">Upload</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <!-- Modal progress bar -->
+    <div id="modalProgress" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="fa fa-close btn mr-1 pb-0 mb-0" style="font-size: 12px;" onclick="tutupModal('modalProgress');"></p>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-10 bg-secondary px-0" style="border-radius: 10px;">
+                            <button id="progressBar" class="btn btn-primary" style="border-radius: 10px;"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -125,12 +144,135 @@
 <?php endif; ?>
 
 <script>
-    function bukaModal(){
-        $('#modalUnggah').modal('show');
+    function bukaModal(s){
+        $('#'+s).modal('show');
     }
 
-    function tutupModal(){
-        $('#modalUnggah').modal('hide');
+    function tutupModal(s){
+        $('#'+s).modal('hide');
+    }
+
+    function formSubmit() {
+        var form = $("#tambahRekaman");
+        var url = "<?= base_url(); ?>/admin/tambahRekaman";
+        var formi = new FormData();
+        
+        formi.append('kelas', $("#kelas").val());
+        formi.append('pertemuan', $("#pertemuan").val());
+        formi.append('materi', $("#materi").val());
+        formi.append('rekaman', $('#rekaman')[0].files[0]);
+        formi.append('thumbnailRekaman', $('#thumbnailRekaman')[0].files[0]);
+        formi.append('ppt', $('#ppt')[0].files[0]);
+
+        $.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        percentComplete = parseInt(percentComplete * 100);
+
+                        if (percentComplete == 100) {
+                            console.log(percentComplete);
+                            document.getElementById("progressBar").style.width=percentComplete+"%";
+                            document.getElementById("progressBar").innerHTML=percentComplete+"%";
+                            tutupModal('modalProgress');
+                            $('#modalProgress').modal('hide');
+                        } else {
+                            console.log(percentComplete);
+                            document.getElementById("progressBar").style.width=percentComplete+"%";
+                            document.getElementById("progressBar").innerHTML=percentComplete+"%";
+                            $('#modalProgress').modal('show');
+                        }
+
+                    }
+                }, false);
+
+                return xhr;
+            },
+            url: url,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formi,
+            success: function(result) {
+                console.log(result);
+                result = JSON.parse(result);
+                
+                cekRekaman(result);
+            }
+        });
+    };
+
+    function cekRekaman(result) {
+        tutupModal('modalUnggah');
+        if (result["tipe"] == "error") {
+            tutupModal('modalProgress');
+            $('#modalProgress').modal('hide');
+            gagalUnggahRekaman(result);
+        } else {
+            berhasilUnggahRekaman(result);
+        }
+    }
+
+    function gagalUnggahRekaman(result) {
+        tutupModal('modalProgress');
+        $('#modalProgress').modal('hide');
+
+        swal(result["judul"], result["pesan"], result["tipe"]);
+
+        bukaModal('modalUnggah');
+        $('#modalUnggah').modal('show');
+
+        if (result['kelas']) {
+            document.getElementById("errKelas").style.visibility="visible";
+            document.getElementById("errKelas").innerHTML=result['kelas'];
+        }
+
+        if (result['pertemuan']) {
+            document.getElementById("errPertemuan").style.visibility="visible";
+            document.getElementById("errPertemuan").innerHTML=result['pertemuan'];
+        }
+
+        if (result['materi']) {
+            document.getElementById("errMateri").style.visibility="visible";
+            document.getElementById("errMateri").innerHTML=result['materi'];
+        }
+
+        if (result['rekaman']) {
+            document.getElementById("errRekaman").style.visibility="visible";
+            document.getElementById("errRekaman").innerHTML=result['rekaman'];
+        }
+
+        if (result['thumbnailRekaman']) {
+            document.getElementById("errThumbnail").style.visibility="visible";
+            document.getElementById("errThumbnail").innerHTML=result['thumbnailRekaman'];
+        }
+
+        if (result['ppt']) {
+            document.getElementById("errPpt").style.visibility="visible";
+            document.getElementById("errPpt").innerHTML=result['ppt'];
+        }
+    }
+
+    function berhasilUnggahRekaman(result) {
+        swal(result["judul"], result["pesan"], result["tipe"]);
+
+        document.getElementById("errKelas").style.visibility="hidden";
+        document.getElementById("errPertemuan").style.visibility="hidden";
+        document.getElementById("errMateri").style.visibility="hidden";
+        document.getElementById("errRekaman").style.visibility="hidden";
+        document.getElementById("errThumbnail").style.visibility="hidden";
+        document.getElementById("errPpt").style.visibility="hidden";
+
+        document.getElementById("kelas").value="";
+        document.getElementById("pertemuan").value="";
+        document.getElementById("materi").value="";
+        document.getElementById("rekaman").value="";
+        document.getElementById("thumbnailRekaman").value="";
+        document.getElementById("ppt").value="";
     }
 
     function pilihKelas(s) {
@@ -138,7 +280,7 @@
         rekaman.innerHTML="";
         <?php foreach($rekamans as $rekaman) : ?>
             if ('<?= $rekaman['kelas'] ?>' == s) {
-                rekaman.innerHTML+=`<div class="col-3 mx-2">
+                rekaman.innerHTML+=`<div class="col-3 mx-5 mb-5">
                                         <h1 class="text-primary font-weight-bold">Pertemuan <?= $rekaman['pertemuan'] ?></h1>
                                         <h2 class="text-primary"><?= $rekaman['materi'] ?></h2>
                                         <img class="img-fluid" alt="" src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekaman['admin'] ?>/Pertemuan <?= $rekaman['pertemuan'] ?> - <?= $rekaman['materi'] ?>.<?= $rekaman['ext_tn'] ?>">
