@@ -1,188 +1,63 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div id="content-2-container" class="pt-5 d-flex justify-content-center">
-
-        <div id="lefty" class="btn">
-            <a id="kekiri" onclick="keKiri();" class='fas fa-chevron-circle-left display-4 text-secondary'></a>
-        </div>
-        <div id="righty" class="btn">
-            <a id="kekanan" onclick="keKanan();" class='fas fa-chevron-circle-right display-4 text-secondary'></a>
-        </div>
-
-
-        <!-- Rekaman Kelas -->
-
-        <div id="rekaman-container">
-            <div class="d-flex justify-content-center align-items-center mx-2">
-                <h1 id="judul" class="text-primary font-weight-bold">Rekaman Kelas</h1>
-            </div>
-
-            <div class="mt-3 row">
-
-                <div id="video_rekaman">
-                    <div class="embed-responsive embed-responsive-16by9 bg-white ml-0">
-                        <?php if (isset($rekamans[$id])) : ?>
-                        <video id="vid" class="embed-responsive-item mx-2" controls controlsList="nodownload">
-                            <source id="vidsrc" src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id]['pertemuan'] ?> - <?= $rekamans[$id]['materi'] ?>.mp4" type="video/mp4">
-                            Waduh, sepertinya rekaman pertemuannya belum tersedia.
-                        </video>
-                        <?php else : ?>
-                        <p style="position: absolute; bottom: 50%; left: 50%;" class="text-black">Waduh, sepertinya rekaman pertemuannya belum tersedia.</p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="row mx-2 mt-3">
-                        <button id="downloadppt" class="btn btn-lg btn-primary" onclick="downloadPpt('<?= $rekamans[$id]['admin'] ?>', '<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');"><i class="fa fa-download"></i>  Download PowerPoint</button>
-                    </div>
+    <div id="content-2-container" class="pt-5">
+        <div id="materi-container" class="row">
+            <div id="video-container" class="fluid">
+                <div class="row d-flex justify-content-center align-items-center mx-2">
+                    <span id="judul_materi" class="text-primary display-4 font-weight-bold"><?= $rekamanPilihan['materi'] ?></span>
                 </div>
 
-                <div id="thumbnail_rekaman"  class="col">
-                    <?php if (isset($rekamans[$id])) : ?>
-                    <div id="atas" class="float-left ml-2">
-                        <h1 id="pertemuan" class="text-primary font-weight-bold">Pertemuan <?= $rekamans[$id]['pertemuan'] ?></h1>
-                        <h2 id="materi" class="text-primary"><?= $rekamans[$id]['materi'] ?></h2>
-                    </div>
-                    <?php endif; ?>
-
-                    <div id="tn1" class="bg-white mx-2">
-                        <?php if (isset($rekamans[$id+1])) : ?>
-                        <img id="thumbnail1" class="img-fluid" alt=""
-                            src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+1]['pertemuan'] ?> - <?= $rekamans[$id+1]['materi'] ?>.<?= $rekamans[$id+1]['ext_tn'] ?>">
-                        <?php endif; ?>
-                    </div>
-
-                    <div id="tengah" class="row mt-2">
-                        <div id="tn2" class="col bg-white mx-2">
-                            <?php if (isset($rekamans[$id+2])) : ?>
-                            <img id="thumbnail2" class="img-fluid" alt=""
-                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+2]['pertemuan'] ?> - <?= $rekamans[$id+2]['materi'] ?>.<?= $rekamans[$id+2]['ext_tn'] ?>">
-                            <?php endif; ?>
-                        </div>
-                        <div id="tn3" class="col bg-white mx-2">
-                            <?php if (isset($rekamans[$id+3])) : ?>
-                            <img id="thumbnail3" class="img-fluid" alt=""
-                                src="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan <?= $rekamans[$id+3]['pertemuan'] ?> - <?= $rekamans[$id+3]['materi'] ?>.<?= $rekamans[$id+3]['ext_tn'] ?>">
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                <div id="video_materi" class="row embed-responsive embed-responsive-16by9 bg-light ml-0 mt-2">
+                    <video id="vid" class="embed-responsive-item" controls controlsList="nodownload" poster="<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamanPilihan['admin'] ?>/<?php echo $rekamanPilihan['materi'].'.'.$rekamanPilihan['ext_tn'] ?>">
+                        <source id="vidsrc" src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamanPilihan['admin'] ?>/<?= $rekamanPilihan['materi'] ?> - <?= $part ?>.mp4" type="video/mp4">
+                        Waduh, sepertinya kelasmu belum punya rekaman pertemuan.
+                    </video>
                 </div>
 
+                <div id="bagian_materi" class="row w-100 mx-1">
+                    <div class="w-25 align-items-center mt-3">
+                        <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="downloadPpt('<?= $rekamanPilihan['admin'] ?>', '<?= $rekamanPilihan['materi'] ?>', '<?= $rekamanPilihan['ext_ppt'] ?>');">
+                            <span class="h5">Download Ppt</span>
+                        </button>
+                    </div>
+
+                    <?php foreach (explode(',', $rekamanPilihan['parts']) as $p) : ?>
+                        <div class="w-25 align-items-center mt-3">
+                            <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="gantiVideo('<?=$p?>');">
+                                <span class="h5">Bagian <?=$p?></span>
+                            </button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
-        
+
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid mt-5 ml-3 pb-2">
+                <?php foreach($rekamans as $rekaman) : ?>
+
+                    <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">
+                        <a href="<?= base_url() ?>/Kelasku/rekaman/<?= $rekaman['id'] ?>"
+                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold">
+                            <?= $rekaman['materi'] ?>
+                        </a>
+                    </div>
+                    
+                <?php endforeach; ?>
+            </div>
+        </div>    
     </div>
 </div>
 
-<script defer>
-    var id = <?= $id ?>;
-    var maks = <?= sizeof($rekamans) ?>;
-    maks-=1;
-
-    if (id == 0) {
-        document.getElementById('kekiri').setAttribute('style', 'visibility: hidden');
-    } else {
-        document.getElementById('kekiri').setAttribute('style', 'visibility: visible');
+<script>
+    function gantiVideo(bagian) {
+        document.getElementById('vidsrc').src=`<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamanPilihan['admin'] ?>/<?= $rekamanPilihan['materi'] ?> - ${bagian}.mp4`
+        document.getElementById('vid').load();
     }
 
-    if (id >= maks) {
-        document.getElementById('kekanan').setAttribute('style', 'visibility: hidden');
-    } else {
-        document.getElementById('kekanan').setAttribute('style', 'visibility: visible');
-    }
-
-    function keKiri() {
-        id-=1;
-        <?php header('Content-type: application/json'); ?>
-        $.ajax({
-            url : "<?= base_url() ?>/Kelasku/pindahRekaman/<?=$rekamans[$id]['kelas']?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                perubahan(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                console.log(jqXHR);
-                alert('Error get data from ajax');
-            }
-        });
-    }
-
-    function keKanan() {
-        id+=1;
-        <?php header('Content-type: application/json'); ?>
-        $.ajax({
-            url : "<?= base_url() ?>/Kelasku/pindahRekaman/<?=$rekamans[$id]['kelas']?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-                perubahan(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                console.log(jqXHR);
-                alert('Error get data from ajax');
-            }
-        });
-    }
-
-    function perubahan(data) {
-        if (data['rekaman'] != null) {
-            document.getElementById('vid').setAttribute('style', 'visibility: visible');
-            document.getElementById('vidsrc').src = "<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['rekaman']['pertemuan']+" - "+data['rekaman']['materi']+".mp4";
-            document.getElementById('vid').load();
-            document.getElementById('pertemuan').innerHTML = "Pertemuan "+data['rekaman']['pertemuan'];
-            document.getElementById('materi').innerHTML = data['rekaman']['materi'];
-
-            document.getElementById('downloadppt').setAttribute("onclick", "downloadPpt('"+data['rekaman']['admin']+"', '<?= $rekamans[$id]['pertemuan']; ?>', '<?= $rekamans[$id]['materi']; ?>', '<?= $rekamans[$id]['ext_ppt']; ?>');");
-        } else {
-            document.getElementById('vid').setAttribute('style', 'visibility: hidden');
-            document.getElementById('video_rekaman').innerHTML=`<div class="embed-responsive embed-responsive-16by9 bg-white ml-0">
-                                                                <p style="position: absolute; bottom: 50%; left: 50%;" class="text-black">Waduh, sepertinya rekaman pertemuannya belum tersedia.</p>
-                                                                </div>`;
-            document.getElementById('pertemuan').innerHTML = "";
-            document.getElementById('materi').innerHTML = "";
-        }
-
-        if (data['thumbnail1'] != null) {
-            document.getElementById('tn1').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail1').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail1']['pertemuan']+" - "+data['thumbnail1']['materi']+"."+data['thumbnail1']['ext_tn'];
-        } else {
-            document.getElementById('tn1').setAttribute('style', 'visibility: hidden');
-        }
-
-        if (data['thumbnail2'] != null) {
-            document.getElementById('tn2').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail2').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail2']['pertemuan']+" - "+data['thumbnail2']['materi']+"."+data['thumbnail2']['ext_tn'];
-        } else {
-            document.getElementById('tn2').setAttribute('style', 'visibility: hidden');
-        }
-
-        if (data['thumbnail3'] != null) {
-            document.getElementById('tn3').setAttribute('style', 'visibility: visible');
-            document.getElementById('thumbnail3').src = "<?= base_url() ?>/img/Rekaman Kelas/<?= $rekamans[$id]['admin'] ?>/Pertemuan "+data['thumbnail3']['pertemuan']+" - "+data['thumbnail3']['materi']+"."+data['thumbnail3']['ext_tn'];
-        } else {
-            document.getElementById('tn3').setAttribute('style', 'visibility: hidden');
-        }
-        
-        document.getElementById('kekiri').setAttribute('style', 'visibility: visible');
-        if (id == 0) {
-            document.getElementById('kekiri').setAttribute('style', 'visibility: hidden');
-        }
-
-        document.getElementById('kekanan').setAttribute('style', 'visibility: visible');
-        if (id >= maks) {
-            document.getElementById('kekanan').setAttribute('style', 'visibility: hidden');
-        }
-    }
-
-    function downloadPpt(admin, pertemuan, materi, ext_ppt) {
+    function downloadPpt(admin, materi, ext_ppt) {
         var link=document.createElement('a');
-        link.href=`<?= base_url(); ?>/ppt/Rekaman Kelas/${admin}/Pertemuan ${pertemuan} - ${materi}.${ext_ppt}`;
-        alert(link.href);
-        link.download=`Pertemuan ${pertemuan} - ${materi}.${ext_ppt}`;
+        link.href=`<?= base_url(); ?>/ppt/Rekaman Kelas/${admin}/${materi}.${ext_ppt}`;
+        link.download=`${materi}.${ext_ppt}`;
         link.click();
     }
 </script>

@@ -181,50 +181,46 @@ class Admin extends BaseController
     }
 
     public function rekaman()
-    {
+    {   
         $kelas_model = new Kelas_Model();
-        $paket_model = new Paket_Model();
+        $admin_model = new Admin_Model();
         $data['kelases'] = $kelas_model->findAll();
-        $data['paket'] = $paket_model->findAll();
+        $data['admins'] = $admin_model->findAll();
 
         $model = new Rekaman_Model();
-        $data['rekamans'] = $model->getAll();
-        $data['active'] = 'Kelas';
 
+        $data['rekamans'] = $model->findAll();
+        $data['active'] = 'rekaman';
         $data['css'] = 'admin/rekaman.css';
-
         $data['title'] = 'Rekaman';
         return view('admin/rekaman', $data);
     }
 
-    public function uploadRekaman()
+    public function tampilkanRekaman()
     {
-        $data['active'] = 'Kelas';
-        $data['title'] = 'Upload Rekaman';
-        return view('admin/uploadRekaman', $data);
+        $kelas_model = new Kelas_Model();
+        $admin_model = new Admin_Model();
+        $data['kelases'] = $kelas_model->findAll();
+        $data['admins'] = $admin_model->findAll();
+
+        $model = new Rekaman_Model();
+
+        $data['rekamans'] = $model->findAll();
+        return view('admin/tampilkanRekaman', $data);
     }
 
     public function tambahRekaman()
     {
-        $kelas = strval($this->request->getPost('kelas'));
-        $data['kelas'] = preg_split('@,@', $kelas, NULL, PREG_SPLIT_NO_EMPTY);
-        $data['pertemuan'] = $this->request->getPost('pertemuan');
-        $data['materi'] = $this->request->getPost('materi');
-        
-        $data['rekaman'] = $this->request->getFile('rekaman');
-        $data['thumbnailRekaman'] = $this->request->getFile('thumbnailRekaman');
-        $data['ppt'] = $this->request->getFile('ppt');
-
         if (!empty($this->request->getPost())) {
+            $data['kelas'] = strval($this->request->getPost('kelas'));
+            $data['admin'] = $this->request->getPost('admin');
+            $data['materi'] = $this->request->getPost('materi');
+            
+            $data['rekaman'] = $this->request->getFile('rekaman');
+            $data['thumbnailRekaman'] = $this->request->getFile('thumbnailRekaman');
+            $data['ppt'] = $this->request->getFile('ppt');
+        
             $rules = [
-                'pertemuan' => [
-                    'label'  => 'Pertemuan',
-                    'rules'  => 'required|max_length[3]',
-                    'errors' => [
-                        'required' => 'Pertemuan harus diisi',
-                        'max_length' => 'Pertemuan maksimal terdiri dari 3 digit'
-                    ]
-                ],
                 'materi' => [
                     'label'  => 'Materi',
                     'rules'  => 'required|max_length[50]',
@@ -258,6 +254,13 @@ class Admin extends BaseController
                         'uploaded' => 'Silahkan pilih file powerpoint yang digunakan pada rekaman kelas',
                         'ext_in' => 'Pilih file dengan jenis pptx atau pdf'
                     ]
+                ],
+                'admin' => [
+                    'label' => 'Admin',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Silahkan pilih pengajar untuk rekaman ini'
+                    ]
                 ]
             ];
 
@@ -269,37 +272,163 @@ class Admin extends BaseController
                 return json_encode($data2);
             }
 
-            foreach ($data['kelas'] as $k) {
-                if ($this->validate($rules, $data)) {
-                    $data1 = [
-                        'kelas' => $k,
-                        'pertemuan' => $data['pertemuan'],
-                        'materi' => $data['materi'],
-                        'ext_tn' => $data['thumbnailRekaman']->guessExtension(),
-                        'ext_ppt' => $data['ppt']->guessExtension(),
-                        'admin' => session('admin_username')
-                    ];
+            if ($this->validate($rules, $data)) {
+                $data1 = [
+                    'kelas' => $data['kelas'],
+                    'materi' => $data['materi'],
+                    'ext_tn' => $data['thumbnailRekaman']->guessExtension(),
+                    'ext_ppt' => $data['ppt']->guessExtension(),
+                    'admin' => $data['admin'],
+                    'uploaded' => date("Y-m-d")
+                ];
 
-                    $model = new Rekaman_Model();
-                    $model->insert($data1);
-                } else {
-                    $data2 = $this->validator->getErrors();
+                $model = new Rekaman_Model();
+                $model->insert($data1);
+            } else {
+                $data2 = $this->validator->getErrors();
 
-                    $data2['judul'] = 'Upload Gagal!';
-                    $data2['pesan'] = 'Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar';
-                    $data2['tipe'] = 'error';
-                    return json_encode($data2);
-                }
+                $data2['judul'] = 'Upload Gagal!';
+                $data2['pesan'] = 'Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar';
+                $data2['tipe'] = 'error';
+                return json_encode($data2);
             }
 
-            $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.mp4");
-            $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
-            $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "Pertemuan {$data['pertemuan']} - {$data['materi']}.{$data['ppt']->guessExtension()}");
+            $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4");
+            $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
+            $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}");
         
             $data2['judul'] = 'Upload Berhasil!';
             $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
             $data2['tipe'] = 'success';
             return json_encode($data2);
+        }
+    }
+
+    public function tambahRekaman2() {
+        if (!empty($this->request->getPost())) {
+            $data['part'] = $this->request->getPost('part');
+            $data['rekaman'] = $this->request->getFile('rekaman');
+
+            $admin = $this->request->getPost('admin');
+            $materi = $this->request->getPost('materi');
+            $parts = $this->request->getPost('parts');
+
+            $rules = [
+                'part' => [
+                    'label' => 'Part',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Part harus diisi'
+                    ]
+                ],
+                'rekaman' => [
+                    'label' => 'Video',
+                    'rules' => 'uploaded[rekaman]|ext_in[rekaman,mp4]|max_size[rekaman,100000]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih video rekaman kelas',
+                        'ext_in' => 'Pilih file dengan format Mp4',
+                        'max_size' => 'Ukuran file video tidak boleh melebihi 100 Mb'
+                    ]
+                ]
+            ];
+
+            if ($this->validate($rules, $data)) {
+                $model = new Rekaman_Model();
+                $model->where('admin', $admin)->where('materi', $materi)->set('parts', $parts.','.$data['part'])->update();
+
+                $data['rekaman']->move("./vid/Rekaman Kelas/{$admin}", "{$materi} - {$data['part']}.mp4");
+
+                $data2['judul'] = 'Upload Berhasil!';
+                $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
+                $data2['tipe'] = 'success';
+                return json_encode($data2);
+            } else {
+                $data2 = $this->validator->getErrors();
+
+                $data2['judul'] = 'Upload Gagal!';
+                $data2['pesan'] = 'Rekaman Kelas Gagal Diupload. Pastikan Anda telah memasukkan data dan memilih file dengan benar';
+                $data2['tipe'] = 'error';
+                return json_encode($data2);
+            }
+        }
+    }
+
+    public function hapusRekaman($admin, $materi, $part) {
+        $model = new Rekaman_Model();
+
+        $parts = $model->where('admin', $admin)->where('materi', $materi)->first()['parts'];
+
+        $hapus = strpos($parts, ',');
+        if ($hapus == false ) {
+            $model->where('admin', $admin)->where('materi', $materi)->delete();
+        } else {
+            if ($hapus == 0) {
+                $parts = substr($parts, 2);
+            } else {
+                $parts = str_replace(','.$part, '', $parts);
+            }
+        }
+
+        $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
+        unlink($file);
+
+        $model->where('admin', $admin)
+            ->where('materi', $materi)
+            ->set('parts', $parts)
+            ->update();
+        
+        if ($parts == $model->where('admin', $admin)->where('materi', $materi)->first()['parts']) {
+            return $part;
+        } else {
+            return "gagal";
+        }
+    }
+
+    public function ubahKelasRekaman() {
+        $id = $this->request->getPost('id');
+        $kelas = $this->request->getPost('kelas');
+        $cek = $this->request->getPost('cek');
+
+        $model = new Rekaman_Model();
+        $kelases = strval($model->where('id', $id)->first()['kelas']);
+        
+        if ($cek == '1') {
+            if (strpos($kelases, $kelas) == false) {
+                $kelases = $kelases.",".$kelas;
+            }
+        } else if ($cek == '0') {
+            $hapus = strpos($kelases, $kelas);
+            if ($hapus !== false) {
+                if ($hapus == 0) {
+                    $kelases = substr($kelases, strlen($kelas)+1);
+                } else {
+                    $kelases = str_replace(','.$kelas, '', $kelases);
+                }
+            }
+        }
+
+        $model->where('id', $id)
+            ->set('kelas', $kelases)
+            ->update();
+            
+        if ($kelases == $model->where('id', $id)->first()['kelas']) {
+            return $kelas;
+        } else {
+            return "gagal";
+        }
+    }
+
+    public function ubahAdminRekaman($id, $admin) {
+        $model = new Rekaman_Model();
+        
+        $model->where('id', $id)
+            ->set('admin', $admin)
+            ->update();
+
+        if ($admin == $model->where('id', $id)->first()['admin']) {
+            return $admin;
+        } else {
+            return "gagal";
         }
     }
 

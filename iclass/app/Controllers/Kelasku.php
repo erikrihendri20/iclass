@@ -34,33 +34,37 @@ class Kelasku extends BaseController
         return json_encode($result);
     }
 
-    public function rekaman()
+    public function rekaman($id = NULL, $part = NULL)
     {
-
         $data['id'] = 0;
-        $user = new Users_Model;
-        $user = $user->getByUserName(session('username'));
+        $model1 = new Users_Model;
+        $user = $model1->getByUserName(session('username'));
 
         if ($user[0]['kode_kelas'] == "0") {
             session()->setFlashdata('info', "<script>swal('Maaf, kamu belum tergabung ke dalam kelas manapun.','','error')</script>");
             return redirect()->to(base_url() . '/peserta');
         } else {
-            $class = new Kelas_Model;
+            $class = new Kelas_Model();
             $userClass = $class->getByid($user[0]['kode_kelas']);
             $data['kelas'] = $userClass[0]['nama'];
         }
 
         $model = new Rekaman_Model();
-        $data['rekamans'] = $model->where('kelas', $data['kelas'])->findAll();
+        $model->builder()->like('kelas', $data['kelas']);
+        $data['rekamans'] = $model->builder()->get()->getResultArray();
+
+        if ($id == NULL) $id = $data['rekamans'][0]['id'];
+        $data['rekamanPilihan'] = $model->where('id', $id)->first();
 
         if (empty($data['rekamans'])) {
             session()->setFlashdata('info', "<script>swal('Maaf, kelas mu belum punya rekaman pertemuan.','','error')</script>");
             return redirect()->to(base_url() . '/peserta');
         } else {
             $data['javascript'] = ['rekaman.js'];
-            $data['css'] = 'rekaman.css';
+            $data['css'] = 'materi.css';
             $data['active'] = 'kelasku';
             $data['title'] = 'Rekaman';
+            $data['part'] = ($part != NULL) ? $part : '1';
 
             return view('kelasku/rekaman', $data);   
         }
@@ -82,8 +86,12 @@ class Kelasku extends BaseController
 
     public function pindahRekaman($kelas, $id)
     {
+        $k = new Kelas_Model();
+        $kelas = $k->where('id', $kelas)->first();
+        $kelas = $kelas['nama'];
         $model = new Rekaman_Model();
-        $data['rekamanes'] = $model->where('kelas', $kelas)->findAll();
+        $model->builder()->like('kelas', $kelas);
+        $data['rekamanes'] = $model->builder()->get()->getResultArray();
         $data['rekaman'] = (!empty($data['rekamanes'][$id])) ? $data['rekamanes'][$id] : null;
         $data['thumbnail1'] = (!empty($data['rekamanes'][$id+1])) ? $data['rekamanes'][$id+1] : null;
         $data['thumbnail2'] = (!empty($data['rekamanes'][$id+2])) ? $data['rekamanes'][$id+2] : null;

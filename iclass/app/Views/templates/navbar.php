@@ -50,7 +50,7 @@
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="<?= base_url('Kelasku/jadwal'); ?>">Jadwal</a>
-				<a class="dropdown-item" href="<?= base_url('Kelasku/kuis_kode'); ?>">Kuis</a>
+				<!-- <a class="dropdown-item" href="<?= base_url('Kelasku/kuis_kode'); ?>">Kuis</a> -->
 				<a class="dropdown-item" href="<?= base_url('Kelasku/latihan'); ?>">Latihan</a>
 				<a class="dropdown-item" href="<?= base_url('Kelasku/rekaman'); ?>">Rekaman Kelas</a>
 			</div>
