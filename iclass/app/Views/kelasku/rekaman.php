@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div id="content-2-container" class="pt-5">
+    <div id="content-2-container" class="pt-5 mx5">
         <div id="materi-container" class="row">
             <div id="video-container" class="fluid">
                 <div class="row d-flex justify-content-center align-items-center mx-2">
@@ -16,28 +16,28 @@
                 </div>
 
                 <div id="bagian_materi" class="row w-100 mx-1">
-                    <div class="w-25 align-items-center mt-3">
-                        <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="downloadPpt('<?= $rekamanPilihan['admin'] ?>', '<?= $rekamanPilihan['materi'] ?>', '<?= $rekamanPilihan['ext_ppt'] ?>');">
-                            <span class="h5">Download Ppt</span>
-                        </button>
-                    </div>
-
                     <?php foreach (explode(',', $rekamanPilihan['parts']) as $p) : ?>
                         <div class="w-25 align-items-center mt-3">
                             <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="gantiVideo('<?=$p?>');">
-                                <span class="h5">Bagian <?=$p?></span>
+                                <span class="h5 fs-16">Bagian <?=$p?></span>
                             </button>
                         </div>
                     <?php endforeach; ?>
+
+                    <div class="w-25 align-items-center mt-3">
+                        <button class="btn btn-primary" style="border-radius: 10px;" onclick="downloadPpt('<?= $rekamanPilihan['admin'] ?>', '<?= $rekamanPilihan['materi'] ?>', '<?= $rekamanPilihan['ext_ppt'] ?>');">
+                            <span class="h5 fs-16">Download PowerPoint</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid mt-5 ml-3 pb-2">
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb-2">
                 <?php foreach($rekamans as $rekaman) : ?>
 
                     <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">
                         <a href="<?= base_url() ?>/Kelasku/rekaman/<?= $rekaman['id'] ?>"
-                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold">
+                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold fs-16">
                             <?= $rekaman['materi'] ?>
                         </a>
                     </div>

@@ -3,68 +3,65 @@
 <div class="container-fluid mt-5 px-0">
     <?= session('flash'); ?>
 
-    <div class="row mx-2">
-        <div class="col-xl-5 col-md-10 mx-md-auto h-100">
-            <img class="img-fluid" src="<?= base_url() . '/img/3.png' ?>" alt="..." style="height:25em;">
+    <div class="row mx-2 justify-content-center">
+        <div class="w40 mx-md-auto h-100">
+            <img class="gambar" src="<?= base_url() . '/img/3.png' ?>" alt="...">
         </div>
-        <div class="col-xl-6">
-            <div class="row">
-                <?php if (session('kode-paket') == 1) : ?>
-                    <div class="col-md-12">
-                        <div class="w-75 mx-auto">
-                            <div class="display-4 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
-                                <p>Latihan Soal</p>
-                            </div>
-                            <div class="card card-secondary card-outline">
-                                <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
-                                    <div class="col text-center">
-                                        <?php foreach ($materi as $dt) : ?>
-                                            <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px;"><?= $dt['name'] ?></a>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
+
+        <?php if (session('kode-paket') == 1) : ?>
+            <div class="w25-1">
+                <div class="w-75 mx-auto">
+                    <div class="display-4 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
+                        <p>Latihan Soal</p>
+                    </div>
+                    <div class="card card-secondary card-outline">
+                        <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
+                            <div class="col text-center">
+                                <?php foreach ($materi as $dt) : ?>
+                                    <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px;"><?= $dt['name'] ?></a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
-                <?php else : ?>
-                    <div class="col-md-6">
-                        <div class="w-100 mx-auto">
-                            <div class="h1 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
-                                <p>Latihan Soal</p>
-                            </div>
-                            <div class="card card-secondary card-outline">
-                                <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
-                                    <div class="col text-center">
-                                        <?php foreach ($materi as $dt) : ?>
-                                            <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px;">
-                                                <a class="btn text-primary text-left h6 w-100 mx-1 my-auto py-2 font-weight-bold" onclick="materi('<?= $dt['name'] ?>')"><?= $dt['name'] ?></a>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center mt-md-5 mt-xl-2">
-                        <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px; height:1.5em;">Modul Bimbel</div>
-                        <div class="bg-light m-0 mx-auto" style="height: 20em; width:72%;">
-                            <div class="d-flex w-100" style="height:12em;">
-                                <div class="row justify-content-center align-self-center w-100 mx-auto">
-                                    <img class="mx-auto border" src="<?= base_url() ?>/img/1.jpg" alt="" style="height: 10em; width:7em;">
-                                </div>
-                            </div>
-                            <div class="container" style="height:4em;">
-                                <p class="text-left font-weight-bold" style="font-size: small;">
-                                    Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
-                                </p>
-                                <a href="<?=base_url()?>/kelasku/view_pdf/ebook.pdf" class="card-link bg-warning h5 text-white font-weight-bold px-5 rounded">lihat</a>
-                            </div>
-                        </div>
-                        <div class="card-link bg-primary h4 text-white font-weight-bold m-0 w-75 mx-auto rounded">Premium</div>
-                    </div>
-                <?php endif; ?>
+                </div>
             </div>
-        </div>
+        <?php else : ?>
+            <div class="w25-1 text-center mt-md-5 mt-xl-2">
+                <div class="card-link bg-primary text-white font-weight-bold m-0 w-75 mx-auto h4" style="border-radius:5px; height:1.5em;">Modul Bimbel</div>
+                <div class="bg-light m-0 mx-auto" style="height: 20em; width:72%;">
+                    <div class="d-flex w-100" style="height:12em;">
+                        <div class="row justify-content-center align-self-center w-100 mx-auto">
+                            <img class="mx-auto border" src="<?= base_url() ?>/img/1.jpg" alt="" style="height: 10em; width:7em;">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <p class="text-left font-weight-bold" style="font-size: small;">
+                            Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
+                        </p>
+                        <a href="<?=base_url()?>/kelasku/view_pdf/ebook.pdf" class="card-link bg-warning h5 text-white font-weight-bold px-5 rounded">lihat</a>
+                    </div>
+                </div>
+                <div class="card-link bg-primary h4 text-white font-weight-bold m-0 w-75 mx-auto rounded">Premium</div>
+            </div>
+            <div class="w25-2">
+                <div class="w-100 mx-auto">
+                    <div class="h1 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
+                        <p>Latihan Soal</p>
+                    </div>
+                    <div class="card card-secondary card-outline">
+                        <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
+                            <div class="col text-center">
+                                <?php foreach ($materi as $dt) : ?>
+                                    <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px;">
+                                        <a class="btn text-primary text-left h6 w-100 mx-1 my-auto py-2 font-weight-bold" onclick="materi('<?= $dt['name'] ?>')"><?= $dt['name'] ?></a>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div class="mindmap-latihan bg-light mt-3 pb-3">

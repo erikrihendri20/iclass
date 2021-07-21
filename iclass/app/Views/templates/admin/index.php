@@ -548,7 +548,7 @@
 
             function hapusRekaman(admin, materi, part) {
                 $.ajax({
-                    url: "<?= base_url() ?>/admin/hapusRekaman/"+admin+"/"+materi+"/"+part,
+                    url: "<?= base_url() ?>/admin/hapusRekaman/"+admin.replace(/\s/g, '_')+"/"+materi.replace(/\s/g, '_')+"/"+part.replace(/\s/g, '_'),
                     type: "POST",
                     cache: false,
                     contentType: false,

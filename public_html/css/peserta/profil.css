@@ -1,0 +1,29 @@
+@media (max-width: 768px) {
+    #bagian_atas {
+        display: none;
+    }
+
+    .judul {
+        font-size: 50px;
+    }
+  
+    .subjudul {
+        font-size: 14px;
+    }
+  
+    .fs-24 {
+      font-size: 24px;
+    }
+  
+    .fs-18 {
+        font-size: 18px;
+    }
+  
+    .fs-16 {
+        font-size: 16px;
+    }
+  
+    .fs-12 {
+        font-size: 12px;
+    }
+}

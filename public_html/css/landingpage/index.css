@@ -16,3 +16,75 @@ ul {
   color: white;
 }
 
+#menu_tengah {
+  border-radius: 0 50px 0 0;
+}
+
+.mnya-3 {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .judul {
+    font-size: 50px;
+  }
+
+  .subjudul {
+    font-size: 14px;
+  }
+
+  #tengah {
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #menu_tengah {
+    border-radius: 10px;
+  }
+
+  #gambar_hp {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .panah {
+    font-size: 14px;
+    margin-top: 25px;
+  }
+
+  .kartu {
+    width: 13rem;
+  }
+
+  .mnya-3 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .paket {
+    font-size: 25px;
+  }
+
+  .ceklis {
+    font-size: 12px;
+  }
+
+  .daftar-paket {
+    font-size: 14px;
+  }
+
+  .fs-18 {
+    font-size: 18px;
+  }
+
+  .fs-16 {
+    font-size: 16px;
+  }
+
+  .fs-12 {
+    font-size: 12px;
+  }
+}

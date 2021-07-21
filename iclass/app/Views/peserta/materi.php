@@ -22,19 +22,19 @@
                     <?php for ($i = 1; $i <= $materiPilihan['parts']; $i++) : ?>
                         <div class="w-25 align-items-center mt-3">
                             <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="gantiVideo('<?=$i?>');">
-                                <span class="h5">Bagian <?=$i?></span>
+                                <span class="h5 fs-16">Bagian <?=$i?></span>
                             </button>
                         </div>
                     <?php endfor; ?>
                 </div>
             </div>
 
-            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid mt-5 ml-3 pb-2">
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb-2">
                 <?php foreach($materis as $materi) : ?>
 
                     <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">
                         <a href="<?= base_url() ?>/materi/<?= $materi['id'] ?>"
-                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold">
+                            class="abab text-primary h5 w-100 mx-3 my-1 font-weight-bold fs-16">
                             <?= $materi['name'] ?>
                         </a>
                     </div>

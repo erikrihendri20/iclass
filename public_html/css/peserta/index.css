@@ -15,3 +15,61 @@ ul {
 .premium a {
   color: white;
 }
+
+.kartu {
+  width: 20rem; 
+  height: 33rem; 
+  border-radius: 20px;
+}
+
+.mx4 {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.gambar {
+  width: 200px; 
+  height: 200px;
+}
+
+@media screen and (max-width: 768px) {
+  .judul {
+      font-size: 50px;
+  }
+
+  .subjudul {
+      font-size: 14px;
+  }
+
+  .fs-24 {
+    font-size: 24px;
+  }
+
+  .fs-18 {
+      font-size: 18px;
+  }
+
+  .fs-16 {
+      font-size: 16px;
+  }
+
+  .fs-12 {
+      font-size: 12px;
+  }
+
+  .kartu {
+    width: 14rem; 
+    height: 21rem; 
+    border-radius: 10px;
+  }
+
+  .mx4 {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .gambar {
+    width: 100px; 
+    height: 100px;
+  }
+}

@@ -18,6 +18,7 @@ class Kelasku extends BaseController
     public function jadwal()
     {
         $data = [
+            'css' => 'kelasku/jadwal.css',
             'active' => 'kelasku',
             'page'  => 'jadwal'
         ];
@@ -61,7 +62,7 @@ class Kelasku extends BaseController
             return redirect()->to(base_url() . '/peserta');
         } else {
             $data['javascript'] = ['rekaman.js'];
-            $data['css'] = 'materi.css';
+            $data['css'] = 'rekaman.css';
             $data['active'] = 'kelasku';
             $data['title'] = 'Rekaman';
             $data['part'] = ($part != NULL) ? $part : '1';
@@ -201,6 +202,7 @@ class Kelasku extends BaseController
             return redirect()->to(base_url('kelasku/kuis_soal'));
         }
 
+        $data['css'] = 'kelasku/kuis.css';
         $data['active'] = 'kelasku';
         $data['title'] = 'Kuis';
         return view('kelasku/kuis_kode', $data);
@@ -249,6 +251,7 @@ class Kelasku extends BaseController
             'kuis'      => $kuis
         ];
 
+        $data['css'] = 'kelasku/kuis.css';
         $data['title'] = 'Soal';
         return view('kelasku/kuis_soal', $data);
     }
@@ -327,6 +330,7 @@ class Kelasku extends BaseController
             'kuis'      => $kuis
         ]; 
 
+        $data['css'] = 'kelasku/kuis.css';
         $data['title'] = 'Pembahasan';
         return view('kelasku/kuis_pembahasan', $data);
     }
@@ -398,6 +402,7 @@ class Kelasku extends BaseController
         session()->remove('kode_kuis');
         session()->remove('hasil');
 
+        $data['css'] = 'kelasku/kuis.css';
         $data['title'] = 'Hasil';
         return view('kelasku/kuis_hasil', $data);
     }
@@ -410,6 +415,7 @@ class Kelasku extends BaseController
         $mindmap = $model_Mindmap->findAll();
         $data = [
             'materi'    => $materi,
+            'css'       => 'kelasku/latihan.css',
             'active'    => 'kelasku',
             'mindmaps'  => $mindmap
         ];
@@ -448,6 +454,7 @@ class Kelasku extends BaseController
                 'materi'      => $latihan,
                 'active'    => 'kelasku',
             ];
+            $data['css'] = 'kelasku/latihan.css';
             $data['title'] = 'Latihan';
             return view('kelasku/latihan', $data);
         }

@@ -1,0 +1,51 @@
+.gambar {
+    height: 25rem;
+}
+
+.w40 {
+    width: 40%;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.w25-1, .w25-2 {
+    width: 25%;
+}
+
+@media screen and (max-width: 768px) {
+    .judul {
+        font-size: 50px;
+    }
+  
+    .subjudul {
+        font-size: 14px;
+    }
+  
+    .fs-24 {
+      font-size: 24px;
+    }
+  
+    .fs-18 {
+        font-size: 18px;
+    }
+  
+    .fs-16 {
+        font-size: 16px;
+    }
+  
+    .fs-12 {
+        font-size: 12px;
+    }
+
+    .w25-1 {
+        width: 45%;
+    }
+
+    .w25-2 {
+        width: 80%;
+    }
+
+    .gambar {
+        height: 15rem;
+    }
+}

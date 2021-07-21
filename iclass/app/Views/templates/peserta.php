@@ -21,7 +21,7 @@
     <?= $this->include('templates/navbar'); ?>
 
     <div class="row">
-        <div class="col-md-3">
+        <div id="bagian_atas" class="col-md-3">
             <div class="ml-0 border border-top-0 mx-auto position-relative" style="height: 17em; box-shadow: 2px 2px 2px 0 lightgrey; border-radius: 0 10px 10px 0;">
                 <div class="row">
                     <div class="col text-center">

@@ -8,7 +8,7 @@
         <div class="container mx-5">
             <div class="row d-flex">
                 <div class="col d-flex justify-content-center ">
-                    <h2 class="text-primary display-2 font-weight-bold">Jadwal Kegiatan</h2>
+                    <h2 class="text-primary display-2 font-weight-bold judul">Jadwal Kegiatan</h2>
                 </div>
             </div>
         </div>

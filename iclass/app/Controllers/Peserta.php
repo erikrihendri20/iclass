@@ -139,7 +139,7 @@ class Peserta extends BaseController
 			'password' => $user[0]['password'],
 		];
 
-		$data['css'] = 'peserta/edit.css';
+		$data['css'] = 'peserta/profil.css';
 		$data['active'] = 'edit';
 		return view('peserta/edit', $data);
 	}

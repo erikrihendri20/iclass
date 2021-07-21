@@ -8,18 +8,18 @@
         <div class="mx-5">
             <div class="row d-flex">
                 <div class="col d-flex justify-content-center align-items-center">
-                    <h2 class="text-primary display-2 font-weight-bold">Jadwal Terdekat</h2>
+                    <h2 class="text-primary display-2 font-weight-bold judul">Jadwal Terdekat</h2>
                 </div>
             </div>
 
             <div class="d-flex mt-3 d-flex justify-content-center">
-                <div class="d-flex justify-content-center mb-1 mx-4">
-                    <div class="card align-self-start d-flex bg-dark" style="width: 20rem; height: 33rem; border-radius: 20px;">
+                <div class="d-flex justify-content-center mb-1 mx4">
+                    <div class="card align-self-start d-flex bg-dark kartu">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Zoom</h1>
-                            <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4 fs-24" style="border-radius: 0 0 15px 15px;">Zoom</h1>
+                            <img class="gambar" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
-                                <h1 class="font-weight-bold text-primary">
+                                <h1 class="font-weight-bold text-primary fs-18">
                                     <?php if($meetingDate!=null) :?>
                                     <?php 
                                         $tanggal1 = date('d');
@@ -30,42 +30,42 @@
                                     <?php else: echo '-'?>
                                     <?php endif ?>
                                     </h1>
-                                <h3 class="font-weight-bold text-primary">Zoom</h3>
+                                <h3 class="font-weight-bold text-primary fs-18">Zoom</h3>
                             </div>
                             <?php if($meetingDate!=null) :?>
                                 <div class="btn card-link bg-primary">
-                                    <a href="<?= $meetingDate['link-meeting']; ?>" class="text-white font-weight-bold px-4  ">link zoom</a>
+                                    <a href="<?= $meetingDate['link-meeting']; ?>" class="text-white font-weight-bold px-4 fs-18">link zoom</a>
                                 </div>
                             <?php endif ?>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center mb-1 mx-4">
-                    <div class="card align-self-start d-flex bg-primary" style="width: 20rem; height: 33rem; border-radius: 20px;">
+                <div class="d-flex justify-content-center mb-1 mx4">
+                    <div class="card align-self-start d-flex bg-primary kartu">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Try Out</h1>
-                            <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Try Out.png" alt="zoom">
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4 fs-24" style="border-radius: 0 0 15px 15px;">Try Out</h1>
+                            <img class="gambar" src="<?= base_url() ?>/img/Try Out.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 rounded text-center">
-                                <h1 class="font-weight-bold text-primary">H-24</h1>
-                                <h3 class="font-weight-bold text-primary">Try Out</h3>
+                                <h1 class="font-weight-bold text-primary fs-18">H-24</h1>
+                                <h3 class="font-weight-bold text-primary fs-18">Try Out</h3>
                             </div>
                             <div class="btn card-link bg-warning">
-                                <a  class="text-white font-weight-bold px-4">Link Try Out</a>
+                                <a  class="text-white font-weight-bold px-4 fs-18">Link Try Out</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center mb-1 mx-4">
-                    <div class="card align-self-start d-flex bg-light" style="width: 20rem; height: 33rem; border-radius: 20px;">
+                <div class="d-flex justify-content-center mb-1 mx4">
+                    <div class="card align-self-start d-flex bg-light kartu">
                         <div class="card-body mt-0 pt-0 d-flex flex-column align-items-center">
-                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4" style="border-radius: 0 0 15px 15px;">Kuis</h1>
-                            <img style="width: 200px; height: 200px" src="<?= base_url() ?>/img/Kuis.png" alt="zoom">
+                            <h1 class="card-title text-center bg-warning header-paket py-2 w-75 text-white font-weight-bold mb-4 fs-24" style="border-radius: 0 0 15px 15px;">Kuis</h1>
+                            <img class="gambar" src="<?= base_url() ?>/img/Kuis.png" alt="zoom">
                             <div class="my-4 text-blue bg-white rounded text-center">
-                                <h1 class="font-weight-bold text-primary px-4"><?= gmdate("H:i:s", $end) ?></h1>
-                                <h3 class="font-weight-bold text-primary px-4">Berakhir</h3>
+                                <h1 class="font-weight-bold text-primary px-4 fs-18"><?= gmdate("H:i:s", $end) ?></h1>
+                                <h3 class="font-weight-bold text-primary px-4 fs-18">Berakhir</h3>
                             </div>
                             <div class="btn card-link bg-primary">
-                                <a href="<?= base_url('kelasku/kuis_kode?code=' . $code) ?>" class="text-white font-weight-bold px-4">Link Kuis</a>
+                                <a href="<?= base_url('kelasku/kuis_kode?code=' . $code) ?>" class="text-white font-weight-bold px-4 fs-18">Link Kuis</a>
                             </div>
                         </div>
                     </div>

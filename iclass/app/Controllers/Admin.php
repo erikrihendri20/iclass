@@ -223,10 +223,10 @@ class Admin extends BaseController
             $rules = [
                 'materi' => [
                     'label'  => 'Materi',
-                    'rules'  => 'required|max_length[50]',
+                    'rules'  => 'required|max_length[250]',
                     'errors' => [
                         'required' => 'Materi harus diisi',
-                        'max_length' => 'Nama materi berisi maksimal 50 karakter (termasuk spasi)'
+                        'max_length' => 'Nama materi berisi maksimal 250 karakter (termasuk spasi)'
                     ]
                 ],
                 'rekaman' => [
@@ -354,6 +354,10 @@ class Admin extends BaseController
     }
 
     public function hapusRekaman($admin, $materi, $part) {
+        $admin = str_replace("_", " ", $admin);
+        $materi = str_replace("_", " ", $materi);
+        $part = str_replace("_", " ", $part);
+        
         $model = new Rekaman_Model();
 
         $parts = $model->where('admin', $admin)->where('materi', $materi)->first()['parts'];
@@ -361,6 +365,7 @@ class Admin extends BaseController
         $hapus = strpos($parts, ',');
         if ($hapus == false ) {
             $model->where('admin', $admin)->where('materi', $materi)->delete();
+            return $part;
         } else {
             if ($hapus == 0) {
                 $parts = substr($parts, 2);
@@ -368,7 +373,7 @@ class Admin extends BaseController
                 $parts = str_replace(','.$part, '', $parts);
             }
         }
-
+        return $materi;
         $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
         unlink($file);
 
@@ -383,7 +388,7 @@ class Admin extends BaseController
             return "gagal";
         }
     }
-
+    
     public function ubahKelasRekaman() {
         $id = $this->request->getPost('id');
         $kelas = $this->request->getPost('kelas');
@@ -402,7 +407,7 @@ class Admin extends BaseController
                 if ($hapus == 0) {
                     $kelases = substr($kelases, strlen($kelas)+1);
                 } else {
-                    $kelases = str_replace(','.$kelas, '', $kelases);
+                    $kelases = substr($kelases, 0, strlen($kelases)-strlen($kelas)-1);
                 }
             }
         }
