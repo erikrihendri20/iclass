@@ -1,8 +1,8 @@
 <?= $this->extend('templates/peserta'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div class="mx-5 pt-5 mb-3 border" style="border-radius: 30px;">
-        <form class="w-75 pb-5 mx-auto">
+    <div class="mnya-5 mt5 pb5 border" style="border-radius: 30px;">
+        <form class="w-75 pb-3 mx-auto">
             <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
 
             <div class="form-group">

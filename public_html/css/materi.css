@@ -19,6 +19,27 @@ div#bab_materi {
     margin-top: 75px;
 }
 
+.mnya-5 {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  
+  .mt5 {
+    margin-top: 15px;
+  }
+  
+  .w50 {
+    width: 50%;
+  }
+  
+  .w25 {
+    width: 25%;
+  }
+  
+  .w100 {
+    width: 58.3333333%;
+  }
+
 @media (max-width:768px) {
     div#video-container {
         width: 100%;
@@ -44,7 +65,7 @@ div#bab_materi {
     }
 
     div.bab {
-        width: 50%;
+        width: 90%;
     }
 
     span#judul_materi {
@@ -79,3 +100,26 @@ div#bab_materi {
         font-size: 12px;
     }
 }
+
+@media (max-width: 500px) {
+    .judul {
+        font-size: 30px;
+      }
+  
+    .w50 {
+        width: 100%;
+      }
+    
+      .w25 {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  
+    .mt5 {
+        margin-top: 5px;
+    }
+  
+    .pb5 {
+        margin-bottom: 90px;
+    }
+  }

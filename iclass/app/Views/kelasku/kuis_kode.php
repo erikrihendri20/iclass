@@ -1,14 +1,14 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content my-3 bg-white" style="height:61.8vh;">
+<div class="content mt5 bg-white pb5">
     <!-- Content-->
     <div class="display-4 text-primary text-center font-weight-bold mb-4 mx-5">
-        <p>KUIS RUTIN</p>
+        <p class="judul">KUIS RUTIN</p>
     </div>
     <?php if (session('flash')) : ?>
         <?= session('flash'); ?>
     <?php endif; ?>
-    <div class="p-5 m-5 w-25 bg-white rounded text-center mx-auto" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
+    <div class="p-5 m-5 w25-2 bg-white rounded text-center mx-auto" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         -moz-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);">
         <form class="w-75 mx-auto" method="post" action="<?= base_url('kelasku/kuis_kode') ?>">

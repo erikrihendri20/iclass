@@ -434,6 +434,7 @@ class Kelasku extends BaseController
     {
         if (is_file(ROOTPATH . "/../public_html/latihan/" . $file)) {
             $data = [
+                'css'       => 'kelasku/latihan.css',
                 'file'      => $file,
                 'active'    => 'kelasku',
                 'title'     => 'Kelasku',

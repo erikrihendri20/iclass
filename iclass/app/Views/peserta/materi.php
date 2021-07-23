@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div id="content-2-container" class="pt-5">
+    <div id="content-2-container" class="mt5">
 
         <!-- Video Materi -->
 
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb-2">
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb5">
                 <?php foreach($materis as $materi) : ?>
 
                     <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">

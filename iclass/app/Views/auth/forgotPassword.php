@@ -1,11 +1,11 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content my-3 bg-light">
+<div class="content my-3 bg-light pb5">
     <!-- Content-->
     <div class="display-3 text-primary font-weight-bold mb-4 mx-5">
         <p>Lupa Password</p>
     </div>
-    <div class="px-3 mx-5 bg-white rounded" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
+    <div class="px-3 mnya-5 bg-white rounded" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         -moz-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);">
         <ol class="p-3 text-justify h6">
@@ -16,7 +16,7 @@
         </ol>
     </div>
 
-    <div class="mx-5 pt-5">
+    <div class="mnya-5 pt-5">
         <form class="w-75 mx-auto">
             <div class="form-group">
                 <label class="text-primary font-weight-bold fs-18" for="nama">Nama</label>

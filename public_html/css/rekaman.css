@@ -19,6 +19,31 @@ div#bab_materi {
     overflow-y: auto;
 }
 
+.pb5 {
+    padding-bottom: 15px;
+}
+
+.mnya-5 {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  
+  .mt5 {
+    margin-top: 15px;
+  }
+  
+  .w50 {
+    width: 50%;
+  }
+  
+  .w25 {
+    width: 25%;
+  }
+  
+  .w100 {
+    width: 58.3333333%;
+  }
+
 @media (max-width:768px) {
     div#video-container {
         width: 100%;
@@ -77,5 +102,28 @@ div#bab_materi {
   
     .fs-12 {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+    .judul {
+        font-size: 30px;
+      }
+  
+    .w50 {
+        width: 100%;
+      }
+    
+      .w25 {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  
+    .mt5 {
+        margin-top: 5px;
+    }
+  
+    .pb5 {
+        margin-bottom: 90px;
     }
 }

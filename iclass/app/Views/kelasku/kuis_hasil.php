@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mb-0">
-    <div class="mx-5 pt-5">
+<div class="content mb-0 pb5">
+    <div class="mnya-5 mt5">
         <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
     </div>
     <div class="text-center text-primary h2"><?= session('nama') ?></div>

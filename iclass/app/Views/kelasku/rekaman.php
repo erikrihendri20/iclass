@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div id="content-2-container" class="pt-5 mx5">
+    <div id="content-2-container" class="mt5 mx5">
         <div id="materi-container" class="row">
             <div id="video-container" class="fluid">
                 <div class="row d-flex justify-content-center align-items-center mx-2">
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb-2">
+            <div id="bab_materi" style="position: float; float: right;" class="card shadow fluid pb5">
                 <?php foreach($rekamans as $rekaman) : ?>
 
                     <div class="bab row fluid btn-light mx-3 mt-2" style="border-radius: 10px;">

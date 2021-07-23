@@ -1,12 +1,12 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mt-3 mx-5 py-3">
+<div class="content mt-3 py-3 mnya-5">
     <!-- Content-->
     <div class="display-3 text-primary font-weight-bold mb-4 mx-5">
         <p class="judul" style="margin: 0px; padding: 0px;">Tata Cara</p>
         <p class="judul" style="margin: 0px; padding: 0px;">Pendaftaran</p>
     </div>
-    <div class="mx-5 bg-white rounded" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
+    <div class="mnya-5 bg-white rounded" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         -moz-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);">
         <ol class="p-3 m-5 text-justify h5">
@@ -26,9 +26,9 @@
             <li class="my-3 fs-16">Selesai dan selamat bergabung bersama kami</li>
         </ol>
     </div>
-    <div class="text-right mx-5 mt-3">
+    <div class="text-right mx-5 mt5 pb5">
         <a href="<?= base_url('daftar'); ?>" class="btn btn-primary card-link fs-18" style="border-radius: 15px;">
-            <span class="h4 px-4">Lanjutkan</span>
+            <span class="h4 px-4 fs-18">Lanjutkan</span>
         </a>
     </div>
 </div>

@@ -25,6 +25,43 @@ ul {
   margin-left: 5px;
 }
 
+.mnya-5 {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w25 {
+  width: 25%;
+}
+
+.w100 {
+  width: 58.3333333%;
+}
+
+.kelas-samping {
+  width: 27.5%;
+}
+
+.kelas-tengah {
+  width: 35%;
+}
+
+.mt5 {
+  margin-top: 25px;
+}
+
+#pilihanPaket {
+  display: none;
+}
+
+.fs-15 {
+  font-size: 13px;
+}
+
 @media screen and (max-width: 768px) {
   .judul {
     font-size: 50px;
@@ -51,7 +88,7 @@ ul {
   }
 
   .panah {
-    font-size: 14px;
+    font-size: 24px;
     margin-top: 25px;
   }
 
@@ -76,6 +113,14 @@ ul {
     font-size: 14px;
   }
 
+  .mt5 {
+    margin-top: 0;
+  }
+
+  .fs-24 {
+    font-size: 24px;
+  }
+
   .fs-18 {
     font-size: 18px;
   }
@@ -86,5 +131,82 @@ ul {
 
   .fs-12 {
     font-size: 12px;
+  }
+
+  .w50 {
+    width: 90%;
+  }
+
+  .disappearing {
+    margin-top: 50px;
+  }
+
+  .kelas-samping {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  .kelas-tengah {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .mnya-5 {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .w50 {
+    width: 100%;
+  }
+
+  .disappearing {
+    display: none;
+  }
+
+  .w100 {
+    width: 100%;
+  }
+
+  .kelas-tengah {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .mnya-5 {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .judul {
+    font-size: 30px;
+  }
+
+  .w50 {
+    width: 100%;
+  }
+
+  .w25 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .disappearing {
+    display: none;
+  }
+
+  .w100 {
+    width: 100%;
+  }
+
+  .kelas-tengah {
+    width: 100%;
+  }
+
+  #pilihanPaket {
+    padding-bottom: 100px;
   }
 }

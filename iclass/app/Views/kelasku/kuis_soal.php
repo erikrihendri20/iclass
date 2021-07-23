@@ -5,7 +5,7 @@
     <div class="display-4 text-primary text-center font-weight-bold mb-4 mx-5">
         <p>KUIS RUTIN</p>
     </div>
-    <div class="p-5 m-5 w-75 bg-white rounded text-center mx-auto" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
+    <div class="p-5 mnya-5 w-75 bg-white rounded text-center mx-auto" style="-webkit-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         -moz-box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);
         box-shadow: 0px 6px 20px 0px rgba(107,107,107,1);">
         <!-- <img src="" alt="Soal_no_<php echo $_GET['i']; ?>"> -->
@@ -43,7 +43,7 @@
         <div class="col-md-2"></div>
     </div>
 
-    <div class="mx-5 my-5 text-right">
+    <div class="mx-5 my-5 text-right pb5">
         <button id="submit" onclick="pembahasan()" class="btn btn-primary p-2" style="border-radius:30px">
             <h2>Saya yakin</h2>
         </button>

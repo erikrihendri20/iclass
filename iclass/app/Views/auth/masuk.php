@@ -6,7 +6,7 @@
             <div class="card d-flex" style="width: 25rem; border: none;">
                 <img style="max-width: 150px;" class="rounded-circle align-self-center" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Card image cap">
                 <?= session()->flash; ?>
-                <div class="card-body">
+                <div class="card-body pb5">
                     <form class="d-flex flex-column" method="POST" action="">
                         <div class="form-group d-flex flex-column">
                             <label for="username" class="text-center text-primary h4 font-weight-bold">Username</label>
@@ -18,7 +18,7 @@
                             <input name="password" type="password" class="form-control" style="border-radius: 10px;" id="password" placeholder="Password" required>
                         </div>
 
-                        <div>
+                        <div class="disappearing">
                             <br>
                         </div>
 

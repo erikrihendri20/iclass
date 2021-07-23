@@ -7,7 +7,7 @@
 
 <?php $validation = service('validation') ?>
 <div class="content mb-0">
-    <div class="mx-5 pt-5 mb-3 border" style="border-radius: 30px;">
+    <div class="mnya-5 mt5 pb5 border" style="border-radius: 30px;">
         <form class="w-75 mx-auto" method="post" action="<?= base_url('peserta/editProfil') ?>">
             <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
 

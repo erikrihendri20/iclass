@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light mx-5">
+<nav class="navbar navbar-expand-lg navbar-light mnya-5">
 	<a class="navbar-brand" href="<?= base_url(); ?>">
-		<h2 class="font-weight-bold">
+		<h2 class="font-weight-bold fs-24">
 			<span class="text-warning">[i]<span class="text-primary">Class</span></span>
 		</h2>
 	</a>

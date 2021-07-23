@@ -1,10 +1,10 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="container-fluid mt-5 px-0">
+<div class="container-fluid mb5 px-0">
     <?= session('flash'); ?>
 
     <div class="row mx-2 justify-content-center">
-        <div class="w40 mx-md-auto h-100">
+        <div class="w40 mx-md-auto">
             <img class="gambar" src="<?= base_url() . '/img/3.png' ?>" alt="...">
         </div>
 
@@ -64,7 +64,7 @@
         <?php endif; ?>
     </div>
 
-    <div class="mindmap-latihan bg-light mt-3 pb-3">
+    <div class="mindmap-latihan bg-light mt-3 pb5">
         <button class='btn btn-primary card-link m-4' style="border-radius: 5px;" onclick='bukaModal();'> 
         <span class="text-white font-weight-bold px-4">Mind Mapping</span>
         </button>

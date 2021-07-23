@@ -1,7 +1,7 @@
 <?= $this->renderSection('content'); ?>
 
 <!-- footer -->
-<div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center position-absolute w-100" style="bottom: 0; height: 220px;">
+<div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center position-absolute w-100" style="bottom: 0; min-height: 220px;">
     <div class="col-lg-11 pt-3">
         <div class="row mx-1">
             <div class="w-50">
@@ -38,7 +38,7 @@
                 </ul>
 
             </div>
-            <div class="w-25">
+            <div class="w25">
                 <h4 class="text-light fs-18"> <b>Follow us</b> </h4>
                 <div class="row">
                     <a href="mailto:masukstis30@gmail.com" class="col-md-10 text-white text-decoration-none fs-12">

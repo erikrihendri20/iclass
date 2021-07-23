@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div class="mx-5 pt-5">
+    <div class="mx-5 pb5">
 
         <!-- Jadwal Terdekat -->
 
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container pb-3">
             <div class="" id="calendar"></div>
         </div>
         

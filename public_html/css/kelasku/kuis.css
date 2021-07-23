@@ -1,3 +1,28 @@
+.mnya-5 {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.mt5 {
+    margin-top: 15px;
+}
+
+.w50 {
+    width: 50%;
+  }
+  
+  .w25 {
+    width: 25%;
+  }
+  
+  .w100 {
+    width: 58.3333333%;
+  }
+
+.w25-2 {
+    width: 25%;
+}
+
 @media screen and (max-width: 768px) {
     .judul {
         font-size: 50px;
@@ -21,5 +46,36 @@
   
     .fs-12 {
         font-size: 12px;
+    }
+
+    .w25-2 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .judul {
+        font-size: 30px;
+      }
+
+    .w50 {
+        width: 100%;
+      }
+    
+      .w25 {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+    .mt5 {
+        margin-top: 5px;
+    }
+
+    .pb5 {
+        padding-bottom: 65px;
+    }
+
+    .w25-2 {
+        width: 90%;
     }
 }
