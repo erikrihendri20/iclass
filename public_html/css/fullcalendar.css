@@ -656,3 +656,17 @@ table.fc-header{
     text-align: right;
     padding-right: 10px;
 }
+
+@media (max-width: 500px) {
+	.fc-header-title h2 {
+		font-size: 16px;
+	}
+
+	.fc-button {
+		font-size: 16px;
+	}
+
+	.fc-header-right::before {
+		width: 100%;
+	}
+}

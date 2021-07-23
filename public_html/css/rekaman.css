@@ -39,6 +39,10 @@ div#bab_materi {
   .w25 {
     width: 25%;
   }
+
+  .w25-2 {
+      width: 25%;
+  }
   
   .w100 {
     width: 58.3333333%;
@@ -109,14 +113,24 @@ div#bab_materi {
     .judul {
         font-size: 30px;
       }
+    
+      .mnya-5 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
   
     .w50 {
         width: 100%;
+        padding-bottom: 10px;
       }
     
       .w25 {
         width: 100%;
         margin-bottom: 10px;
+      }
+
+      .w25-2 {
+          width: 50%;
       }
   
     .mt5 {
@@ -124,6 +138,10 @@ div#bab_materi {
     }
   
     .pb5 {
-        margin-bottom: 90px;
+        margin-bottom: 30px;
+    }
+
+    .disappearing {
+        display: none;
     }
 }

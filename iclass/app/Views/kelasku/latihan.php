@@ -12,7 +12,7 @@
             <div class="w25-1">
                 <div class="w-75 mx-auto">
                     <div class="display-4 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
-                        <p>Latihan Soal</p>
+                        <p class="judul">Latihan Soal</p>
                     </div>
                     <div class="card card-secondary card-outline">
                         <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="container">
-                        <p class="text-left font-weight-bold" style="font-size: small;">
+                        <p class="text-left font-weight-bold mb0" style="font-size: small;">
                             Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
                         </p>
                         <a href="<?=base_url()?>/kelasku/view_pdf/ebook.pdf" class="card-link bg-warning h5 text-white font-weight-bold px-5 rounded">lihat</a>
@@ -45,14 +45,14 @@
             </div>
             <div class="w25-2">
                 <div class="w-100 mx-auto">
-                    <div class="h1 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
-                        <p>Latihan Soal</p>
+                    <div class="h1 text-xl-center ml-md-4 mt5 mt-xl-0 text-primary font-weight-bold">
+                        <p class="judul text-center">Latihan Soal</p>
                     </div>
                     <div class="card card-secondary card-outline">
                         <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
                             <div class="col text-center">
                                 <?php foreach ($materi as $dt) : ?>
-                                    <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px;">
+                                    <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px; white-space: normal;">
                                         <a class="btn text-primary text-left h6 w-100 mx-1 my-auto py-2 font-weight-bold" onclick="materi('<?= $dt['name'] ?>')"><?= $dt['name'] ?></a>
                                     </div>
                                 <?php endforeach; ?>

@@ -9,7 +9,7 @@
             <div id="video-container" class="fluid">
 
                 <div class="row d-flex justify-content-center align-items-center mx-2">
-                    <span id="judul_materi" class="text-primary display-4 font-weight-bold"><?= $materiPilihan['name'] ?></span>
+                    <span id="judul_materi" class="text-primary h1 font-weight-bold judul"><?= $materiPilihan['name'] ?></span>
                 </div>
 
                 <div id="video_materi" class="row embed-responsive embed-responsive-16by9 bg-light ml-0">
@@ -20,9 +20,9 @@
 
                 <div id="bagian_materi" class="row w-100 mx-1">
                     <?php for ($i = 1; $i <= $materiPilihan['parts']; $i++) : ?>
-                        <div class="w-25 align-items-center mt-3">
+                        <div class="w25-2 align-items-center mt-3">
                             <button class="btn btn-primary" style="width: 90%; border-radius: 10px;" onclick="gantiVideo('<?=$i?>');">
-                                <span class="h5 fs-16">Bagian <?=$i?></span>
+                                <span class="h5 subjudul">Bagian <?=$i?></span>
                             </button>
                         </div>
                     <?php endfor; ?>

@@ -38,6 +38,10 @@ ul {
   width: 25%;
 }
 
+.w25-2 {
+  width: 25%;
+}
+
 .w100 {
   width: 58.3333333%;
 }
@@ -187,6 +191,7 @@ ul {
 
   .w50 {
     width: 100%;
+    padding-bottom: 10px;
   }
 
   .w25 {
@@ -207,6 +212,10 @@ ul {
   }
 
   #pilihanPaket {
-    padding-bottom: 100px;
+    padding-bottom: 35px;
+  }
+
+  .inner {
+    width: 90%;
   }
 }

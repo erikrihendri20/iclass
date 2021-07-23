@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-0">
-    <div class="mnya-5 mt-5">
+    <div class="mnya-5 mt5">
 
         <!-- About -->
         <div class="row d-flex">
@@ -22,7 +22,7 @@
             <div id="pilihanKelas" class="m-0 p-0 carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="row justify-content-center mx-5">
+                        <div class="row justify-content-center">
                             <div class="d-flex mx-3 kelas-samping">
                                 <div class="d-flex justify-content-end align-self-center mx-0">
                                     <div class="d-flex justify-content-center text-center bg-primary rounded" style="width: 15%;">
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="carousel-item">
-                        <div class="row justify-content-center mx-5">
+                        <div class="row justify-content-center">
                             <div class="d-flex mx-3 kelas-samping">
                                 <div class="d-flex justify-content-end align-self-center mx-0">
                                     <div class="d-flex justify-content-center text-center bg-primary rounded" style="width: 15%;">
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="carousel-item">
-                        <div class="row justify-content-center mx-5">
+                        <div class="row justify-content-center">
                             <div class="d-flex mx-3 kelas-samping">
                                 <div class="d-flex justify-content-end align-self-center mx-0">
                                     <div class="d-flex justify-content-center text-center bg-primary rounded" style="width: 15%;">
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="carousel-item">
-                        <div class="row justify-content-center mx-5">
+                        <div class="row justify-content-center">
                             <div class="d-flex mx-3 kelas-samping">
                                 <div class="d-flex justify-content-end align-self-center mx-0">
                                     <div class="d-flex justify-content-center text-center bg-primary rounded" style="width: 15%;">
@@ -184,16 +184,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <a class="carousel-control-prev" href="#pilihanKelas" role="button" data-slide="prev">
-                        <span class="fas fa-chevron-circle-left h1 text-secondary" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#pilihanKelas" role="button" data-slide="next">
-                        <span class="fas fa-chevron-circle-right h1 text-secondary" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
+                <a class="carousel-control-prev" href="#pilihanKelas" role="button" data-slide="prev">
+                    <span class="fas fa-chevron-circle-left h1 text-secondary" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#pilihanKelas" role="button" data-slide="next">
+                    <span class="fas fa-chevron-circle-right h1 text-secondary" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
 

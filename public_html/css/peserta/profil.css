@@ -1,3 +1,7 @@
+.gambar {
+  max-width: 20em;
+}
+
 .mnya-5 {
     margin-left: 25px;
     margin-right: 25px;
@@ -13,6 +17,10 @@
   
   .w25 {
     width: 25%;
+  }
+
+  .w75 {
+    width: 75%;
   }
   
   .w100 {
@@ -50,12 +58,22 @@
 }
 
 @media (max-width: 550px) {
-    .judul {
+  .gambar {
+    max-width: 10em;
+  }
+
+  .mnya-5 {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .judul {
         font-size: 30px;
       }
   
     .w50 {
         width: 100%;
+        padding-bottom: 10px;
       }
     
       .w25 {
@@ -63,11 +81,19 @@
         margin-bottom: 10px;
       }
   
+      .w75 {
+        width: 90%;
+      }
+
     .mt5 {
         margin-top: 5px;
     }
   
     .pb5 {
-        margin-bottom: 65px;
+        margin-bottom: 25px;
+    }
+
+    .disappearing {
+      display: none;
     }
   }

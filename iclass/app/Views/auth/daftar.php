@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col d-flex flex-column justify-content-center ">
-                <h1 class="text-primary align-self-center font-weight-bold">Formulir Pendaftaran</h1>
+                <h1 class="text-primary align-self-center font-weight-bold judul">Formulir Pendaftaran</h1>
                 <form class="d-flex flex-column masuk" method="POST" action="" enctype="multipart/form-data">
 
                     <div class="form-group">
@@ -89,10 +89,10 @@
                     <div class="d-flex justify-content-center mt-3">
 
                         <button type="submit" name="kembali" class="btn btn-warning align-self-center mx-1" style="border-radius: 10px;">
-                            <span class="text-light h4 px-4 fs-18">Kembali</span>
+                            <span class="text-light h4 px-4 subjudul">Kembali</span>
                         </button>
                         <button type="submit" name="submit" class="btn btn-primary align-self-center mx-1" style="border-radius: 10px;">
-                            <span class="text-light h4 px-4 fs-18">Lanjutkan</span>
+                            <span class="text-light h4 px-4 subjudul">Lanjutkan</span>
                         </button>
                     </div>
                 </form>

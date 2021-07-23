@@ -2,8 +2,8 @@
 <?= $this->section('content'); ?>
 <div class="content mb-0">
     <div class="mnya-5 mt5 pb5 border" style="border-radius: 30px;">
-        <form class="w-75 pb-3 mx-auto">
-            <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
+        <form class="w75 pb-3 mx-auto">
+            <img class="mx-auto d-block gambar" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
 
             <div class="form-group">
                 <label class="text-primary font-weight-bold h4 fs-18" for="nama">Nama</label>

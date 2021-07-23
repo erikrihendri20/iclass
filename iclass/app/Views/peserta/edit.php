@@ -8,8 +8,8 @@
 <?php $validation = service('validation') ?>
 <div class="content mb-0">
     <div class="mnya-5 mt5 pb5 border" style="border-radius: 30px;">
-        <form class="w-75 mx-auto" method="post" action="<?= base_url('peserta/editProfil') ?>">
-            <img class="mx-auto d-block" style="max-width: 20em;" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
+        <form class="w75 mx-auto" method="post" action="<?= base_url('peserta/editProfil') ?>">
+            <img class="mx-auto d-block gambar" class="" src="<?= base_url('') ?>/img/4.png" alt="Card image cap">
 
             <div class="form-group">
                 <label class="text-primary font-weight-bold h4 fs-18" for="nama">Nama</label>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="text-right mt-5 pb-4">
+            <div class="text-right mt5 pb-4">
                 <button type="submit" name="batal" class="btn btn-primary align-self-center mx-1 mt-3" style="border-radius: 10px;">
                     <span class="text-light px-4 h5 fs-18">Batalkan</span>
                 </button>

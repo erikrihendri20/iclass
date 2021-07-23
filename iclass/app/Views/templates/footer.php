@@ -4,11 +4,11 @@
 <div class="bg-primary mt-5 pt-3 px-3 pb-4 edu d-flex justify-content-center position-absolute w-100" style="bottom: 0; min-height: 220px;">
     <div class="col-lg-11 pt-3">
         <div class="row mx-1">
-            <div class="w-50">
+            <div class="w50">
                 <h2 class="text-light fs-18"> <span class="text-warning">[i]</span> <b>Class Education</b></h2>
                 <p class="my-0 w-75 text-white text-justify fs-12">iClass education merupakan platform pembelajaran bagi para pelajar SMA, khususnya di bidang matematika</p>
             </div>
-            <div class="w-25">
+            <div class="w-25 disappearing">
                 <h4 class="text-light fs-18"> <b>Usefull Link</b> </h4>
                 <ul class="list-unstyled">
                     <li>

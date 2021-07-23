@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <?php $validation = service('validation') ?>
-<div class="content mb-3">
+<div class="content pb5">
     <div class="container">
         <div class="row">
             <div class="col d-flex flex-column justify-content-center ">

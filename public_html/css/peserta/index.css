@@ -117,6 +117,7 @@ ul {
 
   .w50 {
       width: 100%;
+      padding-bottom: 10px;
     }
   
     .w25 {
@@ -129,7 +130,7 @@ ul {
   }
 
   .pb5 {
-      padding-bottom: 65px;
+      padding-bottom: 25px;
   }
 
   #jadwal {
