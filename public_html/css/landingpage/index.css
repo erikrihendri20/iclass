@@ -30,6 +30,10 @@ ul {
   margin-right: 25px;
 }
 
+.my5 {
+  margin-top: 25px;
+}
+
 .w50 {
   width: 50%;
 }
@@ -46,24 +50,57 @@ ul {
   width: 58.3333333%;
 }
 
-.kelas-samping {
-  width: 27.5%;
+.kelas-tengah {
+  width: 40%;
+  z-index: 2000;
 }
 
-.kelas-tengah {
-  width: 35%;
+.w40 {
+  width: 40%;
 }
 
 .mt5 {
   margin-top: 25px;
 }
 
-#pilihanPaket {
+.py5 {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+#paketan {
+  display: none;
+}
+
+#dapet {
   display: none;
 }
 
 .fs-15 {
   font-size: 13px;
+}
+
+.gambar-tengah {
+  background-size: 100%; 
+  background-repeat: no-repeat; 
+  width: 100vw; 
+  margin-left: -40px;
+}
+
+.col7 {
+  width: 58.33333%;
+}
+
+.col5 {
+  width: 41.66666%;
+}
+
+.col11 {
+  width: 91.66666%;
+}
+
+.col1 {
+  width: 8.33333%;
 }
 
 @media screen and (max-width: 768px) {
@@ -118,7 +155,7 @@ ul {
   }
 
   .mt5 {
-    margin-top: 0;
+    margin-top: 5px;
   }
 
   .fs-24 {
@@ -185,6 +222,11 @@ ul {
     margin-right: 5px;
   }
 
+  .py5 {
+    padding-top: 5px;
+    padding-bottom: 0;
+  }
+
   .judul {
     font-size: 30px;
   }
@@ -211,11 +253,50 @@ ul {
     width: 100%;
   }
 
-  #pilihanPaket {
-    padding-bottom: 35px;
-  }
-
   .inner {
     width: 90%;
+  }
+
+  .w40 {
+    width: 50%;
+  }
+
+  .my5 {
+    margin-top: 5px;
+    margin-bottom: 35px;
+  }
+
+  .gambar-tengah {
+    width: 100%; 
+    background-size: 100% 100%;
+    margin-left: 0px;
+  }
+
+  .col7 {
+    width: 100%;
+  }
+
+  .col5 {
+    width: 100%;
+  }
+
+  .col11 {
+    width: 85%;
+  }
+
+  .col1 {
+    width: 15%;
+  }
+
+  .pb5 {
+    padding-bottom: 25px;
+  }
+
+  #paketan {
+    display: block;
+  }
+
+  #dapet {
+    display: block;
   }
 }
