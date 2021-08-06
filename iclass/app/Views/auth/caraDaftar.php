@@ -28,7 +28,7 @@
     </div>
     <div class="text-right mx-5 mt5 pb5">
         <a href="<?= base_url('daftar'); ?>" class="btn btn-primary card-link fs-18" style="border-radius: 15px;">
-            <span class="h4 px-4 fs-18">Lanjutkan</span>
+            <span class="h4 px-2 fs-16">Lanjutkan</span>
         </a>
     </div>
 </div>

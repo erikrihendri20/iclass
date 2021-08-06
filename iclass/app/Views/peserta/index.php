@@ -73,7 +73,7 @@
             </div>
 
             <div class="d-flex justify-content-center disappear">
-                <div id="jadwal" class="m-0 carousel slide" data-ride="carousel">
+                <div id="jadwal" class="m-0 carousel slide" data-ride="carousel" data-interval="10000" data-pause="hover">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="d-flex justify-content-center mb-1 mx4">
