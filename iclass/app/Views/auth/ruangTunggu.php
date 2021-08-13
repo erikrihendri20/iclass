@@ -19,7 +19,7 @@
                     $text = 'selamat pagi/siang/sore/malam kak, perkenalkan nama saya '.$user['nama']. ', saya sudah melakukan pembayaran dan sudah mengupload bukti pembayaran. terimakasih';
                     
                     ?>
-                    <a type="submit" name="chat-admin" href="https://api.whatsapp.com/send/?phone=6281332311261&text=<?= $text; ?>" class="btn btn-success">Chat Admin</a>
+                    <a type="submit" name="chat-admin" href="https://api.whatsapp.com/send/?phone=6281353378068&text=<?= $text; ?>" class="btn btn-success">Chat Admin</a>
                 </form>
             </div>
         </div>

@@ -16,6 +16,10 @@ ul {
   color: white;
 }
 
+.border-20 {
+  border-radius: 20px;
+}
+
 .kartu {
   width: 20rem; 
   height: 33rem; 

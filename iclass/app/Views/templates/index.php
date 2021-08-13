@@ -18,7 +18,10 @@
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
     <link rel="stylesheet" href="<?= base_url('css/font.css'); ?>">
 
-
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/css/fullpage.css" />
+    <script src="vendors/easings.min.js"></script>
+    <script type="text/javascript" src="vendors/scrolloverflow.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/js/fullpage.js"></script>
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
     <title><?= $title; ?></title>

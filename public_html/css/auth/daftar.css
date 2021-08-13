@@ -4,8 +4,12 @@
 }
 
 .mt5 {
-    margin-top: 15px;
+    margin-top: 35px;
 }
+
+.border-20 {
+    border-radius: 20px;
+  }
 
 .w50 {
     width: 50%;
@@ -78,4 +82,8 @@
     .disappearing {
         display: none;
       }
+
+    .mt5 {
+        margin-top: 5px;
+    }
 }

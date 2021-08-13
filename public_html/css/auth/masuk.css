@@ -19,6 +19,14 @@
     width: 58.3333333%;
   }
 
+.border-20 {
+    border-radius: 20px;
+}
+
+.mt5 {
+    margin-top: 35px;
+  }
+
 
 @media screen and (max-width: 768px) {
     .judul {
@@ -78,5 +86,9 @@
 
     .disappearing {
         display: none;
+      }
+      
+      .mt5 {
+        margin-top: 5px;
       }
 }
