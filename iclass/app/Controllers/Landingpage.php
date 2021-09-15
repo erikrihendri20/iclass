@@ -6,10 +6,12 @@ class Landingpage extends BaseController
 {
 	public function index()
 	{
+		$db = \Config\Database::connect();
 		if (session('log') == TRUE)
 			return redirect()->to('peserta');
 		$data['title'] = 'Iclass';
 		$data['css'] = 'landingpage/index.css';
+		$data['testi'] = $db->table('testi')->get()->getResultArray();
 		$data['active'] = 'beranda';
 		return view('landingpage/index', $data);
 	}

@@ -104,7 +104,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
         <!-- Nav Item - My-profile -->
 
-        <li class="nav-item <?= ($active == 'kuis_soal') ? 'active' :  ' '; ?>">
+        <!-- <li class="nav-item <?= ($active == 'kuis_soal') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url('admin/kuis_soal'); ?>">
                 <i class="fas fa-paper-plane"></i>
                 <span>Upload Soal</span></a>
@@ -114,7 +114,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <a class="nav-link" href="<?= base_url('admin/kuis_pembahasan'); ?>">
                 <i class="fas fa-paper-plane"></i>
                 <span>Upload Pembahasan</span></a>
-        </li>
+        </li> -->
 
         <li class="nav-item <?= ($active == 'kuis_jadwal') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/kuis_jadwal">
@@ -122,11 +122,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                 <span>Jadwal Kuis</span></a>
         </li>
 
-        <li class="nav-item <?= ($active == 'kuis_edit') ? 'active' :  ' '; ?>">
+        <!-- <li class="nav-item <?= ($active == 'kuis_edit') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/edit_soal_kuis">
                 <i class="fas fa-fw fa-pencil-alt"></i>
                 <span>Edit Kuis</span></a>
-        </li>
+        </li> -->
 
         <li class="nav-item <?= ($active == 'kuis_hasil') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/hasil_kuis">
@@ -136,19 +136,19 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
         <!-- Divider -->
-        <hr class="sidebar-divider">
+        <!-- <hr class="sidebar-divider"> -->
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <!-- <div class="sidebar-heading">
             Latihan
-        </div>
+        </div> -->
 
         <!-- Nav Item - My-profile -->
-        <li class="nav-item <?= ($active == 'latihan') ? 'active' :  ' '; ?>">
+        <!-- <li class="nav-item <?= ($active == 'latihan') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/latihan">
                 <i class="fas fa-fw fa-book"></i>
                 <span>Latihan</span></a>
-        </li>
+        </li> -->
 
 
         <!-- Divider -->
@@ -169,7 +169,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </li>
 
     <?php if (session()->role == 1) : ?>
-        <li class="nav-item <?= ($active == 'atur jadwal tryout') ? 'active' :  ' '; ?>">
+        <li class="nav-item <?= ($active == 'tryout_jadwal') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
                 <i class="fas fa-fw fa-pencil-alt"></i>
                 <span>Atur Jadwal Tryout</span></a>

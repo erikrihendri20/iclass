@@ -53,10 +53,10 @@
                             <span>iclass.education</span>
                         </p>
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=6282232207642" class="col-md-10 text-white text-decoration-none fs-12">
+                    <a href="https://api.whatsapp.com/send?phone=6281353378068" class="col-md-10 text-white text-decoration-none fs-12">
                         <p class="my-0">
                             <i class="fa fa-whatsapp pr-2"></i>
-                            <span>+62 822 3220 7642</span>
+                            <span>+62 813 5337 8068</span>
                         </p>
                     </a>
                 </div>

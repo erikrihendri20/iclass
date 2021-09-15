@@ -21,27 +21,23 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="tambah_jadwalLabel">Tambah jadwal kuis</h5>
+                <h5 class="modal-title" id="tambah_jadwalLabel">Tambah jadwal try out</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <form action="<?= base_url('admin/add_jadwal_kuis') ?>" method="POST">
+                <form action="<?= base_url('admin/add_jadwal_tryout') ?>" method="POST">
+                  <div class="form-group">
+                    <label for="title" class="form-label">Judul</label>
+                    <input type="text" class="form-control" name="title" id="title">
+                  </div>
+
                   <div class="form-group">
                     <label for="kelas" class="form-label">Kelas</label>
                     <select class="form-control" id="kelas" name="kelas[]" multiple>
                       <?php foreach ($list_kelas as $dt) : ?>
                         <option value='<?= $dt['id'] ?>'><?= $dt['nama'] ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="materi" class="form-label">Materi</label>
-                    <select class="form-control" id="materi" name="materi">
-                      <?php foreach ($list_materi as $dt) : ?>
-                        <option value='<?= $dt['materi'] ?>'><?= $dt['materi'] ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -74,9 +70,8 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Judul</th>
                 <th>Kelas</th>
-                <th>Materi</th>
-                <th>Subbab</th>
                 <th>Jadwal</th>
                 <th>Action</th>
               </tr>
@@ -84,20 +79,16 @@
             <tbody>
               <?php $no = 1;
               foreach ($data as $dt) : ?>
+                <?php echo '<script>console.log('.json_encode($dt).')</script>'; ?>
                 <tr>
                   <td>
                     <?= $no; ?>
                   </td>
+                  <td><?= $dt['title'] ?></td>
                   <td>
                     <?php foreach (explode(',', $kelas[$no - 1]) as $kls) {
                       echo $kls.'<br>';
                     } ?>
-                  </td>
-                  <td>
-                    <?= $dt['title'] ?>
-                  </td>
-                  <td>
-                    <?= $dt['materi'] ?>
                   </td>
                   <td>
                     <?= date("d-m-Y", strtotime($dt['start_event'])) ?>
@@ -120,12 +111,12 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('admin/edit_jadwal_kuis') ?>" method="POST">
+                        <form action="<?= base_url('admin/edit_jadwal_tryout') ?>" method="POST">
                           <div class="form-group">
                             <label for="kelas" class="form-label">Kelas</label>
                             <select class="form-control" id="kelas" name="kelas[]" multiple>
                               <?php foreach ($list_kelas as $dd) : ?>
-                                <option value='<?= $dd['id'] ?>'><?= $dd['nama'] ?></option>
+                                <option value='<?= $dd['id'] ?>' <?php echo (strpos($dt['kode_kelas'], $dd['id'])!==false) ? " selected" : ''; ?>><?= $dd['nama'] ?></option>
                               <?php endforeach; ?>
                             </select>
                           </div>
@@ -155,5 +146,5 @@
     </div>
   </div>
 </div>
-<?= $this->include('admin/soal_kuis') ?>
+<?= $this->include('admin/soal_tryout') ?>
 <?= $this->endSection(); ?>

@@ -1,4 +1,16 @@
-.edu {
+.w-66 {
+    width: 66% !important;
+  }
+  
+  .w-34 {
+    width: 34% !important;
+  }
+  
+  .w-33 {
+    width: 33% !important;
+  }
+  
+  .edu {
     color: white;
 }
 
@@ -19,13 +31,36 @@ div#bab_materi {
     margin-top: 75px;
 }
 
+.truncate {
+    white-space:normal !important;
+    word-wrap:break-word;
+}
+
+.border-20 {
+    border-radius: 20px;
+}
+
 .mnya-5 {
     margin-left: 25px;
     margin-right: 25px;
   }
   
   .mt5 {
-    margin-top: 15px;
+    margin-top: 35px;
+  }
+
+  .mb5 {
+      margin-bottom: 35px;
+  }
+
+  .px5 {
+      padding-left: 35px;
+      padding-right: 35px;
+  }
+
+  .py5 {
+      padding-top: 35px;
+      padding-bottom: 35px;
   }
   
   .w50 {
@@ -44,7 +79,7 @@ div#bab_materi {
     width: 58.3333333%;
   }
 
-@media (max-width:768px) {
+/* @media (max-width:768px) {
     div#video-container {
         width: 100%;
     }
@@ -140,4 +175,4 @@ div#bab_materi {
     .disappearing {
         display: none;
     }
-  }
+  } */

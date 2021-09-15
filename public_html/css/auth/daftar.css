@@ -1,6 +1,18 @@
+.w-66 {
+  width: 66% !important;
+}
+
+.w-34 {
+  width: 34% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
 .mnya-5 {
-    margin-left: 25px;
-    margin-right: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .mt5 {
@@ -23,7 +35,7 @@
     width: 58.3333333%;
   }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .judul {
         font-size: 50px;
     }
@@ -86,4 +98,4 @@
     .mt5 {
         margin-top: 5px;
     }
-}
+} */

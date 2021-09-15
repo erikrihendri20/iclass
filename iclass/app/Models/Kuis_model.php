@@ -8,6 +8,8 @@ class Kuis_Model extends Model
 {
     protected $table      = 'kuis';
 
+    protected $allowedFields = ['kode_kuis', 'event_id', 'soal', 'jawaban', 'pembahasan', 'materi'];
+
     protected $returnType     = 'array';
 
     public function getByCode($code)

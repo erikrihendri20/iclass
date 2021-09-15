@@ -16,18 +16,22 @@
 
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
     <link rel="stylesheet" href="<?= base_url('css/font.css'); ?>">
 
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/css/fullpage.css" />
     <script src="vendors/easings.min.js"></script>
     <script type="text/javascript" src="vendors/scrolloverflow.min.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>/js/fullpage.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
     <title><?= $title; ?></title>
 </head>
 
-<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="overflow-x: hidden; min-height: 100vh;">
+<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="min-width: 1100px; overflow-x: hidden; min-height: 100vh;">
 
     <?= $this->include('templates/navbar'); ?>
 

@@ -1,4 +1,16 @@
-.edu {
+.w-66 {
+    width: 66% !important;
+  }
+  
+  .w-34 {
+    width: 34% !important;
+  }
+  
+  .w-33 {
+    width: 33% !important;
+  }
+  
+  .edu {
     color: white;
 }
 
@@ -48,7 +60,7 @@ div#bab_materi {
     width: 58.3333333%;
   }
 
-@media (max-width:768px) {
+/* @media (max-width:768px) {
     div#video-container {
         width: 100%;
     }
@@ -144,4 +156,4 @@ div#bab_materi {
     .disappearing {
         display: none;
     }
-}
+} */

@@ -5,11 +5,11 @@ namespace App\Controllers;
 use App\Models\Users_Model;
 use App\Models\Admin_Model;
 use App\Models\Paket_Model;
+use App\Models\Catatan_Model;
+use App\Models\Nilai_Model;
 
 class Auth extends BaseController
 {
-
-
     public function masuk()
     {
         if (isset($_POST['submit'])) {
@@ -33,7 +33,7 @@ class Auth extends BaseController
                             </button>
                         </div>';
                         session()->setFlashdata('flash', $flash);
-                        return redirect()->to('Auth/uploadBuktiPembayaran');
+                        return redirect()->to(base_url().'/auth/uploadBuktiPembayaran');
                     } elseif ($user[0]['status'] == 1) {
                         $data = [
                             'is_waiting' => true,
@@ -48,8 +48,10 @@ class Auth extends BaseController
                             </button>
                         </div>';
                         session()->setFlashdata('flash', $flash);
-                        return redirect()->to('Auth/ruangTunggu');
+                        return redirect()->to(base_url().'/auth/ruangTunggu');
                     } else {
+                        $model->where('id', $user[0]['id'])->set('last_login', date('y-m-d'))->update();
+
                         $data = [
                             'log' => true,
                             'id' => $user[0]['id'],
@@ -62,6 +64,8 @@ class Auth extends BaseController
                             'username' => $user[0]['username'],
                             'bukti-pembayaran' => $user[0]['bukti_pembayaran'],
                             'status' => $user[0]['status'],
+                            'sisa' => $user[0]['sisa'],
+                            'bolos' => $user[0]['bolos'],
                         ];
                         session()->set($data);
                         $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -322,6 +326,13 @@ class Auth extends BaseController
             ];
             if ($this->validate($rules)) {
                 $model = new Users_Model();
+                $sisa = 0;
+                switch ($this->request->getPost('kode-paket')) {
+                    case '2': $sisa = 8;
+                    case '3': $sisa = 12;
+                    case '4': $sisa = 27;
+                    case '5': $sisa = 60;
+                }
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),
                     'jurusan' => $this->request->getPost('jurusan'),
@@ -330,8 +341,21 @@ class Auth extends BaseController
                     'email' => $this->request->getPost('email'),
                     'username' => $this->request->getPost('username'),
                     'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                    'sisa' => $sisa,
+                    'last_login' => date('y-m-d'),
                 ];
                 $model->save($newuser);
+
+                $model = new Nilai_Model();
+                $model->save(['username' => $newuser['username'], 'bulan' => date('Y-m-d')]);
+
+                $catatan = new Catatan_Model();
+                $catat = [
+                    'user' => $this->request->getPost('username'),
+                    'catatan' => '',
+                    'tanggal' => '',
+                ];
+                $catatan->save($catat);
                 $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
                             selesaikan pembayaran untuk mendapatkan layanan iclass

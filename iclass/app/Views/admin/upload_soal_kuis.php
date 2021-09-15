@@ -60,7 +60,7 @@
                                     <label for="materi" class="col-sm-2 col-form-label text-secondary"><span class="text-center">Judul Materi</span></label>
                                     <div class="col-sm-1 d-flex justify-content-end align-items-center">:</div>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control form-control-sm border border-secondary border-top-0 border-right-0 border-left-0 <?= ($validation->hasError('materi')) ? 'is-invalid' : '' ?>" name="materi" id="materi" placeholder="Masukkan judul materi ... " style="border-radius: 0;">
+                                        <input type="text" class="form-control form-control-sm border border-secondary border-top-0 border-right-0 border-left-0 <?= ($validation->hasError('soal')) ? 'is-invalid' : '' ?>" name="soal" id="soal" placeholder="Masukkan judul materi ... " style="border-radius: 0;">
                                     </div>
                                 </div>
                                 <div class="form-group row pl-4">

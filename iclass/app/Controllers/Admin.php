@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\I18n\Time;
+use App\Models\Kehadiran_Model;
 use App\Models\Users_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Kelas_Model;
@@ -14,6 +15,8 @@ use App\Models\KuisSoalJawaban_Model;
 use App\Models\Latihan_Model;
 use App\Models\Admin_Model;
 use App\Models\Materi_Model;
+use App\Models\HasilKuis_Model;
+use App\Models\Tryout_Model;
 
 class Admin extends BaseController
 {
@@ -35,6 +38,8 @@ class Admin extends BaseController
     {
         $data['active'] = 'atur jadwal pertemuan';
         $model = new Kelas_Model();
+        $user = new Users_Model();
+
         $data['kelas'] = $model->findAll();
         $data['title'] = 'Atur Jadwal Pertemuan';
         return view('admin/aturJadwalPertemuan', $data);
@@ -42,11 +47,42 @@ class Admin extends BaseController
 
     public function aturJadwalTryout()
     {
-        $data['active'] = 'atur jadwal tryout';
-        $model = new Kelas_Model();
-        $data['kelas'] = $model->findAll();
-        $data['title'] = 'Atur Jadwal Tryout';
-        return view('admin/aturJadwalTryout', $data);
+        $model = new Jadwal_Model();
+        $db = \Config\Database::connect();
+
+        $tryout = $model->where('events.jenis', '2')->findAll();
+
+        $class = array();
+        $i = 0;
+
+        $model = new Kelas_Model;
+        foreach ($tryout as $id) {
+            $kelas="";
+            $j=0;
+            foreach (explode(',', $id['kode_kelas']) as $kls) {
+                $cls = $model->getByid($kls);
+                if ($j==0) {
+                    $kelas = $cls[0]['nama'];
+                } else {
+                    $kelas = $kelas.','.$cls[0]['nama'];
+                }
+                $j++;
+            }
+            $class[$i] = $kelas;
+            $i++;
+        }
+
+        $kelas = $model->findAll();
+
+        $data = [
+            'kelas'         => $class,
+            'data'          => $tryout,
+            'list_kelas'    => $kelas,
+            'submateris'    => $db->table('submateri')->get()->getResultArray(),
+            'active'        => 'tryout_jadwal',
+        ];
+        $data['title'] = 'Jadwal Try Out';
+        return view('admin/jadwal_tryout', $data);
     }
 
     public function daftarKelas()
@@ -158,6 +194,39 @@ class Admin extends BaseController
             }
             $model = new Jadwal_Model();
             $model->save($data);
+
+            if ($data['jenis'] == '1') {
+                $user = new Users_Model();
+                $siswas = $user->where('kode_kelas', $this->request->getPost('kode_kelas'))->findAll();
+                foreach ($siswas as $siswa) {
+                    $bolos = (int)$siswa['bolos'];
+                    $sisa = (int)$siswa['sisa'];
+                    $data1 = [
+                        'bolos' => $bolos+1,
+                        'sisa' => $sisa-1,
+                    ];
+                    $user->where('id', $siswa['id'])->set($data1)->update();
+
+                    $pertemuan=0;
+                    switch ($siswa['kode_paket']) {
+                        case '1': $pertemuan=0; break;
+                        case '2': $pertemuan=8; break;
+                        case '3': $pertemuan=12; break;
+                        case '4': $pertemuan=27; break;
+                        case '5': $pertemuan=60; break;
+                    }
+
+                    $data2 = [
+                        'username'  => $siswa['username'],
+                        'kelas'     => $siswa['kode_kelas'],
+                        'event'     => (isset($_POST['id'])) ? $this->request->getPost('id') : $model->orderBy('id', 'desc')->first()['id'],
+                        'hadir'     => '0',
+                        'pertemuan' => (string)($pertemuan - (int)$data1['sisa']),
+                    ];
+                    $kehadiran = new Kehadiran_Model();
+                    $kehadiran->save($data2);
+                }
+            }
         }
     }
 
@@ -165,7 +234,24 @@ class Admin extends BaseController
     {
         $id = $this->request->getPost('id');
         $model = new Jadwal_Model();
+        $event = $model->where('id', $id)->first();
         $model->delete($id);
+
+        if ($event['jenis'] == '1') {
+            $user = new Users_Model();
+            $siswas = $user->where('kode_kelas', $event['kode_kelas'])->findAll();
+            foreach ($siswas as $siswa) {
+                $bolos = (int)$siswa['bolos'];
+                $sisa = (int)$siswa['sisa'];
+                $data1 = [
+                    'bolos' => $bolos-1,
+                    'sisa' => $sisa+1,
+                ];
+                $user->where('id', $siswa['id'])->set($data1)->update();
+            }
+            $kehadiran = new Kehadiran_Model();
+            $kehadiran->where('event', $this->request->getPost('id'))->delete();
+        }
     }
 
     public function renderJadwal($kode_kelas)
@@ -184,11 +270,14 @@ class Admin extends BaseController
     {   
         $kelas_model = new Kelas_Model();
         $admin_model = new Admin_Model();
+        $db = \Config\Database::connect();
+
         $data['kelases'] = $kelas_model->findAll();
         $data['admins'] = $admin_model->findAll();
 
         $model = new Rekaman_Model();
 
+        $data['materis'] = $db->table('materi')->get()->getResultArray();
         $data['rekamans'] = $model->findAll();
         $data['active'] = 'rekaman';
         $data['css'] = 'admin/rekaman.css';
@@ -471,8 +560,57 @@ class Admin extends BaseController
     {
         $id = $this->request->getPost('id');
         $kode_kelas = $this->request->getPost('kode_kelas');
-        $model = new Users_Model();
-        $model->update($id, ['kode_kelas' => $kode_kelas]);
+        $user = new Users_Model();
+
+        $model = new Jadwal_Model();
+        $events = $model->where('jenis', '1')->like('kode_kelas', $kode_kelas)->findAll();
+        
+        $pertemuan=0;
+        switch ($user->where('id', $id)->first()['kode_paket']) {
+            case '1': $pertemuan=0; break;
+            case '2': $pertemuan=8; break;
+            case '3': $pertemuan=12; break;
+            case '4': $pertemuan=27; break;
+            case '5': $pertemuan=60; break;
+        }
+
+        $jumlah = !empty($events) ? sizeof($events) : 0;
+        $user->update($id, [
+            'kode_kelas' => $kode_kelas,
+            'sisa' => (string)($pertemuan-$jumlah),
+            'bolos' => (string)$jumlah
+        ]);
+
+        if ($jumlah!==0) {
+            $username=$user->where('id', $id)->first()['username'];
+            $kehadiran = new Kehadiran_Model();
+            $hadir = $kehadiran->where('username', $username)->where('kelas', $kode_kelas)->findAll();
+
+            for ($i=0; $i<$jumlah; $i++) {
+                if (empty($hadir)) {
+                    $data = [
+                        'username' => $username,
+                        'kelas' => $kode_kelas,
+                        'event' => $events[$i]['id'],
+                        'hadir' => '0',
+                        'pertemuan' => $i+1,
+                    ];
+
+                    $kehadiran->insert($data);
+                } else if (array_search($events[$i]['id'], array_column($hadir, 'event')) == false) {
+                    $data = [
+                        'username' => $username,
+                        'kelas' => $kode_kelas,
+                        'event' => $events[$i]['id'],
+                        'hadir' => '0',
+                        'pertemuan' => $i+1,
+                    ];
+
+                    $kehadiran->insert($data);
+                }
+            }
+        }
+        
         $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                             kelas <strong>berhasil</strong> diubah
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -1033,43 +1171,194 @@ class Admin extends BaseController
         }
     }
 
+    public function add_jadwal_tryout()
+    {
+        $title = $this->request->getPost('title');
+        $start = new Time($this->request->getPost('datetime'));
+        $end = new Time($start . ' + 4 Hours');
+
+        $id_kelases = $this->request->getPost('kelas[]');
+        $id_kelas = "";
+        for ($i=0; $i<sizeof($id_kelases); $i++) {
+            if ($i==0) {
+                $id_kelas=$id_kelases[$i];
+            } else {
+                $id_kelas=$id_kelas.','.$id_kelases[$i];
+            }
+        }
+
+        try {
+            $model = new Jadwal_Model();
+
+            $data = [
+                'title'         => $title,
+                'kode_kelas'    => $id_kelas,
+                'start_event'   => $start,
+                'end_event'     => $end,
+                'jenis'         => 2,
+                'class_name'    => 'success',
+            ];
+            $model->insert($data);
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+
+            return redirect()->to(base_url('admin/aturJadwalTryout'));
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Penambahan jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/aturJadwalTryout'));
+        }
+    }
+    
+    public function soal_tryout()
+    {
+        if (isset($_POST['submit'])) {
+            $rules = [
+                'soal[]' => [
+                    'label' => 'Soal',
+                    'rules' => 'uploaded[soal]',
+                    'errors' => [
+                        'uploaded' => 'File soal gagal diunggah'
+                    ]
+                ],
+                'bagian' => [
+                    'label' => 'Bagian',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Pilih bagian'
+                    ]
+                ]
+            ];
+            
+            if ($this->validate($rules)) {
+                $model = new Tryout_Model();
+                $soals = $this->request->getFiles()['soal'];
+
+                $tryout = [
+                    'event_id' => $this->request->getPost('event_id'),
+                    'soal' => $this->request->getPost('materi'),
+                ];
+
+                $bagian = explode('-', $this->request->getPost('bagian'));
+
+                for ($i=$bagian[0]; $i<=$bagian[1]; $i++) {
+                    $jawab = (!empty($this->request->getPost('jawaban'.(string)$i))) ? $this->request->getPost('jawaban'.(string)$i) : 'A';
+                    $tryout = [
+                        'jawaban' => $jawab,
+                        'nomor' => $i,
+                        'materi' => $this->request->getPost('subbab'.$i),
+                    ];
+                    $model->save($tryout);
+                    $soal->move('img/tryout/'.$tryout['soal'].' - '.$tryout['event_id'].'/soal', $i.'.jpg', true); 
+                }
+
+                session()->setFlashdata('flash', "<script>swal('Sukses', 'Berhasil mengunggah soal & pembahasan', 'success')</script>");
+				return redirect()->to(base_url('admin/aturJadwalTryout'));
+            } else {
+                session()->setFlashdata('flash', "<script>swal('Gagal', 'Form tidak diisi dengan sempurna', 'error')</script>");
+				return redirect()->to(base_url('admin/aturJadwalTryout'));
+            }
+        }
+
+        return redirect()->to(base_url('admin/aturJadwalTryout'));
+    }
+
+    public function edit_jadwal_tryout()
+    {
+        $id = $this->request->getPost('id');
+        $start = new Time($this->request->getPost('datetime'));
+        $end = new Time($start . ' + 23 Hours 59 Minutes');
+        $kelases = $this->request->getPost('kelas[]');
+        $kelas="";
+        for ($i=0; $i<sizeof($kelases); $i++) {
+            if ($i==0) {
+                $kelas=$kelases[$i];
+            } else {
+                $kelas=$kelas.','.$kelases[$i];
+            }
+        }
+
+        $model = new Jadwal_Model();
+
+        try {
+            $model->set('start_event', $start)
+                ->set('end_event', $end)
+                ->set('kode_kelas', $kelas)
+                ->where('id', $id)
+                ->update();
+
+            $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Edit jadwal kuis sukses!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/aturJadwalTryout'));
+        } catch (Throwable $e) {
+            $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Edit jadwal kuis gagal!</strong> (' . $e . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to(base_url('admin/aturJadwalTryout'));
+        }
+    }
+
     public function kuis_jadwal()
     {
         $model = new Jadwal_Model();
+        $db = \Config\Database::connect();
 
-        $kuis = $model->getByJenis('3');
+        $kuis = $db->table('kuis')->join('events', 'events.id=kuis.event_id', 'right')
+                    ->where('events.jenis', '3')
+                    ->orderBy('events.start_event', 'asc')->get()->getResultArray();
 
         $class = array();
         $i = 0;
 
         $model = new Kelas_Model;
         foreach ($kuis as $id) {
-            $cls = $model->getByid($id['kode_kelas']);
-            $kelas = $cls[0]['nama'];
+            $kelas="";
+            $j=0;
+            foreach (explode(',', $id['kode_kelas']) as $kls) {
+                $cls = $model->getByid($kls);
+                if ($j==0) {
+                    $kelas = $cls[0]['nama'];
+                } else {
+                    $kelas = $kelas.','.$cls[0]['nama'];
+                }
+                $j++;
+            }
             $class[$i] = $kelas;
             $i++;
         }
 
+        $materi = new Materi_Model();
+
         $kelas = $model->findAll();
 
-        $code = array();
-        $i = 0;
-        $model = new Kuis_Model;
-        foreach ($kuis as $id) {
-            $cd = $model->getByMateri($id['title']);
-            $kode = $cd[0]['kode_kuis'];
-            $code[$i] = $kode;
-            $i++;
-        }
-
-        $kode = $model->findAll();
+        $submateri = $db->table('submateri')->get()->getResultArray();
 
         $data = [
             'kelas'         => $class,
-            'kode'          => $code,
             'data'          => $kuis,
             'list_kelas'    => $kelas,
-            'list_materi'   => $kode,
+            'list_materi'   => $materi->findAll(),
+            'subbabs'       => $submateri,
             'active'        => 'kuis_jadwal',
         ];
         $data['title'] = 'Jadwal Kuis';
@@ -1078,15 +1367,24 @@ class Admin extends BaseController
 
     public function add_jadwal_kuis()
     {
-        $id_kelas = $this->request->getPost('kelas');
         $materi = $this->request->getPost('materi');
         $start = new Time($this->request->getPost('datetime'));
         $end = new Time($start . ' + 23 Hours 59 Minutes');
 
+        $id_kelases = $this->request->getPost('kelas[]');
+        $id_kelas = "";
+        for ($i=0; $i<sizeof($id_kelases); $i++) {
+            if ($i==0) {
+                $id_kelas=$id_kelases[$i];
+            } else {
+                $id_kelas=$id_kelas.','.$id_kelases[$i];
+            }
+        }
+
         try {
             $model = new Jadwal_Model();
 
-            $check = $model->getKuis($materi, $id_kelas);
+            $check = $model->where('title', $materi)->where('kode_kelas', $id_kelases)->first();
             if ($check != NULL) {
                 $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis gagal!</strong> jadwal kuis ' . $materi . ' untuk kelas tersebut sudah ada.
@@ -1147,7 +1445,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url('admin/kuis_jadwal'));
+            return redirect()->to(base_url('admin'));
         } catch (Throwable $e) {
             $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Penghapusan jadwal kuis gagal!</strong> (' . $e . '
@@ -1156,7 +1454,7 @@ class Admin extends BaseController
                     </button>
                 </div>';
             session()->setFlashdata('flash', $flash);
-            return redirect()->to(base_url('admin/kuis_jadwal'));
+            return redirect()->to(base_url('admin'));
         }
     }
 
@@ -1165,12 +1463,22 @@ class Admin extends BaseController
         $id = $this->request->getPost('id');
         $start = new Time($this->request->getPost('datetime'));
         $end = new Time($start . ' + 23 Hours 59 Minutes');
+        $kelases = $this->request->getPost('kelas[]');
+        $kelas="";
+        for ($i=0; $i<sizeof($kelases); $i++) {
+            if ($i==0) {
+                $kelas=$kelases[$i];
+            } else {
+                $kelas=$kelas.','.$kelases[$i];
+            }
+        }
 
         $model = new Jadwal_Model();
 
         try {
             $model->set('start_event', $start)
                 ->set('end_event', $end)
+                ->set('kode_kelas', $kelas)
                 ->where('id', $id)
                 ->update();
 
@@ -1194,9 +1502,157 @@ class Admin extends BaseController
         }
     }
 
+    public function soal_kuis()
+    {
+        if (isset($_POST['submit'])) {
+            $rules = [
+                'subbab' => [
+                    'label' => 'Subbab',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Subbab harus dipilih'
+                    ]
+                ],
+                'soal[]' => [
+                    'label' => 'Soal',
+                    'rules' => 'uploaded[soal]',
+                    'errors' => [
+                        'uploaded' => 'File soal gagal diunggah'
+                    ]
+                ],
+                'pembahasan[]' => [
+                    'label' => 'Soal',
+                    'rules' => 'uploaded[pembahasan]',
+                    'errors' => [
+                        'uploaded' => 'File soal gagal diunggah'
+                    ]
+                ],
+                'jawaban1' => [
+                    'label' => 'Jawaban 1',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 1 belum dipilih'
+                    ]
+                ],
+                'jawaban2' => [
+                    'label' => 'Jawaban 2',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 2 belum dipilih'
+                    ]
+                ],
+                'jawaban3' => [
+                    'label' => 'Jawaban 3',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 3 belum dipilih'
+                    ]
+                ],
+                'jawaban4' => [
+                    'label' => 'Jawaban 4',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 4 belum dipilih'
+                    ]
+                ],
+                'jawaban5' => [
+                    'label' => 'Jawaban 5',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 5 belum dipilih'
+                    ]
+                ],
+                'jawaban6' => [
+                    'label' => 'Jawaban 6',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 6 belum dipilih'
+                    ]
+                ],
+                'jawaban7' => [
+                    'label' => 'Jawaban 7',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 7 belum dipilih'
+                    ]
+                ],
+                'jawaban8' => [
+                    'label' => 'Jawaban 8',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 8 belum dipilih'
+                    ]
+                ],
+                'jawaban9' => [
+                    'label' => 'Jawaban 9',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 9 belum dipilih'
+                    ]
+                ],
+                'jawaban10' => [
+                    'label' => 'Jawaban 10',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jawaban nomor 10 belum dipilih'
+                    ]
+                ],
+            ];
+            
+            if ($this->validate($rules)) {
+                $model = new Kuis_Model();
+                $jawaban = "";
+                $soals = $this->request->getFiles()['soal'];
+                $pembahasans = $this->request->getFiles()['pembahasan'];
+
+                for ($i=1; $i<=10; $i++) {
+                    if ($i!=10) {
+                        $jawaban=$jawaban.$this->request->getPost('jawaban'.(string)$i).",";
+                    } else {
+                        $jawaban=$jawaban.$this->request->getPost('jawaban'.(string)$i);
+                    }
+                }
+
+                $kuis = [
+                    'event_id' => $this->request->getPost('event_id'),
+                    'soal' => $this->request->getPost('materi'),
+                    'jawaban' => $jawaban,
+                    'pembahasan' => $this->request->getPost('materi'),
+                    'materi' => $this->request->getPost('subbab'),
+                ];
+
+                if (empty($model->where('event_id', $kuis['event_id'])->first())) {
+                    $model->save($kuis);
+                } else {
+                    $model->where('event_id', $kuis['event_id'])->set($kuis)->update();
+                }
+
+                $i=1;
+                foreach ($soals as $soal) {
+                    $soal->move('img/kuis/'.$kuis['soal'].' - '.$kuis['event_id'].'/soal', $i.'.jpg', true);
+                    $i++;
+                }
+
+                $i=1;
+                foreach ($pembahasans as $pembahasan) {
+                    $pembahasan->move('img/kuis/'.$kuis['soal'].' - '.$kuis['event_id'].'/pembahasan', $i.'.jpg', true);
+                    $i++;
+                }
+
+                session()->setFlashdata('flash', "<script>swal('Sukses', 'Berhasil mengunggah soal & pembahasan', 'success')</script>");
+				return redirect()->to(base_url('admin/kuis_jadwal'));
+            } else {
+                session()->setFlashdata('flash', "<script>swal('Gagal', 'Form tidak diisi dengan sempuran', 'error')</script>");
+				return redirect()->to(base_url('admin/kuis_jadwal'));
+            }
+        }
+
+        return redirect()->to(base_url('admin/kuis_jadwal'));
+    }
+
     public function hasil_kuis()
     {
-        $model = new KuisHasil_Model();
+        $model = new HasilKuis_Model();
 
         $hasil = $model->findAll();
 
@@ -1211,24 +1667,23 @@ class Admin extends BaseController
         $i = 0;
         foreach ($hasil as $k) {
             $user_model = new Users_Model();
-            $user = $user_model->getById($k['users_id']);
+            $users = $user_model->getByUsername($k['username']);
             $event_model = new Jadwal_Model();
-            $event = $event_model->getById($k['events_id']);
+            $events = $event_model->join('kuis', 'kuis.event_id=events.id')->where('kuis.id', $k['kuis'])->findAll();
             $kelas_model = new Kelas_Model();
-            $class = $kelas_model->getById($user[0]['kode_kelas']);
+            $class = $kelas_model->getById($users[0]['kode_kelas']);
 
             $id[$i] = $k['id'];
-            $user[$i] = $user[0]['nama'];
+            $user[$i] = $users[0]['nama'];
             $kelas[$i] = $class[0]['nama'];
-            $event[$i] = $event[0]['title'];
-            $benar[$i] = $k['jawaban_benar'];
-            $salah[$i] = $k['jawaban_salah'];
-            $kosong[$i] = $k['jawaban_kosong'];
-            $skor[$i] = $k['skor'];
+            $event[$i] = $events[0]['title'];
+            $benar[$i] = $k['benar'];
+            $salah[$i] = $k['salah'];
+            $kosong[$i] = $k['kosong'];
+            $skor[$i] = $k['benar'].'/10';
 
             $i++;
         }
-
         $data = [
             'id'        => $id,
             'user'      => $user,
@@ -1240,7 +1695,6 @@ class Admin extends BaseController
             'skor'      => $skor,
             'active'    => 'kuis_hasil',
         ];
-        // dd($data);
         $data['title'] = 'Hasil Kuis';
         return view('admin/hasil_kuis', $data);
     }

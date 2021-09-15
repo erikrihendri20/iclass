@@ -1,3 +1,15 @@
+.w-66 {
+  width: 66% !important;
+}
+
+.w-34 {
+  width: 34% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
 .edu {
   color: white;
 }
@@ -124,6 +136,42 @@ ul {
   width: 8.33333%;
 }
 
+/* @media  (max-width: 1000px) {
+  .mt5 {
+    margin-top: 15px !important;
+  }
+
+  #section3 .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #section3 .row .w-100 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .card-footer {
+    padding: 5px;
+    padding-top: 17px !important;
+  }
+
+  .card-footer p {
+    margin-bottom: 5px !important;
+  }
+
+  #section4 .row {
+    padding-bottom: 0 !important;
+  }
+
+  .testi-items {
+    width: 50% !important;
+    margin-top: 15px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .judul {
     font-size: 50px;
@@ -239,6 +287,54 @@ ul {
 
 @media (max-width: 500px) {
   .mnya-5 {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+  }
+
+  .py5 {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .px5 {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  nav .row div.w-75 {
+    width: 100% !important;
+  }
+
+  .navbar-nav .w-66, .w-34{
+    width: 100% !important;
+    display: block !important;
+    text-align: right;
+  }
+
+  .judul {
+    font-size: 30px !important;
+  }
+
+  #section0 .row .w-50 {
+    width: 100% !important;
+  }
+
+  #imgsection0 {
+    display: none;
+  }
+
+  .fs-12 {
+    font-size: 16px !important;
+  }
+
+  #section0 .row .w-50 div.w-100 a.btn {
+    margin-top: 5px;
+    margin-left: 0 !important;
+  }
+}
+
+/* @media (max-width: 500px) { */
+  /* .mnya-5 {
     margin-left: 5px;
     margin-right: 5px;
   }
@@ -333,4 +429,4 @@ ul {
   .pt5 {
     padding-top: 5px;
   }
-}
+} */

@@ -40,7 +40,11 @@
                         <div class="form-group">
                             <label class="col col-form-label" for="materi">Materi</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control text-dark" id="materi" name="materi" placeholder="Aljabar">
+                                <select class="form-control" id="materi" name="materi" value="">
+                                    <?php foreach($materis as $materi) : ?>
+                                        <option value="<?=$materi['materi'] ?>"><?=$materi['materi'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <small id="errMateri" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>

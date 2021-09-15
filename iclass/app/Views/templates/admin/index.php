@@ -122,7 +122,7 @@
 
             });
         </script>
-    <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal' || $active == 'kuis_hasil' ||  $active == 'latihan') : ?>
+    <?php elseif ($active == 'kuis_edit' || $active == 'kuis_jadwal' || $active == 'kuis_hasil' ||  $active == 'latihan' || $active == 'tryout_jadwal') : ?>
         <script>
             $(document).ready(function() {
                 $('#daftar-kuis').DataTable();

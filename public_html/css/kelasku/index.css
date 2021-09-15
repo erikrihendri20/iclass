@@ -1,0 +1,228 @@
+.w-66 {
+  width: 66% !important;
+}
+
+.w-34 {
+  width: 34% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
+.edu {
+    color: white;
+  }
+
+  .btn {
+    border-radius: 100px;
+  }
+  
+  .header-paket {
+    border-radius: 0px 0px 5px 5px;
+  }
+  
+  ul {
+    list-style-type: circle;
+  }
+  .premium p,
+  .premium h5,
+  .premium a {
+    color: white;
+  }
+  
+  .border-20 {
+    border-radius: 20px;
+  }
+  
+  .px5 {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  
+  .py5 {
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+  
+  .kartu {
+    width: 20rem; 
+    height: 33rem; 
+    border-radius: 20px;
+  }
+  
+  .mx4 {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  
+  .gambar {
+    width: 200px; 
+    height: 200px;
+  }
+  
+  .mnya-5 {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  
+  .mt5 {
+    margin-top: 35px;
+  }
+  
+  .mb5 {
+    margin-bottom: 35px;
+  }
+  
+  .px5{
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  
+  .py5 {
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+  
+  .w50 {
+    width: 50%;
+  }
+  
+  .w25 {
+    width: 25%;
+  }
+  
+  .w100 {
+    width: 58.3333333%;
+  }
+  
+  #jadwal {
+    display: none;
+  }
+
+.w-50-100 {
+  width: 50% !important;
+}
+
+/* @media screen and (max-width: 1000px) {
+  .mt5 {
+    margin-top: 15px !important;
+  }
+  
+  #img-shield {
+    display: none !important;
+  }
+
+  .row a.p-4 {
+    padding: 10px !important;
+  }
+
+  h5 {
+    font-size: 12px !important;
+  }
+
+  .col-6 {
+    width: 100% !important;
+    margin-top: 10px;
+  }
+}
+  
+  @media screen and (max-width: 768px) {
+    .judul {
+        font-size: 50px;
+    }
+  
+    .subjudul {
+        font-size: 14px;
+    }
+  
+    .fs-24 {
+      font-size: 24px;
+    }
+  
+    .fs-18 {
+        font-size: 18px;
+    }
+  
+    .fs-16 {
+        font-size: 16px;
+    }
+  
+    .fs-12 {
+        font-size: 12px;
+    }
+  
+    .kartu {
+      width: 14rem; 
+      height: 21rem; 
+      border-radius: 10px;
+    }
+  
+    .mx4 {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  
+    .gambar {
+      width: 100px; 
+      height: 100px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .mnya-5 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+  
+    .disappearing {
+        display: none;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .judul {
+        font-size: 30px;
+      }
+  
+    .w50 {
+        width: 100%;
+        padding-bottom: 10px;
+      }
+    
+      .w25 {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  
+    .mt5 {
+        margin-top: 5px;
+    }
+  
+    .mb5 {
+      margin-bottom: 5px;
+    }
+  
+    .pb5 {
+        padding-bottom: 25px;
+    }
+  
+    #jadwal {
+      display: block;
+      width: 90%;
+    }
+  
+    #jad {
+      display: none;
+    }
+  
+    .px5 {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  
+    .py5 {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  } */

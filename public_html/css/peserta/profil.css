@@ -1,3 +1,15 @@
+.w-66 {
+  width: 66% !important;
+}
+
+.w-34 {
+  width: 34% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
 .gambar {
   max-width: 20em;
 }
@@ -8,9 +20,27 @@
   }
   
   .mt5 {
-    margin-top: 15px;
+    margin-top: 35px;
+  }
+
+  .mb5 {
+    margin-bottom: 35px;
+  }
+
+  .px5 {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .py5 {
+    padding-top: 35px;
+    padding-bottom: 35px;
   }
   
+  .border-20 {
+    border-radius: 20px;
+  }
+
   .w50 {
     width: 50%;
   }
