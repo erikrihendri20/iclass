@@ -173,7 +173,7 @@
                         <div class="col-4 px-0">
                             <h6 class="text-center font-weight-bold rounded shadow mt-3 px-3 py-1" style="color: #12336D;">Rumit</h6>
                         </div>
-                        <?php if ($materiPilihan['sedang']!='' && $materiPilihan['sedang']!='0') { $k=$i;
+                        <?php if ($materiPilihan['rumit']!='' && $materiPilihan['rumit']!='0') { $k=$j;
                             for ($i=0; $i<(int)$materiPilihan['rumit']; $i++) { ?>
                                 <button id="<?= $k ?>" class="btn w-100 mt-2 py-0" style="background-color: #12336D; border-radius: 10px;" onclick="tukarBagianMateri('<?= $materiPilihan['materi'] ?>', 'rumit', '<?= $k+1 ?>');" <?php echo (!$sedang) ? 'disabled' : ''; ?>>
                                     <div class="row mx-0 py-1">
@@ -222,7 +222,7 @@
         </div>
     </div>
 
-    <?php if ((int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']+(int)$materiPilihan['rumit']==0) { ?>
+    <?php if ((int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']+(int)$materiPilihan['rumit']!=0) { ?>
         <div class="row border-20 shadow mnya-5 mt5 py-4" style="padding-left: 35px;">
             <div class="px-0" style="width: 94%;">
                 <div class="row mx-0">
@@ -415,13 +415,18 @@
                         }
                         break;
                 }
-
+                console.log(this.responseText);
                 if (this.responseText=="unlocked") {
                     switch (tingkat) {
                         case 'dasar':
                             <?php $j=$materiPilihan['dasar']; for ($i=0; $i<$materiPilihan['sedang']; $i++) { ?>
                                 document.getElementById('<?php echo $j; $j++; ?>').disabled=false;
-                            <?php } ?>
+                            <?php } 
+                            if ($materiPilihan['sedang']=='0') { 
+                                $j=(int)$materiPilihan['dasar']; 
+                                for ($i=0; $i<$materiPilihan['rumit']; $i++) { ?>
+                                    document.getElementById('<?php echo $j; $j++; ?>').disabled=false;
+                            <?php } } ?>
                             break;
                         case 'sedang':
                             <?php $j=(int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']; for ($i=0; $i<$materiPilihan['rumit']; $i++) { ?>
@@ -432,16 +437,19 @@
                 }
             }
 
-            xhttp.open("GET", '<?= base_url() ?>/materi/cek/'+materi+'/'+tingkat+'/'+bagian, true);
-            xhttp.send();
-            
             if (tingkat == 'dasar') {
                 document.getElementById('dasarBawah').innerHTML="Dasar";
+                xhttp.open("GET", '<?= base_url() ?>/materi/cek/'+materi+'/'+tingkat+'/'+bagian, true);
             } else if (tingkat == 'sedang') {
+                const t = parseInt(bagian)-parseInt('<?= $materiPilihan['dasar'] ?>');
+                xhttp.open("GET", '<?= base_url() ?>/materi/cek/'+materi+'/'+tingkat+'/'+t, true);
                 document.getElementById('dasarBawah').innerHTML="Sedang";
             } else if (tingkat == 'rumit') {
+                const t = parseInt(bagian)-parseInt('<?= $materiPilihan['dasar'] ?>')-parseInt('<?= $materiPilihan['sedang'] ?>');
+                xhttp.open("GET", '<?= base_url() ?>/materi/cek/'+materi+'/'+tingkat+'/'+t, true);
                 document.getElementById('dasarBawah').innerHTML="Rumit";
             }
+            xhttp.send();
 
             document.getElementById('semi-title').innerHTML=" - "+submateris[parseInt(bagian)-1];
             document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Materi Baru/"+materi+"/"+bagian+".mp4";

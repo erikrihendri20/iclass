@@ -164,12 +164,12 @@
                 <div class="row border-20 shadow h-100 mx-0 p-3">
                     <h4 class="text-center font-weight-bold w-100" style="height: 10%; color: #12336D;">Pemahamanmu</h4>
                     <div id="pemahamanmu" class="col-12 px-0" style="height: 90%;"></div>
-                    <a href="<?= base_url() ?>/peserta/nilai" class="btn btn-primary h4 text-white text-center position-absolute mb-0 p-4" style="bottom: 25px; right: 0; border-radius: 10px 0 0 10px;">
+                    <a href="<?= base_url() ?>/peserta/nilai" class="btn btn-primary h4 text-white text-center position-absolute mb-0 p-4" style="top: 75px; right: 0; border-radius: 10px 0 0 10px;">
                         <span class="fas fa-arrow-right"></span>
                     </a>
-                    <?php if (!empty($nilai)) { ?>
+                    <!-- <?php if (!empty($nilai)) { ?>
                         <img id="img-shield" src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 45%; top: 35%; left: 28%;">
-                    <?php } ?>
+                    <?php } ?> -->
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@
         <div class="row mx-0 mt5">
             <div class="col-9 pl-0">
                 <div class="row justify-content-center bg-white border shadow border-20 mx-0 px5">
-                    <div class="w-100">
+                    <div class="w-100 mb-3">
                         <h2 class="text-white text-center font-weight-bold w-50 mx-auto py-2" style="background-color: #12336D; border-radius: 0 0 15px 15px;">Jadwal Terdekat</h2>
                     </div>
                     <?php if (session('kode-paket') == '1') { ?>
@@ -344,7 +344,7 @@
                     url: "<?= base_url() ?>/peserta/cari/"+cari.value, 
                     success: function(result) {
                         const res = JSON.parse(result);
-                        
+                        console.log(res);
                         const materi = document.getElementById('video-materi');
                         const rekaman = document.getElementById('rekaman-kelas');
                         const latihan = document.getElementById('latihan-soal');
@@ -365,7 +365,7 @@
                             rekaman.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
                         }
 
-                        if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
+                        if (res.materi.length != 0) {
                             latihan.innerHTML=`<h5 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h5>`;
                             ubahLatihan(res['materi'][0]);
                         } else {
@@ -377,7 +377,7 @@
                             if (res['mindmap'].length != 0) {
                                 latihan.innerHTML+=`<div class="col-12 float-right px-0 mt-2">
                                                         <div class="row mx-0">
-                                                            <button class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%; word-break: break-word; white-space: normal;" onclick="lihatMindmap('${res['mindmap'][0]['materi']}', '${res['mindmap'][0]['ext']}')">
+                                                            <button class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%; word-break: break-word; white-space: normal;" onclick="lihatMindmap('${res['mindmap'][0]['materi']}', 'jpg')">
                                                                 Mind mapping - ${res['mindmap'][0]['materi']}
                                                             </button>
                                                             <a href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%;">
@@ -392,7 +392,6 @@
             });
 
             function ubahMateri(res, tingkatan) {
-                console.log(tingkatan);
                 var parts=parseInt(res['dasar']);
                 if (parseInt(res['dasar']) == tingkatan['dasar'].split(',').length) {
                     if (parseInt(res['sedang']) == tingkatan['sedang'].split(',').length) {
@@ -404,7 +403,7 @@
                 const materi = document.getElementById('video-materi');
                 for (let i=1; i<=parts; i++) {
                     materi.innerHTML+=`<a href="<?= base_url() ?>/materi/materi/${res['id']}/${i}#vid" class="btn btn-light btn-lg d-flex align-self-center rounded mr-2 mb-2 p-2" style="width: 30%;">
-                                            <h5 class="h5 text-primary text-center font-weight-bold w-100 mx-auto mb-0">Bagian ${i}</h5>
+                                            <img src="<?= base_url() ?>/img/Video Materi/${res['materi']}/${i}.jpg" class="w-100">
                                         </a>`;
                 }
             }
@@ -413,7 +412,7 @@
                 let rek = res[0]['parts'].split(',');
                 for (let k=1; k<=rek.length; k++) {
                     document.getElementById('rekaman-kelas').innerHTML+=`<a href="<?= base_url() ?>/materi/rekaman/${res[0]['id']}/${k}#vid" class="btn btn-light btn-lg rounded mr-2 mb-2 p-2" style="width: 30%;">
-                                                                            <h5 class="h5 text-primary text-center font-weight-bold w-100 mx-auto mb-0">Bagian ${k}</h5>
+                                                                            <img src="<?= base_url() ?>/img/Rekaman Kelas/${res[0]['admin']}/${res[0]['materi']}.${res[0]['ext_tn']}" class="w-100">
                                                                         </a>`;
                 }
             }
@@ -436,6 +435,7 @@
                 $.ajax({
                     url: "<?= base_url() ?>/peserta/simpanCatatan/"+catatan+"/"+tanggal,
                     success: function(result) {
+                        console.log(result.toString());
                         var today = new Date();
                         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                         var thatDay = new Date(tanggal);
@@ -473,25 +473,23 @@
                 <?php } ?>
             });
 
+            var data = [];
             function bangunChart() {
                 const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
-                var data = [];
                 nilai.forEach(n => {
                     var d = {x: n.materi, value: n.nilai};
                     data.push(d);
                 });
 
-                if (data.length!=0) {
-                    var chart = anychart.pie();
-                    chart.data(data);
-                    chart.innerRadius('40%');
-                    chart.container('pemahamanmu');
-                    chart.labels().position("inside");
-                    chart.insideLabelsOffset("-75%");
-                    chart.draw();
+                var chart = anychart.pie();
+                chart.data(data);
+                chart.innerRadius('40%');
+                chart.container('pemahamanmu');
+                chart.labels().position("inside");
+                chart.insideLabelsOffset("-75%");
+                chart.draw();
 
-                    warnaChart();
-                }
+                warnaChart();
             }
 
             bangunChart();
@@ -505,12 +503,14 @@
             });
 
             function warnaChart() {
-                document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
-                setChart('ac_path_h', '#0064D3');
-                setChart('ac_path_i', '#12336D');
-                setChart('ac_path_j', '#FECE24');
-                setChart('ac_path_k', 'darkgrey');
-                document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
+                if (data.length!=0) {
+                    document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
+                    setChart('ac_path_h', '#0064D3');
+                    setChart('ac_path_i', '#12336D');
+                    setChart('ac_path_j', '#FECE24');
+                    setChart('ac_path_k', 'darkgrey');
+                    document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
+                }
             }
 
             function setChart(id, color) {

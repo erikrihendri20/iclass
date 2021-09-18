@@ -39,12 +39,12 @@
             <div class="row border-20 shadow h-100 mx-0 p-3">
                 <h4 class="text-center font-weight-bold w-100" style="height: 10%; color: #12336D;">Pemahamanmu</h4>
                 <div id="pemahamanmu" class="col-12 px-0" style="height: 90%;"></div>
-                <a href="<?= base_url() ?>/peserta/nilai" class="btn btn-primary h4 text-white text-center position-absolute mb-0 p-4" style="bottom: 25px; right: 0; border-radius: 10px 0 0 10px;">
-                    <span class="fas fa-arrow-right"></span>
-                </a>
-                <?php if (!empty($nilai)) { ?>
-                    <img id="img-shield" src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 40%; top: 32.5%; left: 30.5%;">
-                <?php } ?>
+                <a href="<?= base_url() ?>/peserta/nilai" class="btn btn-primary h4 text-white text-center position-absolute mb-0 p-4" style="top: 75px; right: 0; border-radius: 10px 0 0 10px;">
+                        <span class="fas fa-arrow-right"></span>
+                    </a>
+                    <!-- <?php if (!empty($nilai)) { ?>
+                        <img id="img-shield" src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 45%; top: 35%; left: 28%;">
+                    <?php } ?> -->
             </div>
         </div>
     </div>
@@ -153,7 +153,7 @@
                                                     <div class="row align-items-center h-100 mx-0">
                                                         <h6 class="text-white text-center font-weight-bold rounded w-75 py-1" style="background-color: #12336D;"><?php echo date('d F Y', strtotime($zoomMeeting[$i]['start_event'])) ?></h6>
                                                         <h5 class="font-weight-bold w-100" style="color: #12336D;">Pertemuan <?= $zoomMeeting[$i]['pertemuan'] ?></h5>
-                                                        <h6 class="w-100" style="color: #12336D;"><?= $zoomMeeting[$i]['title'] ?></h6>
+                                                        <h6 class="w-100 text-truncate" style="color: #12336D;"><?= $zoomMeeting[$i]['title'] ?></h6>
                                                         <h6 class="text-white text-center font-weight-bold rounded w-25 mb-0 py-1" style="font-size: 12px; background-color: #12336D;">Kelas <?= $kelasku ?></h6>
                                                     </div>
                                                 </div>
@@ -167,7 +167,7 @@
                                                         <div class="row align-items-center h-100 mx-0">
                                                             <h6 class="text-white text-center font-weight-bold rounded w-75 py-1" style="background-color: #12336D;"><?php echo date('d F Y', strtotime($zoomMeeting[$i]['start_event'])) ?></h6>
                                                             <h5 class="font-weight-bold w-100" style="color: #12336D;">Pertemuan <?= $zoomMeeting[$i]['pertemuan'] ?></h5>
-                                                            <h6 class="w-100" style="color: #12336D;"><?= $zoomMeeting[$i]['title'] ?></h6>
+                                                            <h6 class="w-100 text-truncate" style="color: #12336D;"><?= $zoomMeeting[$i]['title'] ?></h6>
                                                             <h6 class="text-white text-center font-weight-bold rounded w-25 mb-0 py-1" style="font-size: 12px; background-color: #12336D;">Kelas <?= $kelasku ?></h6>
                                                         </div>
                                                     </div>
@@ -224,7 +224,7 @@
                                                     <div class="row align-items-center h-100 mx-0">
                                                         <h6 class="text-white text-center font-weight-bold rounded w-75 py-1" style="background-color: #12336D;"><?php echo date('d F Y', strtotime($jadwalTryout[$i]['start_event'])) ?></h6>
                                                         <h5 class="font-weight-bold w-100" style="color: #12336D;">Pertemuan <?= $i+1 ?></h5>
-                                                        <h6 class="w-100" style="color: #12336D;"><?= $jadwalTryout[$i]['title'] ?></h6>
+                                                        <h6 class="w-100 text-truncate" style="color: #12336D;"><?= $jadwalTryout[$i]['title'] ?></h6>
                                                         <a href="<?= base_url() ?>/peserta/tryout/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-sm text-white font-weight-bold rounded mb-0 px-2 py-1" 
                                                             style="font-size: 12px; background-color: #12336D;<?php if (date('Y-m-d')<date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) echo "display: none;" ?>">
                                                             <?php 
@@ -247,7 +247,7 @@
                                                         <div class="row align-items-center h-100 mx-0">
                                                             <h6 class="text-white text-center font-weight-bold rounded w-75 py-1" style="background-color: #12336D;"><?php echo date('d F Y', strtotime($jadwalTryout[$i]['start_event'])) ?></h6>
                                                             <h5 class="font-weight-bold w-100" style="color: #12336D;">Pertemuan <?= $i+1 ?></h5>
-                                                            <h6 class="w-100" style="color: #12336D;"><?= $jadwalTryout[$i]['title'] ?></h6>
+                                                            <h6 class="w-100 text-truncate" style="color: #12336D;"><?= $jadwalTryout[$i]['title'] ?></h6>
                                                             <a href="<?= base_url() ?>/peserta/tryout/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-sm text-white font-weight-bold rounded mb-0 px-2 py-1" 
                                                                 style="font-size: 12px; background-color: #12336D;<?php if (date('Y-m-d')<date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) echo "display: none;" ?>">
                                                                 <?php 
@@ -290,7 +290,7 @@
                                 <div class="col-8">
                                     <h6 class="bg-warning text-center font-weight-bold rounded w-75 py-1" style="color: #12336D;"><?php echo date('d F Y', strtotime($kuisHarian[$i]['start_event'])) ?></h6>
                                     <h5 class="text-white font-weight-bold">Pertemuan <?= $i+1 ?></h5>
-                                    <h6 class="text-white"><?= $kuisHarian[$i]['title'] ?></h6>
+                                    <h6 class="text-white text-truncate"><?= $kuisHarian[$i]['title'] ?></h6>
                                     <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn btn-light text-white font-weight-bold border-0 rounded py-1" 
                                         style="font-size: 12px; background-color: #12336D;<?php if (substr($kuisHarian[$i]['start_event'],0,10)>date('Y-m-d')) echo " visibility: hidden;"; ?>">
                                         <?php echo (date('y-m-d', strtotime($kuisHarian[$i]['start_event']))==date('y-m-d')) ? 'Ikuti Kuis' : 'Lihat Soal & Pembahasan'; ?>

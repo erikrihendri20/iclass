@@ -50,7 +50,7 @@ class Materi extends BaseController
 				'rumit' => '0',
 				'materi' => $data['materiPilihan']['materi']
 			];
-			$tingkatan->save($tingkat);
+			$tingkatan->insert($tingkat);
 			$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
 		}
 		$data['dasar'] = ((string)sizeof(explode(',', $data['tingkatan']['dasar']))==$data['materiPilihan']['dasar']) ? true : false;
@@ -60,6 +60,10 @@ class Materi extends BaseController
 		$data['sedang'] = ($data['tingkatan']['sedang'] == '0') ? false : $data['sedang'];
 		$data['rumit'] = ($data['tingkatan']['rumit'] == '0') ? false : $data['rumit'];
 		$data['part'] = 1;
+		
+		if ($data['materiPilihan']['materi']=='Suku Banyak' && $data['dasar']==true) {
+		    $data['rumit']==true;
+		}
 
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
@@ -107,7 +111,7 @@ class Materi extends BaseController
 				'rumit' => '0',
 				'materi' => $data['materiPilihan']['materi']
 			];
-			$tingkatan->save($tingkat);
+			$tingkatan->insert($tingkat);
 			$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
 		}
 		$data['dasar'] = ((string)sizeof(explode(',', $data['tingkatan']['dasar']))==$data['materiPilihan']['dasar']) ? true : false;
@@ -117,6 +121,10 @@ class Materi extends BaseController
 		$data['sedang'] = ($data['tingkatan']['sedang'] == '0') ? false : $data['sedang'];
 		$data['rumit'] = ($data['tingkatan']['rumit'] == '0') ? false : $data['rumit'];
 		$data['part'] = $part;
+		
+		if ($data['materiPilihan']['materi']=='Suku Banyak' && $data['dasar']==true) {
+		    $data['rumit']==true;
+		}
 
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
@@ -169,7 +177,7 @@ class Materi extends BaseController
 				'rumit' => '0',
 				'materi' => $data['materiPilihan']['materi']
 			];
-			$tingkatan->save($tingkat);
+			$tingkatan->insert($tingkat);
 			$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
 		}
 		$data['dasar'] = ((string)sizeof(explode(',', $data['tingkatan']['dasar']))==$data['materiPilihan']['dasar']) ? true : false;
@@ -179,6 +187,10 @@ class Materi extends BaseController
 		$data['sedang'] = ($data['tingkatan']['sedang'] == '0') ? false : $data['sedang'];
 		$data['rumit'] = ($data['tingkatan']['rumit'] == '0') ? false : $data['rumit'];
 		$data['part'] = $part;
+		
+		if ($data['materiPilihan']['materi']=='Suku Banyak' && $data['dasar']==true) {
+		    $data['rumit']==true;
+		}
 
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
@@ -192,35 +204,45 @@ class Materi extends BaseController
 	public function cek($materi, $tingkat, $bagian) {
 		$tingkatan = new Tingkatan_Model();
 		$model = new Materi_Model();
+		$m = $model->where('materi', $materi)->first();
 		$dasar = $tingkatan->where('username', session('username'))->where('materi', $materi)->first();
 		switch ($tingkat) {
 			case 'dasar':
-				if (strpos($dasar['dasar'], $bagian) !== false) {
+				if (strpos($dasar['dasar'], $bagian) !== false && $m['dasar']!=1) {
 					return "locked";
+				} elseif ($m['dasar']==1) {
+					$return = (sizeof(explode(',', $dasar['dasar'])) == (int)$m['dasar']) ? "unlocked" : "locked";
+					return $return;
 				} else {
 					$dasar = ($dasar['dasar'] != '0') ? $dasar['dasar'].','.$bagian : $bagian;
 					$tingkatan->where('username', session('username'))->where('materi', $materi)->set('dasar', $dasar)->update();
-					$return = (sizeof(explode(',', $dasar)) == (int)$model->where('materi', $materi)->first()['dasar']) ? "unlocked" : "locked";
+					$return = (sizeof(explode(',', $dasar)) == (int)$m['dasar']) ? "unlocked" : "locked";
 					return $return;
 				}
 				break;
 			case 'sedang':
-				if (strpos($dasar['sedang'], $bagian) !== false) {
+				if (strpos($dasar['sedang'], $bagian) !== false && $m['sedang']!=1) {
 					return "locked";
+				} elseif ($m['sedang']==1) {
+					$return = (sizeof(explode(',', $dasar['sedang'])) == (int)$m['sedang']) ? "unlocked" : "locked";
+					return $return;
 				} else {
 					$dasar = ($dasar['sedang'] != '0') ? $dasar['sedang'].','.$bagian : $bagian;
 					$tingkatan->where('username', session('username'))->where('materi', $materi)->set('sedang', $dasar)->update();
-					$return = (sizeof(explode(',', $dasar)) == (int)$model->where('materi', $materi)->first()['sedang']) ? "unlocked" : "locked";
+					$return = (sizeof(explode(',', $dasar)) == (int)$m['sedang']) ? "unlocked" : "locked";
 					return $return;
 				}
 				break;
 			case 'rumit':
-				if (strpos($dasar['rumit'], $bagian) !== false) {
+				if (strpos($dasar['rumit'], $bagian) !== false && $m['rumit']!=1) {
 					return "locked";
+				} elseif ($m['rumit']==1) {
+					$return = (sizeof(explode(',', $dasar['rumit'])) == (int)$m['rumit']) ? "unlocked" : "locked";
+					return $return;
 				} else {
 					$dasar = ($dasar['rumit'] != '0') ? $dasar['rumit'].','.$bagian : $bagian;
 					$tingkatan->where('username', session('username'))->where('materi', $materi)->set('rumit', $dasar)->update();
-					$return = (sizeof(explode(',', $dasar)) == (int)$model->where('materi', $materi)->first()['rumit']) ? "unlocked" : "locked";;
+					$return = (sizeof(explode(',', $dasar)) == (int)$m['rumit']) ? "unlocked" : "locked";;
 					return $return;
 				}
 				break;

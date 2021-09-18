@@ -53,8 +53,8 @@
         <div class="col-8 pl-0">
             <div class="row bg-primary border-20 shadow h-100 mx-0 px5 py5">
                 <div class="col-9 pl-0" style="height: 500px; overflow-y: auto;">
-                    <div class="row bg-white mx-0" style="border-radius: 10px;">
-                        <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100">
+                    <div class="row bg-white mx-0" style="min-height: 100%; border-radius: 10px;">
+                        <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
                     </div>
                 </div>
                 <div class="col-3 pr-0">

@@ -31,8 +31,8 @@
         <div class="col-8 pl-0">
             <div class="row bg-primary border-20 shadow h-100 mx-0 px5 py5">
                 <div class="col-9 pl-0" style="height: 500px; overflow-y: auto;">
-                    <div class="row bg-white mx-0" style="border-radius: 10px;">
-                        <img id="soal" src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/soal/1.jpg" alt="" class="w-100">
+                    <div class="row bg-white mx-0" style="min-height: 100%; border-radius: 10px;">
+                        <img id="soal" src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
                     </div>
                 </div>
                 <div class="col-3 pr-0">
@@ -69,7 +69,7 @@
             <div class="bg-white border-20 shadow w-100 h-100 mx-0 px5 py5">
                 <h5 class="bg-primary text-white text-center font-weight-bold w-75 mx-auto px-3 py-2" style="border-radius: 10px;">Pembahasan</h5>
                 <button id="btnPembahasan" class="btn btn-light border-0 w-100 h-100 p-0" style="max-height: 450px; overflow-y: auto;" onclick="lihatPembahasan();" disabled>
-                    <img src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/pembahasan/1.jpg" alt="" id="pembahasan" class="w-100" style="visibility: hidden;">
+                    <img src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/pembahasan/1.jpg" alt="" id="pembahasan" class="w-100" style="visibility: hidden; border-radius: 10px;">
                 </button>
             </div>
         </div>

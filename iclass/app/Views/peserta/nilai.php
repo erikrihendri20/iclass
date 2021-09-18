@@ -48,7 +48,7 @@
             <div class="row bg-white border-20 h-100 mx-0 p-3">
                 <h4 class="font-weight-bold text-center w-100" style="height: 10%; color: #12336D;">Diagram</h4>
                 <div id="pemahamanmu" class="col-12 px-0" style="height: 90%;"></div>
-                <img src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 35%; top: 32.5%; left: 33%;">
+                <!-- <img src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 35%; top: 32.5%; left: 33%;"> -->
             </div>
         </div>
     </div>
