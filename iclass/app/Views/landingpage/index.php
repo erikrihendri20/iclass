@@ -698,22 +698,22 @@
 
 <script type="text/javascript" src="fullpage.js"></script>
 <script>
-    if (screen.width <= 650) {
-        document.getElementById('pilihan-paket').innerHTML="";
-        document.getElementById('pilihanPaket').style.display='block';
-        document.getElementById('intensif').style.display='block';
-    }
+    // if (screen.width <= 650) {
+    //     document.getElementById('pilihan-paket').innerHTML="";
+    //     document.getElementById('pilihanPaket').style.display='block';
+    //     document.getElementById('intensif').style.display='block';
+    // }
 
-    $(document).ready(function() {
-        $('#fullpage').fullpage({
-            //options here
-            autoScrolling:true,
-            scrollHorizontally: true
-        });
+    // $(document).ready(function() {
+    //     $('#fullpage').fullpage({
+    //         //options here
+    //         autoScrolling:true,
+    //         scrollHorizontally: true
+    //     });
 
-        //methods
-        $.fn.fullpage.setAllowScrolling(false);
-    });
+    //     //methods
+    //     $.fn.fullpage.setAllowScrolling(false);
+    // });
 </script>
 
 <!-- <div class="bg-light mt-5">

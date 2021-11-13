@@ -87,13 +87,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="kode-paket" class="font-weight-bold h5 fs-18" style="color: #12336D;">Kelas</label>
+                                            <label for="jurusan" class="font-weight-bold h5 fs-18" style="color: #12336D;">Kelas</label>
                                             <select class="form-control fs-18 <?= ($validation->hasError('jurusan')) ? 'is-invalid' : '' ?>" name="jurusan" id="jurusan">
                                                 <option value="none" selected disabled hidden>Pilih kelas</option>
                                                 <option class="fs-16" value="10" onclick="ubahPaket('kelas');">Kelas 10</option>
                                                 <option class="fs-16" value="11" onclick="ubahPaket('kelas');">Kelas 11</option>
                                                 <option class="fs-16" value="12" onclick="ubahPaket('kelas');">Kelas 12</option>
                                                 <option class="fs-16" value="intensif" onclick="ubahPaket('intensif');">Intensif</option>
+                                                <option class="fs-16" value="tryout" onclick="ubahPaket('tryout');">Tryout</option>
                                             </select>
                                             <div class="invalid-feedback">
                                                 <?= service('validation')->getError('jurusan'); ?>
@@ -128,8 +129,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-5 d-flex justify-content-center align-self-center bg-primary h-100 px-5" style="border-radius: 0 20px 20px 0;">
-            <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" class="w-100 mx-3" style="object-fit: contain;">
+        <div class="col-5 bg-primary h-100 px-5 py-5" style="border-radius: 0 20px 20px 0;">
+            <div class="row justify-content-center h-75 mx-0">
+                <div id="carouselExampleSlidesOnly" class="carousel slide w-75" data-ride="carousel" data-interval="10000">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="<?= base_url() ?>/img/Aset/Asset 44@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="<?= base_url() ?>/img/Aset/cHUVrf.tif@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center h-25 mx-auto pt-3" style="width: 85%;">
+                <h2 class="text-white font-weight-bold text-center">Sudah tau mau mendaftar paket apa?</h2>
+                <h5 class="text-white text-center mb-0">Jangan lupa baca dan pahamin terlebih dahulu tata cara pendaftarannya ya gengs...</h5>
+            </div>
         </div>
     </div>
 
@@ -139,13 +158,15 @@
             paket.removeAttribute('disabled');
 
             var kelas = this.value;
-            if (kelas != 'intensif') {
+            if (kelas == 'intensif') {
+                paket.innerHTML=`<option class="fs-16" value="4" selected>1 Semester</option>
+                                <option class="fs-16" value="5">1 Tahun</option>`;
+            } else if (kelas == 'tryout') {
+                paket.innerHTML=`<option class="fs-16" value="6" selected>Tryout</option>`;
+            } else {
                 paket.innerHTML=`<option class="fs-16" value="1" selected>Reguler</option>
                                 <option class="fs-16" value="2">Premium</option>
                                 <option class="fs-16" value="3">Premium+</option>`;
-            } else {
-                paket.innerHTML=`<option class="fs-16" value="4" selected>1 Semester</option>
-                                <option class="fs-16" value="5">1 Tahun</option>`;
             }
         });
     </script>

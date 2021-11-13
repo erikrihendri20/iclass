@@ -21,21 +21,23 @@
                         <div class="col-12 bg-white p-3" style="border-radius: 10px;">
                             <div id="row-materi" class="row justify-content-center align-content-start mx-0" style="height: 250px; overflow-y: auto;">
                                 <?php for ($i=0; $i<sizeof($materi); $i++) { ?>
-                                    <?php if ($i==0) { ?>
-                                        <div class="d-block bg-primary h5 text-white text-truncate mr-2 px-3 py-2" style="width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
-                                        <div class="bg-primary h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
-                                    <?php } else if ($i==1) { ?>
-                                        <div class="d-block h5 text-white text-truncate mr-2 px-3 py-2" style="background-color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
-                                        <div class="h5 text-center text-white px-1 py-2" style="background-color: #12336D; width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
-                                    <?php } else if ($i==2) { ?>
-                                        <div class="d-block bg-warning h5 text-truncate mr-2 px-3 py-2" style="color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
-                                        <div class="bg-warning h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
-                                    <?php } else if ($i==3) { ?>
-                                        <div class="d-block h5 text-white text-truncate mr-2 px-3 py-2" style="background-color: darkgrey; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
-                                        <div class="h5 text-center text-white px-1 py-2" style="background-color: darkgrey; width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
-                                    <?php } else { ?>
-                                        <div class="d-block bg-white border h5 text-truncate mr-2 px-3 py-2" style="color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
-                                        <div class="bg-primary h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                    <?php if (!empty($materi[$i]['nilai'])) { ?>
+                                        <?php if ($i==0) { ?>
+                                            <div class="d-block bg-primary h5 text-white text-truncate mr-2 px-3 py-2" style="width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
+                                            <div class="bg-primary h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                        <?php } else if ($i==1) { ?>
+                                            <div class="d-block h5 text-white text-truncate mr-2 px-3 py-2" style="background-color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
+                                            <div class="h5 text-center text-white px-1 py-2" style="background-color: #12336D; width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                        <?php } else if ($i==2) { ?>
+                                            <div class="d-block bg-warning h5 text-truncate mr-2 px-3 py-2" style="color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
+                                            <div class="bg-warning h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                        <?php } else if ($i==3) { ?>
+                                            <div class="d-block h5 text-white text-truncate mr-2 px-3 py-2" style="background-color: darkgrey; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
+                                            <div class="h5 text-center text-white px-1 py-2" style="background-color: darkgrey; width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                        <?php } else { ?>
+                                            <div class="d-block bg-white border h5 text-truncate mr-2 px-3 py-2" style="color: #12336D; width: 85%; border-radius: 7px;"><?= $materi[$i]['materi'] ?></div>
+                                            <div class="bg-primary h5 text-center text-white px-1 py-2" style="width: 10%; border-radius: 7px;"><?= $materi[$i]['nilai'] ?>%</div>
+                                        <?php } ?>
                                     <?php } ?>
                                 <?php } ?>
                             </div>
@@ -48,7 +50,7 @@
             <div class="row bg-white border-20 h-100 mx-0 p-3">
                 <h4 class="font-weight-bold text-center w-100" style="height: 10%; color: #12336D;">Diagram</h4>
                 <div id="pemahamanmu" class="col-12 px-0" style="height: 90%;"></div>
-                <!-- <img src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 35%; top: 32.5%; left: 33%;"> -->
+                <!--<img src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 35%; top: 32.5%; left: 33%;">-->
             </div>
         </div>
     </div>
@@ -122,14 +124,14 @@
                                         <span class="bg-primary text-white float-right p-1" style="border-radius: 7px;"><?= $submateri[$i]['kuis'] ?>%</span>
                                     </div>
                                 <?php } else { ?>
-                                    <div class="bg-primary h4 text-white mt-3 mb-0 px-3 py-1" style="width: 97%; border-radius: 7px;">Trigonometri</div>
+                                    <div class="bg-primary h4 text-white mt-3 mb-0 px-3 py-1" style="width: 97%; border-radius: 7px;"><?= $submateri[$i]['materi'] ?></div>
                                     <div class="bg-white h5 mt-1 mb-0 px-2 py-1" style="width: 92%; margin-left: 5%; color: #12336D; border-radius: 7px;">
                                         <?= $submateri[$i]['submateri'] ?>
                                         <span class="bg-primary text-white float-right p-1" style="border-radius: 7px;"><?= $submateri[$i]['kuis'] ?>%</span>
                                     </div>
                                 <?php } ?>
                         <?php } else { ?>
-                                <div class="bg-primary h4 text-white mt-3 mb-0 px-3 py-1" style="width: 97%; border-radius: 7px;">Trigonometri</div>
+                                <div class="bg-primary h4 text-white mt-3 mb-0 px-3 py-1" style="width: 97%; border-radius: 7px;"><?= $submateri[$i]['materi'] ?></div>
                                 <div class="bg-white h5 mt-1 mb-0 px-2 py-1" style="width: 92%; margin-left: 5%; color: #12336D; border-radius: 7px;">
                                     <?= $submateri[$i]['submateri'] ?>
                                     <span class="bg-primary text-white float-right p-1" style="border-radius: 7px;"><?= $submateri[$i]['kuis'] ?>%</span>
@@ -148,12 +150,15 @@
 
         function bangunChart() {
                 var data = [];
-                <?php for ($i=0; $i<4; $i++) {
-                    if (!empty($materi[$i])) { ?>
-                        var d = {x: "<?= $materi[$i]['materi'] ?>", value: <?= $materi[$i]['nilai'] ?>};
-                        data.push(d);
+                <?php $j=0; 
+                    for ($i=0; $i<sizeof($materi); $i++) {
+                        if ($j==4) break;
+                        if (!empty($materi[$i]) && $materi[$i]['nilai']!=0) { $j++; ?>
+                            var d = {x: "<?= $materi[$i]['materi'] ?>", value: <?= $materi[$i]['nilai'] ?>};
+                            data.push(d);
                     <?php }
                 } ?>
+                console.log(data);
 
                 var chart = anychart.pie();
                 chart.data(data);
@@ -178,11 +183,11 @@
 
             function warnaChart() {
                 document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
-                setChart('ac_path_h', '#0064D3');
-                setChart('ac_path_i', '#12336D');
-                setChart('ac_path_j', '#FECE24');
-                setChart('ac_path_k', 'darkgrey');
-                document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
+                // setChart('ac_path_h', '#0064D3');
+                // setChart('ac_path_i', '#12336D');
+                // setChart('ac_path_j', '#FECE24');
+                // setChart('ac_path_k', 'darkgrey');
+                // document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
             }
 
             function setChart(id, color) {

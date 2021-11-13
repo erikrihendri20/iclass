@@ -24,8 +24,9 @@
     <script src="vendors/easings.min.js"></script>
     <script type="text/javascript" src="vendors/scrolloverflow.min.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>/js/fullpage.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-pie.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
     <title><?= $title; ?></title>

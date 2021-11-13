@@ -4,18 +4,18 @@ namespace App\Controllers;
 
 use App\Models\Catatan_Model;
 use App\Models\Quote_Model;
+use App\Models\HasilKuis_Model;
+use App\Models\Nilai_Model;
 use App\Models\Jadwal_Model;
 use App\Models\Rekaman_Model;
 use App\Models\Kelas_Model;
 use App\Models\Kuis_Model;
-use App\Models\HasilKuis_Model;
 use App\Models\KuisHasil_Model;
 use App\Models\KuisSoalJawaban_Model;
 use App\Models\Users_Model;
 use App\Models\Latihan_Model;
 use App\Models\Mindmap_Model;
 use App\Models\Materi_Model;
-use App\Models\Nilai_Model;
 
 class Kelasku extends BaseController
 {
@@ -36,6 +36,7 @@ class Kelasku extends BaseController
 			case '3': $pertemuan=12; break;
 			case '4': $pertemuan=27; break;
 			case '5': $pertemuan=60; break;
+            case '6': $pertemuan=0; break;
 		}
 
         $bolos = $db->table('kehadiran')
@@ -64,11 +65,11 @@ class Kelasku extends BaseController
             'sisa'		=> $pertemuan - (int)$sisa,
             'pertemuan' => $pertemuan,
             'kelasku'     => $user['jurusan'],
-            'kelasBolos'=> $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('kehadiran.hadir', '0')->where('events.start_event <', date('y-m-d'))->where('events.jenis', '1')->orderBy('events.start_event', 'asc')->get()->getResultArray(),
-            'kelasDatang' => $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('events.start_event >=', date('y-m-d'))->where('events.jenis', '1')->orderBy('events.start_event', 'asc')->get()->getResultArray(),
-            'zoomMeeting' => $db->table('events')->join('kehadiran', 'kehadiran.event=events.id')->where('kehadiran.username', session('username'))->where('kode_kelas', $user['kode_kelas'])->where('jenis', '1')->orderBy('start_event', 'asc')->get()->getResultArray(),
-            'jadwalTryout' => $db->table('events')->like('kode_kelas', $user['kode_kelas'])->where('jenis', '2')->orderBy('start_event', 'asc')->get()->getResultArray(),
-            'kuisHarian' => $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('jenis', '3')->orderBy('start_event', 'asc')->findAll(),
+            'kelasBolos'=> $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('kehadiran.hadir', '0')->where('events.start_event <', date('y-m-d'))->where('events.jenis', '1')->orderBy('kehadiran.pertemuan', 'asc')->get()->getResultArray(),
+            'kelasDatang' => $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('events.start_event >=', date('y-m-d'))->where('events.jenis', '1')->orderBy('kehadiran.pertemuan', 'asc')->get()->getResultArray(),
+            'zoomMeeting' => $db->table('events')->join('kehadiran', 'kehadiran.event=events.id')->where('kehadiran.username', session('username'))->where('kode_kelas', $user['kode_kelas'])->where('jenis', '1')->orderBy('events.start_event', 'desc')->get()->getResultArray(),
+            'jadwalTryout' => $db->table('events')->like('kode_kelas', $user['kode_kelas'])->where('jenis', '2')->orderBy('start_event', 'desc')->get()->getResultArray(),
+            'kuisHarian' => $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('jenis', '3')->orderBy('start_event', 'desc')->findAll(),
             'catatan'	=> $catatan->where('user', session('username'))->first(),
             'quote'		=> $quotes[array_rand($quotes)]['quote'],
             'materis'   => ($user['jurusan']=='intensif') ? $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->get()->getResultArray() : $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->like('kelas', $user['jurusan'])->get()->getResultArray(),
@@ -82,7 +83,7 @@ class Kelasku extends BaseController
 		$j=0; $k=0;
 		for ($i=0; $i<sizeof($submateri); $i++) {
 			if (!empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
-				$submateri[$i]['nilai'] = explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
+				$submateri[$i]['nilai'] = empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
 				if ($i==0) {
 					$materi[$j]['materi']=$submateri[$i]['materi'];
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
@@ -103,26 +104,33 @@ class Kelasku extends BaseController
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
 					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
 				}
+				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
 			}
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
-			$materi[$i]['nilai']=(int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
+			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
 		usort($materi, function($a, $b) {
 			return $a['nilai'] <=> $b['nilai'];
 		});
+		
 		$data['nilai'] = [];
         if (!empty($materi)) {
-            for ($i=0; $i<4; $i++) {
-                if (!empty($materi[$i])) array_push($data['nilai'], $materi[$i]);
-            }
+		    $j=0;
+			for ($i=0; $i<sizeof($materi); $i++) {
+				if ($j==4) break;
+				if (!empty($materi[$i]) && $materi[$i]['nilai']!=0) {
+				    array_push($data['nilai'], $materi[$i]);
+				    $j++;
+				}
+			}
 		}
         
 		$data['title'] = 'Kelasku';
 		return view('kelasku/index', $data);
     }
-
+    
     public function jadwal()
     {
         $data = [
@@ -195,7 +203,7 @@ class Kelasku extends BaseController
 
     public function pindahRekaman($kelas, $id)
     {
-        $k = new Kelas_Model();
+        $k = new Kelas_model();
         $kelas = $k->where('id', $kelas)->first();
         $kelas = $kelas['nama'];
         $model = new Rekaman_Model();
@@ -208,8 +216,7 @@ class Kelasku extends BaseController
 
         echo json_encode($data);
     }
-
-    public function kuis($id=null, $pertemuan)
+    public function kuis($id, $pertemuan)
     {
         if ($id=='none') {
             session()->setFlashdata('salah', "<script>Swal.fire({icon: 'error', title: '', text: 'Maaf, soal kuis ini belum tersedia.'});</script>");
@@ -285,11 +292,11 @@ class Kelasku extends BaseController
 
         $nilai = $benar*10;
         $nilai = ($sebelumnya!=1) ? ((int)$nilai+(int)$nilai_sebelumnya)/$sebelumnya : (int)$nilai;
-        $model->where('username', session('username'))->set(preg_replace('/\s+/', '_', $event['materi']), ((string)$nilai."-".(string)$sebelumnya))->update();
+        $model->where('username', session('username'))->set(preg_replace('/\s+/', '_', $event['materi']), (string)$nilai."-".(string)$sebelumnya)->update();
         
-        return (string)$nilai;
+        return ((string)$nilai."-".(string)$sebelumnya);
     }
-
+    
     public function kuis_kode()
     {
         // dd($_SESSION);
@@ -524,7 +531,6 @@ class Kelasku extends BaseController
         return view('kelasku/kuis_pembahasan', $data);
     }
 
-
     public function kuis_hasil($id)
     {
         $db = \Config\Database::connect();
@@ -577,7 +583,6 @@ class Kelasku extends BaseController
                 'css'       => 'kelasku/kuis.css',
                 'file'      => $file,
                 'active'    => 'kelasku',
-                'title'     => 'Kelasku',
             ];
             return view('kelasku/viewer_pdf', $data);
         } else {

@@ -27,7 +27,7 @@
                     <div class="row justify-content-center align-content-center h-100 mx-0">
                         <div class="col-6 h-100 pl-0">
                             <div id="video-materi" class="row align-content-start w-100 h-50 mx-0" style="max-height: 50%; overflow-y: auto;"></div>
-                            <div id="rekaman-kelas" class="row align-content-start w-100 h-50 mx-0 mt-2" style="max-height: 50%; overflow-y: auto;<?php echo (session('kode-paket') == '1') ? ' visibility: hidden;' : ''; ?>"></div>
+                            <div id="rekaman-kelas" class="row align-content-start w-100 h-50 mx-0 mt-2" style="max-height: 50%; overflow-y: auto;<?php echo (session('kode-paket') == '1' || session('kode-paket') == '6') ? ' visibility: hidden;' : ''; ?>"></div>
                         </div>
                         <div class="col-4 h-100 pr-0" style="overflow-y: auto;">
                             <div id="latihan-soal" class="row align-content-start w-100 h-100 mx-0" style="overflow-y: auto;"></div>
@@ -54,9 +54,21 @@
                     </div>
                 </div>
                 <div class="row justify-content-center mx-0 mt5 px5">
-                    <div class="w-30-50 mx-2 px-0">
-                        <?php if (session('kode-paket') == '1') { ?>
-                            <div class="row mx-0 p-2" style="background-color: #262626; border-radius: 15px;">
+                    <div class="w-30-50 mx-2 px-0" style="position: relative;">
+                        <div class="row bg-primary mx-0 p-2" style="border-radius: 15px;">
+                            <div class="col-4 p-2">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 81@300x.png" alt="" class="w-100">
+                            </div>
+                            <div class="col-8 pr-0">
+                                <div class="row align-content-center h-100 mx-0">
+                                    <h5 id="bolos" class="h4 text-white text-center w-25 mb-0 p-2" style="background-color: #12336D; border-radius: 5px 0 0 5px;"><?= $bolos ?></h5>
+                                    <h6 class="bg-white text-center font-weight-bold w-75 mb-0 px-1 py-2" style="color: #12336D; font-size: 14px; border-radius: 0 5px 5px 0;">Kali kamu bolos kelas</h6>
+                                    <a href="<?= base_url() ?>/kelasku#total-kelas" class="btn btn-sm btn-primary rounded mt-1 mb-0 px-2 py-0" style="background-color: #12336D; font-size: 14px;">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if (session('kode-paket') == '1' || session('kode-paket') == '6') { ?>
+                            <div class="row mx-0 p-2" style="background-color:rgba(0, 0, 0, 0.75); position: absolute; top: 0; left: 0; border-radius: 15px;">
                                 <div class="col-4 p-2">
                                     <div class="row justify-content-center align-content-center h-100 mx-0">
                                         <img src="<?= base_url() ?>/img/Aset/Asset 111@300x.png" alt="" class="w-75">
@@ -65,27 +77,26 @@
                                 <div class="col-8 px-0">
                                     <div class="row align-content-center h-100 mx-0">
                                         <h6 class="text-white text-center w-100 mb-0 px-1 py-2">Fitur ini tidak tersedia untuk pilihan paketmu</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } else { ?>
-                            <div class="row bg-primary mx-0 p-2" style="border-radius: 15px;">
-                                <div class="col-4 p-2">
-                                    <img src="<?= base_url() ?>/img/Aset/Asset 81@300x.png" alt="" class="w-100">
-                                </div>
-                                <div class="col-8 pr-0">
-                                    <div class="row mx-0">
-                                        <h5 id="bolos" class="h4 text-white text-center w-25 mb-0 p-2" style="background-color: #12336D; border-radius: 5px 0 0 5px;"><?= $bolos ?></h5>
-                                        <h6 class="bg-white text-center font-weight-bold w-75 mb-0 px-1 py-2" style="color: #12336D; font-size: 14px; border-radius: 0 5px 5px 0;">Kali kamu bolos kelas</h6>
-                                        <a href="<?= base_url() ?>/kelasku#total-kelas" class="btn btn-sm btn-primary rounded mt-1 mb-0 px-2 py-0" style="background-color: #12336D; font-size: 14px;">Selengkapnya</a>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                     </div>
-                    <div class="w-30-50 mx-2 px-0" style="width: 30%;">
-                        <?php if (session('kode-paket') == '1') { ?>
-                            <div class="row mx-0 p-2" style="background-color: #262626; border-radius: 15px;">
+                    <div class="w-30-50 mx-2 px-0" style="width: 30%; position: relative;">
+                        <div class="row bg-warning mx-0 p-2" style="border-radius: 15px;">
+                            <div class="col-4 p-2">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 194@300x.png" alt="" class="w-100">
+                            </div>
+                            <div class="col-8 pr-0">
+                                <div class="row align-content-center h-100 mx-0">
+                                    <h5 class="h4 text-white text-center w-25 mb-0 p-2" style="background-color: #12336D; border-radius: 5px 0 0 5px;"><?= $sisa ?></h5>
+                                    <h6 class="bg-white text-center font-weight-bold w-75 mb-0 px-1 py-2" style="color: #12336D; font-size: 14px; border-radius: 0 5px 5px 0;">Kelas yang belum ditempuh</h6>
+                                    <a href="<?= base_url() ?>/kelasku#total-kelas" class="btn btn-sm btn-primary rounded mt-1 mb-0 px-2 py-0" style="background-color: #12336D; font-size: 14px;">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if (session('kode-paket') == '1' || session('kode-paket') == '6') { ?>
+                            <div class="row mx-0 p-2" style="background-color:rgba(0, 0, 0, 0.75); position: absolute; top: 0; left: 0; border-radius: 15px;">
                                 <div class="col-4 p-2">
                                     <div class="row justify-content-center align-content-center h-100 mx-0">
                                         <img src="<?= base_url() ?>/img/Aset/Asset 111@300x.png" alt="" class="w-75">
@@ -94,19 +105,6 @@
                                 <div class="col-8 px-0">
                                     <div class="row align-content-center h-100 mx-0">
                                         <h6 class="text-white text-center w-100 mb-0 px-1 py-2">Fitur ini tidak tersedia untuk pilihan paketmu</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } else { ?>
-                            <div class="row bg-warning mx-0 p-2" style="border-radius: 15px;">
-                                <div class="col-4 p-2">
-                                    <img src="<?= base_url() ?>/img/Aset/Asset 194@300x.png" alt="" class="w-100">
-                                </div>
-                                <div class="col-8 pr-0">
-                                    <div class="row mx-0">
-                                        <h5 class="h4 text-white text-center w-25 mb-0 p-2" style="background-color: #12336D; border-radius: 5px 0 0 5px;"><?= $sisa ?></h5>
-                                        <h6 class="bg-white text-center font-weight-bold w-75 mb-0 px-1 py-2" style="color: #12336D; font-size: 14px; border-radius: 0 5px 5px 0;">Kelas yang belum ditempuh</h6>
-                                        <a href="<?= base_url() ?>/kelasku#total-kelas" class="btn btn-sm btn-primary rounded mt-1 mb-0 px-2 py-0" style="background-color: #12336D; font-size: 14px;">Selengkapnya</a>
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +139,12 @@
                                     <?php } ?>
                                     <div class="dropdown">
                                         <button type="button" class="dropdown-toggle btn btn-sm btn-light rounded mb-0 px-3 py-0"
-                                            style="font-size: 14px;" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Atur</button>
+                                            <?php if (session('kode-paket')!='6') { ?>
+                                                style="font-size: 14px;" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            <?php } else { ?> onclick="hanyaTryout();" <?php } ?>>
+                                                Atur
+                                        </button>
 
                                         <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
                                             <div class="form-group mb-1">
@@ -162,14 +164,14 @@
             </div>
             <div class="col-3 pr-0">
                 <div class="row border-20 shadow h-100 mx-0 p-3">
-                    <h4 class="text-center font-weight-bold w-100" style="height: 10%; color: #12336D;">Pemahamanmu</h4>
+                    <h4 class="text-center font-weight-bold w-100 mt-2" style="height: 10%; color: #12336D;">Pemahamanmu</h4>
                     <div id="pemahamanmu" class="col-12 px-0" style="height: 90%;"></div>
                     <a href="<?= base_url() ?>/peserta/nilai" class="btn btn-primary h4 text-white text-center position-absolute mb-0 p-4" style="top: 75px; right: 0; border-radius: 10px 0 0 10px;">
                         <span class="fas fa-arrow-right"></span>
                     </a>
-                    <!-- <?php if (!empty($nilai)) { ?>
-                        <img id="img-shield" src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 45%; top: 35%; left: 28%;">
-                    <?php } ?> -->
+                    <?php if (!empty($nilai)) { ?>
+                        <!--<img id="img-shield" src="<?= base_url() ?>/img/Aset/1111.png" alt="" class="position-absolute" style="width: 45%; top: 35%; left: 28%;">-->
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -180,40 +182,37 @@
                     <div class="w-100 mb-3">
                         <h2 class="text-white text-center font-weight-bold w-50 mx-auto py-2" style="background-color: #12336D; border-radius: 0 0 15px 15px;">Jadwal Terdekat</h2>
                     </div>
-                    <?php if (session('kode-paket') == '1') { ?>
-                        <div class="col-4 mb5 px-1">
-                            <div class="row justify-content-center align-content-center h-100 mx-0 px-4" style="background-color: #262626; border-radius: 15px;">
+                    <div class="col-4 mb5 px-1" style="position: relative;">
+                        <div class="row justify-content-center h-100 mx-0" style="background-color: #12336D; border-radius: 15px;">
+                            <div class="w-100">
+                                <h2 class="h2 bg-warning text-center font-weight-bold w-50 mx-auto py-2" style="color: #12336D; border-radius: 0 0 15px 15px;">Zoom</h2>
+                            </div>
+                            <img class="gambar" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
+                            <div class="my-4 text-blue bg-white w-75 text-center py-2" style="color: #12336D; border-radius: 15px;">
+                                <h1 class="h3 font-weight-bold mb-0 fs-18">
+                                    <?php if($meetingDate!=null) :?>
+                                    <?php 
+                                        $tanggal1 = strtotime(date('Y-m-d'));
+                                        $tanggal2 = strtotime(date('Y-m-d', strtotime($meetingDate['start_event'])));
+                                        $selisih = $tanggal2-$tanggal1;
+                                        $selisih=$selisih/60/60/24;
+                                        echo $selisih==0 ? "Hari Ini" : "H-" . $selisih;
+                                    ?>
+                                    <?php else: echo '-'?>
+                                    <?php endif ?>
+                                </h1>
+                                <h6 class="font-weight-bold fs-18" style="visibility: hidden;">Zoom</h6>
+                            </div>
+                            <button id="link-zoom" class="btn btn-sm btn-warning rounded font-weight-bold mb-3 px-4 fs-18" 
+                                style="color: #12336D;<?php if ((empty($meetingDate)) || ($selisih!=0)) echo " visibility: hidden;"; ?>">link zoom</button>
+                        </div>
+                        <?php if (session('kode-paket') == '1' || session('kode-paket') == '6') { ?>
+                            <div class="row justify-content-center align-content-center h-100 mx-1 px-4" style="background-color: rgba(0, 0, 0, 0.85); position: absolute; top: 0; left: 0; border-radius: 15px;">
                                 <img src="<?= base_url() ?>/img/Aset/Asset 111@300x.png" alt="" class="gambar p-2" style="width: 60%;">
                                 <h4 class="h5 text-white text-center font-weight-bold w-100 mx-auto mt5">Fitur ini tidak tersedia untuk pilihan paketmu</h4>
                             </div>
-                        </div>
-                    <?php } else { ?>
-                        <div class="col-4 mb5 px-1">
-                            <div class="row justify-content-center h-100 mx-0" style="background-color: #12336D; border-radius: 15px;">
-                                <div class="w-100">
-                                    <h2 class="h2 bg-warning text-center font-weight-bold w-50 mx-auto py-2" style="color: #12336D; border-radius: 0 0 15px 15px;">Zoom</h2>
-                                </div>
-                                <img class="gambar" src="<?= base_url() ?>/img/Zoom.png" alt="zoom">
-                                <div class="my-4 text-blue bg-white w-75 text-center py-2" style="color: #12336D; border-radius: 15px;">
-                                    <h1 class="h3 font-weight-bold mb-0 fs-18">
-                                        <?php if($meetingDate!=null) :?>
-                                        <?php 
-                                            $tanggal1 = strtotime(date('y-m-d'));
-                                            $tanggal2 = strtotime(date('y-m-d', strtotime($meetingDate['start_event'])));
-                                            $selisih = $tanggal2-$tanggal1;
-                                            $selisih=$selisih/60/60/24;
-                                            echo $selisih==0 ? "Hari Ini" : "H-" . $selisih;
-                                        ?>
-                                        <?php else: echo '-'?>
-                                        <?php endif ?>
-                                    </h1>
-                                    <h6 class="font-weight-bold fs-18" style="visibility: hidden;">Zoom</h6>
-                                </div>
-                                <button id="link-zoom" class="btn btn-sm btn-warning rounded font-weight-bold mb-3 px-4 fs-18" 
-                                    style="color: #12336D;<?php if ((empty($meetingDate)) || ($selisih!=0)) echo " visibility: hidden;"; ?>">link zoom</button>
-                            </div>
-                        </div>
-                    <?php } ?>
+                        <?php } ?>
+                    </div>
                     <div class="col-4 mb5 px-1">
                         <div class="row justify-content-center bg-primary h-100 mx-0" style="border-radius: 15px;">
                             <div class="w-100">
@@ -222,10 +221,10 @@
                             <img class="gambar" src="<?= base_url() ?>/img/Try Out.png" alt="zoom">
                             <div class="my-4 text-blue bg-white w-75 text-center py-2" style="color: #12336D; border-radius: 15px;">
                                 <h1 class="h3 font-weight-bold mb-0 fs-18">
-                                    <?php if($jadwalTo!=null) :?>
+                                    <?php if(!empty($jadwalTo)) :?>
                                     <?php 
-                                        $tanggal1 = strtotime(date('y-m-d'));
-                                        $tanggal2 = strtotime(date('y-m-d', strtotime($jadwalTo['start_event'])));
+                                        $tanggal1 = strtotime(date('Y-m-d'));
+                                        $tanggal2 = strtotime(date('Y-m-d', strtotime($jadwalTo['start_event'])));
                                         $selisih = $tanggal2-$tanggal1;
                                         $selisih=$selisih/60/60/24;
                                         echo $selisih==0 ? "Hari Ini" : "H-" . $selisih;
@@ -233,7 +232,7 @@
                                     <?php else: echo '-'?>
                                     <?php endif ?>
                                 </h1>
-                                <h6 class="font-weight-bold fs-18" <?php if (empty($jadwalTo)) { ?>style="visibility: hidden;"<?php } ?>>
+                                <h6 class="font-weight-bold fs-18" style="visibility: hidden;">
                                     Pukul 
                                     <?php if (!empty($jadwalTo)) {
                                         echo substr($jadwalTo['start_event'],11,5);
@@ -243,7 +242,7 @@
                             <a href="<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>" class="btn btn-sm btn-warning rounded font-weight-bold mb-3 px-4 fs-18" 
                                 style="color: #12336D;
                                 <?php if (!empty($jadwalTo)) { 
-                                    if (($jadwalTo['start_event']>date('Y-m-d G:i:s')) || ($jadwalTo['end_event']<date('Y-m-d G:i:s'))) { 
+                                    if (!($jadwalTo['start_event']<date('Y-m-d G:i:s') && $jadwalTo['end_event']>date('Y-m-d G:i:s'))) { 
                                         echo " visibility: hidden;";
                                     } 
                                 } else {
@@ -251,7 +250,7 @@
                                 } ?>">Ikuti Try Out</a>
                         </div>
                     </div>
-                    <div class="col-4 mb5 px-1">
+                    <div class="col-4 mb5 px-1" style="position: relative;">
                         <div class="row justify-content-center h-100 mx-0" style="background-color: lightgrey; border-radius: 15px;">
                             <div class="w-100">
                                 <h2 class="h2 bg-warning text-center font-weight-bold w-50 mx-auto py-2" style="color: #12336D; border-radius: 0 0 15px 15px;">Kuis</h2>
@@ -267,6 +266,12 @@
                                 class="btn btn-sm btn-warning rounded font-weight-bold mb-3 px-4 fs-18" 
                                 style="color: #12336D;<?php echo (!empty($kuis['start_event']) && date('d F Y', strtotime($kuis['start_event'])) == date('d F Y')) ? "" : " visibility: hidden;"; ?>">Ikuti Kuis</a>
                         </div>
+                        <?php if (session('kode-paket') == '1' || session('kode-paket') == '6') { ?>
+                            <div class="row justify-content-center align-content-center h-100 mx-1 px-4" style="background-color: rgba(0, 0, 0, 0.85); position: absolute; top: 0; left: 0; border-radius: 15px;">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 111@300x.png" alt="" class="gambar p-2" style="width: 60%;">
+                                <h4 class="h5 text-white text-center font-weight-bold w-100 mx-auto mt5">Fitur ini tidak tersedia untuk pilihan paketmu</h4>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php if (!empty($rekomendasi)) { ?>
@@ -278,16 +283,19 @@
                                 <h5 class="text-white font-weight-bold px-2">Bagian 1</h5>
                             </div>
                         </div>
-                        <div class="col-12 bg-white border-20 px-0">
-                            <a href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/1#vid" class="btn btn-link">
-                                <img src="<?= base_url() ?>/img/Video Materi/<?= $rekomendasi[0]['materi'] ?>/1.jpg" alt="" class="position-relative border-20 w-100 h-100" style="object-fit: contain;">
+                        <div class="col-12 bg-white border-20 px-0" style="min-height: 500px;">
+                            <a href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/1#vid"
+                                class="btn btn-link">
+                                <img src="<?= base_url() ?>/img/Video Materi/<?= $rekomendasi[0]['materi'] ?>/1.jpg" alt="" class="position-relative border-20 w-100 h-100" style="object-fit: contain;" onerror="this.style='display: none;'">
                             </a>
                         </div>
                         <?php
                             $total=(int)$rekomendasi[0]['dasar']+(int)$rekomendasi[0]['sedang']+(int)$rekomendasi[0]['rumit'];
                             for ($i=1; $i<=$total; $i++) { 
                                 if ($i!=1) { ?>
-                                    <a href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/<?= $i ?>#vid" class="col-3 btn btn-link px-1 mt-3">
+                                    <a <?php if (session('kode-paket')!='6') { ?>href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/<?= $i ?>#vid"
+                                        <?php } else { ?> onclick="hanyaTryout();" <?php } ?>
+                                        class="col-3 btn btn-link px-1 mt-3">
                                         <div class="bg-white w-100" style="border-radius: 10px;">
                                             <img src="<?= base_url() ?>/img/Video Materi/<?= $rekomendasi[0]['materi'] ?>/<?= $i ?>.jpg" alt="" class="position-relative w-100 h-100" style="object-fit: contain; border-radius: 10px;">
                                         </div>
@@ -314,29 +322,22 @@
             </div>
         </div>
 
-        <div id="modalMindMap" class="modal fade" role="dialog" tabindex='1' aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header d-flex justify-content-between align-text-center">
-                        <h3 class="text-primary ml-1">Mind Map</h3>
-                        <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal();"></p>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row mx-0">
-                            <img id="imgMindMap" src="" alt="" class="img-fluid border border-light rounded">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        
         <script>
             if (screen.width <= 768) {
                 document.getElementById('jad').innerHTML='';
             }
+            
+            document.getElementById('link-zoom').addEventListener('click', function() {
+                <?php if (!empty($meetingDate)) { ?>
+                    $.ajax({
+                        url: '<?= base_url() ?>/peserta/hadir/<?php echo (!empty($meetingDate)) ? strtotime($meetingDate['start_event']) : ''; ?>',
+                        success: function(result) {
+                            if (result != 'X') document.getElementById('bolos').innerHTML=result;
+                            window.open('<?php echo !empty($meetingDate) ? $meetingDate['link-meeting'] : ''; ?>', '_blank');
+                        }
+                    });
+                <?php } ?>
+            });
 
             document.getElementById('tombolcari').addEventListener('click', function() {
                 const cari = document.getElementById('cari');
@@ -365,7 +366,7 @@
                             rekaman.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
                         }
 
-                        if (res.materi.length != 0) {
+                        if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
                             latihan.innerHTML=`<h5 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h5>`;
                             ubahLatihan(res['materi'][0]);
                         } else {
@@ -373,13 +374,14 @@
                             latihan.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
                         }
                         
-                        <?php if (session('kode-paket') != '1') : ?>
+                        <?php if (session('kode-paket') != '1' && session('kode-paket') != '6') : ?>
                             if (res['mindmap'].length != 0) {
                                 latihan.innerHTML+=`<div class="col-12 float-right px-0 mt-2">
                                                         <div class="row mx-0">
-                                                            <button class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%; word-break: break-word; white-space: normal;" onclick="lihatMindmap('${res['mindmap'][0]['materi']}', 'jpg')">
+                                                            <a class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%; word-break: break-word; white-space: normal;"
+                                                                target="popup" onclick="<?php if (session('kode-paket')=='6') { ?> hanyaTryout(); <?php } else { ?> openWindow('${res['mindmap'][0]['materi']}'); <?php } ?>">
                                                                 Mind mapping - ${res['mindmap'][0]['materi']}
-                                                            </button>
+                                                            </a>
                                                             <a href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%;">
                                                                 Ebook
                                                             </a>
@@ -390,6 +392,62 @@
                     }
                 });
             });
+            
+            document.getElementById('cari').addEventListener('keypress', function(e){
+                if (e.key === 'Enter') {
+                    const cari = document.getElementById('cari');
+                    $.ajax({
+                        url: "<?= base_url() ?>/peserta/cari/"+cari.value, 
+                        success: function(result) {
+                            const res = JSON.parse(result);
+                            console.log(res);
+                            const materi = document.getElementById('video-materi');
+                            const rekaman = document.getElementById('rekaman-kelas');
+                            const latihan = document.getElementById('latihan-soal');
+    
+                            if (res.materi.length != 0) {
+                                materi.innerHTML=`<h5 class="text-white font-weight-bold w-100">Video Materi - ${res['materi'][0]['materi']}</h5>`;
+                                ubahMateri(res.materi[0], res.tingkatan);
+                            } else {
+                                materi.innerHTML=`<h5 class="text-white font-weight-bold w-100">Video Materi`;
+                                materi.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
+                            }
+    
+                            if (res['rekaman'].length != 0) {
+                                rekaman.innerHTML=`<h5 class="text-white font-weight-bold w-100">Rekaman Kelas - ${res['rekaman'][0]['materi']}</h5>`;
+                                ubahRekaman(res['rekaman']);
+                            } else {
+                                rekaman.innerHTML=`<h5 class="text-white font-weight-bold w-100">Rekaman Kelas`;
+                                rekaman.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
+                            }
+    
+                            if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
+                                latihan.innerHTML=`<h5 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h5>`;
+                                ubahLatihan(res['materi'][0]);
+                            } else {
+                                latihan.innerHTML=`<h5 class="text-white font-weight-bold w-100">Latihan Soal`;
+                                latihan.innerHTML+=`<h5 class="text-white font-weight-bold w-100">-</h5>`;
+                            }
+                            
+                            <?php if (session('kode-paket') != '1' && session('kode-paket') != '6') : ?>
+                                if (res['mindmap'].length != 0) {
+                                    latihan.innerHTML+=`<div class="col-12 float-right px-0 mt-2">
+                                                            <div class="row mx-0">
+                                                                <a class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%; word-break: break-word; white-space: normal;"
+                                                                    target="popup" onclick="<?php if (session('kode-paket')=='6') { ?> hanyaTryout(); <?php } else { ?> openWindow('${res['mindmap'][0]['materi']}'); <?php } ?>">
+                                                                    Mind mapping - ${res['mindmap'][0]['materi']}
+                                                                </a>
+                                                                <a href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-sm btn-warning rounded h6 font-weight-bold mr-2 py-1" style="width: 45%;">
+                                                                    Ebook
+                                                                </a>
+                                                            </div>
+                                                        </div>`;
+                                }
+                            <?php endif; ?>
+                        }
+                    });
+                }
+            })
 
             function ubahMateri(res, tingkatan) {
                 var parts=parseInt(res['dasar']);
@@ -402,8 +460,9 @@
                 }
                 const materi = document.getElementById('video-materi');
                 for (let i=1; i<=parts; i++) {
-                    materi.innerHTML+=`<a href="<?= base_url() ?>/materi/materi/${res['id']}/${i}#vid" class="btn btn-light btn-lg d-flex align-self-center rounded mr-2 mb-2 p-2" style="width: 30%;">
-                                            <img src="<?= base_url() ?>/img/Video Materi/${res['materi']}/${i}.jpg" class="w-100">
+                    materi.innerHTML+=`<a href="<?= base_url() ?>/materi/materi/${res['id']}/${i}#vid"
+                                            class="btn btn-light btn-lg d-flex align-content-center rounded mr-2 mb-2 p-2" style="width: 30%;">
+                                            <img src="<?= base_url() ?>/img/Video Materi/${res['materi']}/${i}.jpg" class="rounded mx-auto" style="width: 95%;">
                                         </a>`;
                 }
             }
@@ -411,8 +470,9 @@
             function ubahRekaman(res) {
                 let rek = res[0]['parts'].split(',');
                 for (let k=1; k<=rek.length; k++) {
-                    document.getElementById('rekaman-kelas').innerHTML+=`<a href="<?= base_url() ?>/materi/rekaman/${res[0]['id']}/${k}#vid" class="btn btn-light btn-lg rounded mr-2 mb-2 p-2" style="width: 30%;">
-                                                                            <img src="<?= base_url() ?>/img/Rekaman Kelas/${res[0]['admin']}/${res[0]['materi']}.${res[0]['ext_tn']}" class="w-100">
+                    document.getElementById('rekaman-kelas').innerHTML+=`<a href="<?= base_url() ?>/materi/rekaman/${res[0]['id']}/${k}#vid"
+                                                                            class="btn btn-light btn-lg d-flex align-content-center rounded mr-2 mb-2 p-2" style="width: 30%;">
+                                                                            <img src="<?= base_url() ?>/img/Rekaman Kelas/${res[0]['admin']}/${res[0]['materi']}.${res[0]['ext_tn']}" class="rounded mx-auto" style="width: 95%;">
                                                                         </a>`;
                 }
             }
@@ -420,7 +480,9 @@
             function ubahLatihan(res) {
                 const latihan = document.getElementById('latihan-soal');
                 for (let j=0; j<4; j++) {
-                    latihan.innerHTML+=`<a href="<?= base_url() ?>/kelasku/view_pdf/${res['materi']}-${j+1}.pdf" class="btn btn-primary btn-lg rounded mr-2 mb-2 p-1" style="width: 45%;">
+                    latihan.innerHTML+=`<a <?php if (session('kode-paket')!='6') { ?> href="<?= base_url() ?>/kelasku/view_pdf/${res['materi']}-${j+1}.pdf"
+                                            <?php } else { ?> onclick="hanyaTryout();" <?php } ?>
+                                            class="btn btn-link bg-primary rounded mt-2 mr-2 px-3" style="width: 45%">
                                             <h5 class="h6 text-white text-center font-weight-bold w-100 mx-auto mb-0">Soal dan</h5>
                                             <h5 class="h6 text-white text-center font-weight-bold w-100 mx-auto mb-0" style="word-break: break-word; white-space: normal;">Pembahasan ${j+1}</h5>
                                         </a>`;
@@ -461,64 +523,66 @@
                 $('#modalMindMap').modal('hide');
             }
 
-            document.getElementById('link-zoom').addEventListener('click', function() {
-                <?php if (!empty($meetingDate)) { ?>
-                    $.ajax({
-                        url: '<?= base_url() ?>/peserta/hadir/<?php echo (!empty($meetingDate)) ? strtotime($meetingDate['start_event']) : ''; ?>',
-                        success: function(result) {
-                            if (result != 'X') document.getElementById('bolos').innerHTML=result;
-                            window.open('<?php echo (!empty($meetingDate)) ? $meetingDate['link-meeting'] : ''; ?>', '_blank');
-                        }
+            <?php if (!empty($nilai)) { ?>
+                var data = [];
+                function bangunChart() {
+                    const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
+                    nilai.forEach(n => {
+                        var d = {x: n.materi, value: n.nilai};
+                        data.push(d);
                     });
-                <?php } ?>
-            });
-
-            var data = [];
-            function bangunChart() {
-                const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
-                nilai.forEach(n => {
-                    var d = {x: n.materi, value: n.nilai};
-                    data.push(d);
-                });
-
-                var chart = anychart.pie();
-                chart.data(data);
-                chart.innerRadius('40%');
-                chart.container('pemahamanmu');
-                chart.labels().position("inside");
-                chart.insideLabelsOffset("-75%");
-                chart.draw();
-
-                warnaChart();
-            }
-
-            bangunChart();
-
-            document.getElementById('pemahamanmu').addEventListener('mouseover', function() {
-                warnaChart();
-            });
-
-            document.getElementById('pemahamanmu').addEventListener('mouseleave', function() {
-                warnaChart();
-            });
-
-            function warnaChart() {
-                if (data.length!=0) {
-                    document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
-                    setChart('ac_path_h', '#0064D3');
-                    setChart('ac_path_i', '#12336D');
-                    setChart('ac_path_j', '#FECE24');
-                    setChart('ac_path_k', 'darkgrey');
-                    document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
+                    console.log(data);
+    
+                    var chart = anychart.pie();
+                    chart.data(data);
+                    chart.innerRadius('40%');
+                    chart.container('pemahamanmu');
+                    chart.labels().position("inside");
+                    chart.insideLabelsOffset("-75%");
+                    chart.draw();
+    
+                    warnaChart();
                 }
-            }
+    
+                bangunChart();
+    
+                document.getElementById('pemahamanmu').addEventListener('mouseover', function() {
+                    warnaChart();
+                });
+    
+                document.getElementById('pemahamanmu').addEventListener('mouseleave', function() {
+                    warnaChart();
+                });
+    
+                function warnaChart() {
+                    if (data.length!=0) {
+                        document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
+                        // setChart('ac_path_h', '#0064D3');
+                        // setChart('ac_path_i', '#12336D');
+                        // setChart('ac_path_j', '#FECE24');
+                        // setChart('ac_path_k', 'darkgrey');
+                        // document.getElementById('ac_layer_g').setAttribute('style', 'display: none;');
+                    }
+                }
+    
+                function setChart(id, color) {
+                    var chart = document.getElementById(id);
+                    chart.setAttribute('fill', color);
+                    chart.setAttribute('class', 'shadow');
+                    chart.setAttribute('style', 'border: 5px solid white; cursor: pointer;');
+                }
+            <?php } ?>
 
-            function setChart(id, color) {
-                var chart = document.getElementById(id);
-                chart.setAttribute('fill', color);
-                chart.setAttribute('class', 'shadow');
-                chart.setAttribute('style', 'border: 5px solid white; cursor: pointer;');
-            }
+            <?php if (session('kode-paket')=='6') { ?>
+                function hanyaTryout() {
+                    Swal.fire({icon: 'error', title: '', text: 'Fitur ini tidak tersedia untuk pilihan paketmu'});
+                }
+            <?php } else { ?>
+                function openWindow(aHref) {
+                    window.open('<?= base_url() ?>/img/Mind Map/'+aHref+'.pdf','popup','width=600,height=600');
+                    return false;
+                }
+            <?php } ?>
         </script>
     </div>
 </div>

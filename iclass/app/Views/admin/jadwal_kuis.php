@@ -27,31 +27,36 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form action="<?= base_url('admin/add_jadwal_kuis') ?>" method="POST">
-                  <div class="form-group">
-                    <label for="kelas" class="form-label">Kelas</label>
-                    <select class="form-control" id="kelas" name="kelas[]" multiple>
-                      <?php foreach ($list_kelas as $dt) : ?>
-                        <option value='<?= $dt['id'] ?>'><?= $dt['nama'] ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="materi" class="form-label">Materi</label>
-                    <select class="form-control" id="materi" name="materi">
-                      <?php foreach ($list_materi as $dt) : ?>
-                        <option value='<?= $dt['materi'] ?>'><?= $dt['materi'] ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="datetime" class="form-label">Waktu mulai</label>
-                    <div class="w-100">
-                      <input class="form-control" type="datetime-local" id="datetime" name="datetime">
+                <form action="<?= base_url('admin/add_jadwal_kuis') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="kelas" class="form-label">Kelas</label>
+                        <select class="form-control" id="kelas" name="kelas[]" multiple>
+                          <?php foreach ($list_kelas as $dt) : ?>
+                            <option value='<?= $dt['id'] ?>'><?= $dt['nama'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
                     </div>
-                  </div>
+
+                    <div class="form-group">
+                        <label for="materi" class="form-label">Materi</label>
+                        <select class="form-control" id="materi" name="materi">
+                          <?php foreach ($list_materi as $dt) : ?>
+                            <option value='<?= $dt['materi'] ?>'><?= $dt['materi'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datetime" class="form-label">Waktu mulai</label>
+                        <div class="w-100">
+                          <input class="form-control" type="datetime-local" id="datetime" name="datetime">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="thumbnailPertemuan" class="form-label">Thumbnail Kuis</label>
+                        <input type="file" class="form-control-file form-control-sm" id="thumbnailKuis" name="thumbnailKuis">
+                    </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

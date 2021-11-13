@@ -28,15 +28,20 @@
                         <span id="span" class="bg-white px-3 py-2" style="color:#12336D; border-radius: 10px;"></span>
                         <script>
                             var span = document.getElementById('span');
-
+                            
+                            var dt = new Date("<?= $now ?>").getTime();
+                            
                             function time() {
-                                var d = new Date();
-                                var s = 60 - parseInt('<?= substr($event['end_event'],17) ?>') - parseInt(d.getSeconds());
-                                var m = 59 - parseInt('<?= substr($event['end_event'],14) ?>') - parseInt(d.getMinutes());
-                                var h = parseInt('<?= substr($event['end_event'],11) ?>') - parseInt(d.getHours()) - 1;
-                                span.textContent = 
-                                    h + ":" + m + ":" + s;
-                                if (h==0 && m==0 && s==0) {
+                                var d = new Date().getTime();
+                                var distance = dt - d;
+                                
+                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                
+                                span.textContent = hours + ":" + minutes + ":" + seconds;
+                                
+                                if (distance < 0) {
                                     selesai();
                                 }
                             }
@@ -124,9 +129,31 @@
                 <h4 class="text-white font-weight-bold mb-0">Selesai</h4>
             </button>
         </div>
+        
+        <div id="modalSelesai" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menyelesaikan try out?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="selesaiBanget();">Yakin</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        <?php if ($peserta['jawaban'] != NULL) { ?>
+            // console.log('<?php echo json_encode(explode(',', $peserta['jawaban'])); ?>');
+        <?php } ?>
         var soal = 0;
         var initialState = {
             kosong: 40,
@@ -262,10 +289,13 @@
                     }
                 });
             <?php } ?>
+            // console.log(store.getState().jawaban);
         }
 
         function ragu() {
-            raguan.push(soal+1);
+            if (!raguan.includes(soal+1)) {
+                raguan.push(soal+1);
+            }
 
             if (store.getState().jawaban[soal]!='') {
                 document.getElementById('label'+store.getState().jawaban[soal]).setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
@@ -276,20 +306,28 @@
             document.getElementById((soal+1).toString()).setAttribute('class', 'btn btn-warning border border-dark h5 text-center font-weight-bold rounded w-100 mb-0 py-1');
         }
 
-        <?php if ((date('Y-m-d G:i:s', strtotime($event['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($event['end_event']))>date('Y-m-d G:i:s'))) { ?>
+        <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d')) { ?>
             function selesai() {
-                $.ajax({
-                    url: '<?= base_url() ?>/peserta/jawabTryout/<?= $event['id'] ?>/'+store.getState().jawaban.toString()+'/selesai',
-                    success: function(res) {
-                        window.location.replace("<?= base_url() ?>/peserta/tryout_hasil/<?= $event['id'] ?>");
-                    }
-                })
+                $('#modalSelesai').modal('show');
             }
         <?php } else { ?>
             function selesai() {
                 window.location.replace("<?= base_url() ?>/peserta/tryout_hasil/<?= $event['id'] ?>");
             }
         <?php } ?>
+        
+        function selesaiBanget() {
+            $.ajax({
+                url: '<?= base_url() ?>/peserta/jawabTryout/<?= $event['id'] ?>/'+store.getState().jawaban.toString()+'/selesai',
+                success: function(res) {
+                    window.location.replace("<?= base_url() ?>/peserta/tryout_hasil/<?= $event['id'] ?>");
+                }
+            })
+        }
+        
+        // if (store.getState().jawaban[0]!='') {
+        //     document.getElementById('label'+store.getState().jawaban[0]).setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 py-2 active');
+        // }
     </script>
 </div>
 <?= $this->endSection(); ?>

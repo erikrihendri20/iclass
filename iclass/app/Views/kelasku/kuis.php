@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-3 pr-0">
                     <div class="row justify-content-center align-items-center bg-white ml-0" style="height: 7%; border-radius: 10px 0 0 10px; margin-right: -35px;">
-                        <h5 class="text-center font-weight-bold mb-0" style="color: #12336D;">Soal Nomor 1</h5>
+                        <h5 id="soal-nomor" class="text-center font-weight-bold mb-0" style="color: #12336D;">Soal Nomor 1</h5>
                     </div>
                     <div class="row justify-content-center mt5 mx-0" style="height: 78%;">
                         <div class="col-12 text-center px-0">
@@ -135,6 +135,8 @@
         }
 
         function pindah() {
+            document.getElementById('soal-nomor').innerHTML="Soal Nomor "+(soal+1);
+            
             if (soal<=0) {
                 soal=0;
                 document.getElementById('sebelumnya').style.visibility="hidden";
@@ -233,6 +235,7 @@
                 $.ajax({
                     url: '<?= base_url() ?>/kelasku/kuisJawab/<?= $kuis['id'] ?>/'+store.getState().jawaban.toString(),
                     success: function(result) {
+                        console.log(result);
                         window.location.replace("<?= base_url() ?>/kelasku/kuis_hasil/<?= $kuis['id'] ?>");
                     }
                 });

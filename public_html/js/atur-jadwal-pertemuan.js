@@ -79,73 +79,83 @@
 				allDaySlot: false,
 				selectHelper: true,
 				select: function(start, end, allDay) {
-					var title = prompt('Event Title:');
-					if (title) {
-						$.post(
-							"tambahJadwal", 
-							{
-								title:title,
-								start:$.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss"),
-								end:$.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss"),
-								kode_kelas:$('#kode-kelas').val(),
-								jenis: 1,
-								class_name: 'info'
-							}, function(result){
-								console.log(start)
-								console.log(end)
-								console.log(result)
-								calendar.fullCalendar('refetchEvents');
-								alert('sukses menambahkan')
-						});
-					}
+				    $('#modalTambahJadwal').show();
+				    
+				    document.getElementById('start').value = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('end').value = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('kode_kelas').value = $('#kode-kelas').val()
+				    document.getElementById('jenis').value = 1;
+				    document.getElementById('class_name').value = 'info';
+				    
+				// 	if (title) {
+				// 		$.post(
+				// 			"tambahJadwal", 
+				// 			{
+				// 				title:title,
+				// 				start:$.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss"),
+				// 				end:$.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss"),
+				// 				kode_kelas:$('#kode-kelas').val(),
+				// 				jenis: 1,
+				// 				class_name: 'info'
+				// 			}, function(result){
+				// 				console.log(start)
+				// 				console.log(end)
+				// 				console.log(result)
+				// 				calendar.fullCalendar('refetchEvents');
+				// 				alert('sukses menambahkan')
+				// 		});
+				// 	}
 					calendar.fullCalendar('unselect');
+					calendar.fullCalendar('refetchEvents');
 				},
 				eventResize:function(event) {
-					start=$.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss")
-					end=$.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss")
-					title=event.title
-					id=event.id
-					$.ajax({
-						url:'tambahJadwal',
-						type:'POST',
-						data:{
-							id:id,
-							title:title,
-							start:start,
-							end:end,
-							kode_kelas:$('#kode-kelas').val(),
-							jenis: 1,
-							class_name: 'info'
-						},
-						success:function () {
-							calendar.fullCalendar('refetchEvents');
-							alert('jadwal sukses diubah')
-						}
-					})
+				    document.getElementById('start').value = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('end').value = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('kode_kelas').value = $('#kode-kelas').val()
+				    document.getElementById('jenis').value = 1;
+				    document.getElementById('class_name').value = 'info';
+				    document.getElementById('eventId').value = event.id;
+				    document.getElementById('judulEvent').value = event.title;
+				    
+				    $('#modalTambahJadwal').show();
+				    
+				    calendar.fullCalendar('refetchEvents');
+				    
+				// 	start=$.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss")
+				// 	end=$.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss")
+				// 	title=event.title
+				// 	id=event.id
+				// 	$.ajax({
+				// 		url:'tambahJadwal',
+				// 		type:'POST',
+				// 		data:{
+				// 			id:id,
+				// 			title:title,
+				// 			start:start,
+				// 			end:end,
+				// 			kode_kelas:$('#kode-kelas').val(),
+				// 			jenis: 1,
+				// 			class_name: 'info'
+				// 		},
+				// 		success:function () {
+				// 			calendar.fullCalendar('refetchEvents');
+				// 			alert('jadwal sukses diubah')
+				// 		}
+				// 	})
 				},
 				droppable: true, // this allows things to be dropped onto the calendar !!!
 				eventDrop:function (event) {
-					start=$.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss")
-					end=$.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss")
-					title=event.title
-					id=event.id
-					$.ajax({
-						url:'tambahJadwal',
-						type:'POST',
-						data:{
-							id:id,
-							title:title,
-							start:start,
-							end:end,
-							kode_kelas:$('#kode-kelas').val(),
-							jenis: 1,
-							class_name: 'info'
-						},
-						success:function () {
-							calendar.fullCalendar('refetchEvents');
-							alert('jadwal sukses diubah')
-						}
-					})
+					document.getElementById('start').value = $.fullCalendar.formatDate(start, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('end').value = $.fullCalendar.formatDate(end, "yyyy-MM-dd HH:mm:ss");
+				    document.getElementById('kode_kelas').value = $('#kode-kelas').val()
+				    document.getElementById('jenis').value = 1;
+				    document.getElementById('class_name').value = 'info';
+				    document.getElementById('eventId').value = event.id;
+				    document.getElementById('judulEvent').value = event.title;
+				    
+				    $('#modalTambahJadwal').show();
+				    
+				    calendar.fullCalendar('refetchEvents');
 				},
 				eventClick:function(event) {
 					if(confirm('apakah anda yakin ingin menghapus jadwal ini?')){
@@ -198,8 +208,3 @@
 
 
 	});
-
-        
-
-
-	

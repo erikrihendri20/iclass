@@ -38,6 +38,7 @@ class Peserta extends BaseController
 			case '3': $pertemuan=12; break;
 			case '4': $pertemuan=27; break;
 			case '5': $pertemuan=60; break;
+			case '6': $pertemuan=0; break;
 		}
 
 		$kuis = $db->table('events')->join('kuis', 'events.id=kuis.event_id', 'left')->like('kode_kelas', session('kode-kelas'))->where('start_event>=', date('Y-m-d'))->where('events.jenis', '3')->orderBy('start_event', 'asc')->get()->getResultArray();
@@ -47,17 +48,17 @@ class Peserta extends BaseController
 					->selectCount('id')->join('events', 'events.id = kehadiran.event')
 					->where('kehadiran.username', session('username'))
 					->where('kehadiran.hadir', '0')
-					->where('events.start_event <', date('y-m-d'))->countAllResults();
+					->where('events.start_event <', date('Y-m-d'))->countAllResults();
 
 		$sisa = $db->table('kehadiran')
 					->selectCount('id')->join('events', 'events.id = kehadiran.event')
 					->where('kehadiran.username', session('username'))
-					->where('events.start_event <', date('y-m-d'))->countAllResults();
+					->where('events.start_event <', date('Y-m-d'))->countAllResults();
 		$sisa += $db->table('kehadiran')
 					->selectCount('id')->join('events', 'events.id = kehadiran.event')
 					->where('kehadiran.username', session('username'))
 					->where('kehadiran.hadir', '1')
-					->where('events.start_event =', date('y-m-d'))->countAllResults();
+					->where('events.start_event =', date('Y-m-d'))->countAllResults();
 
 		$data = [
 			'css'		=> 'peserta/index.css',
@@ -75,8 +76,8 @@ class Peserta extends BaseController
 		
 		$user = $userModel->find(session('id'));
 		$jadwalModel = new Jadwal_Model;
-		$meetingDate = $jadwalModel->getJadwalMeeting($user['kode_kelas']);
-		$jadwalTo = $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('start_event >=', date('y-m-d'))->where('jenis', '2')->orderBy('start_event', 'asc')->first();
+		$meetingDate = $db->table('kelas')->join('events', 'kelas.id=events.kode_kelas')->where('start_event >=', date('Y-m-d'))->where('jenis', '1')->like('kode_kelas', $user['kode_kelas'])->orderBy('start_event', 'asc')->get()->getResultArray();
+		$jadwalTo = $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('start_event >=', date('Y-m-d'))->where('jenis', '2')->orderBy('start_event', 'asc')->first();
 		$data['meetingDate'] = (!empty($meetingDate)) ? $meetingDate[0] : null;
 		$data['jadwalTo'] = (!empty($jadwalTo)) ? $jadwalTo : null;
 
@@ -88,7 +89,7 @@ class Peserta extends BaseController
 		$j=0; $k=0;
 		for ($i=0; $i<sizeof($submateri); $i++) {
 			if (!empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
-				$submateri[$i]['nilai'] = explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
+				$submateri[$i]['nilai'] = empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
 				if ($i==0) {
 					$materi[$j]['materi']=$submateri[$i]['materi'];
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
@@ -109,19 +110,26 @@ class Peserta extends BaseController
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
 					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
 				}
+				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
 			}
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
-			$materi[$i]['nilai']=(int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
+			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
 		usort($materi, function($a, $b) {
 			return $a['nilai'] <=> $b['nilai'];
 		});
+		
 		$data['nilai'] = [];
 		if (!empty($materi)) {
-			for ($i=0; $i<4; $i++) {
-				if (!empty($materi[$i])) array_push($data['nilai'], $materi[$i]);
+		    $j=0;
+			for ($i=0; $i<sizeof($materi); $i++) {
+				if ($j==4) break;
+				if (!empty($materi[$i]) && $materi[$i]['nilai']!=0) {
+				    array_push($data['nilai'], $materi[$i]);
+				    $j++;
+				}
 			}
 		}
 		
@@ -130,7 +138,6 @@ class Peserta extends BaseController
 		} else {
 			$data['rekomendasi'] = [];
 		}
-		
 		return view('peserta/index', $data);
 	}
 
@@ -403,7 +410,7 @@ class Peserta extends BaseController
 					'materi' => $data['materi'][0]['materi']
 				];
 				$model->save($tingkatan);
-				$db->table('tingkatan')->where('username', session('username'))->where('materi', $data['materi'][0]['materi'])->get()->getResultArray()[0];
+				$data['tingkatan'] = $db->table('tingkatan')->where('username', session('username'))->where('materi', $data['materi'][0]['materi'])->get()->getResultArray()[0];
 			} else {
 				$data['tingkatan'] = $data['tingkatan'][0];
 			}
@@ -412,13 +419,21 @@ class Peserta extends BaseController
 	}
 
 	public function simpanCatatan($catatan = '', $tanggal = '') {
-		$data = [
-			'catatan' => $catatan,
-			'tanggal' => $tanggal
-		];
-
 		$model = new Catatan_Model();
-		$balik = $model->where('user', session('username'))->set($data)->update();
+		if (!empty($model->where('user', session('username'))->first())) {
+		    $data = [
+    			'catatan' => $catatan,
+    			'tanggal' => $tanggal
+    		];
+		    $model->where('user', session('username'))->set($data)->update();
+		} else {
+		    $data = [
+		        'user' => session('username'),
+    			'catatan' => $catatan,
+    			'tanggal' => $tanggal
+    		];
+    		$model->save($data);
+		}
 
 		$data1['catatan'] = [
 			'catatan' => $catatan,
@@ -471,19 +486,42 @@ class Peserta extends BaseController
 	public function tryout($id)
 	{
 		$db = \Config\Database::connect();
+		$model = new HasilTryout_Model();
+		
+		if (empty($model->where('event_id', $id)->where('username', session('username'))->first())) {
+		    $hasil = [
+		        'username' => session('username'),
+		        'event_id' => $id,
+		        'jawaban' => NULL,
+		        'benar' => NULL,
+		        'salah' => NULL,
+		        'kosong' => NULL,
+		        'mulai' => date('Y-m-d G:i:s'),
+		        'selesai' => '0'
+		    ];
+			$model->save($hasil);
+		}
+		
+		$now = $model->where('event_id', $id)->where('username', session('username'))->first()['mulai'];
+        $now = date('Y-m-d G:i:s', strtotime("$now + 2 hours 5 seconds"));
 
 		$data = [
 			'event' => $db->table('events')->where('id', $id)->get()->getResultArray()[0],
 			'tryout' => $db->table('tryout')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray(),
+			'peserta' => $db->table('hasil_tryout')->where('event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
+			'now' => $now,
 			'title' => 'Try Out',
 			'active' => 'tryout',
 			'css' => 'kelasku/kuis.css'
 		];
 
+        $tes = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
 		if ($data['event']['end_event'] > date('Y-m-d G:i:s')) {
-			if (!empty($db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray())) {
-				session()->setFlashdata('salah', "<script>Swal.fire({icon: 'warning', title: '', text: 'Kamu sudah menyelesaikan try out ini'});</script>");
-				return redirect()->to(base_url('peserta'));
+			if (!empty($tes)) {
+                if ($tes[0]['selesai'] == '1') {
+    				session()->setFlashdata('salah', "<script>Swal.fire({icon: 'warning', title: '', text: 'Kamu sudah menyelesaikan try out ini'});</script>");
+    				return redirect()->to(base_url('peserta'));
+	            }
 			}
 		}
 		
@@ -500,21 +538,22 @@ class Peserta extends BaseController
 	public function tryout_hasil($id)
 	{
 		$db = \Config\Database::connect();
-        $tryout = $db->table('hasil_tryout')->where('event_id', $id)->get()->getResultArray();
-        if (!empty($tryout)) {
+        $tryout = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
+        if (!empty($tryout) && !empty($tryout[0]['jawaban'])) {
             $tryout = $tryout[0];
         } else {
+            session()->setFlashData('flash', "<script>Swal.fire({icon: 'error', title: '', text: 'Kamu tidak mengikuti try out ini'});</script>");
             return redirect()->to(base_url().'/kelasku');
         }
         $data = [
             'kuis' => $db->table('hasil_tryout')->join('events', 'events.id=hasil_tryout.event_id')->where('hasil_tryout.event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
-            'persentase' => $tryout['benar']/40*100,
-            'title' => 'Hasil Kuis',
+            'persentase' => (int)$tryout['benar']/40*100,
+            'title' => 'Hasil Try Out',
             'active' => 'kelasku',
             'css' => 'kelasku/kuis.css'
         ];
 
-        return view('kelasku/kuis_hasil', $data);
+        return view('kelasku/tryout_hasil', $data);
 	}
 
 	public function jawabTryout($id, $jawaban, $selesai=null)
@@ -556,23 +595,19 @@ class Peserta extends BaseController
 		}
 		
 		$data = [
-			'username' => session('username'),
-			'event_id' => $id,
 			'jawaban' => $jawaban,
 			'benar' => $benar,
 			'salah' => $salah,
 			'kosong' => $kosong
 		];
 
-		if (!empty($model->where('event_id', $id)->where('username', session('username'))->first())) {
-			$model->where('event_id', $id)->where('username', session('username'))->set($data)->update();
-		} else {
-			$model->save($data);
-		}
+		$model->where('event_id', $id)->where('username', session('username'))->set($data)->update();
 
 		if ($selesai==null) {
 			return (string)$benar;
 		} else {
+		    $model->where('event_id', $id)->where('username', session('username'))->set(['selesai' => '1'])->update();
+		    
 			$model = new Nilai_Model();
 			$transkrip = $model->where('username', session('username'))->like('bulan', date('Y-m'))->first();
 			if (empty($transkrip)) {
@@ -590,7 +625,9 @@ class Peserta extends BaseController
 
 						$nilai = $subbab[$jawabanBenar[$i]['materi']][1]/$subbab[$jawabanBenar[$i]['materi']][0]*100;
 						$nilai = ($sebelumnya!=1) ? (int)(((int)$nilai+(int)$nilai_sebelumnya)/$sebelumnya) : (int)$nilai;
-						$model->where('username', session('username'))->like('bulan', date('Y-m'))->set(preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi']), (string)$nilai."-".(string)$sebelumnya)->update();
+						if (strpos($jawabanBenar[$i]['materi'], 'Latihan') === false) {
+						    $model->where('username', session('username'))->like('bulan', date('Y-m'))->set(preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi']), (string)$nilai."-".(string)$sebelumnya)->update();
+						}
 					}
 				} else {
 					$nilai_sebelumnya = (!empty($transkrip[preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi'])])) ? explode('-', $transkrip[preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi'])]) : [0, 0];
@@ -599,11 +636,14 @@ class Peserta extends BaseController
 
 					$nilai = $subbab[$jawabanBenar[$i]['materi']][1]/$subbab[$jawabanBenar[$i]['materi']][0]*100;
 					$nilai = ($sebelumnya!=1) ? (int)(((int)$nilai+(int)$nilai_sebelumnya)/$sebelumnya) : (int)$nilai;
-					$model->where('username', session('username'))->like('bulan', date('Y-m'))->set(preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi']), (string)$nilai."-".(string)$sebelumnya)->update();
+				    if (strpos($jawabanBenar[$i]['materi'], 'Latihan') === false) {
+					    $model->where('username', session('username'))->like('bulan', date('Y-m'))->set(preg_replace('/\s+/', '_', $jawabanBenar[$i]['materi']), (string)$nilai."-".(string)$sebelumnya)->update();
+					}
 				}
 			}
 			return "selesai";
 		}
+        return "coba2";
 	}
 
 	public function nilai($bulan=null) 
@@ -640,7 +680,7 @@ class Peserta extends BaseController
 		$j=0; $k=0;
 		for ($i=0; $i<sizeof($submateri); $i++) {
 			if (!empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
-				$submateri[$i]['nilai'] = explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
+				$submateri[$i]['nilai'] = empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
 				if ($i==0) {
 					$materi[$j]['materi']=$submateri[$i]['materi'];
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
@@ -661,11 +701,12 @@ class Peserta extends BaseController
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
 					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
 				}
+				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
 			}
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
-			$materi[$i]['nilai']=(int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
+			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
 		usort($materi, function($a, $b) {
 			return $a['nilai'] <=> $b['nilai'];
@@ -731,7 +772,7 @@ class Peserta extends BaseController
 		];
 		return view('peserta/nilai', $data);
 	}
-
+	
 	public function simpanBanner() {
 		$banner = $this->request->getFile('imgbanner');
 		$banner->move('./img/banner/', session('username').'.jpg');

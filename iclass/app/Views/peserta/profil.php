@@ -22,24 +22,26 @@
                 </div>
             </div>
         </div>
-        <input type="file" id="imgbanner" name="imgbanner" style="display: none;">
+        <input type="file" id="imgbanner" name="imgbanner" style="display: none;"> 
         <div class="col-6 pr-0">
-            <div class="row bg-primary border-20 position-relative mx-0" style="height: 35%;">
+            <div class="row bg-primary border-20 position-relative mx-0" style="height: 25%;">
                 <img src="<?= base_url() ?>/img/banner/<?= $user['username'] ?>.jpg" alt="" class="w-100 h-100 border-20 position-absolute" style="object-fit: cover;" onerror='this.style.display = "none"'>
-                <button class="btn btn-light rounded-circle position-absolute p-2" style="bottom: 10px; right: 10px;">
-                    <img src="<?= base_url() ?>/img/Aset/Asset 273@300x.png" alt="" class="position-relative" style="height: 25px;">
-                </button>
+                <?php if ($user['username'] == session('username')) : ?>
+                    <button id="uploadBanner" class="btn btn-light rounded-circle position-absolute p-2" style="bottom: 10px; right: 10px;">
+                        <img src="<?= base_url() ?>/img/Aset/Asset 273@300x.png" alt="" class="position-relative" style="height: 25px;">
+                    </button>
+                <?php endif; ?>
             </div>
             <div class="row align-content-center h-25 mx-0 py-3">
-                <div class="col-1 px-0"></div>
-                <div class="col-2 px-0">
+                <div class="col-1 px-0 h-100"></div>
+                <div class="col-2 px-0 h-100">
                     <div class="row bg-white border rounded-circle position-relative" style="margin-top: -75px;">
                         <img src="<?= base_url() ?>/img/profil.png" alt="" class="w-100 rounded-circle position-relative p-2">
                         <img src="<?= base_url() ?>/img/profil/<?= $user['username'] ?>.jpg" alt="" class="w-100 h-100 rounded-circle position-absolute p-2" style="object-fit: cover;" onerror='this.style.display = "none"'>
                     </div>
                 </div>
-                <div class="col-1 px-0"></div>
-                <div class="col-8 px-0">
+                <div class="col-1 px-0 h-100"></div>
+                <div class="col-8 px-0 h-100">
                     <h4 class="font-weight-bold mb-3" style="color: #12336D;"><?= $user['nama'] ?></h4>
                     <h5 class="font-weight-bold mb-3" style="color: #12336D;">
                         <span class="px-2 py-1" style="background-color: lightgrey; border-radius: 10px;"><?php echo (!empty($user['sekolah'])) ? $user['sekolah'] : "&nbsp;&nbsp;&nbsp;SMA...&nbsp;&nbsp;&nbsp;"; ?></span>
@@ -224,21 +226,23 @@
         </div>
     </div>
     <script>
-        $('#uploadBanner').click(function(){ $('#imgbanner').trigger('click'); });
-        document.getElementById('imgbanner').addEventListener('change', function() {
-            var formData = new FormData();
-            formData.append('imgbanner', $('#imgbanner').files[0]); 
-            $.ajax({
-                url : '<?= base_url(); ?>'+'/peserta/simpanBanner',
-                data : formData,
-                type : 'POST',
-                processData: false,
-                contentType: false,
-                success : function(data){
-                    alert(data); 
-                }
+        <?php if (session('username') == $user['username']) { ?>
+            $('#uploadBanner').click(function(){ $('#imgbanner').trigger('click'); });
+            document.getElementById('imgbanner').addEventListener('change', function() {
+                var formData = new FormData();
+                formData.append('imgbanner', $('input[type=file]')[0].files[0]); 
+                $.ajax({
+                    url : '<?= base_url(); ?>'+'/peserta/simpanBanner',
+                    data : formData,
+                    type : 'POST',
+                    processData: false,
+                    contentType: false,
+                    success : function(data){
+                        alert(data); 
+                    }
+                });
             });
-        });
+        <?php } ?>
     </script>
 
     <?php if (session('flash')) : ?>

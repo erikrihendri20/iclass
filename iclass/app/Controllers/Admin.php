@@ -189,15 +189,29 @@ class Admin extends BaseController
                 'jenis' => $this->request->getPost('jenis'),
                 'class_name' => $this->request->getPost('class_name'),
             ];
+            
             if (isset($_POST['id'])) {
                 $data['id'] = $this->request->getPost('id');
+                
+                if (!empty($this->request->getFile('thumbnailPertemuan'))) {
+                    $thumbnail = $this->request->getFile('thumbnailPertemuan');
+                    $thumbnail->move('./img/pertemuan', $data['id'].'.jpg', true);
+                }
             }
+            
             $model = new Jadwal_Model();
             $model->save($data);
-
-            if ($data['jenis'] == '1') {
+            $data = $model->where('title', $data['title'])->orderBy('id', 'desc')->findAll();
+            
+            if (!empty($this->request->getFile('thumbnailPertemuan')) && !isset($_POST['id'])) {
+                $thumbnail = $this->request->getFile('thumbnailPertemuan');
+                $thumbnail->move('./img/pertemuan', $data[0]['id'].'.jpg');
+            }
+            
+            if ($this->request->getPost('jenis') == '1' && !isset($_POST['id'])) {
                 $user = new Users_Model();
                 $siswas = $user->where('kode_kelas', $this->request->getPost('kode_kelas'))->findAll();
+                $pertemuan = $this->request->getPost('pertemuan');
                 foreach ($siswas as $siswa) {
                     $bolos = (int)$siswa['bolos'];
                     $sisa = (int)$siswa['sisa'];
@@ -207,21 +221,12 @@ class Admin extends BaseController
                     ];
                     $user->where('id', $siswa['id'])->set($data1)->update();
 
-                    $pertemuan=0;
-                    switch ($siswa['kode_paket']) {
-                        case '1': $pertemuan=0; break;
-                        case '2': $pertemuan=8; break;
-                        case '3': $pertemuan=12; break;
-                        case '4': $pertemuan=27; break;
-                        case '5': $pertemuan=60; break;
-                    }
-
                     $data2 = [
                         'username'  => $siswa['username'],
                         'kelas'     => $siswa['kode_kelas'],
                         'event'     => (isset($_POST['id'])) ? $this->request->getPost('id') : $model->orderBy('id', 'desc')->first()['id'],
                         'hadir'     => '0',
-                        'pertemuan' => (string)($pertemuan - (int)$data1['sisa']),
+                        'pertemuan' => (string)$pertemuan,
                     ];
                     $kehadiran = new Kehadiran_Model();
                     $kehadiran->save($data2);
@@ -240,6 +245,8 @@ class Admin extends BaseController
         if ($event['jenis'] == '1') {
             $user = new Users_Model();
             $siswas = $user->where('kode_kelas', $event['kode_kelas'])->findAll();
+            
+            $kehadiran = new Kehadiran_Model();
             foreach ($siswas as $siswa) {
                 $bolos = (int)$siswa['bolos'];
                 $sisa = (int)$siswa['sisa'];
@@ -248,9 +255,9 @@ class Admin extends BaseController
                     'sisa' => $sisa+1,
                 ];
                 $user->where('id', $siswa['id'])->set($data1)->update();
+                
+                $kehadiran->where('event', $this->request->getPost('id'))->where('username', $siswa['username'])->delete();
             }
-            $kehadiran = new Kehadiran_Model();
-            $kehadiran->where('event', $this->request->getPost('id'))->delete();
         }
     }
 
@@ -373,6 +380,15 @@ class Admin extends BaseController
 
                 $model = new Rekaman_Model();
                 $model->insert($data1);
+                
+                $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4");
+                $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
+                $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}");
+            
+                $data2['judul'] = 'Upload Berhasil!';
+                $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
+                $data2['tipe'] = 'success';
+                return json_encode($data2);
             } else {
                 $data2 = $this->validator->getErrors();
 
@@ -381,15 +397,6 @@ class Admin extends BaseController
                 $data2['tipe'] = 'error';
                 return json_encode($data2);
             }
-
-            $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4");
-            $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
-            $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}");
-        
-            $data2['judul'] = 'Upload Berhasil!';
-            $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
-            $data2['tipe'] = 'success';
-            return json_encode($data2);
         }
     }
 
@@ -1175,7 +1182,7 @@ class Admin extends BaseController
     {
         $title = $this->request->getPost('title');
         $start = new Time($this->request->getPost('datetime'));
-        $end = new Time($start . ' + 4 Hours');
+        $end = date( "Y-m-d H:i:s", strtotime( "$start + 4 hours" ));
 
         $id_kelases = $this->request->getPost('kelas[]');
         $id_kelas = "";
@@ -1199,6 +1206,12 @@ class Admin extends BaseController
                 'class_name'    => 'success',
             ];
             $model->insert($data);
+            
+            if (!empty($this->request->getFile('thumbnailTryOut'))) {
+                $data = $model->where('title', $title)->orderBy('id', 'desc')->findAll();
+                $thumbnail = $this->request->getFile('thumbnailTryOut');
+                $thumbnail->move('./img/tryout/Thumbnail', $data[0]['id'].'.jpg');
+            }
 
             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis sukses!</strong>
@@ -1252,15 +1265,17 @@ class Admin extends BaseController
 
                 $bagian = explode('-', $this->request->getPost('bagian'));
 
-                for ($i=$bagian[0]; $i<=$bagian[1]; $i++) {
-                    $jawab = (!empty($this->request->getPost('jawaban'.(string)$i))) ? $this->request->getPost('jawaban'.(string)$i) : 'A';
-                    $tryout = [
-                        'jawaban' => $jawab,
-                        'nomor' => $i,
-                        'materi' => $this->request->getPost('subbab'.$i),
-                    ];
+                $j=1;
+                $i=$bagian[0];
+                foreach ($soals as $soal) {
+                    $jawab = (!empty($this->request->getPost('jawaban'.(string)$j))) ? $this->request->getPost('jawaban'.(string)$j) : 'A';
+                    $tryout['jawaban'] = $jawab;
+                    $tryout['nomor'] = $i;
+                    $tryout['materi'] = $this->request->getPost('subbab'.$j);
                     $model->save($tryout);
-                    $soal->move('img/tryout/'.$tryout['soal'].' - '.$tryout['event_id'].'/soal', $i.'.jpg', true); 
+                    $soal->move('img/tryout/'.$tryout['soal'].' - '.$tryout['event_id'].'/soal', $i.'.jpg', true);
+                    $j++;
+                    $i++;
                 }
 
                 session()->setFlashdata('flash', "<script>swal('Sukses', 'Berhasil mengunggah soal & pembahasan', 'success')</script>");
@@ -1278,7 +1293,7 @@ class Admin extends BaseController
     {
         $id = $this->request->getPost('id');
         $start = new Time($this->request->getPost('datetime'));
-        $end = new Time($start . ' + 23 Hours 59 Minutes');
+        $end = date( "Y-m-d H:i:s", strtotime( "$start + 23 hours 59 Minutes" ));
         $kelases = $this->request->getPost('kelas[]');
         $kelas="";
         for ($i=0; $i<sizeof($kelases); $i++) {
@@ -1372,6 +1387,9 @@ class Admin extends BaseController
         $end = new Time($start . ' + 23 Hours 59 Minutes');
 
         $id_kelases = $this->request->getPost('kelas[]');
+        if (is_array($id_kelases)===false) {
+            $id_kelases[0]=$id_kelases;
+        }
         $id_kelas = "";
         for ($i=0; $i<sizeof($id_kelases); $i++) {
             if ($i==0) {
@@ -1384,18 +1402,18 @@ class Admin extends BaseController
         try {
             $model = new Jadwal_Model();
 
-            $check = $model->where('title', $materi)->where('kode_kelas', $id_kelases)->first();
-            if ($check != NULL) {
-                $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Penambahan jadwal kuis gagal!</strong> jadwal kuis ' . $materi . ' untuk kelas tersebut sudah ada.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>';
-                session()->setFlashdata('flash', $flash);
+            // $check = $model->where('title', $materi)->where('kode_kelas', $id_kelases)->first();
+            // if ($check != NULL) {
+            //     $flash = '<div class="mx-5 alert alert-danger alert-dismissible fade show" role="alert">
+            //         <strong>Penambahan jadwal kuis gagal!</strong> jadwal kuis ' . $materi . ' untuk kelas tersebut sudah ada.
+            //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            //             <span aria-hidden="true">&times;</span>
+            //         </button>
+            //     </div>';
+            //     session()->setFlashdata('flash', $flash);
 
-                return redirect()->to(base_url('admin/kuis_jadwal'));
-            }
+            //     return redirect()->to(base_url('admin/kuis_jadwal'));
+            // }
 
             $data = [
                 'title'         => $materi,
@@ -1407,6 +1425,12 @@ class Admin extends BaseController
                 'allDay'        => 1,
             ];
             $model->insert($data);
+            
+            if (!empty($this->request->getFile('thumbnailKuis'))) {
+                $data = $model->where('title', $materi)->orderBy('id', 'desc')->findAll();
+                $thumbnail = $this->request->getFile('thumbnailKuis');
+                $thumbnail->move('./img/kuis/Thumbnail', $data[0]['id'].'.jpg');
+            }
 
             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis sukses!</strong>
@@ -1439,7 +1463,7 @@ class Admin extends BaseController
                 ->delete();
 
             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Hapus kuis sukses!</strong>
+                    <strong>Hapus jadwal sukses!</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

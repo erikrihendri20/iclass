@@ -1,24 +1,25 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="container-fluid mb5 px-0">
+<div class="container-fluid mt5 px-0">
     <?= session('flash'); ?>
 
     <div class="row mx-2 justify-content-center">
         <div class="w40 mx-md-auto">
             <img class="gambar" src="<?= base_url() . '/img/3.png' ?>" alt="...">
         </div>
-
-        <?php if (session('kode-paket') == 1) : ?>
+        <?php if (session('kode-paket') == 1 || session('kode-paket') == '6') : ?>
             <div class="w25-1">
                 <div class="w-75 mx-auto">
                     <div class="display-4 text-xl-center ml-md-4 mt-5 mt-xl-0 text-primary font-weight-bold">
-                        <p class="judul">Latihan Soal</p>
+                        <p class="judul text-center">Latihan Soal</p>
                     </div>
                     <div class="card card-secondary card-outline">
                         <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 18em; overflow-x: hidden; overflow-y: auto;">
                             <div class="col text-center">
                                 <?php foreach ($materi as $dt) : ?>
-                                    <a class="btn btn-light card-link w-75 mx-auto mb-2 text-primary font-weight-bold" onclick="materi('<?= $dt['name'] ?>')" style="border-radius: 15px;"><?= $dt['name'] ?></a>
+                                <div class="row fluid btn-light mt-2 p-0" style="border-radius: 10px;">
+                                    <a class="btn text-primary text-left h6 w-100 mx-1 my-auto py-2 font-weight-bold" onclick="materi('<?= $dt['name'] ?>')"><?= $dt['name'] ?></a>
+                                </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -34,7 +35,7 @@
                             <img class="mx-auto border" src="<?= base_url() ?>/img/1.jpg" alt="" style="height: 10em; width:7em;">
                         </div>
                     </div>
-                    <div class="container">
+                    <div class="container" style="height:4em;">
                         <p class="text-left font-weight-bold mb0" style="font-size: small;">
                             Ebook ini dilengkapi dengan kumpulan materi dan soal USM POLSTAT STIS beserta pembahasannya
                         </p>

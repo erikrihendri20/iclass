@@ -87,12 +87,20 @@
         <div class="col-9 pl-0 pr-4">
             <div class="row border-20 shadow mx-0 px5 py5">
                 <div class="col-12 border-20 px-0">
-                    <div class="row embed-responsive embed-responsive-16by9 bg-light ml-0">
-                        <video id="vid" class="embed-responsive-item" controls controlslist="nodownload"
-                            poster="<?= base_url() ?>/img/Video Materi/<?php echo $materiPilihan['materi']."/".$part; ?>.jpg">
-                            <source id="vidSrc" src="<?php echo base_url()."/vid/Materi Baru/".$materiPilihan['materi']."/".$part.".mp4"; ?>" type="video/mp4">
-                        </video>
-                    </div>
+                    <?php if (session('kode-paket')!='6') { ?>
+                        <div class="row embed-responsive embed-responsive-16by9 bg-light ml-0">
+                            <video id="vid" class="embed-responsive-item" controls controlslist="nodownload"
+                                poster="<?= base_url() ?>/img/Video Materi/<?php echo $materiPilihan['materi']."/".$part; ?>.jpg">
+                                <source id="vidSrc" src="<?php echo base_url()."/vid/Materi Baru/".$materiPilihan['materi']."/".$part.".mp4"; ?>" type="video/mp4">
+                            </video>
+                        </div>
+                    <?php } else { ?>
+                        <div class="w-100 h-100" style="background-color: #262626; border-radius: 15px;">
+                            <div class="row justify-content-center align-content-center h-100 mx-0 px-4">
+                                <img src="<?= base_url() ?>/img/Video Materi/<?php echo $materiPilihan['materi']."/".$part; ?>.jpg" alt="" class="w-100" style="object-fit: contain;">
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="col-6 mt5 px-0">
                     <h5 class="h4 font-weight-bold w-100" style="color: #12336D;"><?= $materiPilihan['materi'] ?></h5>
@@ -215,6 +223,21 @@
                             </div>
                         </button>
                         <?php } ?>
+                        <div class="col-4 px-0">
+                            <h6 class="text-center font-weight-bold rounded shadow mt-3 px-3 py-1" style="color: #12336D;">PPT</h6>
+                        </div>
+                        <a class="btn btn-light shadow w-100 mt-2 py-0" style="border-radius: 10px;" href="<?= base_url() ?>/ppt/Rekaman Kelas/<?php echo $rekaman['admin'].'/'.$rekaman['materi'].'.'.$rekaman['ext_ppt'] ?>" download>
+                            <div class="row mx-0 py-1">
+                                <div class="col-2 px-0">
+                                    <img src="<?= base_url() ?>/img/Aset/Asset 471@300x.png" alt="" class="w-100">
+                                </div>
+                                <div class="col-10 pl-2 pr-0">
+                                    <div class="row align-content-center h-100 mx-0">
+                                        <h6 class="text-primary text-left truncate mb-0">Download PowerPoint</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 <?php } ?>
                 </div>
@@ -230,7 +253,7 @@
                         for ($i=1; $i<=$jmlh; $i++) {
                             if ($i<=(int)$materiPilihan['dasar']) { ?>
                                 <div class="col-6 mt-2 pl-0">
-                                    <a id="latsol-dasar-<?= $i ?>" <?php echo (strpos($tingkatan['dasar'], (string)$i) !== false) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn btn-warning text-left w-100 mx-0 px-4 py-2" style="border-radius: 15px;">
+                                    <a id="latsol-dasar-<?= $i ?>" <?php echo ((strpos($tingkatan['dasar'], (string)$i) !== false) && (session('kode-paket') != '6')) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn btn-warning text-left w-100 mx-0 px-4 py-2" style="border-radius: 15px;">
                                         <span class="h5 text-truncate mb-0" style="color: #12336D; width: 90%;">
                                             Latihan soal <?= $submateris[$i-1]['submateri'] ?>
                                         </span>
@@ -239,7 +262,7 @@
                                 </div>
                             <?php } else if ($i<=((int)$materiPilihan['dasar']+(int)$materiPilihan['sedang'])) { $j++; ?>
                                 <div class="col-6 mt-2 pl-0">
-                                    <a id="latsol-sedang-<?= $j ?>" <?php echo (strpos($tingkatan['sedang'], (string)($i-(int)$materiPilihan['dasar'])) !== false) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn btn-primary text-left w-100 mx-0 px-4 py-2" style="border-radius: 15px;">
+                                    <a id="latsol-sedang-<?= $j ?>" <?php echo ((strpos($tingkatan['sedang'], (string)($i-(int)$materiPilihan['dasar'])) !== false) && (session('kode-paket') != '6')) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn btn-primary text-left w-100 mx-0 px-4 py-2" style="border-radius: 15px;">
                                         <span class="text-white h5 text-truncate mb-0" style="width: 90%;">
                                             Latihan soal <?= $submateris[$i-1]['submateri'] ?>
                                         </span>
@@ -248,7 +271,7 @@
                                 </div>
                             <?php } else if ($i<=$jmlh) { $k++; ?>
                                 <div class="col-6 mt-2 pl-0">
-                                    <a id="latsol-rumit-<?= $k ?>" <?php echo (strpos($tingkatan['rumit'], (string)($i-(int)$materiPilihan['dasar']-(int)$materiPilihan['sedang'])) !== false) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn text-left w-100 mx-0 px-4 py-2" style="background-color: #12336D; border-radius: 15px;">
+                                    <a id="latsol-rumit-<?= $k ?>" <?php echo ((strpos($tingkatan['rumit'], (string)($i-(int)$materiPilihan['dasar']-(int)$materiPilihan['sedang'])) !== false) && (session('kode-paket') != '6')) ? 'href="'.base_url().'/peserta/latihan/'.$materiPilihan['materi'].'/'.$i.'"' : ''; ?> class="btn text-left w-100 mx-0 px-4 py-2" style="background-color: #12336D; border-radius: 15px;">
                                         <span class="text-white h5 text-truncate mb-0" style="width: 90%;">
                                             Latihan soal <?= $submateris[$i-1]['submateri'] ?>
                                         </span>
@@ -393,7 +416,9 @@
                 switch (tingkat) {
                     case 'dasar':
                         parent = document.getElementById('latsol-dasar-'+bagian);
-                        parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php if (session('kode-paket') != '6') { ?>
+                            parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php } ?>
                         if (parent.childElementCount!=1) {
                             parent.removeChild(parent.lastElementChild);
                         }
@@ -401,7 +426,9 @@
                     case 'sedang':
                         b = parseInt(bagian)-parseInt('<?= $materiPilihan['dasar'] ?>');
                         parent = document.getElementById('latsol-sedang-'+b);
-                        parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php if (session('kode-paket') != '6') { ?>
+                            parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php } ?>
                         if (parent.childElementCount!=1) {
                             parent.removeChild(parent.lastElementChild);
                         }
@@ -409,7 +436,9 @@
                     case 'rumit':
                         b = parseInt(bagian)-parseInt('<?= $materiPilihan['dasar'] ?>')-parseInt('<?= $materiPilihan['sedang'] ?>');
                         parent = document.getElementById('latsol-rumit-'+b);
-                        parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php if (session('kode-paket') != '6') { ?>
+                            parent.href="<?= base_url() ?>/peserta/latihan/<?= $materiPilihan['materi'] ?>/"+bagian;
+                        <?php } ?>
                         if (parent.childElementCount!=1) {
                             parent.removeChild(parent.lastElementChild);
                         }

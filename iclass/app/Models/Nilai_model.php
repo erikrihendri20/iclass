@@ -24,7 +24,12 @@ class Nilai_Model extends Model
         'Bayangan_Kurva,_Titik,_Dan_Bangung_Datar', 'Komposisi_Transformasi_Geometri', 'Konsep_Kaidah_Pencacahan', 'Permutasi', 'Kombinasi',
         'Peluang', 'Konsep_Geometri_Bidang_Datar', 'Sudut_Geometri_Bidang_Datar', 'Segitiga_Pada_Geometri_Bidang_Datar', 'Teorema_Pada_Segitiga',
         'Konsep_Geometri_Bidang_Ruang', 'Jarak_Pada_Geometri_bidang_Ruang', 'Sudut_Pada_Geometri_Bidang_Ruang', 'Konsep_Statistika_1',
-        'Konsep_Statistika_2', 'Konsep_Statistika_3', 'Data_Berkelompok', 'bulan',
+        'Konsep_Statistika_2', 'Konsep_Statistika_3', 'Data_Berkelompok', 'Linear_Satu_Variabel', 'Rasional_dan_Irasional_Satu_Variabel', 
+        'Nilai_Mutlak_Bentuk_Linear_Satu_Variabel', 'Pembuktian_Langsung', 'Pembuktian_Tidak_Langsung', 'Induksi_Matematis', '	Barisan,_Ketidaksamaan,_Keterbagian',
+        'Konsep_SPLTV', 'Penyelesaian_SPLTV_Metode_Subtitusi', 'Penyelesaian_SPLTV_Metode_Eliminasi', 'Penyelesaian_SPLTV_Metode_Subtitusi-Eliminasi',
+        'Penyelesaian_SPLTV_Metode_Determinan_Matriks', 'Aplikasi_SPLTV', 'Konsep_SPLDV', 'Nilai_Optimum_Fungsi_Objektif', 'Aplikasi_SPLDV',
+        'Rumus_Penjumlahan_dan_Pengurangan_Cos', 'Rumus_Penjumlahan_dan_Pengurangan_Sin', 'Rumus_Penjumlahan_dan_Pengurangan_Tangen',
+        'Luas_Segitiga_dan_Hubungan_Fungsi_Sin_dan_Cos', 'Rumus_Jumlah_dan_Selisih_Trigonometri', 'bulan',
     ];
 
     protected $returnType     = 'array';

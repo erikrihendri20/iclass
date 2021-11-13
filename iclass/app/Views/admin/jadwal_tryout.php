@@ -27,27 +27,32 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form action="<?= base_url('admin/add_jadwal_tryout') ?>" method="POST">
-                  <div class="form-group">
-                    <label for="title" class="form-label">Judul</label>
-                    <input type="text" class="form-control" name="title" id="title">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="kelas" class="form-label">Kelas</label>
-                    <select class="form-control" id="kelas" name="kelas[]" multiple>
-                      <?php foreach ($list_kelas as $dt) : ?>
-                        <option value='<?= $dt['id'] ?>'><?= $dt['nama'] ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="datetime" class="form-label">Waktu mulai</label>
-                    <div class="w-100">
-                      <input class="form-control" type="datetime-local" id="datetime" name="datetime">
+                <form action="<?= base_url('admin/add_jadwal_tryout') ?>" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title" class="form-label">Judul</label>
+                        <input type="text" class="form-control" name="title" id="title">
                     </div>
-                  </div>
+
+                    <div class="form-group">
+                        <label for="kelas" class="form-label">Kelas</label>
+                        <select class="form-control" id="kelas" name="kelas[]" multiple>
+                          <?php foreach ($list_kelas as $dt) : ?>
+                            <option value='<?= $dt['id'] ?>'><?= $dt['nama'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datetime" class="form-label">Waktu mulai</label>
+                        <div class="w-100">
+                          <input class="form-control" type="datetime-local" id="datetime" name="datetime">
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label for="thumbnailPertemuan" class="form-label">Thumbnail Try Out</label>
+                        <input type="file" class="form-control-file form-control-sm" id="thumbnailTryOut" name="thumbnailTryOut">
+                    </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -79,7 +84,6 @@
             <tbody>
               <?php $no = 1;
               foreach ($data as $dt) : ?>
-                <?php echo '<script>console.log('.json_encode($dt).')</script>'; ?>
                 <tr>
                   <td>
                     <?= $no; ?>

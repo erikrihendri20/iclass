@@ -5,12 +5,12 @@
 				<img src="<?= base_url() ?>/img/Background/Asset 38@300x.png" alt="" style="height: 40px;">
 			</a>
 		</div>
-		<button class="navbar-toggler w-75" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon float-right"></span>
-		</button>
+		<!--<button class="navbar-toggler w-75" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+		<!--	<span class="navbar-toggler-icon float-right"></span>-->
+		<!--</button>-->
 
 		<div class="w-75 px-0">
-			<div class="collapse navbar-collapse h-100" id="navbarSupportedContent">
+			<div class="h-100">
 				<ul class="navbar-nav d-flex justify-content-center w-100 h-100">
 					<div class="w-66 d-flex justify-content-center mx-0">
 						<li class="nav-item	mx-2">
@@ -50,7 +50,8 @@
 							</li>
 							<li class="nav-item mx-2">
 								<a class="h5 nav-item nav-link <?php if ($active == 'materi') { echo 'active text-primary'; }
-														else { echo "text-white"; } ?> font-weight-bold mb-0" href="<?= base_url(); ?>/materi">Video Belajar</a>
+														else { echo "text-white"; } ?> font-weight-bold mb-0" 
+														href="<?= base_url(); ?>/materi">Video Belajar</a>
 							</li>
 						<?php endif; ?>
 					</div>
