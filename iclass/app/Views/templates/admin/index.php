@@ -165,6 +165,25 @@
                 )
             }
         </script>
+    <?php elseif ($active == 'ubah paket') : ?>
+        <script>
+            function tampilkanPeserta() {
+                $.get(
+                    'tampilkanUbahPaket',
+                    function(result) {
+                        function init() {
+                            $('#tabel-peserta').html(result);
+                            $('#daftar-peserta').DataTable();
+                        }
+                        init();
+                    }
+                )
+            }
+
+            $(document).ready(function() {
+                tampilkanPeserta();
+            });
+        </script>
     <?php elseif ($active == 'konfirmasi peserta') : ?>
         <script>
             function tampilkanPeserta() {

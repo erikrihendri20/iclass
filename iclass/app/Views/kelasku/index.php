@@ -217,7 +217,7 @@
                                         <div class="col-6">
                                             <div class="row mx-0 h-100">
                                                 <div class="col-4 bg-primary px-0" style="border-radius: 15px;">
-                                                    <img src="<?= base_url() ?>/img/tryout/Thumbnail/<?= $zoomMeeting[$i]['event'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
+                                                    <img src="<?= base_url() ?>/img/tryout/Thumbnail/<?= $jadwalTryout[$i]['id'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="row align-items-center h-100 mx-0">
@@ -245,7 +245,7 @@
                                             <div class="col-6">
                                                 <div class="row mx-0">
                                                     <div class="col-4 bg-primary px-0" style="border-radius: 15px;">
-                                                        <img src="<?= base_url() ?>/img/tryout/Thumbnail/<?= $zoomMeeting[$i]['event'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
+                                                        <img src="<?= base_url() ?>/img/tryout/Thumbnail/<?= $jadwalTryout[$i]['id'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="row align-items-center h-100 mx-0">
@@ -291,7 +291,7 @@
                         for ($i=0; $i<sizeof($kuisHarian); $i++) { ?>
                             <div class="row mx-0 mt-2">
                                 <div class="col-4 bg-white px-0" style="border-radius: 15px;">
-                                    <img src="<?= base_url() ?>/img/kuis/Thumbnail/<?= $zoomMeeting[$i]['event'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
+                                    <img src="<?= base_url() ?>/img/kuis/Thumbnail/<?= $kuisHarian[$i]['id'] ?>.jpg" alt="" style="width: 100%; height: 100%; border-radius: 15px;" onerror="this.style='display: none;';">
                                 </div>
                                 <div class="col-8">
                                     <h6 class="bg-warning text-center font-weight-bold rounded w-75 py-1" style="color: #12336D;"><?php echo date('d F Y', strtotime($kuisHarian[$i]['start_event'])) ?></h6>

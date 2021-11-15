@@ -7,6 +7,7 @@ use App\Models\Admin_Model;
 use App\Models\Paket_Model;
 use App\Models\Catatan_Model;
 use App\Models\Nilai_Model;
+use App\Models\Notifikasi_model;
 
 class Auth extends BaseController
 {
@@ -68,12 +69,21 @@ class Auth extends BaseController
                             'bolos' => $user[0]['bolos'],
                         ];
                         session()->set($data);
-                        $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            anda berhasil masuk:D
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>';
+                        
+                        $model = new Notifikasi_model();
+                        $notifikasi = $model->where('username', $data['username'])->first();
+
+                        if (empty($notifikasi)) {
+                            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                anda berhasil masuk:D
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                        } else {
+                            $flash = "<script>Swal.fire({icon: 'warning', title: '', text: '".$notifikasi['pesan']."'});</script>";
+                            $model->where('username', $notifikasi['username'])->delete();
+                        }
                         session()->setFlashdata('flash', $flash);
                         return redirect()->to('peserta');
                     }

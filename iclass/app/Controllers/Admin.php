@@ -17,6 +17,8 @@ use App\Models\Admin_Model;
 use App\Models\Materi_Model;
 use App\Models\HasilKuis_Model;
 use App\Models\Tryout_Model;
+use App\Models\UbahPaket_Model;
+use App\Models\Notifikasi_Model;
 
 class Admin extends BaseController
 {
@@ -581,6 +583,8 @@ class Admin extends BaseController
             case '5': $pertemuan=60; break;
         }
 
+        $u2 = $user->where('kode_kelas', $u['kode_kelas'])->first()['username'];
+
         $jumlah = !empty($events) ? sizeof($events) : 0;
         $user->update($id, [
             'kode_kelas' => $kode_kelas,
@@ -589,32 +593,26 @@ class Admin extends BaseController
         ]);
 
         if ($jumlah!==0) {
-            $username=$user->where('id', $id)->first()['username'];
+            $u = $user->where('id', $id)->first();
+
             $kehadiran = new Kehadiran_Model();
-            $hadir = $kehadiran->where('username', $username)->where('kelas', $kode_kelas)->findAll();
+            $hadir = $kehadiran->where('username', $u['username'])->where('kelas', $kode_kelas)->findAll();
+            $hadir2 = $kehadiran->where('username', $u2)->findAll();
 
-            for ($i=0; $i<$jumlah; $i++) {
-                if (empty($hadir)) {
-                    $data = [
-                        'username' => $username,
-                        'kelas' => $kode_kelas,
-                        'event' => $events[$i]['id'],
-                        'hadir' => '0',
-                        'pertemuan' => $i+1,
-                    ];
+            if (!empty($hadir)) {
+                $kehadiran->where('username', $u['username'])->delete();
+            }
 
-                    $kehadiran->insert($data);
-                } else if (array_search($events[$i]['id'], array_column($hadir, 'event')) == false) {
-                    $data = [
-                        'username' => $username,
-                        'kelas' => $kode_kelas,
-                        'event' => $events[$i]['id'],
-                        'hadir' => '0',
-                        'pertemuan' => $i+1,
-                    ];
+            for ($i=0; $i<sizeof($hadir2); $i++) {
+                $data = [
+                    'username' => $u['username'],
+                    'kelas' => $u['kode_kelas'],
+                    'event' => $hadir2['event'],
+                    'hadir' => '0',
+                    'pertemuan' => $hadir2['pertemuan'],
+                ];
 
-                    $kehadiran->insert($data);
-                }
+                $kehadiran->insert($data);
             }
         }
         
@@ -2009,5 +2007,74 @@ class Admin extends BaseController
                 </div>';
     }
 
+    public function tolakPembayaran($id)
+    {
+        $model = new Users_model();
+        
+        $bukti = $model->where('id', $id)->first()['bukti_pembayaran'];
+        unlink('./img/bukti-pembayaran/'.$bukti);
+        
+        $model->update($id, ['status' => '0', 'bukti_pembayaran' => '']);
+        if ($model->where('id', $id)->first()['status']=='0') {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
 
+    public function tampilkanUbahPaket()
+    {
+        $db = \Config\Database::connect();
+        $data['user'] = $db->table('ubahpaket')->join('users', 'users.username=ubahpaket.user')->get()->getResultArray();
+        $data['title'] = 'Konfirmasi Pengajuan Ubah Paket';
+        return view('admin/tampilkanUbahPaket', $data);
+    }
+
+    public function ubahPaket()
+    {
+        $paket_model = new Paket_Model();
+        $data['paket'] = $paket_model->findAll();
+        $data['active'] = 'ubah paket';
+        $data['title'] = 'Konfirmasi Pengajuan Ubah Paket';
+        return view('admin/konfirmasiUbahPaket', $data);
+    }
+
+    public function konfirmasiUbahPaket($id, $kode)
+    {
+        $model = new Users_Model();
+        $model->update($id, ['kode_paket' => $kode, 'kode_kelas' => '']);
+        $user = $model->where('id', $id)->first();
+
+        $model = new UbahPaket_Model();
+        $ubahpaket = $model->where('user', $user['username'])->first();
+        $model->where('user', $user['username'])->delete();
+
+        unlink('./img/ubahpaket/'.$ubahpaket['buktiPembayaran']);
+
+        $model = new Notifikasi_Model();
+        $model->save(['username' => $username, 'pesan' => 'Selamat, pengajuan ubah paketmu disetujui.']);
+
+        if (($user['kode_paket'] == $kode) && (empty($model->where('user', $user['username'])->first()))) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    public function tolakUbahPaket($username)
+    {
+        $model = new UbahPaket_Model();
+        $ubahpaket = $model->where('user', $username)->first();
+        $model->where('user', $username)->delete();
+        unlink('./img/ubahpaket/'.$ubahpaket['buktiPembayaran']);
+
+        $model = new Notifikasi_Model();
+        $model->save(['username' => $username, 'pesan' => 'Mohon maaf, pengajuan ubah paketmu ditolak karena satu dan lain hal.']);
+
+        if (empty($model->where('user', $user['username'])->first())) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
 }

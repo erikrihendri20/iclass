@@ -69,34 +69,34 @@
         
         function tambahJadwal() {
     	    var fd = new FormData();
-                var files = $('#thumbnailPertemuan')[0].files[0];
-                
-                if (document.getElementById('eventId').value!="") {
-                    fd.append('id', document.getElementById('eventId').value);
-                }
-                
-                fd.append('title', document.getElementById('judulEvent').value);
-                fd.append('pertemuan', document.getElementById('pertemuan').value);
-                fd.append('thumbnailPertemuan', files);
-                fd.append('start', document.getElementById('start').value);
-                fd.append('end', document.getElementById('end').value);
-                fd.append('kode_kelas', document.getElementById('kode_kelas').value);
-                fd.append('jenis', document.getElementById('jenis').value);
-                fd.append('class_name', document.getElementById('class_name').value);
-                
-                $.ajax({
-                    url: '<?= base_url()?>/admin/tambahJadwal',
-                    type: 'post',
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                        console.log(response);
-						alert('Perubahan sukses dilakukan');
-                        $('#modalTambahJadwal').hide();
-                        tutupModal();
-                    },
-                });
+            var files = $('#thumbnailPertemuan')[0].files[0];
+            
+            if (document.getElementById('eventId').value!="") {
+                fd.append('id', document.getElementById('eventId').value);
+            }
+            
+            fd.append('title', document.getElementById('judulEvent').value);
+            fd.append('pertemuan', document.getElementById('pertemuan').value);
+            fd.append('thumbnailPertemuan', files);
+            fd.append('start', document.getElementById('start').value);
+            fd.append('end', document.getElementById('end').value);
+            fd.append('kode_kelas', document.getElementById('kode_kelas').value);
+            fd.append('jenis', document.getElementById('jenis').value);
+            fd.append('class_name', document.getElementById('class_name').value);
+            
+            $.ajax({
+                url: '<?= base_url()?>/admin/tambahJadwal',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    console.log(response);
+                    alert('Perubahan sukses dilakukan');
+                    $('#modalTambahJadwal').hide();
+                    tutupModal();
+                },
+            });
     	}
     </script>
 </div>

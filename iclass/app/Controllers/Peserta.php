@@ -17,6 +17,7 @@ use App\Models\Rekaman_Model;
 use App\Models\HasilTryout_Model;
 use App\Models\Nilai_Model;
 use App\Models\Tingkatan_Model;
+use App\Models\UbahPaket_Model;
 
 class Peserta extends BaseController
 {
@@ -778,5 +779,39 @@ class Peserta extends BaseController
 		$banner->move('./img/banner/', session('username').'.jpg');
 
 		return "succes";
+	}
+
+	public function ubahPaket() {
+		if ((int)$this->request->getPost('kekuranganPembayaran') > 0) {
+			if (!empty($_POST['pilihanPaketBaru'])) {
+				if (!empty($this->request->getFile('buktiPembayaran'))) {
+					$data = [
+						'user' => session('username'),
+						'paketSaatIni' => $this->request->getPost('paketSaatIni'),
+						'pilihanPaketBaru' => $this->request->getPost('pilihanPaketBaru'),
+						'kekuranganPembayaran' => $this->request->getPost('kekuranganPembayaran'),
+						'buktiPembayaran' => $this->request->getFile('buktiPembayaran')->getName(),
+					];
+
+					$model = new UbahPaket_Model();
+					if (empty($model->where('user', session('username'))->first())) {
+						$model->save($data);
+					} else {
+						$model->where('user', session('username'))->set($data)->update();
+					}					
+
+					$bukti = $this->request->getFile('buktiPembayaran');
+					$bukti->move('./img/ubahpaket/', $bukti->getName(), true);
+
+					return json_encode(['status' => '1', 'pesan' => 'berhasil']);
+				} else {
+					return json_encode(['status' => '0', 'pesan' => 'Silahkan upload bukti pembayaran kekurangan terlebih dahulu']);
+				}
+			} else {
+				return json_encode(['status' => '0', 'pesan' => 'Silahkan pilih pilihan paket yang baru terlebih dahulu']);
+			}
+		} else {
+			return json_encode(['status' => '0', 'pesan' => 'Pilihan paket yang baru tidak diperbolehkan']);
+		}
 	}
 }

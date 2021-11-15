@@ -91,6 +91,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                 <span>Daftar Peserta</span></a>
         </li>
 
+        <li class="nav-item <?= ($active == 'ubah paket') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/ubahPaket">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Konfirmasi Ubah Paket Peserta</span></a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
