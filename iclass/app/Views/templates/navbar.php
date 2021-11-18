@@ -69,6 +69,7 @@
 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="<?= base_url(); ?>/peserta/profil/<?= session('username') ?>">Profil</a>
+										<a class="dropdown-item" href="<?= base_url(); ?>/peserta/edit">Edit Profil</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<?= base_url(); ?>/keluar">Keluar</a>
 									</div>

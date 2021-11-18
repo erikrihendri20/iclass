@@ -306,7 +306,7 @@
                 <?php } ?>
             </div>
             <div class="col-3 pr-0">
-                <div class="row justify-content-center align-content-start bg-white border border-20 shadow h-100 mx-0 p-3">
+                <div class="row justify-content-center align-content-start bg-white border border-20 shadow h-100 mx-0 p-3" style="overflow-y: auto;">
                     <h5 class="w-100" style="color: #12336D;">Online</h5>
                     <?php foreach ($others as $other) : ?>
                         <a href="https://wa.me/<?= $other['telepon'] ?>" class="d-flex aling-content-center bg-light rounded w-100 mb-2" style="height: 30px;">
@@ -528,7 +528,8 @@
                 function bangunChart() {
                     const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
                     nilai.forEach(n => {
-                        var d = {x: n.materi, value: n.nilai};
+                        <?php if (session('kode-paket')!='6') { ?>var d = {x: n.materi, value: n.nilai};
+                        <?php } else { ?>var d = {x: 'X', value: 25};<?php } ?>
                         data.push(d);
                     });
                     console.log(data);

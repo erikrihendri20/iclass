@@ -180,7 +180,7 @@
                     </div>
                 </div>
             </div>
-            <div id="div-paket" class="row mx-0 px5" style="display: none;">
+            <div id="div-paket" class="row mx-0" style="display: none;">
                 <div class="col-8">
                     <h2 class="font-weight-bold mb-3" style="color: #12336D;">Jenis Akun</h2>
                     <div class="row mx-0 px-3">
@@ -195,35 +195,35 @@
                         <div class="col-12 px-0">
                             <h4 class="font-weight-bold fs-18" style="color: #12336D;">Jenis Paket</h4>
                             <div class="row mx-0">
-                                <div class="col-4 mx-0 p-2">
-                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-2" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold w-100 px-3" style="color: #12336D;">Reguler</h5>
+                                <div class="col-4 mx-0 p-1">
+                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Reguler</h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 311@300x.png" alt="" class="" style="object-fit: contain; max-width: 80%;">
                                     </div>
                                 </div>
-                                <div class="col-4 mx-0 p-2">
-                                    <div class="row justify-content-center bg-warning shadow-sm h-100 mx-0 py-2" style="border-radius: 15px;">
-                                        <h5 class="font-weight-bold w-100 px-3" style="color: #12336D;">Premium</h5>
+                                <div class="col-4 mx-0 p-1">
+                                    <div class="row justify-content-center bg-warning shadow-sm h-100 mx-0 py-3" style="border-radius: 15px;">
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Premium</h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 310@300x.png" alt="" class="" style="object-fit: contain; max-width: 80%;">
                                     </div>
                                 </div>
-                                <div class="col-4 mx-0 p-2">
-                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-2" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold w-100 px-3" style="color: #12336D;">Premium+</h5>
+                                <div class="col-4 mx-0 p-1">
+                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Premium+</h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 309@300x.png" alt="" class="" style="object-fit: contain; max-width: 80%;">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mx-0">
-                                <div class="col-6 mx-0 p-2">
-                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-2" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold w-100 px-3" style="color: #12336D;">Intensif <small>(1 Semester)</small></h5>
+                                <div class="col-6 mx-0 p-1">
+                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif <small>(1 Semester)</small></h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 307@300x.png" alt="" class="" style="object-fit: contain; max-width: 60%;">
                                     </div>
                                 </div>
-                                <div class="col-6 mx-0 p-2">
-                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-2" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold w-100 px-3" style="color: #12336D;">Intensif <small>(1 Tahun)</small></h5>
+                                <div class="col-6 mx-0 p-1">
+                                    <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif <small>(1 Tahun)</small></h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 305@300x.png" alt="" class="" style="object-fit: contain; max-width: 60%;">
                                     </div>
                                 </div>
@@ -238,7 +238,7 @@
                 <img src="<?= base_url() ?>/img/Aset/Asset 295@300x.png" alt="" style="object-fit: contain; width: 60%;">
                 <div class="form-group" style="width: 80%;">
                     <label class="h6 text-white font-weight-bold fs-18" for="paketSaatIni">Paket Saat Ini</label>
-                    <input type="text" style="border-radius: 10px;" class="form-control form-control-sm font-weight-bold bg-white" id="paketSaatIni" name="paketSaatIni" value="<?php
+                    <input type="text" style="border-radius: 10px; cursor: default;" class="form-control form-control-sm font-weight-bold bg-white" id="paketSaatIni" name="paketSaatIni" value="<?php
                             switch ($user['kode_paket']) {
                                 case '1':
                                     echo "Reguler";
@@ -259,7 +259,7 @@
                                     echo "Try Out";
                                     break;
                             }
-                        ?>">
+                        ?>" readonly>
                 </div>
                 <div class="form-group" style="width: 80%;">
                     <label class="h6 text-white font-weight-bold fs-18" for="pilihanPaketBaru">Pilihan Paket Baru</label>
@@ -273,7 +273,8 @@
                 </div>
                 <div class="form-group" style="width: 80%;">
                     <label class="h6 text-white font-weight-bold fs-18" for="kekuranganPembayaran">Kekurangan Pembayaran</label>
-                    <input type="text" style="border-radius: 10px;" class="form-control form-control-sm font-weight-bold bg-white" id="kekuranganPembayaran" name="kekuranganPembayaran" value="0">
+                    <input type="text" style="border-radius: 10px; cursor: default;" class="form-control form-control-sm font-weight-bold bg-white"
+                        id="kekuranganPembayaran" name="kekuranganPembayaran" value="0" readonly>
                 </div>
                 <div class="form-group" style="width: 80%;">
                     <label class="h6 text-white font-weight-bold fs-18" for="buktiPembayaran">Upload Bukti Pembayaran</label>

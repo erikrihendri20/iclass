@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="row card-footer d-flex justify-content-center bg-white border shadow h-50 pt-4 mx-0" style="margin-top: -15px; border-radius: 0 0 20px 20px;">
-                                    <p class="card-text text-center fs-12" style="font-size: 14px;">Mengulas kembali materi matematika kelas 10 s.d 12 supaya lebih mantap dalam menghadapi USM POLSTAT STIS maupun UTBK</p>
+                                    <p class="card-text text-center fs-12" style="font-size: 18px;">Mengulas kembali materi matematika kelas 10 s.d 12 supaya lebih mantap dalam menghadapi USM POLSTAT STIS maupun UTBK</p>
                                     <a href="<?= base_url(); ?>/auth/daftar" class="btn btn-warning h6 font-weight-bold fs-12" style="border-radius: 10px;">Daftar Sekarang</a>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                                 <div class="row card-footer d-flex justify-content-center bg-white border shadow h-50 pt-4 mx-0" style="margin-top: -15px; border-radius: 0 0 20px 20px;">
-                                    <p class="card-text text-center fs-12" style="font-size: 14px;">Banyaknya materi kelas 11 membuatmu waswas? Persiapkan dirimu 1 tahun lebih awal dalam menghadapi ujian yang bertubi-tubi saat kelas 12</p>
+                                    <p class="card-text text-center fs-12" style="font-size: 18px;">Banyaknya materi kelas 11 membuatmu waswas? Persiapkan dirimu 1 tahun lebih awal dalam menghadapi ujian yang bertubi-tubi saat kelas 12</p>
                                     <a href="<?= base_url(); ?>/auth/daftar" class="btn btn-warning h6 font-weight-bold fs-12" style="border-radius: 10px;">Daftar Sekarang</a>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
                                 <div class="row card-footer d-flex justify-content-center bg-white border shadow h-50 pt-4 mx-0" style="margin-top: -15px; border-radius: 0 0 20px 20px;">
-                                    <p class="card-text text-center fs-12" style="font-size: 14px;">Perebutan kursi SNMPTN semakin sengit. Perbesar peluangmu untuk lolos SNMPTN dengan nilai report yang konsisten dari sekarang.</p>
+                                    <p class="card-text text-center fs-12" style="font-size: 18px;">Perebutan kursi SNMPTN semakin sengit. Perbesar peluangmu untuk lolos SNMPTN dengan nilai report yang konsisten dari sekarang.</p>
                                     <a href="<?= base_url(); ?>/auth/daftar" class="btn btn-warning h6 font-weight-bold fs-12" style="border-radius: 10px;">Daftar Sekarang</a>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="row card-footer d-flex justify-content-center bg-white border shadow h-50 pt-4 mx-0" style="margin-top: -15px; border-radius: 0 0 20px 20px;">
-                                    <p class="card-text text-center fs-12" style="font-size: 14px;">Kelas yang dibuat dengan metode pembelajaran khusus untuk kamu yang ingin fokus belajar dalam menghadapi USM Polstat STIS</p>
+                                    <p class="card-text text-center fs-12" style="font-size: 18px;">Kelas yang dibuat dengan metode pembelajaran khusus untuk kamu yang ingin fokus belajar dalam menghadapi USM Polstat STIS</p>
                                     <a href="<?= base_url(); ?>/auth/daftar" class="btn btn-warning h6 font-weight-bold fs-12" style="border-radius: 10px;">Daftar Sekarang</a>
                                 </div>
                             </div>
@@ -187,9 +187,9 @@
                                                 <img src="<?= base_url() ?>/img/Fas/1.png" alt="" class="position-relative w-100 py-4" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">100+ video pembelajaran</h5>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Video materi yang dapat diakses 24 jam dan disertai dengan contoh soal yang interaktif dapat membuat kamu tidak bosan untuk belajar mandiri</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">100+ video pembelajaran</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Video materi yang dapat diakses 24 jam dan disertai dengan contoh soal yang interaktif dapat membuat kamu tidak bosan untuk belajar mandiri</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -198,9 +198,9 @@
                                                 <img src="<?= base_url() ?>/img/8.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Kuis setiap hari</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Uji kemampuan melalui kuis yang diberikan. Kerjakan semaksimal mungkin tentunya agar dapat dilihat sejauh mana pemahaman kamu terhadap materi yang diberikan.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Kuis setiap hari</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Uji kemampuan melalui kuis yang diberikan. Kerjakan semaksimal mungkin tentunya agar dapat dilihat sejauh mana pemahaman kamu terhadap materi yang diberikan.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -210,9 +210,9 @@
                                                 <img src="<?= base_url() ?>/img/6.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Layanan konsultasi</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Ada pertanyaan tetapi tidak ada pertemuan zoom? Tenang, ada konsultasi via WhatsApp 24 jam. Konsultasi bebas mengenai materi, soal, maupun seputar Politeknik Statistika STIS.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Layanan konsultasi</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Ada pertanyaan tetapi tidak ada pertemuan zoom? Tenang, ada konsultasi via WhatsApp 24 jam. Konsultasi bebas mengenai materi, soal, maupun seputar Politeknik Statistika STIS.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -220,9 +220,9 @@
                                             <img src="<?= base_url() ?>/img/Background/Asset 31@300x.png" alt="" class="position-absolute w-100 h-100" style="top: 0; left: 0;">
                                             <img src="<?= base_url() ?>/img/7.png" alt="" class="position-relative w-100 my-1">
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">22+ mind mapping</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Pusing dengan materi matematika yang banyak? Tenang, disini ada mind mapping yang akan membuat materi menjadi ringkas. Tidak hanya materi tapi dilengkapi dengan contoh soal juga didalamnya.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">22+ mind mapping</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Pusing dengan materi matematika yang banyak? Tenang, disini ada mind mapping yang akan membuat materi menjadi ringkas. Tidak hanya materi tapi dilengkapi dengan contoh soal juga didalamnya.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -232,9 +232,9 @@
                                                 <img src="<?= base_url() ?>/img/Fasilitas/2.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Modul bimbel premium</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Modul ekslusif yang berisikan rangkuman materi dan ratusan latihan soal yang dapat meningkatkan pemahaman kalian. Modul ini juga berisi soal-soal Ujian Saringan Masuk (USM) Politeknik Statistika STIS dan prediksi untuk tahun selanjutnya.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Modul bimbel premium</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Modul ekslusif yang berisikan rangkuman materi dan ratusan latihan soal yang dapat meningkatkan pemahaman kalian. Modul ini juga berisi soal-soal Ujian Saringan Masuk (USM) Politeknik Statistika STIS dan prediksi untuk tahun selanjutnya.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -242,9 +242,9 @@
                                             <img src="<?= base_url() ?>/img/Background/Asset 31@300x.png" alt="" class="position-absolute w-100 h-100" style="top: 0; left: 0;">
                                             <img src="<?= base_url() ?>/img/Fasilitas/5.png" alt="" class="position-relative w-100 py-1">
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Pertemuan rutin tiap minggu</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Pertemuan interaktif langsung dengan pengajar melalui zoom untuk membahas materi lebih dalam dan sesi tanya jawab.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Pertemuan rutin tiap minggu</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Pertemuan interaktif langsung dengan pengajar melalui zoom untuk membahas materi lebih dalam dan sesi tanya jawab.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -253,9 +253,9 @@
                                                 <img src="<?= base_url() ?>/img/Fasilitas/4.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Diajarin oleh ahlinya</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Tutor di iClass langsung mengambil mahasiswa Politeknik Statistika STIS yang tentunya sudah ahli dibidang matematika dan berpengalaman dalam menghadapi USM Politeknik Statistika STIS.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Diajarin oleh ahlinya</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Tutor di iClass langsung mengambil mahasiswa Politeknik Statistika STIS yang tentunya sudah ahli dibidang matematika dan berpengalaman dalam menghadapi USM Politeknik Statistika STIS.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -263,9 +263,9 @@
                                             <img src="<?= base_url() ?>/img/Background/Asset 32@300x.png" alt="" class="position-absolute w-100 h-100" style="top: 0; left: 0;">
                                             <img src="<?= base_url() ?>/img/Fasilitas/10.png" alt="" class="position-relative w-100 py-3">
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Try out gratis</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Try Out gratis setiap bulan dapat memperkaya pemahaman materi kamu dan membuat terbiasa dalam menghadapi soal.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Try out gratis</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Try Out gratis setiap bulan dapat memperkaya pemahaman materi kamu dan membuat terbiasa dalam menghadapi soal.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -274,9 +274,9 @@
                                                 <img src="<?= base_url() ?>/img/Fasilitas/6.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Sharing session</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Kamu akan mendapatkan tips dan triks jitu untuk menghadapi USM Polstat STIS dari mahasiswanya langsung. Tak hanya itu, kamu juga dapat bertanya mengenai sistem perekonomian dan hal lainnya seputar Polstat STIS.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Sharing session</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Kamu akan mendapatkan tips dan triks jitu untuk menghadapi USM Polstat STIS dari mahasiswanya langsung. Tak hanya itu, kamu juga dapat bertanya mengenai sistem perekonomian dan hal lainnya seputar Polstat STIS.</h4>
                                         </div>
                                     </div>
                                     <div class="row mx-0 my-4" style="height: 172px;">
@@ -286,9 +286,9 @@
                                                 <img src="<?= base_url() ?>/img/Fasilitas/8.png" alt="" class="position-relative w-100" style="object-fit: contain;">
                                             </div>
                                         </div>
-                                        <div class="row align-content-center w-75 h-100 px5">
-                                            <h5 class="text-white font-weight-bold">Laporan progress belajar bulanan</h4>
-                                            <h5 class="text-white fs-12" style="font-size: 14px;">Laporan ini memberikan informasi seberapa besar pemahaman kalian pada setiap subbab materi yang diberikan. Pada laporan ini juga terlihat subbab apa yang perlu dipelahari ulang agar lebih paham.</h5>
+                                        <div class="row align-content-start w-75 h-100 px5">
+                                            <h4 class="text-white font-weight-bold">Laporan progress belajar bulanan</h4>
+                                            <h4 class="text-white fs-12" style="font-size: 18px;">Laporan ini memberikan informasi seberapa besar pemahaman kalian pada setiap subbab materi yang diberikan. Pada laporan ini juga terlihat subbab apa yang perlu dipelahari ulang agar lebih paham.</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +323,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row justify-content-center mx-0 mt5">
-                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
+                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px; min-height: 145px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
                                                     <h5 class="card-subtitle font-weight-bold text-center w-100 mt5 mb-2 subjudul" style="color: #12336D;"><?= $testi[$i]['nama'] ?></h5>
                                                     <p class="card-text text-center w-100 fs-12 mb-0" style="color: #12336D; font-size: 14px;">Alumni iClass</p>
                                                     <p class="card-text text-center w-100 fs-12" style="color: #12336D; font-size: 14px;">(diterima di Polstat STIS angkatan <?= $testi[$i]['angkatan'] ?>)</p>
@@ -343,28 +343,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row justify-content-center mx-0 mt5">
-                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
-                                                    <h5 class="card-subtitle font-weight-bold text-center w-100 mt5 mb-2 subjudul" style="color: #12336D;"><?= $testi[$i]['nama'] ?></h5>
-                                                    <p class="card-text text-center w-100 fs-12 mb-0" style="color: #12336D; font-size: 14px;">Alumni iClass</p>
-                                                    <p class="card-text text-center w-100 fs-12" style="color: #12336D; font-size: 14px;">(diterima di Polstat STIS angkatan <?= $testi[$i]['angkatan'] ?>)</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                    <?php if (!empty($testi[$i+1])) { $i+=1; ?>
-                                    <div class="w-25 px-2 testi-items">
-                                        <div class="card border-20 h-100">
-                                            <div class="card-body">
-                                                <div class="row justify-content-center mx-0">
-                                                    <div class="w-50 mx-auto px-0">
-                                                        <div class="bg-primary position-relative rounded-circle w-100">
-                                                            <img src="<?= base_url() ?>/img/Aset/testi/<?= $i+1 ?>.png" alt="" class="rounded-circle w-100">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row justify-content-center mx-0 mt5">
-                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
+                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px; min-height: 145px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
                                                     <h5 class="card-subtitle font-weight-bold text-center w-100 mt5 mb-2 subjudul" style="color: #12336D;"><?= $testi[$i]['nama'] ?></h5>
                                                     <p class="card-text text-center w-100 fs-12 mb-0" style="color: #12336D; font-size: 14px;">Alumni iClass</p>
                                                     <p class="card-text text-center w-100 fs-12" style="color: #12336D; font-size: 14px;">(diterima di Polstat STIS angkatan <?= $testi[$i]['angkatan'] ?>)</p>
@@ -385,7 +364,28 @@
                                                     </div>
                                                 </div>
                                                 <div class="row justify-content-center mx-0 mt5">
-                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
+                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px; min-height: 145px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
+                                                    <h5 class="card-subtitle font-weight-bold text-center w-100 mt5 mb-2 subjudul" style="color: #12336D;"><?= $testi[$i]['nama'] ?></h5>
+                                                    <p class="card-text text-center w-100 fs-12 mb-0" style="color: #12336D; font-size: 14px;">Alumni iClass</p>
+                                                    <p class="card-text text-center w-100 fs-12" style="color: #12336D; font-size: 14px;">(diterima di Polstat STIS angkatan <?= $testi[$i]['angkatan'] ?>)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                    <?php if (!empty($testi[$i+1])) { $i+=1; ?>
+                                    <div class="w-25 px-2 testi-items">
+                                        <div class="card border-20 h-100">
+                                            <div class="card-body">
+                                                <div class="row justify-content-center mx-0">
+                                                    <div class="w-50 mx-auto px-0">
+                                                        <div class="bg-primary position-relative rounded-circle w-100">
+                                                            <img src="<?= base_url() ?>/img/Aset/testi/<?= $i+1 ?>.png" alt="" class="rounded-circle w-100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-center mx-0 mt5">
+                                                    <p class="text-center mb-0 fs-12" style="color: #12336D; font-size: 14px; min-height: 145px;"><i>"<?= $testi[$i]['testi'] ?>"</i></p>
                                                     <h5 class="card-subtitle font-weight-bold text-center w-100 mt5 mb-2 subjudul" style="color: #12336D;"><?= $testi[$i]['nama'] ?></h5>
                                                     <p class="card-text text-center w-100 fs-12 mb-0" style="color: #12336D; font-size: 14px;">Alumni iClass</p>
                                                     <p class="card-text text-center w-100 fs-12" style="color: #12336D; font-size: 14px;">(diterima di Polstat STIS angkatan <?= $testi[$i]['angkatan'] ?>)</p>

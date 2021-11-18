@@ -73,14 +73,7 @@ class Auth extends BaseController
                         $model = new Notifikasi_model();
                         $notifikasi = $model->where('username', $data['username'])->first();
 
-                        if (empty($notifikasi)) {
-                            $flash = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                anda berhasil masuk:D
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>';
-                        } else {
+                        if (!empty($notifikasi)) {
                             $flash = "<script>Swal.fire({icon: 'warning', title: '', text: '".$notifikasi['pesan']."'});</script>";
                             $model->where('username', $notifikasi['username'])->delete();
                         }

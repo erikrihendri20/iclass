@@ -82,37 +82,41 @@ class Peserta extends BaseController
 		$data['meetingDate'] = (!empty($meetingDate)) ? $meetingDate[0] : null;
 		$data['jadwalTo'] = (!empty($jadwalTo)) ? $jadwalTo : null;
 
-		$nilai = $db->table('nilai')->where('username', session('username'))->like('bulan', date('Y-m'))->get()->getResultArray();
-		$nilai = !empty($nilai) ? $nilai[0] : 0;
+		$nilai = $db->table('nilai')->where('username', session('username'))->get()->getResultArray();
 		$submateri = $db->table('submateri')->get()->getResultArray();
 
 		$materi = [];
-		$j=0; $k=0;
-		for ($i=0; $i<sizeof($submateri); $i++) {
-			if (!empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
-				$submateri[$i]['nilai'] = empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
-				if ($i==0) {
-					$materi[$j]['materi']=$submateri[$i]['materi'];
-					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
-					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
-						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
-					} else {
-						$j++;
-						$materi[$j]['materi']=$submateri[$i]['materi'];
-						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-					}
-				} else {
-					$j++;
-					$materi[$j]['materi']=$submateri[$i]['materi'];
-					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-				}
-				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
-			}
+		foreach ($nilai as $n) {
+		    $j=0; $k=0;
+    		for ($i=0; $i<sizeof($submateri); $i++) {
+    		    if (empty($materi[$j]['nilai'])) {
+    		        $materi[$j]['nilai']=0;
+    		    }
+    			if (!empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
+    				$submateri[$i]['nilai'] = empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
+    				if ($i==0) {
+    					$materi[$j]['materi']=$submateri[$i]['materi'];
+    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
+    					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
+    						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
+    					} else {
+    						$j++;
+    						$materi[$j]['materi']=$submateri[$i]['materi'];
+    						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					}
+    				} else {
+    					$j++;
+    					$materi[$j]['materi']=$submateri[$i]['materi'];
+    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    				}
+    				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
+    			}
+    		}
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
@@ -215,7 +219,7 @@ class Peserta extends BaseController
 	public function editProfPic()
 	{
 		$profpic = $this->request->getFile('profpic');
-		$profpic->move('./img/profil/', session('username').'.jpg');
+		$profpic->move('./img/profil/', session('username').'.jpg', true);
 
 		session()->setFlashdata('flash', 'sukses');
 		return redirect()->to(base_url('peserta/profil'));
@@ -776,11 +780,11 @@ class Peserta extends BaseController
 	
 	public function simpanBanner() {
 		$banner = $this->request->getFile('imgbanner');
-		$banner->move('./img/banner/', session('username').'.jpg');
+		$banner->move('./img/banner/', session('username').'.jpg', true);
 
 		return "succes";
 	}
-
+	
 	public function ubahPaket() {
 		if ((int)$this->request->getPost('kekuranganPembayaran') > 0) {
 			if (!empty($_POST['pilihanPaketBaru'])) {

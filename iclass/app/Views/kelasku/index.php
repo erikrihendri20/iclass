@@ -288,6 +288,7 @@
             <div class="row shadow h-100 mh-100 mx-0 p-3" style="min-height: 425px; max-height: 450px; position: relative; background-image: linear-gradient(180deg, #0091e6, #005ccb); border-radius: 0 15px 15px 15px;">
                 <div class="col-12 px-0" style="max-height: 425px; overflow-y: auto;">
                     <?php if (!empty($kuisHarian)) {
+                        $j=sizeof($kuisHarian);
                         for ($i=0; $i<sizeof($kuisHarian); $i++) { ?>
                             <div class="row mx-0 mt-2">
                                 <div class="col-4 bg-white px-0" style="border-radius: 15px;">
@@ -295,7 +296,7 @@
                                 </div>
                                 <div class="col-8">
                                     <h6 class="bg-warning text-center font-weight-bold rounded w-75 py-1" style="color: #12336D;"><?php echo date('d F Y', strtotime($kuisHarian[$i]['start_event'])) ?></h6>
-                                    <h5 class="text-white font-weight-bold">Pertemuan <?= $i+1 ?></h5>
+                                    <h5 class="text-white font-weight-bold">Kuis <?php echo $j; $j--; ?></h5>
                                     <h6 class="text-white"><?= $kuisHarian[$i]['title'] ?></h6>
                                     <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn btn-light text-white font-weight-bold border-0 rounded py-1" 
                                         style="font-size: 12px; background-color: #12336D;<?php if (substr($kuisHarian[$i]['start_event'],0,10)>date('Y-m-d')) echo " visibility: hidden;"; ?>">
@@ -427,45 +428,48 @@
             $('#modalMindMap').modal('hide');
         }
 
-        function bangunChart() {
-            const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
-            var data = [];
-            nilai.forEach(n => {
-                var d = {x: n.materi, value: n.nilai};
-                data.push(d);
+        <?php if (!empty($nilai)) { ?>
+            console.log('<?php echo json_encode($nilai); ?>');
+            function bangunChart() {
+                const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
+                var data = [];
+                nilai.forEach(n => {
+                    var d = {x: n.materi, value: n.nilai};
+                    data.push(d);
+                });
+    
+                var chart = anychart.pie();
+                chart.data(data);
+                chart.innerRadius('40%');
+                chart.container('pemahamanmu');
+                chart.labels().position("inside");
+                chart.insideLabelsOffset("-75%");
+                chart.draw();
+    
+                warnaChart();
+            }
+    
+            bangunChart();
+    
+            document.getElementById('pemahamanmu').addEventListener('mouseover', function() {
+                warnaChart();
             });
-
-            var chart = anychart.pie();
-            chart.data(data);
-            chart.innerRadius('40%');
-            chart.container('pemahamanmu');
-            chart.labels().position("inside");
-            chart.insideLabelsOffset("-75%");
-            chart.draw();
-
-            warnaChart();
-        }
-
-        bangunChart();
-
-        document.getElementById('pemahamanmu').addEventListener('mouseover', function() {
-            warnaChart();
-        });
-
-        document.getElementById('pemahamanmu').addEventListener('mouseleave', function() {
-            warnaChart();
-        });
-
-        function warnaChart() {
-            document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
-        }
-
-        function setChart(id, color) {
-            var chart = document.getElementById(id);
-            chart.setAttribute('fill', color);
-            chart.setAttribute('class', 'shadow');
-            chart.setAttribute('style', 'border: 5px solid white; cursor: pointer;');
-        }
+    
+            document.getElementById('pemahamanmu').addEventListener('mouseleave', function() {
+                warnaChart();
+            });
+    
+            function warnaChart() {
+                document.getElementsByClassName('anychart-credits')[0].setAttribute('style', 'display: none;');
+            }
+    
+            function setChart(id, color) {
+                var chart = document.getElementById(id);
+                chart.setAttribute('fill', color);
+                chart.setAttribute('class', 'shadow');
+                chart.setAttribute('style', 'border: 5px solid white; cursor: pointer;');
+            }
+        <?php } ?>
         
         function hanyaTryout() {
             Swal.fire({icon: 'error', title: '', text: 'Fitur ini tidak tersedia untuk pilihan paketmu'});

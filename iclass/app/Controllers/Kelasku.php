@@ -75,37 +75,41 @@ class Kelasku extends BaseController
             'materis'   => ($user['jurusan']=='intensif') ? $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->get()->getResultArray() : $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->like('kelas', $user['jurusan'])->get()->getResultArray(),
         ];
         
-        $nilai = $db->table('nilai')->where('username', session('username'))->like('bulan', date('Y-m'))->get()->getResultArray();
-		$nilai = !empty($nilai) ? $nilai[0] : 0;
+        $nilai = $db->table('nilai')->where('username', session('username'))->get()->getResultArray();
 		$submateri = $db->table('submateri')->get()->getResultArray();
 
 		$materi = [];
-		$j=0; $k=0;
-		for ($i=0; $i<sizeof($submateri); $i++) {
-			if (!empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
-				$submateri[$i]['nilai'] = empty($nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$nilai[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
-				if ($i==0) {
-					$materi[$j]['materi']=$submateri[$i]['materi'];
-					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
-					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
-						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
-					} else {
-                        $j++;
-						$materi[$j]['materi']=$submateri[$i]['materi'];
-						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-					}
-				} else {
-					$j++;
-					$materi[$j]['materi']=$submateri[$i]['materi'];
-					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
-				}
-				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
-			}
+		foreach ($nilai as $n) {
+		    $j=0; $k=0;
+    		for ($i=0; $i<sizeof($submateri); $i++) {
+    		    if (empty($materi[$j]['nilai'])) {
+    		        $materi[$j]['nilai']=0;
+    		    }
+    			if (!empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])])) {
+    				$submateri[$i]['nilai'] = empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
+    				if ($i==0) {
+    					$materi[$j]['materi']=$submateri[$i]['materi'];
+    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
+    					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
+    						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
+    					} else {
+    						$j++;
+    						$materi[$j]['materi']=$submateri[$i]['materi'];
+    						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					}
+    				} else {
+    					$j++;
+    					$materi[$j]['materi']=$submateri[$i]['materi'];
+    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    				}
+    				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
+    			}
+    		}
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
@@ -216,6 +220,7 @@ class Kelasku extends BaseController
 
         echo json_encode($data);
     }
+    
     public function kuis($id, $pertemuan)
     {
         if ($id=='none') {
@@ -536,14 +541,14 @@ class Kelasku extends BaseController
         $db = \Config\Database::connect();
         $model = new HasilKuis_Model();
         $kuis = $model->where('kuis', $id)->first();
-        $hasil = $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('username', session('username'))->get()->getResultArray();
+        $hasil = $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('hasil_kuis.username', session('username'))->where('hasil_kuis.kuis', $id)->get()->getResultArray();
         if (!empty($hasil)) {
             $hasil = $hasil[0];
         } else {
             return redirect()->to(base_url().'/kelasku');
         }
         $data = [
-            'kuis' => $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('username', session('username'))->get()->getResultArray()[0],
+            'kuis' => $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('username', session('username'))->where('hasil_kuis.kuis', $id)->get()->getResultArray()[0],
             'persentase' => $kuis['benar']*10,
             'title' => 'Hasil Kuis',
             'active' => 'kelasku',

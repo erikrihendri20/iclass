@@ -131,16 +131,22 @@
         </div>
         <div class="col-5 bg-primary h-100 px-5 py-5" style="border-radius: 0 20px 20px 0;">
             <div class="row justify-content-center h-75 mx-0">
-                <div id="carouselExampleSlidesOnly" class="carousel slide w-75" data-ride="carousel" data-interval="10000">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" style="width: 85%;" data-ride="carousel" data-interval="3000">
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item h-100 active">
+                            <div class="row align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" style="object-fit: contain; width: 90%">
+                            </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="<?= base_url() ?>/img/Aset/Asset 44@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                        <div class="carousel-item h-100">
+                            <div class="row align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 44@300x.png" alt="" style="object-fit: contain; width: 100%">
+                            </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="<?= base_url() ?>/img/Aset/cHUVrf.tif@300x.png" alt="" class="w-100" style="object-fit: contain;">
+                        <div class="carousel-item h-100">
+                            <div class="row align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/cHUVrf.tif@300x.png" alt="" style="object-fit: contain; width: 90%">
+                            </div>
                         </div>
                     </div>
                 </div>
