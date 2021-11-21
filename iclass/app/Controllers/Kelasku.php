@@ -72,8 +72,19 @@ class Kelasku extends BaseController
             'kuisHarian' => $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('jenis', '3')->orderBy('start_event', 'desc')->findAll(),
             'catatan'	=> $catatan->where('user', session('username'))->first(),
             'quote'		=> $quotes[array_rand($quotes)]['quote'],
-            'materis'   => ($user['jurusan']=='intensif') ? $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->get()->getResultArray() : $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->like('kelas', $user['jurusan'])->get()->getResultArray(),
+            'materis'   => ($user['jurusan']=='intensif' || $user['jurusan']=='tryout') ? $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->get()->getResultArray() : $db->table('mindmap')->join('materi', 'materi.materi=mindmap.materi', 'right')->like('kelas', $user['jurusan'])->get()->getResultArray(),
         ];
+        
+        $materi = $db->table('materi')->get()->getResultArray();
+        foreach ($materi as $m) {
+            $j=1;
+            for ($i=sizeof($data['kuisHarian'])-1; $i>=0; $i--) {
+                if ($data['kuisHarian'][$i]['title']==$m['materi']) {
+                    $data['kuisHarian'][$i]['title']=$data['kuisHarian'][$i]['title']." ".$j;
+                    $j++;
+                }  
+            }
+        }
         
         $nilai = $db->table('nilai')->where('username', session('username'))->get()->getResultArray();
 		$submateri = $db->table('submateri')->get()->getResultArray();

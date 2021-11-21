@@ -380,7 +380,7 @@ class Peserta extends BaseController
 		$db = \Config\Database::connect();
 		$user = $db->table('users')->where('username', session('username'))->get()->getResultArray()[0];
 
-		if ($user['jurusan'] == 'intensif') {
+		if ($user['jurusan'] == 'intensif' || $user['jurusan'] == 'tryout') {
 			$data = [
 				'materi' => $db->table('materi')->like('materi', $cari)->get()->getResultArray(),
 				'mindmap' => $db->table('mindmap')->like('materi', $cari)->get()->getResultArray(),

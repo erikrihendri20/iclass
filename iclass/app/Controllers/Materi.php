@@ -19,10 +19,10 @@ class Materi extends BaseController
 
 		$kelas = $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'];
 
-		if (session('jurusan') != 'intensif') {
-			$data['materis'] = $model->like('kelas', session('jurusan'))->findAll();
-		} else {
+		if (session('jurusan')=='intensif' || session('jurusan')=='tryout') {
 			$data['materis'] = $model->findAll();
+		} else {
+		    $data['materis'] = $model->like('kelas', session('jurusan'))->findAll();
 		}
 
 		$data['materiPilihan'] = $data['materis'][0];

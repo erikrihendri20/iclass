@@ -235,7 +235,7 @@
                                                             ?>
                                                         </a>
                                                         <?php if ((date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['end_event']))<=date('Y-m-d G:i:s'))) { ?>
-                                                            <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-sm text-white font-weight-bold rounded mb-0 px-2 py-1">Nilai Try Out</a>
+                                                            <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-sm text-white font-weight-bold rounded ml-1 mb-0 px-2 py-1" style="font-size: 12px; background-color: #12336D;">Nilai Try Out</a>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -434,7 +434,11 @@
                 const nilai = <?php echo !empty($nilai) ? json_encode($nilai).';' : '[];'; ?>
                 var data = [];
                 nilai.forEach(n => {
-                    var d = {x: n.materi, value: n.nilai};
+                    <?php if (session('kode-paket')!='6') { ?>
+                        var d = {x: n.materi, value: n.nilai};
+                    <?php } else { ?>
+                        var d = {x: 'X', value: 25};
+                    <?php } ?>
                     data.push(d);
                 });
     

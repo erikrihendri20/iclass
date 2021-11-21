@@ -28,7 +28,27 @@
             </div>
         </div>
         <div class="col-5 d-flex justify-content-center align-self-center bg-primary h-100 px-5" style="border-radius: 0 20px 20px 0;">
-            <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" class="w-100 mx-3" style="object-fit: contain;">
+            <div class="row justify-content-center mx-0">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" style="width: 100%;" data-ride="carousel" data-interval="3000">
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item h-100 active">
+                            <div class="row justify-content-center align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" style="object-fit: contain; width: 90%">
+                            </div>
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="row justify-content-center align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/Asset 44@300x.png" alt="" style="object-fit: contain; width: 100%">
+                            </div>
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="row justify-content-center align-items-center h-100">
+                                <img src="<?= base_url() ?>/img/Aset/cHUVrf.tif@300x.png" alt="" style="object-fit: contain; width: 90%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
