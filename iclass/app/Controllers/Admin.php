@@ -383,9 +383,9 @@ class Admin extends BaseController
                 $model = new Rekaman_Model();
                 $model->insert($data1);
                 
-                $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4");
-                $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}");
-                $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}");
+                $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4", true);
+                $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}", true);
+                $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}", true);
             
                 $data2['judul'] = 'Upload Berhasil!';
                 $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
@@ -457,23 +457,32 @@ class Admin extends BaseController
         $part = str_replace("_", " ", $part);
         
         $model = new Rekaman_Model();
-
-        $parts = $model->where('admin', $admin)->where('materi', $materi)->first()['parts'];
-
+        $rekaman = $model->where('admin', $admin)->where('materi', $materi)->first();
+        $parts = $rekaman['parts'];
+        
         $hapus = strpos($parts, ',');
         if ($hapus == false ) {
             $model->where('admin', $admin)->where('materi', $materi)->delete();
+            
+            $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
+            unlink($file);
+            
+            $file = "./img/Rekaman Kelas/{$admin}/{$materi}.{$rekaman['ext_tn']}";
+            unlink($file);
+            
+            $file = "./ppt/Rekaman Kelas/{$admin}/{$materi}.{$rekaman['ext_ppt']}";
+            unlink($file);
+            
             return $part;
         } else {
-            if ($hapus == 0) {
+            if (strpos($parts, $part) == 0) {
                 $parts = substr($parts, 2);
             } else {
                 $parts = str_replace(','.$part, '', $parts);
             }
+            $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
+            unlink($file);
         }
-        return $materi;
-        $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
-        unlink($file);
 
         $model->where('admin', $admin)
             ->where('materi', $materi)
@@ -481,7 +490,7 @@ class Admin extends BaseController
             ->update();
         
         if ($parts == $model->where('admin', $admin)->where('materi', $materi)->first()['parts']) {
-            return $part;
+            return $materi;
         } else {
             return "gagal";
         }
@@ -2007,8 +2016,7 @@ class Admin extends BaseController
                 </div>';
     }
 
-    public function tolakPembayaran($id)
-    {
+    public function tolakPembayaran($id) {
         $model = new Users_model();
         
         $bukti = $model->where('id', $id)->first()['bukti_pembayaran'];
@@ -2021,7 +2029,7 @@ class Admin extends BaseController
             return '0';
         }
     }
-
+    
     public function tampilkanUbahPaket()
     {
         $db = \Config\Database::connect();
@@ -2052,7 +2060,7 @@ class Admin extends BaseController
         unlink('./img/ubahpaket/'.$ubahpaket['buktiPembayaran']);
 
         $model = new Notifikasi_Model();
-        $model->save(['username' => $username, 'pesan' => 'Selamat, pengajuan ubah paketmu disetujui.']);
+        $model->save(['username' => $user['username'], 'pesan' => 'Selamat, pengajuan ubah paketmu disetujui.']);
 
         if (($user['kode_paket'] == $kode) && (empty($model->where('user', $user['username'])->first()))) {
             return '1';

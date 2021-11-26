@@ -14,7 +14,7 @@
         $no = 1;
         $i = 1;
         foreach ($rekamans as $rekaman) : ?>
-            <tr class="col-1">
+            <tr class="col-1" id="tr<?php echo $rekaman['admin'].$rekaman['materi']; ?>">
                 <td class="col-1"><?= $no; ?></td>
                 <td><?= $rekaman['materi']; ?></td>
                 <td>

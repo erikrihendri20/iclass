@@ -22,8 +22,8 @@
     <?php if (isset($css)) : ?>
         <link rel="stylesheet" href="<?= base_url(); ?>/css/<?= $css; ?>">
     <?php endif; ?>
-
     <link rel="icon" href="<?=base_url()?>/img/LOGO.jpg" type="image/x-icon"/>
+
     <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
@@ -282,7 +282,7 @@
             });
             
         </script>
-    <?php elseif ($active == 'rekaman'): ?>
+    <?php elseif ($active == 'rekaman') : ?>
         <script>
             function tampilkanRekaman() {
                 $.get(
@@ -578,7 +578,11 @@
                         if (result == "gagal") {
                             swal("", "Part gagal dihapus", "error");
                         } else {
-                            document.getElementById(admin+materi+part).style.display='none';
+                            if (result == materi) {
+                                document.getElementById(admin+materi+part).style.display='none';
+                            } else if (result == part) {
+                                document.getElementById('tr'+admin+materi).style.display='none';
+                            }
                             swal("", "Part berhasil dihapus", 'success');
                         }
                     }
