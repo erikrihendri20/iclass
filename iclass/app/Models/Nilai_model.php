@@ -29,7 +29,11 @@ class Nilai_Model extends Model
         'Konsep_SPLTV', 'Penyelesaian_SPLTV_Metode_Subtitusi', 'Penyelesaian_SPLTV_Metode_Eliminasi', 'Penyelesaian_SPLTV_Metode_Subtitusi-Eliminasi',
         'Penyelesaian_SPLTV_Metode_Determinan_Matriks', 'Aplikasi_SPLTV', 'Konsep_SPLDV', 'Nilai_Optimum_Fungsi_Objektif', 'Aplikasi_SPLDV',
         'Rumus_Penjumlahan_dan_Pengurangan_Cos', 'Rumus_Penjumlahan_dan_Pengurangan_Sin', 'Rumus_Penjumlahan_dan_Pengurangan_Tangen',
-        'Luas_Segitiga_dan_Hubungan_Fungsi_Sin_dan_Cos', 'Rumus_Jumlah_dan_Selisih_Trigonometri', 'bulan',
+        'Luas_Segitiga_dan_Hubungan_Fungsi_Sin_dan_Cos', 'Rumus_Jumlah_dan_Selisih_Trigonometri', 'Konsep_Skalar_dan_Vektor', 
+        'Vektor_di_R2', 'Vektor_di_R3', 'Perbandingan_Vektor_dan_Koordinat', 'Hasil_Kali_Skalar_Dua_Vektor', 'Sudut_Antara_Dua_Vektor', 
+        'Proyeksi_Vektor', 'Kejadian_Saling_Bebas', 'Kejadian_Saling_Lepas', 'Peluang_Kejadian_Bersyarat', 'Konsep_Variabel_Acak',
+        'Konsep_dan_Sifat_Distribusi_Binomial', 'Uji_Hipotesis_dengan_Distribusi_Binomial', 'Masalah_Berkaitan_dengan_Distribusi_Binomial',
+        'Variabel_Acak_Kontinu', 'Peluang_Distribusi_Normal', 'Uji_Hipotesis_Distribusi_Normal', 'bulan',
     ];
 
     protected $returnType     = 'array';

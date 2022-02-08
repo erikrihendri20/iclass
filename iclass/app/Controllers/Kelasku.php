@@ -35,7 +35,7 @@ class Kelasku extends BaseController
 			case '2': $pertemuan=8; break;
 			case '3': $pertemuan=12; break;
 			case '4': $pertemuan=27; break;
-			case '5': $pertemuan=60; break;
+			case '5': $pertemuan=36; break;
             case '6': $pertemuan=0; break;
 		}
 
@@ -560,9 +560,9 @@ class Kelasku extends BaseController
         }
         $data = [
             'kuis' => $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('username', session('username'))->where('hasil_kuis.kuis', $id)->get()->getResultArray()[0],
-            'persentase' => $kuis['benar']*10,
             'title' => 'Hasil Kuis',
             'active' => 'kelasku',
+            'persentase' => (int)$hasil['benar']/10*100,
             'css' => 'kelasku/kuis.css'
         ];
         
@@ -598,6 +598,7 @@ class Kelasku extends BaseController
             $data = [
                 'css'       => 'kelasku/kuis.css',
                 'file'      => $file,
+                'title'     => 'Kelasku',
                 'active'    => 'kelasku',
             ];
             return view('kelasku/viewer_pdf', $data);
@@ -605,6 +606,9 @@ class Kelasku extends BaseController
             if (session('kode-kelas') == '0') {
                 session()->setFlashdata('flash', '<script>Swal.fire({icon: "error", title: "", text: "Maaf, file tersebut belum tersedia."});</script>');
                 return redirect()->to(base_url().'/kelasku');
+            } else {
+                session()->setFlashdata('flash', '<script>Swal.fire({icon: "error", title: "", text: "Maaf, file tersebut belum tersedia."});</script>');
+                return redirect()->to(base_url().'/peserta');
             }
         }
     }

@@ -165,8 +165,8 @@
 
             var kelas = this.value;
             if (kelas == 'intensif') {
-                paket.innerHTML=`<option class="fs-16" value="4" selected>1 Semester</option>
-                                <option class="fs-16" value="5">1 Tahun</option>`;
+                paket.innerHTML=`<option class="fs-16" value="4" selected>Intensif</option>
+                                <option class="fs-16" value="5">Intensif+</option>`;
             } else if (kelas == 'tryout') {
                 paket.innerHTML=`<option class="fs-16" value="6" selected>Tryout</option>`;
             } else {

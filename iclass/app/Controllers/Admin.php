@@ -24,16 +24,20 @@ class Admin extends BaseController
 {
     public function index()
     {
-        $user_model = new Users_Model();
-        $data['peserta'] = $user_model->jumlahPesertaByStatus();
-        $data['belumMembayar'] = $user_model->jumlahPesertaByStatus(0);
-        $data['sudahMembayar'] = $user_model->jumlahPesertaByStatus(1);
-        $data['sudahDikonfirmasi'] = $user_model->jumlahPesertaByStatus(2);
-        
-        $data['pesertaTidakAktif'] = $user_model->pesertaTidakAktif();
-        $data['active'] = 'dashboard';
-        $data['title'] = 'Dashboard Admin';
-        return view('admin/index', $data);
+        if (session('role')!='3') {
+            $user_model = new Users_Model();
+            $data['peserta'] = $user_model->jumlahPesertaByStatus();
+            $data['belumMembayar'] = $user_model->jumlahPesertaByStatus(0);
+            $data['sudahMembayar'] = $user_model->jumlahPesertaByStatus(1);
+            $data['sudahDikonfirmasi'] = $user_model->jumlahPesertaByStatus(2);
+            
+            $data['pesertaTidakAktif'] = $user_model->pesertaTidakAktif();
+            $data['active'] = 'dashboard';
+            $data['title'] = 'Dashboard Admin';
+            return view('admin/index', $data);
+        } else {
+            return redirect()->to('/admin/aturJadwalTryout');
+        }
     }
 
     public function aturJadwalPertemuan()
@@ -65,7 +69,7 @@ class Admin extends BaseController
                 $cls = $model->getByid($kls);
                 if ($j==0) {
                     $kelas = $cls[0]['nama'];
-                } else {
+                } elseif (!empty($cls[0])) {
                     $kelas = $kelas.','.$cls[0]['nama'];
                 }
                 $j++;
@@ -406,6 +410,7 @@ class Admin extends BaseController
         if (!empty($this->request->getPost())) {
             $data['part'] = $this->request->getPost('part');
             $data['rekaman'] = $this->request->getFile('rekaman');
+            $data['ppt'] = $this->request->getFile('ppt');
 
             $admin = $this->request->getPost('admin');
             $materi = $this->request->getPost('materi');
@@ -427,6 +432,14 @@ class Admin extends BaseController
                         'ext_in' => 'Pilih file dengan format Mp4',
                         'max_size' => 'Ukuran file video tidak boleh melebihi 100 Mb'
                     ]
+                ],
+                'ppt' => [
+                    'label' => 'Ppt',
+                    'rules' => 'uploaded[ppt]|ext_in[ppt,pptx,pdf]',
+                    'errors' => [
+                        'uploaded' => 'Silahkan pilih ppt rekaman kelas',
+                        'ext_in' => 'Pilih file dengan format Pptx/Pdf'
+                    ]
                 ]
             ];
 
@@ -434,7 +447,8 @@ class Admin extends BaseController
                 $model = new Rekaman_Model();
                 $model->where('admin', $admin)->where('materi', $materi)->set('parts', $parts.','.$data['part'])->update();
 
-                $data['rekaman']->move("./vid/Rekaman Kelas/{$admin}", "{$materi} - {$data['part']}.mp4");
+                $data['rekaman']->move("./vid/Rekaman Kelas/{$admin}", "{$materi} - {$data['part']}.mp4", true);
+                $data['ppt']->move("./ppt/Rekaman Kelas/{$admin}", "{$materi} - {$data['part']}.pdf", true);
 
                 $data2['judul'] = 'Upload Berhasil!';
                 $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
@@ -589,10 +603,11 @@ class Admin extends BaseController
             case '2': $pertemuan=8; break;
             case '3': $pertemuan=12; break;
             case '4': $pertemuan=27; break;
-            case '5': $pertemuan=60; break;
+            case '5': $pertemuan=36; break;
+            case '6': $pertemuan=0; break;
         }
 
-        $u2 = $user->where('kode_kelas', $u['kode_kelas'])->first()['username'];
+        $u2 = $user->where('kode_kelas', $kode_kelas)->first()['username'];
 
         $jumlah = !empty($events) ? sizeof($events) : 0;
         $user->update($id, [
@@ -616,7 +631,7 @@ class Admin extends BaseController
                 $data = [
                     'username' => $u['username'],
                     'kelas' => $u['kode_kelas'],
-                    'event' => $hadir2['event'],
+                    'event' => $hadir2[$i]['event'],
                     'hadir' => '0',
                     'pertemuan' => $hadir2['pertemuan'],
                 ];
@@ -2050,7 +2065,12 @@ class Admin extends BaseController
     public function konfirmasiUbahPaket($id, $kode)
     {
         $model = new Users_Model();
-        $model->update($id, ['kode_paket' => $kode, 'kode_kelas' => '']);
+        
+        if ($kode=='4' || $kode=='5') {
+            $model->update($id, ['kode_paket' => $kode, 'kode_kelas' => '', 'jurusan' => 'intensif']);
+        } else {
+            $model->update($id, ['kode_paket' => $kode, 'kode_kelas' => '']);
+        }
         $user = $model->where('id', $id)->first();
 
         $model = new UbahPaket_Model();
@@ -2083,6 +2103,17 @@ class Admin extends BaseController
             return '1';
         } else {
             return '0';
+        }
+    }
+
+    public function ubahRoleAdmin($id, $role)
+    {
+        $model = new Admin_Model();
+        $admin = $model->update($id, ['role' => $role]);
+        if ($admin) {
+            return 'success';
+        } else {
+            return 'failed';
         }
     }
 }

@@ -1,158 +1,109 @@
 body {
-  font-family: "Meticula";
+  font-family: "Biotic";
 }
 
 #tentang{
-  font-family: "Meticula";
+  font-family: "Biotic";
   font-weight: bold;
 }
 
 #deskripsi{
-  font-family: "Meticula";
+  font-family: "Biotic";
   font-weight: 600;
 }
 
 .pilihan-paket{
-  font-family: "Meticula";
+  font-family: "Biotic";
   font-weight: 600;
 }
 
 .judul-paket, .pilihan-paket{
-  font-family: "Meticula";
+  font-family: "Biotic";
   font-weight: bold;
 }
 
 
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Regular.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-Regular.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Italic.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-RegularItalic.otf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-ExtraBoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-ExtraLight.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-Extralight.otf") format("truetype");
   font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-LightItalic.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-LightItalic.otf") format("truetype");
   font-weight: 300;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-ExtraBold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Light.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-Light.otf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-ExtraLightItalic.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-ExtralightItalic.otf") format("truetype");
   font-weight: 200;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Meticula-OutlineItalic";
-  src: url("../font/Meticula-OutlineItalic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-MediumItalic.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-MediumItalic.otf") format("truetype");
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Medium.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-Medium.otf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula-Outline";
-  src: url("../font/Meticula-Outline.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Regular_1.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-SemiBoldItalic.ttf") format("truetype");
-  font-weight: 600;
+  font-family: "Biotic";
+  src: url("../font/Biotic-SemiboldItalic.otf") format("truetype");
+  font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-Thin.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-Thin.otf") format("truetype");
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-SemiBold.ttf") format("truetype");
-  font-weight: 600;
+  font-family: "Biotic";
+  src: url("../font/Biotic-Semibold.otf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Meticula";
-  src: url("../font/Meticula-ThinItalic.ttf") format("truetype");
+  font-family: "Biotic";
+  src: url("../font/Biotic-ThinItalic.otf") format("truetype");
   font-weight: 100;
   font-style: italic;
 }

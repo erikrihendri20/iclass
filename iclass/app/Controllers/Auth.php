@@ -7,7 +7,7 @@ use App\Models\Admin_Model;
 use App\Models\Paket_Model;
 use App\Models\Catatan_Model;
 use App\Models\Nilai_Model;
-use App\Models\Notifikasi_model;
+use App\Models\Notifikasi_Model;
 
 class Auth extends BaseController
 {
@@ -70,14 +70,14 @@ class Auth extends BaseController
                         ];
                         session()->set($data);
                         
-                        $model = new Notifikasi_model();
+                        $model = new Notifikasi_Model();
                         $notifikasi = $model->where('username', $data['username'])->first();
 
                         if (!empty($notifikasi)) {
                             $flash = "<script>Swal.fire({icon: 'warning', title: '', text: '".$notifikasi['pesan']."'});</script>";
                             $model->where('username', $notifikasi['username'])->delete();
+                            session()->setFlashdata('flash', $flash);
                         }
-                        session()->setFlashdata('flash', $flash);
                         return redirect()->to('peserta');
                     }
                 } else {
@@ -187,7 +187,7 @@ class Auth extends BaseController
                 ],
                 'username' => [
                     'label'  => 'Username',
-                    'rules'  => 'required|min_length[5]|is_unique[users.username]',
+                    'rules'  => 'required|min_length[5]|is_unique[admin.username]',
                     'errors' => [
                         'required' => 'Username harus diisi',
                         'min_length' => 'Username harus terdiri dari 5 karakter',
@@ -334,7 +334,7 @@ class Auth extends BaseController
                     case '2': $sisa = 8;
                     case '3': $sisa = 12;
                     case '4': $sisa = 27;
-                    case '5': $sisa = 60;
+                    case '5': $sisa = 36;
                 }
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),

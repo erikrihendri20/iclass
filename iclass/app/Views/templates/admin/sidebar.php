@@ -18,41 +18,45 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <?php if (session('role')!=3) { ?>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Dashboard
+        </div>
+
+        <!-- Nav Item - User - list -->
+
+        <li class="nav-item <?= ($active == 'dashboard') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    <?php } ?>
+
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Dashboard
-    </div>
+    <?php if (session('role')!=3) { ?>
+        <div class="sidebar-heading">
+            Kelas
+        </div>
 
-    <!-- Nav Item - User - list -->
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'daftar kelas') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/daftarKelas">
+                <i class="fas fa-fw fa-school"></i>
+                <span>Daftar Kelas</span></a>
+        </li>
 
-    <li class="nav-item <?= ($active == 'dashboard') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/rekaman">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Rekaman Kelas</span></a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Kelas
-    </div>
-
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'daftar kelas') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/daftarKelas">
-            <i class="fas fa-fw fa-school"></i>
-            <span>Daftar Kelas</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/rekaman">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Rekaman Kelas</span></a>
-    </li>
-
-    <hr class="sidebar-divider">
+        <hr class="sidebar-divider">
+    <?php } ?>
 
     <?php if (session()->role == 1) : ?>
 
@@ -166,14 +170,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
         Jadwal
     </div>
 
-    <!-- Nav Item - My-profile -->
-    <li class="nav-item <?= ($active == 'atur jadwal pertemuan') ? 'active' :  ' '; ?>">
-        <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalPertemuan">
-            <i class="fas fa-fw fa-calendar-alt"></i>
-            <span>Atur Jadwal Pertemuan</span></a>
-    </li>
+    <?php if (session('role')!=3) { ?>
+        <!-- Nav Item - My-profile -->
+        <li class="nav-item <?= ($active == 'atur jadwal pertemuan') ? 'active' :  ' '; ?>">
+            <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalPertemuan">
+                <i class="fas fa-fw fa-calendar-alt"></i>
+                <span>Atur Jadwal Pertemuan</span></a>
+        </li>
+    <?php } ?>
 
-    <?php if (session()->role == 1) : ?>
+    <?php if (session('role') != 2) : ?>
         <li class="nav-item <?= ($active == 'tryout_jadwal') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/aturJadwalTryout">
                 <i class="fas fa-fw fa-pencil-alt"></i>

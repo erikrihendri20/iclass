@@ -1,28 +1,11 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mnya-5 mb-0">
-    <div class="row bg-primary border-20 mx-0 mt5 px5 py-3">
-        <div class="col-4 px-0">
-            <div class="row mx-0">
-                <div class="col-2 px-0">
-                    <div class="row bg-white border rounded-circle position-relative w-75 mx-auto">
-                        <img src="<?= base_url() ?>/img/profil.png" alt="" class="w-100 rounded-circle position-relative p-1">
-                        <img src="<?= base_url() ?>/img/profil/<?= session('username') ?>.jpg" alt="" class="w-100 h-100 rounded-circle position-absolute p-1" style="object-fit: cover;" onerror='this.style.display = "none"'>
-                    </div>
-                </div>
-                <div class="col-10 d-flex align-items-center px-0">
-                    <h2 class="text-white font-weight-bold mb-0" style="line-height: 100%;">Hai <?php echo explode(' ', session('nama'))[0]; ?>...</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 px-0">
-            <div class="row justify-content-center align-content-center h-100 mx-0">
-                <h4 class="h5 bg-white font-weight-bold px-3 py-2 mb-0" style="color: #12336D; border-radius: 10px;"><?= $event['title'] ?></h4>
-            </div>
-        </div>
-        <div class="col-4 px-0">
-            <div class="row justify-content-end align-content-center h-100 mx-0">
-                <h5 class="text-white font-weight-bold px-3 py-2 mb-0">
+<div class="content mb-0 py-3">
+    <div class="row mx-auto mt-5" style="width: 80%;">
+        <div class="row justify-content-between w-100 mx-0 px-5">
+            <h5 class="w-50 my-auto pl-4"><?= $event['title'] ?></h5>
+            <div class="row justify-content-end w-50 mx-0">
+                <h5 class="font-weight-bold my-auto">
                     <?php if (date('Y-m-d H:i:s')<=date('Y-m-d H:i:s', strtotime($event['end_event']))) { ?>
                         Waktu Tersisa&nbsp;
                         <span id="span" class="bg-white px-3 py-2" style="color:#12336D; border-radius: 10px;"></span>
@@ -52,99 +35,110 @@
                 </h5>
             </div>
         </div>
-    </div>
-
-    <div class="row mt-2 mx-0">
-        <div class="col-8 pl-0">
-            <div class="row bg-primary border-20 shadow h-100 mx-0 px5 py5">
-                <div class="col-9 pl-0" style="height: 500px; overflow-y: auto;">
-                    <div class="row bg-white mx-0" style="min-height: 100%; border-radius: 10px;">
-                        <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
-                    </div>
-                </div>
-                <div class="col-3 pr-0">
-                    <div class="row justify-content-center align-items-center bg-white ml-0" style="height: 7%; border-radius: 10px 0 0 10px; margin-right: -35px;">
-                        <h5 id="no-soal" class="text-center font-weight-bold mb-0" style="color: #12336D;">Soal Nomor 1</h5>
-                    </div>
-                    <div class="row mx-0" style="height: 8%;"></div>
-                    <div class="row justify-content-center mx-0" style="height: 75%;">
-                        <div class="col-12 text-center px-0">
-                            <label id="labelA" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;">
-                                <input id="radioA" type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;" onclick="jawab('A');">A
-                            </label>
-                            <label id="labelB" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;">
-                                <input id="radioB" type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;" onclick="jawab('B');">B
-                            </label>
-                            <label id="labelC" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;">
-                                <input id="radioC" type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;" onclick="jawab('C');">C
-                            </label>
-                            <label id="labelD" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;">
-                                <input id="radioD" type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;" onclick="jawab('D');">D
-                            </label>
-                            <label id="labelE" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;">
-                                <input id="radioE" type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;" onclick="jawab('E');">E
-                            </label>
+        <div class="row w-100 mx-0 mt-5">
+            <div class="row mx-0 pr-3" style="width: 70%">
+                <div class="row border border-30 w-100 mx-0 px-4 pt-4 pb-3">
+                    <div class="row align-content-center justify-content-between w-100 mx-0">
+                        <div class="row align-content-center w-50 mx-0">
+                            <h5 id="no-soal" class="pl-5">Soal Nomor 1</h5>
+                        </div>
+                        <div class="row align-content-center justify-content-end w-50 mx-0">
+                            <button id="sebelumnya" class="btn btn-link text-dark font-weight-bold" style="visibility: hidden;" onclick="sebelumnya();">
+                                <h4 class="fas fa-chevron-circle-left mb-0"></h4>
+                            </button>
+                            <button id="raguBtn" class="btn btn-secondary font-weight-bold border-10 mx-1 px-3" onclick="ragu();">Ragu</button>
+                            <button id="selanjutnya" class="btn btn-link text-dark font-weight-bold" style="" onclick="selanjutnya();">
+                                <h4 class="fas fa-chevron-circle-right mb-0"></h4>
+                            </button>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-end mx-0" style="height: 10%;">
-                        <button id="sebelumnya" class="btn btn-light font-weight-bold h-75 mx-auto px-3" style="color: #12336D; border-radius: 10px; visibility: hidden;" onclick="sebelumnya();"><span class="fas fa-chevron-left"></span></button>
-                        <button id="raguBtn" class="btn btn-warning font-weight-bold h-75 mx-auto px-3" style="color: #12336D; border-radius: 10px;" onclick="ragu();">Ragu</button>
-                        <button id="selanjutnya" class="btn btn-light font-weight-bold h-75 mx-auto px-3" style="color: #12336D; border-radius: 10px;" onclick="selanjutnya();"><span class="fas fa-chevron-right"></span></button>
+                    <div class="row w-100 mx-0 mt-3" style="height: 230px; overflow-y: auto;">
+                        <div class="row bg-white w-100 mx-0" style="min-height: 100%">
+                            <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
+                        </div>
+                    </div>
+                    <div class="row w-100 mx-0 mt-4 px-5">
+                        <div class="row w-100 mx-0">
+                            <div class="pr-3" style="width:15%">
+                                <label id="labelA" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('A');">
+                                    <input id="radioA" type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;">A
+                                </label>
+                            </div>
+                            <div class="pr-3" style="width:15%">
+                                <label id="labelB" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('B');">
+                                    <input id="radioB" type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;">B
+                                </label>
+                            </div>
+                            <div class="pr-3" style="width:15%">
+                                <label id="labelC" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('C');">
+                                    <input id="radioC" type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;">C
+                                </label>
+                            </div>
+                            <div class="pr-3" style="width:15%">
+                                <label id="labelD" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('D');">
+                                    <input id="radioD" type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;">D
+                                </label>
+                            </div>
+                            <div class="pr-3" style="width:15%">
+                                <label id="labelE" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('E');">
+                                    <input id="radioE" type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;">E
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4 pr-0">
-            <div class="row bg-white border-20 shadow mx-0 px-3 py-3" style="height: 88%;">
-                <div class="col-12 px-0">
-                    <div class="row mx-0">
+            <div class="mx-0 pl-3" style="width: 30%;">
+                <div class="border border-30 w-100 mx-0 p-3">
+                    <div class="row w-100 mx-0" style="max-height: 250px; overflow-y: auto;">
                         <?php for ($i=1; $i<41; $i++) { ?>
-                            <div class="p-1" style="width: 12.5%">
-                                <button id="<?= $i ?>" class="btn btn-light border border-dark h5 text-center font-weight-bold rounded w-100 mb-0 px-1 py-1" style="color: #12336D;" onclick="pindahSoal('<?= $i-1 ?>');"><?= $i ?></button>
+                            <div class="mr-2 mt-2" style="width: 50px;">
+                                <button id="<?= $i ?>" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="width: 50px; height: 50px; border-radius: 15px;"
+                                    onclick="pindahSoal('<?= $i-1 ?>');"><?= $i ?></button>
                             </div>
                         <?php } ?>
                     </div>
-                    <div class="row mx-0 mt-2">
-                        <div class="col-6 pl-0 pr-1">
-                            <div class="row justify-content-between bg-warning shadow mx-0 px-3 py-2" style="border-radius: 10px;">
-                                <h5 class="font-weight-bold mb-0 py-1" style="color: #12336D;">Ragu-ragu</h5>
-                                <h5 id="ragu" class="bg-primary text-white mb-0 px-2 py-1" style="border-radius: 10px">0</h5>
-                            </div>
-                        </div>
-                        <div class="col-6 pr-0 pl-1">
-                            <div class="row justify-content-between shadow mx-0 px-3 py-2" style="border-radius: 10px;">
-                                <h5 class="font-weight-bold mb-0 py-1" style="color: #12336D;">Kosong</h5>
-                                <h5 id="kosong" class="bg-primary text-white mb-0 px-2 py-1" style="border-radius: 10px">40</h5>
-                            </div>
-                        </div>
+                </div>
+                <div class="row w-100 mx-0 mt-4 px-3">
+                    <div class="row border-bottom w-100 mx-0 pb-2">
+                        <div class="bg-primary h-100" style="width: 19.2px; border-radius: 5px;"></div>
+                        <h6 class="mb-0 ml-2">Sudah terisi</h6>
+                        <h6 id="terisi" class="mb-0 ml-auto">0</h6>
                     </div>
-                    <div class="row justify-content-center bg-primary mx-0 mt-2 px-3 py-2" style="border-radius: 10px;">
-                        <h5 class="text-white font-weight-bold mb-0 py-1">Sudah terisi &nbsp;&nbsp;</h5>
-                        <h5 id="terisi" class="bg-white font-weight-bold mb-0 px-2 py-1" style="color: #12336D; border-radius: 10px">0</h5>
+                    <div class="row border-bottom w-100 mx-0 mt-3 pb-2">
+                        <div class="bg-secondary h-100" style="width: 19.2px; border-radius: 5px;"></div>
+                        <h6 class="mb-0 ml-2">Ragu</h6>
+                        <h6 id="ragu" class="mb-0 ml-auto">0</h6>
+                    </div>
+                    <div class="row border-bottom w-100 mx-0 mt-3 pb-2">
+                        <div class="border h-100" style="width: 19.2px; border-radius: 5px;"></div>
+                        <h6 class="mb-0 ml-2">Belum terisi</h6>
+                        <h6 id="kosong" class="mb-0 ml-auto">40</h6>
                     </div>
                 </div>
+                <div class="row justify-content-end w-100 mx-0 mt-4 px-3">
+                    <button class="btn btn-primary text-white border-30 px-4 py-2" onclick="selesai();">
+                        <h6 class="mb-0 p-1">Selesai</h6>
+                    </button>
+                </div>
             </div>
-            <div class="row mx-0" style="height: 2%;"></div>
-            <button class="btn border-20 shadow w-100 mx-0" style="background-color: #12336D; height: 10%;" onclick="selesai();">
-                <h4 class="text-white font-weight-bold mb-0">Selesai</h4>
-            </button>
         </div>
-        
-        <div id="modalSelesai" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menyelesaikan try out?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="selesaiBanget();">Yakin</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
+    </div>
+
+    <div id="modalSelesai" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menyelesaikan try out?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="selesaiBanget();">Yakin</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -246,13 +240,13 @@
             document.getElementById('radioD').setAttribute('onclick', "javascript: jawab('D');");
             document.getElementById('radioE').setAttribute('onclick', "javascript: jawab('E');");
 
-            document.getElementById('labelA').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-            document.getElementById('labelB').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-            document.getElementById('labelC').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-            document.getElementById('labelD').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-            document.getElementById('labelE').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
+            document.getElementById('labelA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('labelB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('labelC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('labelD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('labelE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
             const jawabanA = document.getElementById('label'+jawaban);
-            if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 py-2 active');
+            if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-10 mt-2 py-2 active');
         }
 
         function pindahSoal(nomor) {
@@ -262,10 +256,10 @@
 
         function jawab(jawaban) {
             const active = document.getElementsByClassName('active')[0];
-            if (active!=undefined) active.setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-            document.getElementById('label'+jawaban).setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 py-2 active');
+            if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('label'+jawaban).setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-10 mt-2 py-2 active');
             
-            document.getElementById((soal+1).toString()).setAttribute('class', 'btn btn-primary border border-dark h5 text-center font-weight-bold rounded w-100 mb-0 py-1');
+            document.getElementById((soal+1).toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 w-100 p-2');
             
             let benar=false;
             for (let i=0; i<raguan.length; i++) {
@@ -297,13 +291,8 @@
                 raguan.push(soal+1);
             }
 
-            if (store.getState().jawaban[soal]!='') {
-                document.getElementById('label'+store.getState().jawaban[soal]).setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-                store.dispatch({type: 'hapus'});
-            }
-
             document.getElementById('ragu').innerHTML=raguan.length;
-            document.getElementById((soal+1).toString()).setAttribute('class', 'btn btn-warning border border-dark h5 text-center font-weight-bold rounded w-100 mb-0 py-1');
+            document.getElementById((soal+1).toString()).setAttribute('class', 'btn bg-secondary text-dark text-center font-weight-bold border border-10 w-100 p-2');
         }
 
         <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d')) { ?>

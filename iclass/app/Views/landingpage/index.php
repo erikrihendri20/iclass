@@ -28,9 +28,11 @@
                     <div class="d-flex justify-content-center align-self-center w-50 py-4" style="heigth: 100%;">
                         <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" class="position-relative" style="width: 300px; height: auto; z-index: 5000; vertical-align: middle;">
                     </div>    
-                    <div class="w-50 py-4" style="heigth: 100%;">
-                        <h1 class="text-white font-weight-bold position-relative judul" style="z-index: 5000;">Kenali potensimu</h1>
-                        <p class="text-white h5 position-relative my5 fs-12" style="width: 85%; z-index: 5000;">Di iClass kamu bisa <span class="font-weight-bold">monitoring hasil belajarmu</span>. Kira-kira materi apa yang belum kamu kuasai dan metode belajar seperti apa yang paling tepat untukmu. Hal itu akan sangat berguna untuk mengevaluasi hasil belajarmu selama ini.</p>
+                    <div class="w-50 py5" style="heigth: 100%;">
+                        <div class="row justify-content-left align-content-center h-100 mx-0">
+                            <h1 class="text-white font-weight-bold position-relative judul" style="z-index: 5000;">Kenali potensimu</h1>
+                            <p class="text-white h5 position-relative my5 fs-12" style="width: 85%; z-index: 5000;">Di iClass kamu bisa <span class="font-weight-bold">monitoring hasil belajarmu</span>. Kira-kira materi apa yang belum kamu kuasai dan metode belajar seperti apa yang paling tepat untukmu. Hal itu akan sangat berguna untuk mengevaluasi hasil belajarmu selama ini.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="w-66 h-50 mt5 px-3">
@@ -443,49 +445,50 @@
                             <div class="row align-content-center bg-white mx-0 mt-1" style="height: 50px;">
                                 <h6 class="text-primary mb-0 px-3 py-1">Materi khusus untuk tes USM STIS</h6>
                             </div>
+                            <div class="row align-content-center bg-white mx-0 mt-1" style="height: 50px;">
+                                <h6 class="text-primary mb-0 px-3 py-1">Kelas SKD Khusus Polstat STIS</h6>
+                            </div>
                         </div>
                         <div style="width: 70%;">
                             <div class="row mx-0">
                                 <div class="px-1" style="width: 20%; height: 120px;">
                                     <div class="row align-content-center bg-primary h-50 mx-0" style="border-radius: 10px 10px 0 0;">
-                                        <h5 class="text-white text-center w-100 mx-auto mb-0">Reguler</h5>
+                                        <h5 class="text-white font-weight-bold text-center w-100 mx-auto mb-0">Reguler</h5>
                                     </div>
                                     <div class="row align-content-center h-50 mx-0" style="background-color: #12336D;">
-                                        <h3 class="text-white text-center w-100 mx-auto mb-0">79<span class="h6"> Ribu</span></h3>
+                                        <h3 class="text-white font-weight-bold text-center w-100 mx-auto mb-0">79<span class="h6"> Ribu</span></h3>
                                     </div>
                                 </div>
                                 <div class="px-1" style="width: 20%; height: 120px;">
                                     <div class="row align-content-center bg-primary h-50 mx-0" style="border-radius: 10px 10px 0 0;">
-                                        <h5 class="text-white text-center w-100 mx-auto mb-0">Premium</h5>
+                                        <h5 class="text-white font-weight-bold text-center w-100 mx-auto mb-0">Premium</h5>
                                     </div>
                                     <div class="row align-content-center h-50 mx-0" style="background-color: #12336D;">
-                                        <h3 class="text-white text-center w-100 mx-auto mb-0">109<span class="h6"> Ribu</span></h3>
+                                        <h3 class="text-white font-weight-bold text-center w-100 mx-auto mb-0">109<span class="h6"> Ribu</span></h3>
                                     </div>
                                 </div>
                                 <div class="px-1" style="width: 20%; height: 120px;">
                                     <div class="row align-content-center bg-warning h-50 mx-0" style="border-radius: 10px 10px 0 0;">
-                                        <h5 class="text-center w-100 mx-auto mb-0" style="color: #12336D;">Premium+</h5>
+                                        <h5 class="text-center font-weight-bold w-100 mx-auto mb-0" style="color: #12336D;">Premium+</h5>
                                     </div>
                                     <div class="row align-content-center bg-warning shadow-lg h-50 mx-0">
-                                        <h3 class="text-center w-100 mx-auto mb-0" style="color: #12336D;">129<span class="h6"> Ribu</span></h3>
+                                        <h3 class="text-center font-weight-bold w-100 mx-auto mb-0" style="color: #12336D;">129<span class="h6"> Ribu</span></h3>
                                     </div>
                                 </div>
                                 <div class="px-1" style="width: 20%; height: 120px;">
                                     <div class="row align-content-center bg-primary h-50 mx-0" style="border-radius: 10px 10px 0 0;">
-                                        <h5 class="text-white text-center w-100 mx-auto mb-0">Intensif</h5>
-                                        <h5 class="text-white text-center w-100 mx-auto mb-0">1 Semester</h5>
+                                        <h5 class="text-white text-center font-weight-bold w-100 mx-auto mb-0">Intensif</h5>
                                     </div>
                                     <div class="row align-content-center h-50 mx-0" style="background-color: #12336D;">
-                                        <h3 class="text-white text-center w-100 mx-auto mb-0">299<span class="h6"> Ribu</span></h3>
+                                        <h3 class="text-white text-center font-weight-bold w-100 mx-auto mb-0">299<span class="h6"> Ribu</span></h3>
                                     </div>
                                 </div>
                                 <div class="px-1" style="width: 20%; height: 120px;">
                                     <div class="row align-content-center bg-warning h-50 mx-0" style="border-radius: 10px 10px 0 0;">
-                                        <h5 class="text-center w-100 mx-auto mb-0" style="color: #12336D;">Intensif</h5>
-                                        <h5 class="text-center w-100 mx-auto mb-0" style="color: #12336D;">1 Tahun</h5>
+                                        <h5 class="text-center font-weight-bold w-100 mx-auto mb-0" style="color: #12336D;">Intensif+</h5>
                                     </div>
                                     <div class="row align-content-center bg-warning shadow-lg h-50 mx-0">
-                                        <h3 class="text-center w-100 mx-auto mb-0" style="color: #12336D;">499<span class="h6"> Ribu</span></h3>
+                                        <h3 class="text-center font-weight-bold w-100 mx-auto mb-0" style="color: #12336D;">379<span class="h6"> Ribu</span></h3>
                                     </div>
                                 </div>
                             </div>
@@ -602,10 +605,27 @@
                                     <h6 class="bg-warning text-white text-center font-weight-bold w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span style="color: #12336D;">12x</span></h6>
                                 </div>
                                 <div class="px-1" style="width: 20%;">
-                                    <h6 class="bg-primary text-white text-center font-weight-bold w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">27x</span></h6>
+                                    <h6 class="bg-primary text-white text-center font-weight-bold w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">26x</span></h6>
                                 </div>
                                 <div class="px-1" style="width: 20%;">
-                                    <h6 class="bg-warning text-white text-center font-weight-bold w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span style="color: #12336D;">60x</span></h6>
+                                    <h6 class="bg-warning text-white text-center font-weight-bold w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span style="color: #12336D;">36x</span></h6>
+                                </div>
+                            </div>
+                            <div class="row mx-0 mt-1">
+                                <div class="px-1" style="width: 20%;">
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">&nbsp;</h6>
+                                </div>
+                                <div class="px-1" style="width: 20%;">
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
+                                </div>
+                                <div class="px-1" style="width: 20%;">
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
+                                </div>
+                                <div class="px-1" style="width: 20%;">
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
+                                </div>
+                                <div class="px-1" style="width: 20%;">
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
                                 </div>
                             </div>
                             <div class="row mx-0 mt-1">
@@ -630,10 +650,10 @@
                                     <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">&nbsp;</h6>
                                 </div>
                                 <div class="px-1" style="width: 20%;">
-                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">&nbsp;</h6>
                                 </div>
                                 <div class="px-1" style="width: 20%;">
-                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
+                                    <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;">&nbsp;</h6>
                                 </div>
                                 <div class="px-1" style="width: 20%;">
                                     <h6 class="bg-white text-primary text-center w-100 mx-auto mb-0 px-3 py-1" style="height: 50px; line-height: 50px;"><span class="fas fa-check-circle"></span></h6>
@@ -698,22 +718,22 @@
 
 <script type="text/javascript" src="fullpage.js"></script>
 <script>
-    // if (screen.width <= 650) {
-    //     document.getElementById('pilihan-paket').innerHTML="";
-    //     document.getElementById('pilihanPaket').style.display='block';
-    //     document.getElementById('intensif').style.display='block';
-    // }
+    if (screen.width <= 650) {
+        document.getElementById('pilihan-paket').innerHTML="";
+        document.getElementById('pilihanPaket').style.display='block';
+        document.getElementById('intensif').style.display='block';
+    }
 
-    // $(document).ready(function() {
-    //     $('#fullpage').fullpage({
-    //         //options here
-    //         autoScrolling:true,
-    //         scrollHorizontally: true
-    //     });
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+            //options here
+            autoScrolling:true,
+            scrollHorizontally: true
+        });
 
-    //     //methods
-    //     $.fn.fullpage.setAllowScrolling(false);
-    // });
+        //methods
+        $.fn.fullpage.setAllowScrolling(false);
+    });
 </script>
 
 <!-- <div class="bg-light mt-5">

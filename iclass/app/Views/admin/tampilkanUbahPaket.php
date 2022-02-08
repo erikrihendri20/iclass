@@ -77,9 +77,9 @@
                 kode='2'; break;
             case 'Premium+':
                 kode='3'; break;
-            case 'Intensif (1 Semester)':
+            case 'Intensif':
                 kode='4'; break;
-            case 'Intensif (1 Tahun)':
+            case 'Intensif+':
                 kode='5'; break;
         }
 

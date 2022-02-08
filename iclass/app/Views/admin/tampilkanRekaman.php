@@ -61,7 +61,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-text-center">
-                <h3 id="modalNontonHeader" class="text-primary ml-1">Unggah Rekaman Pertemuan</h3>
+                <h3 id="modalNontonHeader" class="text-primary ml-1">Rekaman Pertemuan</h3>
                 <p class="fa fa-close btn mr-1" style="font-size: 36px;" onclick="tutupModal('modalNonton');"></p>
             </div>
 
@@ -100,10 +100,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col col-form-label" for="rekaman">Rekaman Pertemuan</label>
+                        <label class="col col-form-label" for="rekaman2">Rekaman Pertemuan</label>
                         <div class="col-sm-10">
                             <input type="file" class="form-control-file" id="rekaman2" name="rekaman">
                             <small id="errRekaman2" class="form-text text-danger" style="visibility: hidden;"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col col-form-label" for="ppt2">Ppt Pertemuan</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control-file" id="ppt2" name="ppt">
+                            <small id="errPpt2" class="form-text text-danger" style="visibility: hidden;"></small>
                         </div>
                     </div>
                 </div>

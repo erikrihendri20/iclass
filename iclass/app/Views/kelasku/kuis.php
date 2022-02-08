@@ -1,76 +1,115 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mnya-5 mb-0">
-    <div class="row bg-primary border-20 mx-0 mt5 px5 py-3">
-        <div class="col-4 px-0">
-            <div class="row mx-0">
-                <div class="col-2 px-0">
-                    <div class="row bg-white border rounded-circle position-relative w-75 mx-auto">
-                        <img src="<?= base_url() ?>/img/profil.png" alt="" class="w-100 rounded-circle position-relative p-1">
-                        <img src="<?= base_url() ?>/img/profil/<?= session('username') ?>.jpg" alt="" class="w-100 h-100 rounded-circle position-absolute p-1" style="object-fit: cover;" onerror='this.style.display = "none"'>
-                    </div>
-                </div>
-                <div class="col-10 d-flex align-items-center px-0">
-                    <h2 class="text-white font-weight-bold mb-0" style="line-height: 100%;">Hai <?php echo explode(' ', session('nama'))[0]; ?>...</h2>
-                </div>
-            </div>
+<div class="content mb-0 py-3">
+    <div class="row mx-auto mt-5" style="width: 80%;">
+        <div class="row justify-content-between w-100 mx-0 px-5">
+            <h5 class="w-50 my-auto pl-4">Kuis Harian</h5>
+            <h5 class="text-left text-truncate w-50 my-auto"><?= $kuis['soal'] ?></h5>
         </div>
-        <div class="col-4 px-0">
-            <div class="row justify-content-center align-content-center h-100 mx-0">
-                <h4 class="h5 bg-white font-weight-bold px-3 py-2 mb-0" style="color: #12336D; border-radius: 10px;">Kuis hari ke - <span class="text-white rounded px-2 py-1" style="background-color: #12336D;"><?= $pertemuan ?></span></h4>
-            </div>
-        </div>
-        <div class="col-4 px-0">
-            <div class="row justify-content-end align-content-center h-100 mx-0">
-                <h5 class="bg-white font-weight-bold px-3 py-2 mb-0" style="color:#12336D; border-radius: 10px;"><?= $kuis['soal'] ?></h5>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-2 mx-0">
-        <div class="col-8 pl-0">
-            <div class="row bg-primary border-20 shadow h-100 mx-0 px5 py5">
-                <div class="col-9 pl-0" style="height: 500px; overflow-y: auto;">
-                    <div class="row bg-white mx-0" style="min-height: 100%; border-radius: 10px;">
-                        <img id="soal" src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
-                    </div>
-                </div>
-                <div class="col-3 pr-0">
-                    <div class="row justify-content-center align-items-center bg-white ml-0" style="height: 7%; border-radius: 10px 0 0 10px; margin-right: -35px;">
-                        <h5 id="soal-nomor" class="text-center font-weight-bold mb-0" style="color: #12336D;">Soal Nomor 1</h5>
-                    </div>
-                    <div class="row justify-content-center mt5 mx-0" style="height: 78%;">
-                        <div class="col-12 text-center px-0">
-                            <label id="jawabanA" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;" onclick="jawab('A');">
-                                <input type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;">A
-                            </label>
-                            <label id="jawabanB" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;" onclick="jawab('B');">
-                                <input type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;">B
-                            </label>
-                            <label id="jawabanC" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;" onclick="jawab('C');">
-                                <input type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;">C
-                            </label>
-                            <label id="jawabanD" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;" onclick="jawab('D');">
-                                <input type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;">D
-                            </label>
-                            <label id="jawabanE" class="btn btn-light font-weight-bold w-75 mt-2 py-2" style="color: #12336D; border-radius: 10px;" onclick="jawab('E');">
-                                <input type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;">E
-                            </label>
+        <div class="row w-100 mx-0 mt-5">
+            <div class="row mx-0 pr-3" style="width: 70%;">
+                <div class="row border border-30 w-100 mx-0 px-4 pt-4 pb-3">
+                    <div class="row align-content-center justify-content-between w-100 mx-0 mt-3">
+                        <div class="row align-content-center w-50 mx-0">
+                            <h5 id="soal-nomor" class="pl-5">Soal Nomor 1</h5>
+                        </div>
+                        <div class="row align-content-center justify-content-end w-50 mx-0">
+                            <button id="sebelumnya" class="btn btn-link text-dark font-weight-bold" style="visibility: hidden;" onclick="sebelumnya();">
+                                <h4 class="fas fa-chevron-circle-left mb-0"></h4>
+                            </button>
+                            <button id="selanjutnya" class="btn btn-link text-dark font-weight-bold" style="" onclick="selanjutnya();">
+                                <h4 class="fas fa-chevron-circle-right mb-0"></h4>
+                            </button>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-between mx-0" style="height: 10%;">
-                        <button id="sebelumnya" class="btn btn-warning font-weight-bold border-20 h-75 mx-auto px-3" style="color: #12336D; visibility: hidden;" onclick="sebelumnya();"><span class="fas fa-arrow-left"></span></button>
-                        <button id="selanjutnya" class="btn btn-warning font-weight-bold border-20 h-75 mx-auto px-3" style="color: #12336D;" onclick="selanjutnya();"><span class="fas fa-arrow-right"></span></button>
+                    <div class="row w-100 mx-0 mt-3" style="height: 230px; overflow-y: auto;">
+                        <div class="row bg-white w-100 mx-0" style="min-height: 100%">
+                            <img id="soal" src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
+                        </div>
+                    </div>
+                    <div class="row w-100 mx-0 mt-5 px-5">
+                        <div class="row w-100 mt-5 mx-0">
+                            <div class="pr-3 mt-5" style="width: 15%">
+                                <label id="jawabanA" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('A');">
+                                    <input type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;">A
+                                </label>
+                            </div>
+                            <div class="pr-3 mt-5" style="width: 15%">
+                                <label id="jawabanB" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('B');">
+                                    <input type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;">B
+                                </label>
+                            </div>
+                            <div class="pr-3 mt-5" style="width: 15%">
+                                <label id="jawabanC" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('C');">
+                                    <input type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;">C
+                                </label>
+                            </div>
+                            <div class="pr-3 mt-5" style="width: 15%">
+                                <label id="jawabanD" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('D');">
+                                    <input type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;">D
+                                </label>
+                            </div>
+                            <div class="pr-3 mt-5" style="width: 15%">
+                                <label id="jawabanE" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('E');">
+                                    <input type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;">E
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end w-100 mx-0 mt-2 pr-3">
+                        <button id="btnPembahasan" class="btn btn-link font-weight-bold px-0" onclick="lihatPembahasan();">
+                            Pembahasan
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4 pr-0">
-            <div class="bg-white border-20 shadow w-100 h-100 mx-0 px5 py5">
-                <h5 class="bg-primary text-white text-center font-weight-bold w-75 mx-auto px-3 py-2" style="border-radius: 10px;">Pembahasan</h5>
-                <button id="btnPembahasan" class="btn btn-light border-0 w-100 h-100 p-0" style="max-height: 450px; overflow-y: auto;" onclick="lihatPembahasan();" disabled>
-                    <img src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/pembahasan/1.jpg" alt="" id="pembahasan" class="w-100" style="visibility: hidden; border-radius: 10px;">
-                </button>
+            <div class="mx-0 pl-3" style="width: 333px;">
+                <div class="border border-30 w-100 mx-0 p-3">
+                    <div class="row w-100 mx-0">
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek1" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">01</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek2" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">02</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek3" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">03</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek4" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">04</button>
+                        </div>
+                        <div class="mt-2" style="width: 50px;">
+                            <button id="cek5" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">05</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek6" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">06</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek7" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">07</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek8" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">08</button>
+                        </div>
+                        <div class="mr-2 mt-2" style="width: 50px;">
+                            <button id="cek9" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">09</button>
+                        </div>
+                        <div class="mt-2" style="width: 50px;">
+                            <button id="cek10" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">10</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100 mx-0 mt-4 px-3">
+                    <div class="row w-100 mx-0 border-bottom pb-2">
+                        <div class="bg-primary h-100" style="width: 19.2px; border-radius: 5px;"></div>
+                        <h6 class="mb-0 ml-2">Sudah terisi</h6>
+                        <h6 id="terisi" class="mb-0 ml-auto">0</h6>
+                    </div>
+                    <div class="row w-100 mx-0 mt-3 border-bottom pb-2">
+                        <div class="border h-100" style="width: 19.2px; border-radius: 5px;"></div>
+                        <h6 class="mb-0 ml-2">Belum terisi</h6>
+                        <h6 id="belumterisi" class="mb-0 ml-auto">10</h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -147,7 +186,7 @@
             if (soal<9) {
                 const selanjutnya = document.getElementById('selanjutnya');
                 selanjutnya.style.visibility="visible";
-                selanjutnya.innerHTML='<span class="fas fa-arrow-right"></span>';
+                selanjutnya.innerHTML='<h4 class="fas fa-chevron-circle-right mb-0"></h4>';
                 selanjutnya.setAttribute('onclick', "javascript: selanjutnya();");
             } else {
                 soal=9;
@@ -160,7 +199,6 @@
             jawaban = jawaban.length!=0 ? jawaban : 'F';
 
             document.getElementById('soal').src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/soal/"+(soal+1)+".jpg";
-            document.getElementById('pembahasan').src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/pembahasan/"+(soal+1)+".jpg";
             document.getElementById('imgPembahasan').src="<?= base_url() ?>/img/kuis/<?php echo $kuis['soal']." - ".$kuis['event_id']; ?>/pembahasan/"+(soal+1)+".jpg";
             document.getElementById('jawabanA').setAttribute('onclick', "javascript: jawab('A');");
             document.getElementById('jawabanB').setAttribute('onclick', "javascript: jawab('B');");
@@ -169,28 +207,28 @@
             document.getElementById('jawabanE').setAttribute('onclick', "javascript: jawab('E');");
 
             if (jawaban!='F') {
-                document.getElementById('jawabanA').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+                document.getElementById('jawabanA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
                 document.getElementById('jawabanA').onclick="";
-                document.getElementById('jawabanB').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+                document.getElementById('jawabanB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
                 document.getElementById('jawabanB').onclick="";
-                document.getElementById('jawabanC').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+                document.getElementById('jawabanC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
                 document.getElementById('jawabanC').onclick="";
-                document.getElementById('jawabanD').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+                document.getElementById('jawabanD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
                 document.getElementById('jawabanD').onclick="";
-                document.getElementById('jawabanE').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+                document.getElementById('jawabanE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
                 document.getElementById('jawabanE').onclick="";
 
                 const jawabanA = document.getElementById('jawaban'+jawaban);
-                if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 active disabled');
+                if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-warning border font-weight-bold w-100 border-10 mt-2 py-2 active disabled');
 
                 const jawabanB = document.getElementById('jawaban'+jawabanBenar[soal]);
-                if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn btn-lignt bg-success font-weight-bold w-75 mt-2 disabled');
+                if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-success border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             } else {
-                document.getElementById('jawabanA').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-                document.getElementById('jawabanB').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-                document.getElementById('jawabanC').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-                document.getElementById('jawabanD').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
-                document.getElementById('jawabanE').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2');
+                document.getElementById('jawabanA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+                document.getElementById('jawabanB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+                document.getElementById('jawabanC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+                document.getElementById('jawabanD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+                document.getElementById('jawabanE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
             }
 
             if (jawaban=='A' || jawaban=='B' || jawaban=='C' || jawaban=='D' || jawaban=='E') {
@@ -204,25 +242,30 @@
 
         function jawab(jawaban) {
             const active = document.getElementsByClassName('active')[0];
-            if (active!=undefined) active.setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2');
+            if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
 
-            document.getElementById('jawabanA').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+            document.getElementById('jawabanA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             document.getElementById('jawabanA').onclick="";
-            document.getElementById('jawabanB').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+            document.getElementById('jawabanB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             document.getElementById('jawabanB').onclick="";
-            document.getElementById('jawabanC').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+            document.getElementById('jawabanC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             document.getElementById('jawabanC').onclick="";
-            document.getElementById('jawabanD').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+            document.getElementById('jawabanD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             document.getElementById('jawabanD').onclick="";
-            document.getElementById('jawabanE').setAttribute('class', 'btn btn-light font-weight-bold w-75 mt-2 py-2 disabled');
+            document.getElementById('jawabanE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             document.getElementById('jawabanE').onclick="";
 
-            document.getElementById('jawaban'+jawaban).setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 active disabled');
+            document.getElementById('jawaban'+jawaban).setAttribute('class', 'btn bg-warning border font-weight-bold w-100 border-10 mt-2 py-2 active disabled');
             
-            document.getElementById('jawaban'+jawabanBenar[soal]).setAttribute('class', 'btn btn-lignt bg-success font-weight-bold w-75 mt-2 disabled');
+            document.getElementById('jawaban'+jawabanBenar[soal]).setAttribute('class', 'btn bg-success border font-weight-bold w-100 border-10 mt-2 py-2 disabled');
             
-            document.getElementById('pembahasan').style.visibility="visible";
             document.getElementById('btnPembahasan').disabled=false;
+
+            document.getElementById('cek'+(soal+1)).setAttribute('class', 'bg-primary text-white text-center font-weight-bold border-10 p-2');
+            terisi = parseInt(document.getElementById('terisi').innerHTML)+1;
+            document.getElementById('terisi').innerHTML=terisi;
+            document.getElementById('belumterisi').innerHTML=10-terisi;
+
             store.dispatch(jawabanAction(jawaban));
         }
 

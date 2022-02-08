@@ -370,6 +370,7 @@
                 form.append('parts', $("#parts2").val());
                 form.append('part', $("#part2").val());
                 form.append('rekaman', $('#rekaman2')[0].files[0]);
+                form.append('ppt', $('#ppt2')[0].files[0]);
 
                 $.ajax({
                     xhr: function() {

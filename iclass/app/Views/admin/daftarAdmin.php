@@ -9,6 +9,20 @@
         <div id="flash"></div>
     </div>
 
-<div id="tabel-admin"></div>
+    <div id="tabel-admin"></div>
+
+    <script>
+        function ubahRoleAdmin(id, role) {
+            $.get(
+                'ubahRoleAdmin/' + id + '/' + role,
+                function(result) {
+                    if (result=='success') {
+                        alert('berhasil mengubah role admin');
+                    } else {
+                        alert('gagal mengubah role admin');
+                    }
+                });
+        }
+    </script>
 </div>
 <?= $this->endSection(); ?>

@@ -34,6 +34,18 @@
   .border-20 {
     border-radius: 20px;
   }
+
+  .border-10 {
+    border-radius: 10px;
+  }
+  
+  .border-30 {
+    border-radius: 30px;
+  }
+
+  .border-50 {
+      border-radius: 50px;
+  }
   
   .px5 {
     padding-left: 35px;

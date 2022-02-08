@@ -31,8 +31,20 @@
     width: 58.3333333%;
   }
 
+.border-10 {
+    border-radius: 10px;
+}
+
 .border-20 {
     border-radius: 20px;
+}
+
+.border-30 {
+    border-radius: 30px;
+}
+
+.border-50 {
+    border-radius: 50px;
 }
 
 .mt5 {

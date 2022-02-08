@@ -25,13 +25,46 @@ class Materi extends BaseController
 		    $data['materis'] = $model->like('kelas', session('jurusan'))->findAll();
 		}
 
+		$tingkatans = [];
+		$ts = $db->table('tingkatan')->where('username', session('username'))->get()->getResultArray();
+		foreach ($ts as $t) {
+			$tingkatans[$t['materi']] = $t;
+		}
+		for ($i=0; $i<sizeof($data['materis']); $i++) {
+			if (array_key_exists($data['materis'][$i]['materi'], $tingkatans)) {
+				$selesaid = (!empty($tingkatans[$data['materis'][$i]['materi']]['dasar'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['dasar'])) : 0;
+				$selesais = (!empty($tingkatans[$data['materis'][$i]['materi']]['sedang'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['sedang'])) : 0;
+				$selesair = (!empty($tingkatans[$data['materis'][$i]['materi']]['rumit'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['rumit'])) : 0;
+				$selesai = $selesaid+$selesais+$selesair;
+				$data['materis'][$i]['selesai'] = $selesai;
+			} else {
+				$data['materis'][$i]['selesai'] = 0;
+			}
+			$total = $data['materis'][$i]['dasar']+$data['materis'][$i]['sedang']+$data['materis'][$i]['rumit'];
+			$data['materis'][$i]['selesai'] = floor($data['materis'][$i]['selesai']/$total*100);
+		}
+
 		$data['materiPilihan'] = $data['materis'][0];
+
+		if (array_key_exists($data['materiPilihan']['materi'], $tingkatans)) {
+			$selesaid = (!empty($tingkatans[$data['materiPilihan']['materi']]['dasar'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['dasar'])) : 0;
+			$selesais = (!empty($tingkatans[$data['materiPilihan']['materi']]['sedang'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['sedang'])) : 0;
+			$selesair = (!empty($tingkatans[$data['materiPilihan']['materi']]['rumit'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['rumit'])) : 0;
+			$selesai = $selesaid+$selesais+$selesair;
+			$data['materiPilihan']['selesai'] = $selesai;
+		} else {
+			$data['materiPilihan']['selesai'] = 0;
+		}
+		$total = $data['materiPilihan']['dasar']+$data['materiPilihan']['sedang']+$data['materiPilihan']['rumit'];
+		$data['materiPilihan']['selesai'] = floor($data['materiPilihan']['selesai']/$total*100);
+
 		unset($data['materis'][0]);
 		$data['materis'] = array_values($data['materis']);
 
 		$data['submateris'] = $db->table('submateri')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
 
-		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
+		$kelas = (session('kode-kelas')!='0') ? $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'] : 'Belum ada kelas';
+		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
 			$data['rekaman'] = $rekamanKelas[0];
 			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
@@ -89,10 +122,44 @@ class Materi extends BaseController
 			$data['materis'] = $model->where('id !=', $id)->findAll();
 		}
 
+		$tingkatans = [];
+		$ts = $db->table('tingkatan')->where('username', session('username'))->get()->getResultArray();
+		foreach ($ts as $t) {
+			$tingkatans[$t['materi']] = $t;
+		}
+		for ($i=0; $i<sizeof($data['materis']); $i++) {
+			if (array_key_exists($data['materis'][$i]['materi'], $tingkatans)) {
+				$selesaid = (!empty($tingkatans[$data['materis'][$i]['materi']]['dasar'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['dasar'])) : 0;
+				$selesais = (!empty($tingkatans[$data['materis'][$i]['materi']]['sedang'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['sedang'])) : 0;
+				$selesair = (!empty($tingkatans[$data['materis'][$i]['materi']]['rumit'])) ? sizeof(explode(',', $tingkatans[$data['materis'][$i]['materi']]['rumit'])) : 0;
+				$selesai = $selesaid+$selesais+$selesair;
+				$data['materis'][$i]['selesai'] = $selesai;
+			} else {
+				$data['materis'][$i]['selesai'] = 0;
+			}
+			$total = $data['materis'][$i]['dasar']+$data['materis'][$i]['sedang']+$data['materis'][$i]['rumit'];
+			$data['materis'][$i]['selesai'] = floor($data['materis'][$i]['selesai']/$total*100);
+		}
+		$data['tingkatans'] = $tingkatans;
+
 		$data['materiPilihan'] = $model->where('id', $id)->first();
+
+		if (array_key_exists($data['materiPilihan']['materi'], $tingkatans)) {
+			$selesaid = (!empty($tingkatans[$data['materiPilihan']['materi']]['dasar'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['dasar'])) : 0;
+			$selesais = (!empty($tingkatans[$data['materiPilihan']['materi']]['sedang'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['sedang'])) : 0;
+			$selesair = (!empty($tingkatans[$data['materiPilihan']['materi']]['rumit'])) ? sizeof(explode(',', $tingkatans[$data['materiPilihan']['materi']]['rumit'])) : 0;
+			$selesai = $selesaid+$selesais+$selesair;
+			$data['materiPilihan']['selesai'] = $selesai;
+		} else {
+			$data['materiPilihan']['selesai'] = 0;
+		}
+		$total = $data['materiPilihan']['dasar']+$data['materiPilihan']['sedang']+$data['materiPilihan']['rumit'];
+		$data['materiPilihan']['selesai'] = floor($data['materiPilihan']['selesai']/$total*100);
+
 		$data['submateris'] = $db->table('submateri')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
 
-		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
+		$kelas = (session('kode-kelas')!='0') ? $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'] : 'Belum ada kelas';
+		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
 			$data['rekaman'] = $rekamanKelas[0];
 			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
@@ -115,10 +182,15 @@ class Materi extends BaseController
 			$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
 		}
 		$data['dasar'] = ((string)sizeof(explode(',', $data['tingkatan']['dasar']))==$data['materiPilihan']['dasar']) ? true : false;
-		$data['sedang'] = ((string)sizeof(explode(',', $data['tingkatan']['sedang']))==$data['materiPilihan']['sedang']) ? true : false;
+		if ($data['materiPilihan']['sedang']=="0") {
+			$data['sedang']=$data['dasar'];
+		} elseif ($data['tingkatan']['sedang']=="0") {
+			$data['sedang'] = false;
+		} else {
+			$data['sedang'] = ((string)sizeof(explode(',', $data['tingkatan']['sedang']))==$data['materiPilihan']['sedang']) ? true : false;
+		}
 		$data['rumit'] = ((string)sizeof(explode(',', $data['tingkatan']['rumit']))==$data['materiPilihan']['rumit']) ? true : false;
 
-		$data['sedang'] = ($data['tingkatan']['sedang'] == '0') ? false : $data['sedang'];
 		$data['rumit'] = ($data['tingkatan']['rumit'] == '0') ? false : $data['rumit'];
 		$data['part'] = $part;
 		

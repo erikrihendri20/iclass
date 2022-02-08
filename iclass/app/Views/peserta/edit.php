@@ -217,13 +217,13 @@
                             <div class="row mx-0">
                                 <div class="col-6 mx-0 p-1">
                                     <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif <small>(1 Semester)</small></h5>
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif</h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 307@300x.png" alt="" class="" style="object-fit: contain; max-width: 60%;">
                                     </div>
                                 </div>
                                 <div class="col-6 mx-0 p-1">
                                     <div class="row justify-content-center shadow-sm h-100 mx-0 py-3" style="background-color: lightgrey; border-radius: 15px;">
-                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif <small>(1 Tahun)</small></h5>
+                                        <h5 class="font-weight-bold text-center w-100 px-3" style="color: #12336D;">Intensif+</h5>
                                         <img src="<?= base_url() ?>/img/Aset/Asset 305@300x.png" alt="" class="" style="object-fit: contain; max-width: 60%;">
                                     </div>
                                 </div>
@@ -250,10 +250,10 @@
                                     echo "Premium+";
                                     break;
                                 case '4':
-                                    echo "Intensif (1 Semester)";
+                                    echo "Intensif";
                                     break;
                                 case '5':
-                                    echo "Intensif (1 Tahun)";
+                                    echo "Intensif+";
                                     break;
                                 case '6':
                                     echo "Try Out";
@@ -267,8 +267,8 @@
                         <option value="Reguler"<?php echo ($user['kode_paket']=='1') ? ' selected' : ''; ?>>Reguler</option>
                         <option value="Premium"<?php echo ($user['kode_paket']=='2') ? ' selected' : ''; ?>>Premium</option>
                         <option value="Premium+"<?php echo ($user['kode_paket']=='3') ? ' selected' : ''; ?>>Premium+</option>
-                        <option value="Intensif (1 Semester)"<?php echo ($user['kode_paket']=='4') ? ' selected' : ''; ?>>Intensif (1 Semester)</option>
-                        <option value="Intensif (1 Tahun)"<?php echo ($user['kode_paket']=='5') ? ' selected' : ''; ?>>Intensif (1 Tahun)</option>
+                        <option value="Intensif"<?php echo ($user['kode_paket']=='4') ? ' selected' : ''; ?>>Intensif</option>
+                        <option value="Intensif+"<?php echo ($user['kode_paket']=='5') ? ' selected' : ''; ?>>Intensif+</option>
                     </select>
                 </div>
                 <div class="form-group" style="width: 80%;">
@@ -350,10 +350,10 @@
                 case 'Premium+':
                     harga = parseInt(129000);
                     break;
-                case 'Intensif (1 Semester)':
+                case 'Intensif':
                     harga = parseInt(299000);
                     break;
-                case 'Intensif (1 Tahun)':
+                case 'Intensif+':
                     harga = parseInt(499000);
                     break;
             }

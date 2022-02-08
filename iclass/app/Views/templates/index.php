@@ -7,7 +7,7 @@
             scroll-behavior: smooth;
         }
     </style>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url() ?>/css/bootstrap/bootstrap.css">
@@ -32,12 +32,14 @@
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-pie.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script type="text/javascript" src="https://www.amcharts.com/lib/3/pie.js"></script>
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
     <title><?= $title; ?></title>
 </head>
 
-<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="min-width: 1100px; overflow-x: hidden; min-height: 100vh;">
+<body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative" style="min-width: 1300px; overflow-x: auto; min-height: 100vh;">
 
     <?= $this->include('templates/navbar'); ?>
 

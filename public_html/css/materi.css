@@ -36,8 +36,24 @@ div#bab_materi {
     word-wrap:break-word;
 }
 
+.border-10 {
+    border-radius: 10px;
+}
+
+.border-10 {
+    border-radius: 10px;
+}
+
 .border-20 {
     border-radius: 20px;
+}
+
+.border-30 {
+    border-radius: 30px;
+}
+
+.border-50 {
+    border-radius: 50px;
 }
 
 .mnya-5 {

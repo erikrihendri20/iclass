@@ -38,7 +38,7 @@ class Peserta extends BaseController
 			case '2': $pertemuan=8; break;
 			case '3': $pertemuan=12; break;
 			case '4': $pertemuan=27; break;
-			case '5': $pertemuan=60; break;
+			case '5': $pertemuan=36; break;
 			case '6': $pertemuan=0; break;
 		}
 
@@ -77,10 +77,11 @@ class Peserta extends BaseController
 		
 		$user = $userModel->find(session('id'));
 		$jadwalModel = new Jadwal_Model;
-		$meetingDate = $db->table('kelas')->join('events', 'kelas.id=events.kode_kelas')->where('start_event >=', date('Y-m-d'))->where('jenis', '1')->like('kode_kelas', $user['kode_kelas'])->orderBy('start_event', 'asc')->get()->getResultArray();
+		$meetingDate = $db->table('kelas')->join('events', 'kelas.id=events.kode_kelas')->where('start_event >=', date('Y-m-d'))->where('jenis', '1')->where('kode_kelas', $user['kode_kelas'])->orderBy('start_event', 'asc')->get()->getResultArray();
 		$jadwalTo = $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('start_event >=', date('Y-m-d'))->where('jenis', '2')->orderBy('start_event', 'asc')->first();
 		$data['meetingDate'] = (!empty($meetingDate)) ? $meetingDate[0] : null;
 		$data['jadwalTo'] = (!empty($jadwalTo)) ? $jadwalTo : null;
+		$data['panduan'] = (strtotime($user['last_login']) <= strtotime('2022-02-03')) ? true : false;
 
 		$nilai = $db->table('nilai')->where('username', session('username'))->get()->getResultArray();
 		$submateri = $db->table('submateri')->get()->getResultArray();
@@ -143,6 +144,7 @@ class Peserta extends BaseController
 		} else {
 			$data['rekomendasi'] = [];
 		}
+// 		return var_dump($data['meetingDate']);
 		return view('peserta/index', $data);
 	}
 
@@ -166,11 +168,10 @@ class Peserta extends BaseController
 
 		$data['user'] = $user[0];
 		$data['users'] = $db->table('users')->where('username !=', $user[0]['username'])->get()->getResultArray();
-		$data['others']	= $db->query('SELECT * FROM  `users` WHERE (`last_login` >= DATE_ADD(CURDATE(), INTERVAL -3 DAY)) AND (`username` != "'.$user[0]['username'].'") ORDER BY `last_login` DESC')->getResultArray();
+		$data['others']	= $db->query('SELECT * FROM  `users` WHERE (`username` != "'.session('username').'") ORDER BY `last_login` DESC')->getResultArray();
 		$data['css'] = 'peserta/profil.css';
 		$data['active'] = 'profil';
 		$data['title'] = 'Profil';
-
 		if (session('flash') == "sukses") {
 			$flash = "<script>Swal.fire({icon: 'success', title: 'Edit Sukses', text: 'Penggantian informasi berhasil dilakukan'});</script>";
 		} elseif (session('flash') == "gagal") {
@@ -178,7 +179,6 @@ class Peserta extends BaseController
 		} else {
 			$flash = "<script>Swal.fire({icon: 'error', title: 'Edit Gagal', text: 'Format pengisian data salah'})</script>";
 		}
-
 		return view('peserta/profil', $data);
 	}
 
@@ -264,11 +264,6 @@ class Peserta extends BaseController
 				$model->where('username', session('username'))->set($user)->update();
 				session()->set('nama', $user['nama']);
 
-				$profpic = $this->request->getFile('imgprofpic');
-				if ($this->request->getPost('imgprofpic')) {
-					$profpic->move('./img/profil/', session('username').'.jpg', true);
-				}
-
 				session()->setFlashdata('flash', 'sukses');
 				return redirect()->to(base_url('peserta/profil'));
 			} else {
@@ -312,21 +307,19 @@ class Peserta extends BaseController
 			];
 
 			if ($this->request->getPost('pass-baru') != null) {
-				$rules = [
-					'pass-baru' => [
-						'label'  => 'Password',
-						'rules'  => 'required|min_length[8]',
-						'errors' => [
-							'required' => 'Password harus diisi',
-							'min_length' => 'Password harus terdiri dari 8 karakter',
-						]
+				$rules['pass-baru'] = [
+					'label'  => 'Password',
+					'rules'  => 'required|min_length[8]',
+					'errors' => [
+						'required' => 'Password harus diisi',
+						'min_length' => 'Password harus terdiri dari 8 karakter',
 					],
-					'konf-pass-baru' => [
-						'label'  => 'Konfirmasi password',
-						'rules'  => 'matches[pass-baru]',
-						'errors' => [
-							'matches' => 'Konfirmasi password tidak cocok',
-						]
+				];
+				$rules['konf-pass-baru'] = [
+					'label'  => 'Konfirmasi password',
+					'rules'  => 'matches[pass-baru]',
+					'errors' => [
+						'matches' => 'Konfirmasi password tidak cocok',
 					],
 				];
 			}
@@ -448,31 +441,38 @@ class Peserta extends BaseController
 		return $data1;
 	}
 	
-	public function hadir($thatDay) {
-		$today = date('y-m-d');
-		$thatDay = date('y-m-d', $thatDay);
-
-		$jadwal = new Jadwal_Model();
-		$kehadiran = new Kehadiran_Model();
-		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('start_event', $today)->where('jenis', '1')->orderBy('id', 'desc')->first()['id'];
-		
-		if ($today == $thatDay) {
-			if ($kehadiran->where('username', session('username'))->where('event', $event)->first()['hadir'] != '1') {
-				$model = new Users_Model();
-				$user = $model->where('username', session('username'))->first();
-				$bolos = ((int)$user['bolos'] == 0) ? 1 : (int)$user['bolos'];
-				$bolos-=1;
-				$model->where('username', session('username'))->set('bolos', (string)$bolos)->update();
-
-				$kehadiran->where('username', session('username'))->where('event', $event)->set('hadir', '1')->update();
-
-				return (string)$bolos;
-			} else {
-				return 'X';
-			}
-		} else {
-			return 'X';
-		}
+	public function hadir($id=NULL) {
+	    if ($id!=NULL) {
+    	    $db = \Config\Database::connect();
+    	    $pertemuan = $db->table('kelas')->join('events', 'events.kode_kelas=kelas.id')->where('events.id', $id)->get()->getResultArray()[0];
+    	    
+    		$today = date('y-m-d');
+    		$thatDay = date('y-m-d', $pertemuan['start_event']);
+    
+    		$jadwal = new Jadwal_Model();
+    		$kehadiran = new Kehadiran_Model();
+    		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('start_event', $today)->where('jenis', '1')->orderBy('id', 'desc')->first()['id'];
+    		
+    		if ($today == $thatDay) {
+    			if ($kehadiran->where('username', session('username'))->where('event', $event)->first()['hadir'] != '1') {
+    				$model = new Users_Model();
+    				$user = $model->where('username', session('username'))->first();
+    				$bolos = ((int)$user['bolos'] == 0) ? 1 : (int)$user['bolos'];
+    				$bolos-=1;
+    				$model->where('username', session('username'))->set('bolos', (string)$bolos)->update();
+    
+    				$kehadiran->where('username', session('username'))->where('event', $event)->set('hadir', '1')->update();
+    
+    				return redirect()->to($pertemuan['link-meeting']);
+    			} else {
+    				return redirect()->to($pertemuan['link-meeting']);
+    			}
+    		} else {
+    			return redirect()->to($pertemuan['link-meeting']);
+    		}
+	    } else {
+	        return redirect()->to(base_url().'/peserta');
+	    }
 	}
 
 	public function latihan($materi, $paket)
@@ -558,7 +558,7 @@ class Peserta extends BaseController
             'css' => 'kelasku/kuis.css'
         ];
 
-        return view('kelasku/tryout_hasil', $data);
+        return view('peserta/tryout_hasil', $data);
 	}
 
 	public function jawabTryout($id, $jawaban, $selesai=null)
@@ -654,29 +654,29 @@ class Peserta extends BaseController
 	public function nilai($bulan=null) 
 	{
 		if ($bulan!=null) {
-			switch($bulan) {
+			switch(substr($bulan,5)) {
 				case 'January': $b='01'; break; case 'February': $b='02'; break; case 'March': $b='03'; break;
 				case 'April': $b='04'; break; case 'Mey': $b='05'; break; case 'June': $b='06'; break;
 				case 'July': $b='07'; break; case 'August': $b='08'; break; case 'September': $b='09'; break;
 				case 'October': $b='10'; break; case 'November': $b='11'; break; case 'December': $b='12'; break;
 			}
-			$bulanIni=date('Y').'-'.$b;
+			$bulanIni=substr($bulan,0,4).'-'.$b;
 		} else {
-			$bulan=date('F');
+			$bulan=date('Y F');
 			$bulanIni=date('Y-m');
 		}
 		$model = new Nilai_Model();
 		$db = \Config\Database::connect();
 
 		$user = $db->table('users')->where('username', session('username'))->get()->getResultArray()[0];
-		$nilai = $model->Where('username', session('username'))->like('bulan', $bulanIni)->first();
+		$nilai = $model->where('username', session('username'))->like('bulan', $bulanIni)->first();
 		if (empty($nilai)) {
 			$nilai = [
 				'username' => session('username'),
 				'bulan' => date('Y-m-d')
 			];
 			$model->save($nilai);
-			$nilai = $model->Where('username', session('username'))->like('bulan', $bulanIni)->first();
+			$nilai = $model->where('username', session('username'))->like('bulan', $bulanIni)->first();
 		}
 
 		$submateri = $db->table('submateri')->get()->getResultArray();
@@ -701,7 +701,7 @@ class Peserta extends BaseController
 						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
 					}
 				} else {
-					$j++;
+					if ($j!=0) $j++;
 					$materi[$j]['materi']=$submateri[$i]['materi'];
 					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
 					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
@@ -709,7 +709,7 @@ class Peserta extends BaseController
 				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
 			}
 		}
-
+		
 		for ($i=0; $i<sizeof($materi); $i++) {
 			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
@@ -720,60 +720,68 @@ class Peserta extends BaseController
 		for ($i=0; $i<sizeof($submateri); $i++) {
 			$kuis = $db->table('events')->join('kuis', 'kuis.event_id=events.id')->join('hasil_kuis', 'hasil_kuis.kuis=kuis.id')
 					->where('hasil_kuis.username', session('username'))->where('kuis.materi', $submateri[$i]['submateri'])
-					->like('kode_kelas', session('kode-kelas'))->like('start_event', $bulanIni)->get()->getResultArray();
+					->like('start_event', $bulanIni)->get()->getResultArray();
 			if (!empty($kuis)) {
-				$kuis=$kuis[0];
 				$j=0;
 				$submateri[$i]['kuis']=0;
 				foreach ($kuis as $k) {
 					$j+=1;
-					$submateri[$i]['kuis']+=(int)$kuis['benar']*10;
+					$submateri[$i]['kuis']+=(int)$k['benar']*10;
 				}
 				$submateri[$i]['kuis']/=$j;
 			}
 		}
 
-		$event = $db->table('events')->join('hasil_tryout', 'hasil_tryout.event_id=events.id')
-				->where('jenis', '2')->like('kode_kelas', session('kode-kelas'))->like('start_event', $bulanIni)
+		$events = $db->table('events')->join('hasil_tryout', 'hasil_tryout.event_id=events.id')
+				->where('events.jenis', '2')->where('hasil_tryout.username', session('username'))
+				->like('events.start_event', $bulanIni)
 				->get()->getResultArray();
-		if (!empty($event)) {
-			$event = $event[0];
-			$jawaban = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $event['event_id'])->get()->getResultArray();
-			if (!empty($jawaban)) {
-				$jawaban = $jawaban[0];
-				$jawaban['jawaban'] = explode(',', $jawaban['jawaban']);
-			}
+		if (!empty($events)) {
+		    foreach ($events as $event) {
+    			$jawaban = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $event['event_id'])->get()->getResultArray();
+    			if (!empty($jawaban)) {
+    				$jawaban = $jawaban[0];
+					if (!empty($jawaban['jawaban'])) {
+    					$jawaban['jawaban'] = explode(',', $jawaban['jawaban']);
 
-			$j=0;
-			for ($i=0; $i<sizeof($submateri); $i++) {
-				$tryout = $db->table('tryout')->where('event_id', $event['event_id'])->where('materi', $submateri[$i]['submateri'])->get()->getResultArray();
-				if (!empty($tryout)) {
-					$benar=0; $total=0;
-					foreach ($tryout as $t) {
-						if ($jawaban['jawaban'][$j]==$t['jawaban']) $benar+=1;
-						$total+=1;
-						$j+=1;
+						for ($i=0; $i<sizeof($submateri); $i++) {
+							$tryout = $db->table('tryout')->where('event_id', $event['event_id'])->where('materi', $submateri[$i]['submateri'])->get()->getResultArray();
+							if (!empty($tryout)) {
+								$benar=0; $total=0;
+								foreach ($tryout as $t) {
+									if ($jawaban['jawaban'][(int)$t['nomor']-1]==$t['jawaban']) $benar+=1;
+									$total+=1;
+								}
+								if (!array_key_exists('tryout', $submateri[$i])) {
+									$submateri[$i]['tryout']=(int)($benar/$total*100);   
+								} else {
+									$submateri[$i]['tryout']+=(int)($benar/$total*100);
+								}
+							}
+						}
 					}
-					$submateri[$i]['tryout']=(string)(int)($benar/$total*100);
-				}
-			}
+    			}
+		    }
 		}
 
-		$lama = (int)date('m')-(int)date('m', strtotime($user['created_at']));
+        $d1 = strtotime(date('Y-m-d H:i:s'));
+        $d2 = strtotime($user['created_at']);
+		$lama = ceil(abs($d1-$d2)/60/60/24/30);
 		$bulannya =[];
 		for ($i=0; $i<=$lama; $i++) {
 			$b=(int)strtotime($user['created_at'])+$i*2592000;
-			$bulannya[$i]=date('F', (string)$b);
+			$bulannya[$i]=date('Y F', (string)$b);
 		}
 
-		$data= [
+		$data = [
 			'materi' => $materi,
 			'submateri' => $submateri,
 			'bulan' => $bulannya,
 			'bulanPilih' => $bulan,
 			'css' => 'peserta/index.css',
 			'title' => 'Transkrip Nilai',
-			'active' => 'Kelasku'
+			'active' => 'Kelasku',
+			'others' => $db->query('SELECT * FROM  `users` WHERE (`last_login` >= DATE_ADD(CURDATE(), INTERVAL -3 DAY)) AND (`username` != "'.session('username').'") ORDER BY `last_login` DESC')->getResultArray(),
 		];
 		return view('peserta/nilai', $data);
 	}
@@ -781,6 +789,13 @@ class Peserta extends BaseController
 	public function simpanBanner() {
 		$banner = $this->request->getFile('imgbanner');
 		$banner->move('./img/banner/', session('username').'.jpg', true);
+
+		return "succes";
+	}
+
+	public function simpanProfPic() {
+		$banner = $this->request->getFile('imgprofpic');
+		$banner->move('./img/profil/', session('username').'.jpg', true);
 
 		return "succes";
 	}

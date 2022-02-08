@@ -19,7 +19,13 @@
                 <td><?= $a['nama']; ?></td>
                 <td><?= $a['username']; ?></td>
                 <td><?= $a['password']; ?></td>
-                <td><?= ($a['role']==1) ? 'super admin' : 'pengajar' ?></td>
+                <td>
+                    <select class="form-control" onchange="ubahRoleAdmin('<?= $a['id'] ?>', this.value);">
+                        <option value="1"<?= ($a['role']==1) ? 'selected' : '' ?>>super admin</option>
+                        <option value="2"<?= ($a['role']==2) ? 'selected' : '' ?>>pengajar</option>
+                        <option value="3"<?= ($a['role']==3) ? 'selected' : '' ?>>admin TO</option>
+                    </select>
+                </td>
                 <td>
                     <?php if($a['username'] != 'erik'): ?>
                         <?php if($a['status']==0): ?>
