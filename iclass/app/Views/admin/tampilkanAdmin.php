@@ -29,9 +29,9 @@
                 <td>
                     <?php if($a['username'] != 'erik'): ?>
                         <?php if($a['status']==0): ?>
-                            <button class="badge badge-success konfirmasi" value="<?= $a['id']; ?>" style="border: none;">Konfirmasi</button>
+                            <button class="badge badge-success konfirmasi" value="<?= $a['id']; ?>" onclick="konfirmasi('<?= $a['id']; ?>');" style="border: none;">Konfirmasi</button>
                         <?php endif; ?>
-                        <button class="badge badge-danger tolak" value="<?= $a['id']; ?>" style="border: none;">Tolak</button>
+                        <button class="badge badge-danger tolak" value="<?= $a['id']; ?>" onclick="tolak('<?= $a['id']; ?>');" style="border: none;">Tolak</button>
                     <?php endif; ?>
                 </td>
             </tr>

@@ -114,6 +114,16 @@ ul {
   width: 30% !important;
 }
 
+.absolute-fixed {
+  position: absolute;
+}
+
+@media screen and (max-width: 768px) {
+  .absolute-fixed {
+    position: fixed;
+  }
+}
+
 /* @media screen and (max-width: 1000px) {
   .mt5 {
     margin-top: 15px !important;

@@ -51,6 +51,16 @@
     margin-top: 35px;
   }
 
+  .absolute-fixed {
+    position: absolute;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .absolute-fixed {
+      position: fixed;
+    }
+  }
+
 
 /* @media screen and (max-width: 768px) {
     .judul {

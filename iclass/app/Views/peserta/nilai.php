@@ -4,7 +4,7 @@
     <div class="row mx-auto my-5" style="width: 80%;">
         <div class="row w-75 mx-0 pr-3">
             <h4 class="font-weight-bold w-100 my-auto">Keseluruhan</h4>
-            <div class="position-relative w-75 mx-0 mt-4 pb-2" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+            <div class="position-relative w-75 mx-0 mt-4 pb-4" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
                 <?php for ($i=sizeof($bulan)-1; $i>=0; $i--) { ?>
                     <div class="w-25 mt-2 pr-2" style="display:inline-block; float: none;">
                         <a href="<?= base_url() ?>/peserta/nilai/<?= $bulan[$i] ?>" 

@@ -241,38 +241,56 @@
 
     <?php elseif ($active == 'daftar admin') : ?>
         <script>
-            $(document).ready(function() {
-                function tampilkanAdmin() {
-                    $.get(
-                        'tampilkanAdmin',
-                        function(result) {
-                            function init() {
-                                $('#tabel-admin').html(result)
-                                $('#daftar-admin').DataTable()
-                            }
-                            init()
-                            $('.konfirmasi').click(function() {
-                                $.get(
-                                    'ubahStatusAdmin/' + $(this).val() + '/1',
-                                    function(result) {
-                                        tampilkanAdmin()
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
-                            $('.tolak').click(function() {
-                                $.get(
-                                    'ubahStatusAdmin/' + $(this).val() + '/0',
-                                    function(result) {
-                                        tampilkanAdmin()
-                                        $('#flash').html(result)
-                                    }
-                                )
-                            })
+            function tampilkanAdmin() {
+                $.get(
+                    'tampilkanAdmin',
+                    function(result) {
+                        function init() {
+                            $('#tabel-admin').html(result)
+                            $('#daftar-admin').DataTable()
+                        }
+                        init()
+                        $('.konfirmasi').click(function() {
+                            $.get(
+                                'ubahStatusAdmin/' + $(this).val() + '/1',
+                                function(result) {
+                                    tampilkanAdmin()
+                                    $('#flash').html(result)
+                                }
+                            )
                         })
-                }
+                        $('.tolak').click(function() {
+                            $.get(
+                                'ubahStatusAdmin/' + $(this).val() + '/0',
+                                function(result) {
+                                    tampilkanAdmin()
+                                    $('#flash').html(result)
+                                }
+                            )
+                        })
+                    })
+            }
+            $(document).ready(function() {
                 tampilkanAdmin()
             });
+            function konfirmasi(val) {
+                $.get(
+                    'ubahStatusAdmin/' + val + '/1',
+                    function(result) {
+                        tampilkanAdmin()
+                        $('#flash').html(result)
+                    }
+                )
+            }
+            function tolak(val) {
+                $.get(
+                    'ubahStatusAdmin/' + val + '/0',
+                    function(result) {
+                        tampilkanAdmin()
+                        $('#flash').html(result)
+                    }
+                )
+            }
         </script>
     <?php elseif ($active == 'dashboard'): ?>
         <script>

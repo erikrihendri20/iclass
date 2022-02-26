@@ -142,9 +142,8 @@ class Peserta extends BaseController
 		if (!empty($data['nilai'])) {
 			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->where('submateri.materi', $data['nilai'][0]['materi'])->get()->getResultArray();
 		} else {
-			$data['rekomendasi'] = [];
+			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->get()->getResultArray();
 		}
-// 		return var_dump($data['meetingDate']);
 		return view('peserta/index', $data);
 	}
 
@@ -446,12 +445,12 @@ class Peserta extends BaseController
     	    $db = \Config\Database::connect();
     	    $pertemuan = $db->table('kelas')->join('events', 'events.kode_kelas=kelas.id')->where('events.id', $id)->get()->getResultArray()[0];
     	    
-    		$today = date('y-m-d');
-    		$thatDay = date('y-m-d', $pertemuan['start_event']);
+    		$today = date('Y-m-d');
+    		$thatDay = date('Y-m-d', strtotime($pertemuan['start_event']));
     
     		$jadwal = new Jadwal_Model();
     		$kehadiran = new Kehadiran_Model();
-    		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('start_event', $today)->where('jenis', '1')->orderBy('id', 'desc')->first()['id'];
+    		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('jenis', '1')->like('start_event', $today)->orderBy('id', 'desc')->first()['id'];
     		
     		if ($today == $thatDay) {
     			if ($kehadiran->where('username', session('username'))->where('event', $event)->first()['hadir'] != '1') {
@@ -462,13 +461,11 @@ class Peserta extends BaseController
     				$model->where('username', session('username'))->set('bolos', (string)$bolos)->update();
     
     				$kehadiran->where('username', session('username'))->where('event', $event)->set('hadir', '1')->update();
-    
-    				return redirect()->to($pertemuan['link-meeting']);
-    			} else {
-    				return redirect()->to($pertemuan['link-meeting']);
     			}
-    		} else {
+    			
     			return redirect()->to($pertemuan['link-meeting']);
+    		} else {
+    			return redirect()->to(base_url().'/peserta');
     		}
 	    } else {
 	        return redirect()->to(base_url().'/peserta');
@@ -508,7 +505,7 @@ class Peserta extends BaseController
 		}
 		
 		$now = $model->where('event_id', $id)->where('username', session('username'))->first()['mulai'];
-        $now = date('Y-m-d G:i:s', strtotime("$now + 2 hours 5 seconds"));
+        $now = date('Y-m-d G:i:s', strtotime("$now + 2 hours"));
 
 		$data = [
 			'event' => $db->table('events')->where('id', $id)->get()->getResultArray()[0],
@@ -519,6 +516,17 @@ class Peserta extends BaseController
 			'active' => 'tryout',
 			'css' => 'kelasku/kuis.css'
 		];
+		$data['jawaban'] = !empty($data['peserta']['jawaban']) ? explode(',', $data['peserta']['jawaban']) : null;
+		
+		$data['terisi'] = 0;
+		if (!empty($data['jawaban'])) {
+			foreach ($data['jawaban'] as $jawaban) {
+				if ($jawaban!="") {
+					$data['terisi']++;
+				}
+			}
+		}
+		$data['kosong'] = 40-$data['terisi'];
 
         $tes = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
 		if ($data['event']['end_event'] > date('Y-m-d G:i:s')) {

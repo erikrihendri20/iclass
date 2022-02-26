@@ -14,16 +14,17 @@
                     <div class="form-group row pl-4">
                         <label for="soal" class="col-sm-3 col-form-label text-secondary"><span class="text-center">Soal</span></label>
                         <div class="col-sm-7">
-                            <input type="file" class="form-control<?= (service('validation')->hasError('soal')) ? ' is-invalid' : '' ?>" name="soal[]" id="soal" multiple>
+                            <input type="file" class="form-control py-1<?= (service('validation')->hasError('soal')) ? ' is-invalid' : '' ?>" name="soal[]" id="soal" multiple>
                         </div>
                         <div class="invalid-feedback">
                             <?= service('validation')->getError('soal'); ?>
                         </div>
                     </div>
                     <div class="form-group row pl-4">
-                        <label for="bagian" class="col-sm-1 col-form-label text-secondary"><span class="text-center">Bagian</span></label>
-                        <div class="col-sm-8">
-                            <select id="bagian" name="bagian" class="form-control<?= (service('validation')->hasError('bagian')) ? ' is-invalid' : '' ?>">
+                        <label for="bagian" class="col-sm-3 col-form-label text-secondary"><span class="text-center">Bagian</span></label>
+                        <div class="col-sm-7">
+                            <select id="bagian" name="bagian" onchange="changeNumber(this.value);"
+                                class="form-control<?= (service('validation')->hasError('bagian')) ? ' is-invalid' : '' ?>">
                                 <option class="font-weight-bold" value="1-20" selected>1-20</option>
                                 <option class="font-weight-bold" value="21-40">21-40</option>
                             </select>
@@ -75,10 +76,38 @@
 </div>
 
 <script>
+    let nomor = 0;
+
     function modalSoal(id, materi) {
         document.getElementById('event_id').value=id;
         document.getElementById('materi_soal').value=materi;
 
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                soal = JSON.parse(xhttp.responseText);
+
+                for (var i=1; i<=20; i++) {
+                    if (soal[i+nomor]!=null && soal[i+nomor-1]['nomor']==i+nomor) { 
+                        document.getElementById('jawaban'+i).value=soal[i+nomor]['jawaban'];
+                        document.getElementById('subbab'+i).value=soal[i+nomor]['materi'];
+                    }
+                }
+            }
+        };
+        xhttp.open("GET", "<?= base_url() ?>/admin/tryoutSoal/"+id, true);
+        xhttp.send();
+
         $('#modal-soal').modal('show');
+    }
+
+    function changeNumber(number) {
+        if (number=="1-20") {
+            nomor=0;
+        } else {
+            nomor=20;
+        }
+
+        modalSoal(document.getElementById('event_id').value, document.getElementById('materi_soal').value);
     }
 </script>

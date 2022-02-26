@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Models\Tryout_Model;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 

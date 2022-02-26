@@ -25,4 +25,6 @@
         </div>
     </div>
 </div>
+<div style="padding-top: 200px;"></div>
+<?= $this->include('templates/footer'); ?>
 <?= $this->endSection(); ?>

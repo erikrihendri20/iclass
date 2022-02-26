@@ -1,7 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mnya-5 mb-0">
-<div class="row w-100 mx-0 mt-4">
+<div class="content mb-0">
+<div class="row mx-auto mt-4" style="width: 80%;">
         <div class="row justify-content-between w-100 mx-0">
             <h4 class="font-weight-bold w-50 my-auto">Latihan</h4>
             <h4 class="font-weight-bold text-left text-truncate w-50 my-auto"><?= $latihan.' - '.$paket ?></h4>

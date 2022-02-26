@@ -6,16 +6,20 @@
             <h5 class="w-50 my-auto pl-4"><?= $event['title'] ?></h5>
             <div class="row justify-content-end w-50 mx-0">
                 <h5 class="font-weight-bold my-auto">
-                    <?php if (date('Y-m-d H:i:s')<=date('Y-m-d H:i:s', strtotime($event['end_event']))) { ?>
+                    <?php if (date('Y-m-d')==date('Y-m-d', strtotime($event['start_event']))) { ?>
                         Waktu Tersisa&nbsp;
                         <span id="span" class="bg-white px-3 py-2" style="color:#12336D; border-radius: 10px;"></span>
                         <script>
                             var span = document.getElementById('span');
                             
-                            var dt = new Date("<?= $now ?>").getTime();
+                            var dt = "<?= $now ?>";
+                            dt = dt.split(/[- :]/);
+                            dt = new Date(dt[0], dt[1]-1, dt[2], dt[3], dt[4], dt[5]);
+                            dt = new Date(dt);
                             
                             function time() {
-                                var d = new Date().getTime();
+                                var d = new Date();
+                                d = new Date(d.toLocaleString("en-US", {timeZone: "Asia/Jakarta"})).getTime();
                                 var distance = dt - d;
                                 
                                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -24,8 +28,8 @@
                                 
                                 span.textContent = hours + ":" + minutes + ":" + seconds;
                                 
-                                if (distance < 0) {
-                                    selesai();
+                                if (distance <= 0) {
+                                    selesaiBanget();
                                 }
                             }
 
@@ -36,7 +40,7 @@
             </div>
         </div>
         <div class="row w-100 mx-0 mt-5">
-            <div class="row mx-0 pr-3" style="width: 70%">
+            <div class="row w70 mx-0 pr-3">
                 <div class="row border border-30 w-100 mx-0 px-4 pt-4 pb-3">
                     <div class="row align-content-center justify-content-between w-100 mx-0">
                         <div class="row align-content-center w-50 mx-0">
@@ -52,7 +56,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row w-100 mx-0 mt-3" style="height: 230px; overflow-y: auto;">
+                    <div class="row w-100 mx-0 mt-3 hsoal" style="overflow-y: auto;">
                         <div class="row bg-white w-100 mx-0" style="min-height: 100%">
                             <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
                         </div>
@@ -88,12 +92,18 @@
                     </div>
                 </div>
             </div>
-            <div class="mx-0 pl-3" style="width: 30%;">
+            <div class="w30 mx-0 pl3">
                 <div class="border border-30 w-100 mx-0 p-3">
-                    <div class="row w-100 mx-0" style="max-height: 250px; overflow-y: auto;">
+                    <div class="w-100 mx-0 pb-2 nomor-to">
                         <?php for ($i=1; $i<41; $i++) { ?>
-                            <div class="mr-2 mt-2" style="width: 50px;">
-                                <button id="<?= $i ?>" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="width: 50px; height: 50px; border-radius: 15px;"
+                            <div class="mr-2 mt-2 nomor" style="width: 50px;">
+                                <button id="<?= $i ?>" 
+                                    <?php if (!empty($jawaban) && !empty($jawaban[$i-1])) { ?>
+                                        class="btn bg-primary text-white text-center font-weight-bold border w-100 p-2"
+                                    <?php } else { ?>
+                                        class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" 
+                                    <?php } ?>
+                                    style="width: 50px; height: 50px; border-radius: 15px;"
                                     onclick="pindahSoal('<?= $i-1 ?>');"><?= $i ?></button>
                             </div>
                         <?php } ?>
@@ -103,7 +113,7 @@
                     <div class="row border-bottom w-100 mx-0 pb-2">
                         <div class="bg-primary h-100" style="width: 19.2px; border-radius: 5px;"></div>
                         <h6 class="mb-0 ml-2">Sudah terisi</h6>
-                        <h6 id="terisi" class="mb-0 ml-auto">0</h6>
+                        <h6 id="terisi" class="mb-0 ml-auto"><?= $terisi ?></h6>
                     </div>
                     <div class="row border-bottom w-100 mx-0 mt-3 pb-2">
                         <div class="bg-secondary h-100" style="width: 19.2px; border-radius: 5px;"></div>
@@ -113,7 +123,7 @@
                     <div class="row border-bottom w-100 mx-0 mt-3 pb-2">
                         <div class="border h-100" style="width: 19.2px; border-radius: 5px;"></div>
                         <h6 class="mb-0 ml-2">Belum terisi</h6>
-                        <h6 id="kosong" class="mb-0 ml-auto">40</h6>
+                        <h6 id="kosong" class="mb-0 ml-auto"><?= $kosong ?></h6>
                     </div>
                 </div>
                 <div class="row justify-content-end w-100 mx-0 mt-4 px-3">
@@ -145,14 +155,11 @@
     </div>
 
     <script>
-        <?php if ($peserta['jawaban'] != NULL) { ?>
-            // console.log('<?php echo json_encode(explode(',', $peserta['jawaban'])); ?>');
-        <?php } ?>
         var soal = 0;
         var initialState = {
-            kosong: 40,
-            terisi: 0,
-            jawaban: ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']
+            kosong: <?= $kosong ?>,
+            terisi: <?= $terisi ?>,
+            jawaban: <?= empty($jawaban) ? "['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']" : json_encode(explode(',', $peserta['jawaban'])) ?>
         };
         let raguan = [];
 
@@ -240,13 +247,13 @@
             document.getElementById('radioD').setAttribute('onclick', "javascript: jawab('D');");
             document.getElementById('radioE').setAttribute('onclick', "javascript: jawab('E');");
 
-            document.getElementById('labelA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
-            document.getElementById('labelB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
-            document.getElementById('labelC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
-            document.getElementById('labelD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
-            document.getElementById('labelE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
+            document.getElementById('labelA').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
+            document.getElementById('labelB').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
+            document.getElementById('labelC').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
+            document.getElementById('labelD').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
+            document.getElementById('labelE').setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
             const jawabanA = document.getElementById('label'+jawaban);
-            if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-10 mt-2 py-2 active');
+            if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-20 mt-2 py-2 active');
         }
 
         function pindahSoal(nomor) {
@@ -256,8 +263,8 @@
 
         function jawab(jawaban) {
             const active = document.getElementsByClassName('active')[0];
-            if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-10 mt-2 py-2');
-            document.getElementById('label'+jawaban).setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-10 mt-2 py-2 active');
+            if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
+            document.getElementById('label'+jawaban).setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-20 mt-2 py-2 active');
             
             document.getElementById((soal+1).toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 w-100 p-2');
             
@@ -275,7 +282,7 @@
                 store.dispatch({type: 'jawab/sama', payload: jawaban});
             }
             
-            <?php if ((date('Y-m-d G:i:s', strtotime($event['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($event['end_event']))>date('Y-m-d G:i:s'))) { ?>
+            <?php if (date('Y-m-d', strtotime($event['start_event']))<=date('Y-m-d')) { ?>
                 $.ajax({
                     url: '<?= base_url() ?>/peserta/jawabTryout/<?= $event['id'] ?>/'+store.getState().jawaban.toString(),
                     success: function(res) {
@@ -313,6 +320,8 @@
                 }
             })
         }
+
+        pindahSoal(0);
         
         // if (store.getState().jawaban[0]!='') {
         //     document.getElementById('label'+store.getState().jawaban[0]).setAttribute('class', 'btn btn-lignt bg-warning font-weight-bold w-75 mt-2 py-2 active');

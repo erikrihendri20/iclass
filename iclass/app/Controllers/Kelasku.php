@@ -68,7 +68,7 @@ class Kelasku extends BaseController
             'kelasBolos'=> $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('kehadiran.hadir', '0')->where('events.start_event <', date('y-m-d'))->where('events.jenis', '1')->orderBy('kehadiran.pertemuan', 'asc')->get()->getResultArray(),
             'kelasDatang' => $db->table('kehadiran')->select('*')->join('events', 'events.id = kehadiran.event')->where('kehadiran.username', session('username'))->where('events.start_event >=', date('y-m-d'))->where('events.jenis', '1')->orderBy('kehadiran.pertemuan', 'asc')->get()->getResultArray(),
             'zoomMeeting' => $db->table('events')->join('kehadiran', 'kehadiran.event=events.id')->where('kehadiran.username', session('username'))->where('kode_kelas', $user['kode_kelas'])->where('jenis', '1')->orderBy('events.start_event', 'desc')->get()->getResultArray(),
-            'jadwalTryout' => $db->table('events')->like('kode_kelas', $user['kode_kelas'])->where('jenis', '2')->orderBy('start_event', 'desc')->get()->getResultArray(),
+            'jadwalTryout' => $db->table('events')->like('kode_kelas', session('kode-kelas'))->where('jenis', '2')->orderBy('start_event', 'desc')->get()->getResultArray(),
             'kuisHarian' => $jadwalModel->like('kode_kelas', $user['kode_kelas'])->where('jenis', '3')->orderBy('start_event', 'desc')->findAll(),
             'catatan'	=> $catatan->where('user', session('username'))->first(),
             'quote'		=> $quotes[array_rand($quotes)]['quote'],

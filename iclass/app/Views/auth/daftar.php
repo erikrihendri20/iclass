@@ -1,9 +1,10 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <?php $validation = service('validation') ?>
-<div class="content mb-3 pb5">
-    <div class="row shadow-lg border-20 mnya-5 px-0" style="height: 650px;">
+<div class="content my-4 pb5">
+    <div class="row shadow-lg border-20 mnya-5 px-0" style="height: 700px;">
         <div class="col-7 h-100 px-5">
+            <?= session()->flash; ?>
             <div id="daftar" class="carousel slide" data-ride="carousel" data-interval="false" data-pause="hover">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -35,7 +36,7 @@
                     </div>
                     <div class="carousel-item">
                         <div class="row justify-content-center align-self-center w-100 mx-0">
-                            <h3 class="font-weight-bold w-100 mt5" style="color: #12336D;">Buat akun baru (1/2)</h3>
+                            <h3 class="font-weight-bold w-100 mt5" style="color: #12336D;">Buat akun baru ( 1/2 )</h3>
                             <div class="border border-20 w-100 mx-1 p-3">
                                 <div style="height: 400px;">
                                     <form class="d-flex flex-column masuk" method="POST" action="" enctype="multipart/form-data">
@@ -76,7 +77,7 @@
                     </div>
                     <div class="carousel-item">
                         <div class="row justify-content-center align-self-center w-100 mx-0">
-                            <h3 class="font-weight-bold w-100 mt5" style="color: #12336D;">Buat akun baru (2/2)</h3>
+                            <h3 class="font-weight-bold w-100 mt5" style="color: #12336D;">Buat akun baru ( 2/2 )</h3>
                             <div class="border border-20 w-100 mx-1 p-3">
                                 <div style="height: 400px; overflow-y: auto;">
                                         <div class="form-group">
@@ -177,4 +178,6 @@
         });
     </script>
 </div>
+<div style="padding-top: 200px;"></div>
+<?= $this->include('templates/footer'); ?>
 <?= $this->endSection(); ?>

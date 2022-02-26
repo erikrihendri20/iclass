@@ -49,6 +49,16 @@
     width: 58.3333333%;
   }
 
+  .absolute-fixed {
+    position: absolute;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .absolute-fixed {
+      position: fixed;
+    }
+  }
+
 /* @media screen and (max-width: 768px) {
     .judul {
         font-size: 50px;

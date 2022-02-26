@@ -75,12 +75,15 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
+    <?php endif; ?>
+    
+    <?php if (session()->role != 2) : ?>
         <!-- Heading -->
         <div class="sidebar-heading">
             Peserta
         </div>
-
+    
+    
         <!-- Nav Item - My-profile -->
         <li class="nav-item <?= ($active == 'konfirmasi peserta') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/konfirmasiPeserta">
@@ -94,7 +97,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                 <i class="fas fa-fw fa-users"></i>
                 <span>Daftar Peserta</span></a>
         </li>
-
+    <?php endif; ?>
+    
+    <?php if (session()->role == 1) : ?>
         <li class="nav-item <?= ($active == 'ubah paket') ? 'active' :  ' '; ?>">
             <a class="nav-link" href="<?= base_url(); ?>/admin/ubahPaket">
                 <i class="fas fa-fw fa-users"></i>

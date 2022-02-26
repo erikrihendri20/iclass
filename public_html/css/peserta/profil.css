@@ -69,7 +69,15 @@
     width: 58.3333333%;
   }
 
-@media (max-width: 768px) {
+  .absolute-fixed {
+    position: absolute;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .absolute-fixed {
+      position: fixed;
+    }
+    
     #bagian_atas {
         display: none;
     }

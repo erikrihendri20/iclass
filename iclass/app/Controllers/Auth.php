@@ -359,7 +359,7 @@ class Auth extends BaseController
                     'tanggal' => '',
                 ];
                 $catatan->save($catat);
-                $flash = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                $flash = '<div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
                             ' . $newuser['nama'] . ' <strong>berhasil</strong> terdaftar <br>
                             selesaikan pembayaran untuk mendapatkan layanan iclass
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -369,10 +369,24 @@ class Auth extends BaseController
                 session()->setFlashdata('flash', $flash);
                 return redirect()->to('masuk');
             } else {
-                return redirect()->back()->withInput();
+                $flash = '<div class="alert alert-danger alert-dismissible fade show mt-4 mb-0" role="alert">
+                            <strong>gagal</strong> terdaftar <br>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to('daftar')->withInput();
             }
         } else if (isset($_POST['kembali'])) {
-            return redirect()->back()->withInput();
+            $flash = '<div class="alert alert-danger alert-dismissible fade show mt-4 mb-0" role="alert">
+                        <strong>gagal</strong> terdaftar <br>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+            session()->setFlashdata('flash', $flash);
+            return redirect()->to('daftar')->withInput();
         }
         $data['active'] = 'daftar';
         $data['pilihPaket'] = $this->request->getGet('paket');

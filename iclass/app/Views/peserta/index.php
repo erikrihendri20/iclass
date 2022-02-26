@@ -106,7 +106,7 @@
                 </div>
                 <div class="row align-items-stretch justify-content-between w-100 mx-0">
                     <div class="pr-1" style="width: 33%;">
-                        <div class="row border mx-0 p-3" style="border-radius: 37px;">
+                        <div class="row border h-100 mx-0 p-3" style="border-radius: 37px;">
                             <div class="row
                                 <?php if(!empty($meetingDate) && date('Y-m-d') == date('Y-m-d', strtotime($meetingDate['start_event']))) {
                                     echo "bg-primary";
@@ -121,7 +121,7 @@
                                 <img src="<?= base_url() ?>/img/Aset/Asset 11.png" class="border-50 w-100" style="object-fit: contain;" />
                             </div>
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Zoom Meeting</h5>
-                            <h6 class="w-100 ml-2"><?= (!empty($meetingDate)) ? $meetingDate['title'] : "&nbsp"; ?></h6>
+                            <h6 class="text-truncate w-100 ml-2"><?= (!empty($meetingDate)) ? $meetingDate['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
                                 <a class="btn btn-primary text-white rounded-pill px-4"
                                     <?php if(empty($meetingDate)) :?>
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="px-1" style="width: 33%;">
-                        <div class="row border mx-0 p-3" style="border-radius: 37px;">
+                        <div class="row border h-100 mx-0 p-3" style="border-radius: 37px;">
                             <div class="row
                                 <?php if(!empty($jadwalTo) && date('Y-m-d') == date('Y-m-d', strtotime($jadwalTo['start_event']))) {
                                     echo "bg-primary";
@@ -157,13 +157,13 @@
                                 <img src="<?= base_url() ?>/img/Aset/Asset 14.png" class="border-50 w-100" style="object-fit: scale-down;" />
                             </div>
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Try Out</h5>
-                            <h6 class="w-100 ml-2"><?= (!empty($jadwalTo)) ? $jadwalTo['title'] : "&nbsp"; ?></h6>
+                            <h6 class="text-truncate w-100 ml-2"><?= (!empty($jadwalTo)) ? $jadwalTo['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
-                                <a class="btn btn-primary h6 rounded-pill px-4"
+                                <button class="btn btn-primary text-white rounded-pill px-4" type="button"
                                     <?php if(empty($jadwalTo)) :?>
                                         style="visibility:hidden;"
                                     <?php elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTo['start_event']))) : ?>
-                                        href="<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>"
+                                        onclick="modalTryout();"
                                     <?php endif; ?>
                                     >
                                     <?php if(!empty($jadwalTo)) {
@@ -173,12 +173,12 @@
                                         $selisih=$selisih/60/60/24;
                                         echo $selisih==0 ? "Join Now" : $selisih." hari lagi";
                                     } else { echo "-"; } ?>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="pl-1" style="width: 33%;">
-                        <div class="row border mx-0 p-3" style="border-radius: 37px;">
+                        <div class="row border h-100 mx-0 p-3" style="border-radius: 37px;">
                             <div class="row
                                 <?php if(!empty($kuis) && date('Y-m-d') == date('Y-m-d', strtotime($kuis['start_event']))) {
                                     echo "bg-primary";
@@ -193,7 +193,7 @@
                                 <img src="<?= base_url() ?>/img/Aset/Asset 13.png" class="border-50 w-100" style="object-fit: scale-down;" />
                             </div>
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Kuis Harian</h5>
-                            <h6 class="w-100 ml-2"><?= (!empty($kuis)) ? $kuis['title'] : "&nbsp"; ?></h6>
+                            <h6 class="text-truncate w-100 ml-2"><?= (!empty($kuis)) ? $kuis['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
                                 <a class="btn btn-primary h6 rounded-pill px-4"
                                     <?php if(empty($kuis)) :?>
@@ -279,6 +279,21 @@
                             </div>
                         </a>
                     <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalTryout" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin memulai try out? Waktu <span class="text-danger">akan terus berjalan</span> setelah Anda memulai try out.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white rounded" onclick="cancelTryout();">Tidak</button>
+                    <button type="button" class="btn btn-primary rounded" id="yesButton"
+                        onclick="window.location.replace('<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ''; ?>');">Ya ( 10 )</button>
                 </div>
             </div>
         </div>
@@ -431,6 +446,7 @@
                 </div>
             </div>
         </div>
+
         <script>
             $(document).ready(function(){
                 $("#panduanModal").modal('show');
@@ -579,6 +595,32 @@
                                             </a>`;
                     }
                 <?php endif; ?>
+            }
+
+            let counterNumber = 9;
+
+            let counter;
+
+            function modalTryout() {
+                $('#modalTryout').modal('show');
+                counter = setInterval(function() {
+                    document.getElementById('yesButton').innerHTML=`Ya ( ${counterNumber} )`;
+
+                    if (counterNumber<0) {
+                        clearInterval(counter);
+                        document.getElementById('yesButton').innerHTML=`Ya ( 0 )`;
+                        window.location.replace("<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>");
+                    }
+                    
+                    counterNumber--;
+                }, 1000);
+            }
+
+            function cancelTryout() {
+                clearInterval(counter);
+                counterNumber = 9;
+                $('#modalTryout').modal('hide');
+                document.getElementById('yesButton').innerHTML=`Ya ( 10 )`;
             }
 
             function simpanCatatan() {
