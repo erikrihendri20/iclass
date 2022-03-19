@@ -439,7 +439,7 @@
         <?= session()->getFlashdata('rekaman') ?>
 
         function hanyaTryout() {
-            Swal.fire({icon: 'error', title: '', text: 'Fitur ini tidak tersedia untuk pilihan paketmu'});
+            Swal.fire({icon: 'error', title: '', text: 'Bagian ini belum tersedia untukmu.'});
         }
     </script>
 </div>

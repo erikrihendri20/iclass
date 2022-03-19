@@ -293,7 +293,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white rounded" onclick="cancelTryout();">Tidak</button>
                     <button type="button" class="btn btn-primary rounded" id="yesButton"
-                        onclick="window.location.replace('<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ''; ?>');">Ya ( 10 )</button>
+                        onclick="<?php if (!empty($jadwalTo) && $jadwalTo['class_name']!='skd') { ?>
+                            window.location.replace('<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>');
+                        <?php } else { ?>
+                            window.location.replace('<?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>')
+                        <?php } ?>">Ya ( 10 )</button>
                 </div>
             </div>
         </div>
@@ -609,7 +613,11 @@
                     if (counterNumber<0) {
                         clearInterval(counter);
                         document.getElementById('yesButton').innerHTML=`Ya ( 0 )`;
-                        window.location.replace("<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>");
+                        <?php if (!empty($jadwalTo) && $jadwalTo['class_name']!='skd') { ?>
+                            window.location.replace("<?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>");
+                        <?php } else { ?>
+                            window.location.replace("<?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTo)) ? $jadwalTo['id'] : ""; ?>")
+                        <?php } ?>
                     }
                     
                     counterNumber--;

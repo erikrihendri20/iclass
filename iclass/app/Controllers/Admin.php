@@ -19,6 +19,8 @@ use App\Models\HasilKuis_Model;
 use App\Models\Tryout_Model;
 use App\Models\UbahPaket_Model;
 use App\Models\Notifikasi_Model;
+use App\Models\SKD_Model;
+use Exception;
 
 class Admin extends BaseController
 {
@@ -67,7 +69,7 @@ class Admin extends BaseController
             $j=0;
             foreach (explode(',', $id['kode_kelas']) as $kls) {
                 $cls = $model->getByid($kls);
-                if ($j==0) {
+                if ($j==0 && !empty($cls[0])) {
                     $kelas = $cls[0]['nama'];
                 } elseif (!empty($cls[0])) {
                     $kelas = $kelas.','.$cls[0]['nama'];
@@ -81,6 +83,7 @@ class Admin extends BaseController
         $kelas = $model->findAll();
 
         $data = [
+            'tryoutModel'   => new Tryout_Model(),
             'kelas'         => $class,
             'data'          => $tryout,
             'list_kelas'    => $kelas,
@@ -595,7 +598,7 @@ class Admin extends BaseController
         $user = new Users_Model();
 
         $model = new Jadwal_Model();
-        $events = $model->where('jenis', '1')->like('kode_kelas', $kode_kelas)->findAll();
+        $events = $model->where('jenis', '1')->where('kode_kelas', $kode_kelas)->findAll();
         
         $pertemuan=0;
         switch ($user->where('id', $id)->first()['kode_paket']) {
@@ -620,7 +623,7 @@ class Admin extends BaseController
             $u = $user->where('id', $id)->first();
 
             $kehadiran = new Kehadiran_Model();
-            $hadir = $kehadiran->where('username', $u['username'])->where('kelas', $kode_kelas)->findAll();
+            $hadir = $kehadiran->where('username', $u['username'])->findAll();
             $hadir2 = $kehadiran->where('username', $u2)->findAll();
 
             if (!empty($hadir)) {
@@ -1202,9 +1205,10 @@ class Admin extends BaseController
 
     public function add_jadwal_tryout()
     {
+        $jenis = $this->request->getPost('jenis');
         $title = $this->request->getPost('title');
         $start = new Time($this->request->getPost('datetime'));
-        $end = date( "Y-m-d H:i:s", strtotime( "$start + 4 hours" ));
+        $end = date( "Y-m-d H:i:s", strtotime( "$start + 23 hours 59 minutes" ));
 
         $id_kelases = $this->request->getPost('kelas[]');
         $id_kelas = "";
@@ -1225,15 +1229,9 @@ class Admin extends BaseController
                 'start_event'   => $start,
                 'end_event'     => $end,
                 'jenis'         => 2,
-                'class_name'    => 'success',
+                'class_name'    => $jenis,
             ];
             $model->insert($data);
-            
-            if (!empty($this->request->getFile('thumbnailTryOut'))) {
-                $data = $model->where('title', $title)->orderBy('id', 'desc')->findAll();
-                $thumbnail = $this->request->getFile('thumbnailTryOut');
-                $thumbnail->move('./img/tryout/Thumbnail', $data[0]['id'].'.jpg');
-            }
 
             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Penambahan jadwal kuis sukses!</strong>
@@ -1294,7 +1292,13 @@ class Admin extends BaseController
                     $tryout['jawaban'] = $jawab;
                     $tryout['nomor'] = $i;
                     $tryout['materi'] = $this->request->getPost('subbab'.$j);
-                    $model->save($tryout);
+                    
+                    if (empty($model->where('event_id', $tryout['event_id'])->where('nomor', $i)->first())) {
+                        $model->save($tryout);
+                    } else {
+                        $model->set($tryout)->update();
+                    }
+                    
                     $soal->move('img/tryout/'.$tryout['soal'].' - '.$tryout['event_id'].'/soal', $i.'.jpg', true);
                     $j++;
                     $i++;
@@ -1309,6 +1313,60 @@ class Admin extends BaseController
         }
 
         return redirect()->to(base_url('admin/aturJadwalTryout'));
+    }
+
+    public function soal_skd()
+    {
+        if (isset($_POST['submit'])) {
+            if ($this->request->getPost('nomor')=='') return json_encode(['failed', 'Nomor tidak boleh kosong']);
+            if (empty($this->request->getFile('soal'))) return json_encode(['failed', 'File soal tidak boleh kosong']);
+
+            $model = new SKD_Model();
+            $skd = [
+                'nomor' => $this->request->getPost('nomor'),
+                'jenis' => $this->request->getPost('jenis'),
+                'a' => $this->request->getPost('a'),
+                'b' => $this->request->getPost('b'),
+                'c' => $this->request->getPost('c'),
+                'd' => $this->request->getPost('d'),
+                'e' => $this->request->getPost('e'),
+                'event_id' => $this->request->getPost('event_id'),
+            ];
+            $soal = $this->request->getFile('soal');
+            $event = new Jadwal_Model();
+            $event = $event->where('id', $skd['event_id'])->first();
+
+            try {
+                if (empty($model->where('event_id', $skd['event_id'])->where('nomor', $skd['nomor'])->first())) {
+                    $model->save($skd);
+                } else {
+                    $model->where('event_id', $skd['event_id'])
+                        ->where('nomor', $skd['nomor'])
+                        ->set($skd)->update();
+                }
+
+                $soal->move('img/tryout/'.$event['title'].' - '.$event['id'].'/soal/'.$skd['jenis'], $skd['nomor'].'.jpg', true);
+
+                return json_encode(['success', 'berhasil menyimpan soal']);
+            } catch (Exception $e) {
+                return json_encode(['failed', 'gagal menyimpan soal']);
+            }
+        } else {
+            return json_encode(['failed', 'gaada submitnya']);
+        }
+    }
+
+    public function soalSkd($id)
+    {
+        $model = new SKD_Model();
+        $twk = $model->where('event_id', $id)->where('jenis', 'twk')->orderBy('nomor')->findAll();
+        $tiu = $model->where('event_id', $id)->where('jenis', 'tiu')->orderBy('nomor')->findAll();
+        $tkp = $model->where('event_id', $id)->where('jenis', 'tkp')->orderBy('nomor')->findAll();
+        return json_encode([
+            'twk' => $twk,
+            'tiu' => $tiu,
+            'tkp' => $tkp,
+        ]);
     }
 
     public function edit_jadwal_tryout()
@@ -2099,7 +2157,7 @@ class Admin extends BaseController
         $model = new Notifikasi_Model();
         $model->save(['username' => $username, 'pesan' => 'Mohon maaf, pengajuan ubah paketmu ditolak karena satu dan lain hal.']);
 
-        if (empty($model->where('user', $user['username'])->first())) {
+        if (empty($model->where('user', $username)->first())) {
             return '1';
         } else {
             return '0';
@@ -2115,5 +2173,10 @@ class Admin extends BaseController
         } else {
             return 'failed';
         }
+    }
+
+    public function tryoutSoal($id) {
+        $model = new Tryout_Model();
+        return json_encode($model->where('event_id', $id)->orderBy('nomor')->findAll());
     }
 }

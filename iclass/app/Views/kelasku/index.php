@@ -221,9 +221,13 @@
                             <div class="row justify-content-end w-100 mx-0 mt-5 px-3">
                                 <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
                                     <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[0]['start_event']))) { ?>
-                                        href="<?= base_url() ?>/peserta/tryout/<?= $jadwalTryout[0]['id'] ?>"
+                                        href="<?php if (!empty($jadwalTryout[0]) && $jadwalTryout[0]['class_name']!='skd') { ?>
+                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
+                                            <?php } else { ?>
+                                                <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
+                                            <?php } ?>"
                                     <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[0]['start_event']))) { ?>
-                                        onclick="modalTryout('<?= $jadwalTryout[0]['id'] ?>');"
+                                        onclick="modalTryout('<?= $jadwalTryout[0]['id'] ?>', '<?= $jadwalTryout[0]['class_name'] ?>');"
                                     <?php } ?>>
                                     <?php if (date('y-m-d', strtotime($jadwalTryout[0]['start_event']))==date('y-m-d')) {
                                         echo 'Ikuti Try Out';
@@ -260,9 +264,13 @@
                                             <?php } ?>
                                             <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
                                                 <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    href="<?= base_url() ?>/peserta/tryout/<?= $jadwalTryout[$i]['id'] ?>"
+                                                    href="<?php if (!empty($jadwalTryout[$i]) && $jadwalTryout[$i]['class_name']!='skd') { ?>
+                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } else { ?>
+                                                                <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } ?>"
                                                 <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>');"
+                                                    onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>', '<?= $jadwalTryout[$i]['class_name'] ?>');"
                                                 <?php } ?>>
                                                 <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d')) {
                                                     echo 'Ikuti Try Out';
@@ -296,9 +304,13 @@
                                             <?php } ?>
                                             <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
                                                 <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    href="<?= base_url() ?>/peserta/tryout/<?= $jadwalTryout[$i]['id'] ?>"
+                                                    href="<?php if (!empty($jadwalTryout[$i]) && $jadwalTryout[$i]['class_name']!='skd') { ?>
+                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } else { ?>
+                                                                <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } ?>"
                                                 <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>');"
+                                                    onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>', '<?= $jadwalTryout[$i]['class_name'] ?>');"
                                                 <?php } ?>>
                                                 <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d')) {
                                                     echo 'Ikuti Try Out';
@@ -610,16 +622,25 @@
 
         let counter;
 
-        function modalTryout(id) {
+        function modalTryout(id, jenis) {
             $('#modalTryout').modal('show');
             counter = setInterval(function() {
                 document.getElementById('yesButton').innerHTML=`Ya ( ${counterNumber} )`;
-                $("#yesButton").attr("onclick","window.location.replace('<?= base_url() ?>/peserta/tryout/"+id+"');");
+
+                if (jenis!='skd') {
+                    document.getElementById('yesButton').setAttribute('onclick', 'window.location.replace("<?= base_url() ?>/peserta/tryout/'+id+'")');
+                } else {
+                    document.getElementById('yesButton').setAttribute('onclick', 'window.location.replace("<?= base_url() ?>/peserta/skd/'+id+'")');
+                }
 
                 if (counterNumber<0) {
                     clearInterval(counter);
                     document.getElementById('yesButton').innerHTML=`Ya ( 0 )`;
-                    window.location.replace("<?= base_url() ?>/peserta/tryout/"+id);
+                    if (jenis!='skd') {
+                        window.location.replace("<?= base_url() ?>/peserta/tryout/"+id);
+                    } else {
+                        window.location.replace("<?= base_url() ?>/peserta/skd/"+id);
+                    }
                 }
                 
                 counterNumber--;

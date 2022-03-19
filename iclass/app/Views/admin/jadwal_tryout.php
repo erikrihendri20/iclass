@@ -29,6 +29,14 @@
               <div class="modal-body">
                 <form action="<?= base_url('admin/add_jadwal_tryout') ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
+                        <label for="jenis" class="form-label">Jenis</label>
+                        <select class="form-control" id="jenis" name="jenis">
+                          <option value="mtk" selected>Matematika</option>
+                          <option value="skd">SKD</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="title" class="form-label">Judul</label>
                         <input type="text" class="form-control" name="title" id="title">
                     </div>
@@ -47,11 +55,6 @@
                         <div class="w-100">
                           <input class="form-control" type="datetime-local" id="datetime" name="datetime">
                         </div>
-                    </div>
-                  
-                    <div class="form-group">
-                        <label for="thumbnailPertemuan" class="form-label">Thumbnail Try Out</label>
-                        <input type="file" class="form-control-file form-control-sm" id="thumbnailTryOut" name="thumbnailTryOut">
                     </div>
 
                   <div class="modal-footer">
@@ -133,7 +136,14 @@
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-success text-white" onclick="modalSoal('<?= $dt['id'] ?>', '<?= $dt['title'] ?>');">Soal & Pembahasan</button>
+                            <?php if ($dt['class_name']!='skd') { ?>
+                              <button type="button" class="btn btn-success text-white" 
+                                onclick="modalSoal('<?= $dt['id'] ?>', '<?= $dt['title'] ?>');">Soal & Pembahasan</button>
+                            <?php } else { ?>
+                              <button type="button" class="btn btn-white" onclick="lihatSoal('<?= $dt['id'] ?>');">Lihat Soal</button>
+                              <button type="button" class="btn btn-success text-white"
+                                onclick="soalSkd('<?= $dt['id'] ?>', '', 'TWK','0','0','0','0','0');">Tambah Soal</button>
+                            <?php } ?>
                             <button type="submit" class="btn btn-primary">Submit</button>
                           </div>
                         </form>
@@ -151,4 +161,6 @@
   </div>
 </div>
 <?= $this->include('admin/soal_tryout') ?>
+<?= $this->include('admin/soal_skd') ?>
+<?= $this->include('admin/lihat_soal_skd') ?>
 <?= $this->endSection(); ?>

@@ -87,6 +87,10 @@ padding-right: 0;
   overflow-y: auto;
 }
 
+.nomor-skd {
+  overflow-y: auto;
+}
+
 .nomor {
 display:inline-block !important; 
 float: none !important;
@@ -120,6 +124,13 @@ float: none !important;
     overflow-x: scroll !important;
     overflow-y: hidden !important;
     white-space: nowrap !important;
+}
+
+.nomor-skd {
+  max-height: 65px !important;
+  overflow-x: scroll !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
 }
 
 .nomor {

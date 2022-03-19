@@ -58,34 +58,34 @@
                     </div>
                     <div class="row w-100 mx-0 mt-3 hsoal" style="overflow-y: auto;">
                         <div class="row bg-white w-100 mx-0" style="min-height: 100%">
-                            <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
+                            <img id="soal" src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/TWK/1.jpg" alt="" class="w-100" style="border-radius: 10px; object-fit: contain;">
                         </div>
                     </div>
                     <div class="row w-100 mx-0 mt-4 px-5">
                         <div class="row w-100 mx-0">
                             <div class="pr-3" style="width:15%">
-                                <label id="labelA" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('A');">
-                                    <input id="radioA" type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;">A
+                                <label id="labelA" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2">
+                                    <input id="radioA" type="radio" name="jawaban" value="A" autocomplete="off" style="display: none;" onclick="jawab('A');">A
                                 </label>
                             </div>
                             <div class="pr-3" style="width:15%">
-                                <label id="labelB" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('B');">
-                                    <input id="radioB" type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;">B
+                                <label id="labelB" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2">
+                                    <input id="radioB" type="radio" name="jawaban" value="B" autocomplete="off" style="display: none;" onclick="jawab('B');">B
                                 </label>
                             </div>
                             <div class="pr-3" style="width:15%">
-                                <label id="labelC" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('C');">
-                                    <input id="radioC" type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;">C
+                                <label id="labelC" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2">
+                                    <input id="radioC" type="radio" name="jawaban" value="C" autocomplete="off" style="display: none;" onclick="jawab('C');">C
                                 </label>
                             </div>
                             <div class="pr-3" style="width:15%">
-                                <label id="labelD" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('D');">
-                                    <input id="radioD" type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;">D
+                                <label id="labelD" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2">
+                                    <input id="radioD" type="radio" name="jawaban" value="D" autocomplete="off" style="display: none;" onclick="jawab('D');">D
                                 </label>
                             </div>
                             <div class="pr-3" style="width:15%">
-                                <label id="labelE" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2" onclick="jawab('E');">
-                                    <input id="radioE" type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;">E
+                                <label id="labelE" class="btn bg-white border font-weight-bold w-100 border-20 mt-2 mb-0 py-2">
+                                    <input id="radioE" type="radio" name="jawaban" value="E" autocomplete="off" style="display: none;" onclick="jawab('E');">E
                                 </label>
                             </div>
                         </div>
@@ -93,20 +93,53 @@
                 </div>
             </div>
             <div class="w30 mx-0 pl3">
-                <div class="border border-30 w-100 mx-0 p-3">
-                    <div class="w-100 mx-0 pb-2 nomor-to">
-                        <?php for ($i=1; $i<41; $i++) { ?>
-                            <div class="mr-2 mt-2 nomor" style="width: 50px;">
-                                <button id="<?= $i ?>" 
-                                    <?php if (!empty($jawaban) && !empty($jawaban[$i-1])) { ?>
-                                        class="btn bg-primary text-white text-center font-weight-bold border w-100 p-2"
-                                    <?php } else { ?>
-                                        class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" 
-                                    <?php } ?>
-                                    style="width: 50px; height: 50px; border-radius: 15px;"
-                                    onclick="pindahSoal('<?= $i-1 ?>');"><?= $i ?></button>
-                            </div>
-                        <?php } ?>
+                <div class="border border-30 w-100 mx-0 pl-3 py-3 pr-2">
+                    <div style="max-height: 350px; overflow-y:auto;">
+                        <h6 class="font-weight-bold w-100 mt-2">TWK</h6>
+                        <div class="w-100 mx-0 pb-2 nomor-skd">
+                            <?php foreach ($twk as $t) { ?>
+                                <div class="mr-2 mt-2 nomor">
+                                    <button id="TWK<?= $t['nomor'] ?>"
+                                        <?php if (!empty($jawaban_twk) && !empty($jawaban_twk[$t['nomor']-1])) { ?>
+                                            class="btn bg-primary text-white text-center font-weight-bold border p-2"
+                                        <?php } else { ?>
+                                            class="btn bg-white text-dark text-center font-weight-bold border p-0" 
+                                        <?php } ?>
+                                        style="width: 50px; height: 50px; border-radius: 15px;"
+                                        onclick="pindahSoal('TWK','<?= $t['nomor']-1 ?>');"><?= $t['nomor'] ?></button>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <h6 class="font-weight-bold w-100 mt-4">TIU</h6>
+                        <div class="w-100 mx-0 pb-2 nomor-skd">
+                            <?php foreach ($tiu as $t) { ?>
+                                <div class="mr-2 mt-2 nomor">
+                                    <button id="TIU<?= $t['nomor'] ?>"
+                                        <?php if (!empty($jawaban_tiu) && !empty($jawaban_tiu[$t['nomor']-31])) { ?>
+                                            class="btn bg-primary text-white text-center font-weight-bold border p-2"
+                                        <?php } else { ?>
+                                            class="btn bg-white text-dark text-center font-weight-bold border p-0" 
+                                        <?php } ?>
+                                        style="width: 50px; height: 50px; border-radius: 15px;"
+                                        onclick="pindahSoal('TIU','<?= $t['nomor']-1 ?>');"><?= $t['nomor'] ?></button>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <h6 class="font-weight-bold w-100 mt-4">TKP</h6>
+                        <div class="w-100 mx-0 pb-2 nomor-skd">
+                            <?php foreach ($tkp as $t) { ?>
+                                <div class="mr-2 mt-2 nomor">
+                                    <button id="TKP<?= $t['nomor'] ?>"
+                                        <?php if (!empty($jawaban_tkp) && !empty($jawaban_tkp[$t['nomor']-66])) { ?>
+                                            class="btn bg-primary text-white text-center font-weight-bold border p-2"
+                                        <?php } else { ?>
+                                            class="btn bg-white text-dark text-center font-weight-bold border p-0" 
+                                        <?php } ?>
+                                        style="width: 50px; height: 50px; border-radius: 15px;"
+                                        onclick="pindahSoal('TKP','<?= $t['nomor']-1 ?>');"><?= $t['nomor'] ?></button>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row w-100 mx-0 mt-4 px-3">
@@ -125,7 +158,7 @@
                         <h6 class="mb-0 ml-2">Belum terisi</h6>
                         <h6 id="kosong" class="mb-0 ml-auto"><?= $kosong ?></h6>
                     </div>
-                </div>
+                </div>                
                 <div class="row justify-content-end w-100 mx-0 mt-4 px-3">
                     <button class="btn btn-primary text-white border-30 px-4 py-2" onclick="selesai();">
                         <h6 class="mb-0 p-1">Selesai</h6>
@@ -155,47 +188,65 @@
     </div>
 
     <script>
-        var soal = 0;
+        var soal = ['TWK', 0];
         var initialState = {
             kosong: <?= $kosong ?>,
             terisi: <?= $terisi ?>,
-            jawaban: <?= empty($jawaban) ? "['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']" : json_encode(explode(',', $peserta['jawaban'])) ?>
+            jawaban_twk: <?= empty($jawaban_twk) ? "['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']" : json_encode(explode(',', $peserta['jawaban_twk'])) ?>,
+            jawaban_tiu: <?= empty($jawaban_tiu) ? "['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']" : json_encode(explode(',', $peserta['jawaban_tiu'])) ?>,
+            jawaban_tkp: <?= empty($jawaban_tkp) ? "['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']" : json_encode(explode(',', $peserta['jawaban_tkp'])) ?>,
         };
         let raguan = [];
 
-        function jawabanAction(jawaban) {
+        function twkAction(jawaban) {
             return {
-                type: 'jawab',
+                type: 'jawab-twk',
+                payload: jawaban
+            };
+        }
+
+        function tiuAction(jawaban) {
+            return {
+                type: 'jawab-tiu',
+                payload: jawaban
+            };
+        }
+
+        function tkpAction(jawaban) {
+            return {
+                type: 'jawab-tkp',
                 payload: jawaban
             };
         }
 
         function jawabanReducer(state = initialState, action) {
             switch (action.type) {
-                case 'jawab':
+                case 'jawab-twk':
                     return { 
                         ...state,
-                        kosong: state.kosong-1,
+                        jawaban_twk: state.jawaban_twk.map(
+                            (jawab, i) => i === parseInt(soal[1]) ? action.payload : jawab
+                        )
+                    };
+                case 'jawab-tiu':
+                    return {
+                        ...state,
+                        jawaban_tiu: state.jawaban_tiu.map(
+                            (jawab, i) => i === parseInt(soal[1]-30) ? action.payload : jawab
+                        )
+                    };
+                case 'jawab-tkp':
+                    return {
+                        ...state,
+                        jawaban_tkp: state.jawaban_tkp.map(
+                            (jawab, i) => i === parseInt(soal[1]-65) ? action.payload : jawab
+                        )
+                    };
+                case 'terisi':
+                    return {
+                        ...state,
                         terisi: state.terisi+1,
-                        jawaban: state.jawaban.map(
-                            (jawab, i) => i === parseInt(soal) ? action.payload : jawab
-                        )
-                    };
-                case 'jawab/sama':
-                    return {
-                        ...state,
-                        jawaban: state.jawaban.map(
-                            (jawab, i) => i === parseInt(soal) ? action.payload : jawab
-                        )
-                    };
-                case 'hapus':
-                    return {
-                        ...state,
-                        kosong: state.kosong+1,
-                        terisi: state.terisi-1,
-                        jawaban: state.jawaban.map(
-                            (jawab, i) => i === parseInt(soal) ? '' : jawab
-                        )
+                        kosong: state.kosong-1
                     }
                 default:
                     return state;
@@ -206,41 +257,71 @@
         
         function render() {
             document.getElementById('ragu').innerHTML=raguan.length;
-            document.getElementById('kosong').innerHTML=store.getState().kosong.toString();
             document.getElementById('terisi').innerHTML=store.getState().terisi.toString();
+            document.getElementById('kosong').innerHTML=store.getState().kosong.toString();
         }
         store.subscribe(render);
 
         function selanjutnya() {
-            soal+=1;
+            if (soal[0]=='TWK' && soal[1]==29) {
+                soal[0]='TIU';
+                soal[1]+=1;
+            } else if (soal[0]=='TIU' && soal[1]==64) {
+                soal[0]='TKP';
+                soal[1]+=1;
+            } else if (soal[0]=='TKP' && soal[1]==109) {
+                soal[0]='TKP';
+                soal[1]=109;
+            } else {
+                soal[1]+=1;
+            }
             pindah();
         }
 
         function sebelumnya() {
-            soal-=1;
+            if (soal[0]=='TKP' && soal[1]==65) {
+                soal[0]='TIU';
+                soal[1]-=1;
+            } else if (soal[0]=='TIU' && soal[1]==30) {
+                soal[0]='TWK';
+                soal[1]-=1;
+            } else if (soal[0]=='TWK' && soal[1]==0) {
+                soal[0]='TWK';
+                soal[1]=0;
+            } else {
+                soal[1]-=1;
+            }
             pindah();
         }
 
         function pindah() {
-            if (soal<=0) {
-                soal=0;
+            if (soal[0]=='TWK' && soal[1]<=0) {
+                soal[0]='TWK';
+                soal[1]=0;
                 document.getElementById('sebelumnya').style.visibility="hidden";
             } else {
                 document.getElementById('sebelumnya').style.visibility="visible";
             }
 
-            if (soal>=39) {
-                soal=39;
+            if (soal[0]=='TKP' && soal[1]>=109) {
+                soal[0]='TKP';
+                soal[1]=109;
                 document.getElementById('selanjutnya').style.visibility="hidden";
             } else {
                 document.getElementById('selanjutnya').style.visibility="visible";
             }
 
-            var jawaban = store.getState().jawaban[soal];
-            jawaban = jawaban.length!=0 ? jawaban : 'F';
+            if (soal[0]=='TWK') {
+                var jawaban = store.getState().jawaban_twk[soal[1]];
+            } else if (soal[0]=='TIU') {
+                var jawaban = store.getState().jawaban_tiu[soal[1]-30];
+            } else {
+                var jawaban = store.getState().jawaban_tkp[soal[1]-65];
+            }
+            jawaban = jawaban!='' ? jawaban : 'F';
 
-            document.getElementById('no-soal').innerHTML="Soal Nomor "+(soal+1);
-            document.getElementById('soal').src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/"+(soal+1)+".jpg";
+            document.getElementById('no-soal').innerHTML="Soal <span class='font-weight-bold text-uppercase'>"+soal[0]+"</span> "+(soal[1]+1);
+            document.getElementById('soal').src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/"+soal[0]+"/"+(soal[1]+1)+".jpg";
             document.getElementById('radioA').setAttribute('onclick', "javascript: jawab('A');");
             document.getElementById('radioB').setAttribute('onclick', "javascript: jawab('B');");
             document.getElementById('radioC').setAttribute('onclick', "javascript: jawab('C');");
@@ -256,8 +337,9 @@
             if (jawabanA!=undefined) jawabanA.setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-20 mt-2 py-2 active');
         }
 
-        function pindahSoal(nomor) {
-            soal=parseInt(nomor);
+        function pindahSoal(jenis, nomor) {
+            soal[0]=jenis;
+            soal[1]=parseInt(nomor);
             pindah();
         }
 
@@ -266,40 +348,44 @@
             if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
             document.getElementById('label'+jawaban).setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-20 mt-2 py-2 active');
             
-            document.getElementById((soal+1).toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 w-100 p-2');
+            document.getElementById(soal[0]+(soal[1]+1).toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 p-2');
             
             let benar=false;
             for (let i=0; i<raguan.length; i++) {
-                if (raguan[i]==(soal+1)) {
+                if (raguan[i]==(soal[0]+(soal[1]+1).toString())) {
                     raguan.splice(i, 1);
                     break;
                 }
             }
 
-            if (store.getState().jawaban[soal]=='') {
-                store.dispatch(jawabanAction(jawaban));  
+            if (soal[0]=='TWK') {
+                if (store.getState().jawaban_twk[soal[1]]=='') store.dispatch({type: 'terisi'});
+                store.dispatch(twkAction(jawaban));
+            } else if (soal[0]=='TIU') {
+                if (store.getState().jawaban_tiu[soal[1]-30]=='') store.dispatch({type: 'terisi'});
+                store.dispatch(tiuAction(jawaban));
             } else {
-                store.dispatch({type: 'jawab/sama', payload: jawaban});
+                if (store.getState().jawaban_tkp[soal[1]-65]=='') store.dispatch({type: 'terisi'});
+                store.dispatch(tkpAction(jawaban));
             }
             
             <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d') && $peserta['selesai']!='1') { ?>
                 $.ajax({
-                    url: '<?= base_url() ?>/peserta/jawabTryout/<?= $event['id'] ?>/'+store.getState().jawaban.toString(),
+                    url: '<?= base_url() ?>/peserta/jawabSKD/<?= $event['id'] ?>/'+store.getState().jawaban_twk.toString()+'/'+store.getState().jawaban_tiu.toString()+'/'+store.getState().jawaban_tkp.toString(),
                     success: function(res) {
-                        
+                        console.log(res);
                     }
                 });
             <?php } ?>
-            // console.log(store.getState().jawaban);
         }
 
         function ragu() {
-            if (!raguan.includes(soal+1)) {
-                raguan.push(soal+1);
+            if (!raguan.includes(soal[0]+(soal[1]+1).toString())) {
+                raguan.push(soal[0]+(soal[1]+1).toString());
             }
-
+            
             document.getElementById('ragu').innerHTML=raguan.length;
-            document.getElementById((soal+1).toString()).setAttribute('class', 'btn bg-secondary text-dark text-center font-weight-bold border border-10 w-100 p-2');
+            document.getElementById(soal[0]+(soal[1]+1).toString()).setAttribute('class', 'btn bg-secondary text-black text-center font-weight-bold border border-10 p-2');
         }
 
         <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d') && $peserta['selesai']!='1') { ?>
@@ -309,19 +395,19 @@
 
             function selesaiBanget() {
                 $.ajax({
-                    url: '<?= base_url() ?>/peserta/jawabTryout/<?= $event['id'] ?>/'+store.getState().jawaban.toString()+'/selesai',
+                    url: '<?= base_url() ?>/peserta/jawabSKD/<?= $event['id'] ?>/'+store.getState().jawaban_twk.toString()+'/'+store.getState().jawaban_tiu.toString()+'/'+store.getState().jawaban_tkp.toString()+'/selesai',
                     success: function(res) {
-                        window.location.replace("<?= base_url() ?>/peserta/tryout_hasil/<?= $event['id'] ?>");
+                        window.location.replace("<?= base_url() ?>/peserta/skd_hasil/<?= $event['id'] ?>");
                     }
                 })
             }
         <?php } else { ?>
             function selesai() {
-                window.location.replace("<?= base_url() ?>/peserta/tryout_hasil/<?= $event['id'] ?>");
+                window.location.replace("<?= base_url() ?>/peserta/skd_hasil/<?= $event['id'] ?>");
             }
         <?php } ?>
 
-        pindahSoal(0);
+        pindahSoal('TWK', 0);
     </script>
 </div>
 <?= $this->endSection(); ?>

@@ -67,34 +67,44 @@
                 <div class="border border-30 w-100 mx-0 p-3">
                     <div class="row w-100 mx-0">
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek1" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">01</button>
+                            <button id="cek1"  onclick="pindahSoal(0)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">01</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek2" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">02</button>
+                            <button id="cek2" onclick="pindahSoal(1)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">02</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek3" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">03</button>
+                            <button id="cek3" onclick="pindahSoal(2)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">03</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek4" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">04</button>
+                            <button id="cek4" onclick="pindahSoal(3)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">04</button>
                         </div>
                         <div class="mt-2" style="width: 50px;">
-                            <button id="cek5" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">05</button>
+                            <button id="cek5" onclick="pindahSoal(4)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">05</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek6" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">06</button>
+                            <button id="cek6" onclick="pindahSoal(5)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">06</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek7" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">07</button>
+                            <button id="cek7" onclick="pindahSoal(6)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">07</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek8" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">08</button>
+                            <button id="cek8" onclick="pindahSoal(7)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">08</button>
                         </div>
                         <div class="mr-2 mt-2" style="width: 50px;">
-                            <button id="cek9" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">09</button>
+                            <button id="cek9" onclick="pindahSoal(8)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">09</button>
                         </div>
                         <div class="mt-2" style="width: 50px;">
-                            <button id="cek10" class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">10</button>
+                            <button id="cek10" onclick="pindahSoal(9)"
+                                class="btn bg-white text-dark text-center font-weight-bold border w-100 p-0" style="border-radius: 15px; width: 50px; height: 50px;">10</button>
                         </div>
                     </div>
                 </div>
@@ -170,6 +180,11 @@
 
         function sebelumnya() {
             soal-=1;
+            pindah();
+        }
+        
+        function pindahSoal(nomor) {
+            soal = nomor;
             pindah();
         }
 

@@ -18,6 +18,7 @@ use App\Models\HasilTryout_Model;
 use App\Models\Nilai_Model;
 use App\Models\Tingkatan_Model;
 use App\Models\UbahPaket_Model;
+use App\Models\HasilSKD_Model;
 
 class Peserta extends BaseController
 {
@@ -59,7 +60,7 @@ class Peserta extends BaseController
 					->selectCount('id')->join('events', 'events.id = kehadiran.event')
 					->where('kehadiran.username', session('username'))
 					->where('kehadiran.hadir', '1')
-					->where('events.start_event =', date('Y-m-d'))->countAllResults();
+					->where('events.start_event =', date('Y-m-d G:i:s'))->countAllResults();
 
 		$data = [
 			'css'		=> 'peserta/index.css',
@@ -527,16 +528,6 @@ class Peserta extends BaseController
 			}
 		}
 		$data['kosong'] = 40-$data['terisi'];
-
-        $tes = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
-		if ($data['event']['end_event'] > date('Y-m-d G:i:s')) {
-			if (!empty($tes)) {
-                if ($tes[0]['selesai'] == '1') {
-    				session()->setFlashdata('salah', "<script>Swal.fire({icon: 'warning', title: '', text: 'Kamu sudah menyelesaikan try out ini'});</script>");
-    				return redirect()->to(base_url('peserta'));
-	            }
-			}
-		}
 		
 		if (!empty($data['tryout'])) {
 			return view('peserta/tryout', $data);
@@ -627,6 +618,7 @@ class Peserta extends BaseController
 				$model->save(['username' => session('username'), 'bulan' => date('Y-m-d')]);
 				$transkrip = $model->where('username', session('username'))->like('bulan', date('Y-m'))->first();
 			}
+			
 			for ($i=0; $i<sizeof($jawabanBenar); $i++) {
 				if ($i>0) {
 					if ($jawabanBenar[$i]['materi']==$jawabanBenar[$i-1]['materi']) {
@@ -657,6 +649,151 @@ class Peserta extends BaseController
 			return "selesai";
 		}
         return "coba2";
+	}
+
+	public function skd($id)
+	{
+		$db = \Config\Database::connect();
+		$model = new HasilSKD_Model();
+		
+		if (empty($model->where('event_id', $id)->where('username', session('username'))->first())) {
+		    $hasil = [
+		        'username' => session('username'),
+		        'event_id' => $id,
+		        'jawaban_twk' => NULL,
+				'hasil_twk' => 0,
+				'jawaban_tiu' => NULL,
+				'hasil_tiu' => 0,
+				'jawaban_tkp' => NULL,
+				'hasil_tkp' => 0,
+		        'mulai' => date('Y-m-d G:i:s'),
+		        'selesai' => '0'
+		    ];
+			$model->save($hasil);
+		}
+		
+		$now = $model->where('event_id', $id)->where('username', session('username'))->first()['mulai'];
+        $now = date('Y-m-d G:i:s', strtotime("$now + 100 minutes"));
+
+		$data = [
+			'event' => $db->table('events')->where('id', $id)->get()->getResultArray()[0],
+			'twk' => $db->table('skd')->where('jenis', 'TWK')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray(),
+			'tiu' => $db->table('skd')->where('jenis', 'TIU')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray(),
+			'tkp' => $db->table('skd')->where('jenis', 'TKP')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray(),
+			'peserta' => $db->table('hasil_skd')->where('event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
+			'now' => $now,
+			'title' => 'Try Out SKD',
+			'active' => 'tryout',
+			'css' => 'kelasku/kuis.css'
+		];
+
+		$data['terisi'] = 0;
+		if (!empty($data['peserta']['jawaban_twk'])) {
+			$data['jawaban_twk'] = explode(',', $data['peserta']['jawaban_twk']);
+			foreach ($data['jawaban_twk'] as $jawaban) {
+				if ($jawaban!='') $data['terisi']++;
+			}
+		} else {
+			$data['jawaban_twk'] = null;
+		}
+
+		if (!empty($data['peserta']['jawaban_tiu'])) {
+			$data['jawaban_tiu'] = explode(',', $data['peserta']['jawaban_tiu']);
+			foreach ($data['jawaban_tiu'] as $jawaban) {
+				if ($jawaban!='') $data['terisi']++;
+			}
+		} else {
+			$data['jawaban_tiu'] = null;
+		}
+
+		if (!empty($data['peserta']['jawaban_tkp'])) {
+			$data['jawaban_tkp'] = explode(',', $data['peserta']['jawaban_tkp']);
+			foreach ($data['jawaban_tkp'] as $jawaban) {
+				if ($jawaban!='') $data['terisi']++;
+			}
+		} else {
+			$data['jawaban_tkp'] = null;
+		}
+
+		$data['kosong'] = sizeof($data['twk'])+sizeof($data['tiu'])+sizeof($data['tkp'])-$data['terisi'];
+		
+		if (!empty($data['event'])) {
+			return view('peserta/skd', $data);
+		} else {
+			session()->setFlashdata('salah', "<script>Swal.fire({icon: 'error', title: '', text: 'Maaf, soal try out ini belum tersedia.'});</script>");
+			return redirect()->to(base_url('peserta'));
+		}
+
+		return redirect()->to(base_url('peserta'));
+	}
+
+	public function jawabSKD($id, $jawabanTwk, $jawabanTiu, $jawabanTkp, $selesai=null)
+	{
+		$model = new HasilSKD_Model();
+		$db = \Config\Database::connect();
+
+		$jawabanTwkBenar = $db->table('skd')->where('event_id', $id)->where('jenis', 'TWK')->orderBy('nomor', 'asc')->get()->getResultArray();
+		$jawabanTiuBenar = $db->table('skd')->where('event_id', $id)->where('jenis', 'TIU')->orderBy('nomor', 'asc')->get()->getResultArray();
+		$jawabanTkpBenar = $db->table('skd')->where('event_id', $id)->where('jenis', 'TKP')->orderBy('nomor', 'asc')->get()->getResultArray();
+		$jawabanTwkKu = explode(',', $jawabanTwk);
+		$jawabanTiuKu = explode(',', $jawabanTiu);
+		$jawabanTkpKu = explode(',', $jawabanTkp);
+		
+		$hasil_twk = 0;
+		$hasil_tiu = 0;
+		$hasil_tkp = 0;
+
+		for ($i=0; $i<sizeof($jawabanTwkBenar); $i++) {
+			$hasil_twk += !empty($jawabanTwkKu[$i]) ? (int)$jawabanTwkBenar[$i][strtolower($jawabanTwkKu[$i])] : 0;
+		}
+
+		for ($i=0; $i<sizeof($jawabanTiuBenar); $i++) {
+			$hasil_tiu += !empty($jawabanTiuKu[$i]) ? (int)$jawabanTiuBenar[$i][strtolower($jawabanTiuKu[$i])] : 0;
+		}
+
+		for ($i=0; $i<sizeof($jawabanTkpBenar); $i++) {
+			$hasil_tkp += !empty($jawabanTkpKu[$i]) ? (int)$jawabanTkpBenar[$i][strtolower($jawabanTkpKu[$i])] : 0;
+		}
+		
+		$data = [
+			'jawaban_twk' => $jawabanTwk,
+			'jawaban_tiu' => $jawabanTiu,
+			'jawaban_tkp' => $jawabanTkp,
+			'hasil_twk' => $hasil_twk,
+			'hasil_tiu' => $hasil_tiu,
+			'hasil_tkp' => $hasil_tkp
+		];
+
+		$model->where('event_id', $id)->where('username', session('username'))->set($data)->update();
+
+		if ($selesai==null) {
+			return "belum";
+		} else {
+		    $model->where('event_id', $id)->where('username', session('username'))->set(['selesai' => '1'])->update();
+			return "selesai";
+		}
+        return "coba2";
+	}
+
+	public function skd_hasil($id)
+	{
+		$db = \Config\Database::connect();
+        $tryout = $db->table('hasil_skd')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
+        if (!empty($tryout) && !empty($tryout[0]['selesai'])) {
+            $tryout = $tryout[0];
+        } else {
+            session()->setFlashData('flash', "<script>Swal.fire({icon: 'error', title: '', text: 'Kamu tidak mengikuti try out ini'});</script>");
+            return redirect()->to(base_url().'/kelasku');
+        }
+        $data = [
+            'kuis' => $db->table('hasil_skd')->join('events', 'events.id=hasil_skd.event_id')->where('hasil_skd.event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
+            'persentase' => ((int)$tryout['hasil_twk']+(int)$tryout['hasil_tiu']+(int)$tryout['hasil_tkp'])/550*100,
+            'title' => 'Hasil Try Out SKD',
+            'active' => 'kelasku',
+            'css' => 'kelasku/kuis.css'
+        ];
+
+        return view('peserta/skd_hasil', $data);
 	}
 
 	public function nilai($bulan=null) 

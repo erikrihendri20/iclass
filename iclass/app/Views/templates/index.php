@@ -48,7 +48,7 @@
 
     <div style="padding-bottom: 50px;"></div>
 
-    <footer class="text-center text-lg-start bg-primary text-muted">
+    <footer class="text-center position-absolute text-lg-start bg-primary w-100" style="bottom:0;">
         <div class="text-center text-white px-4" style="padding-top: 0.75rem; padding-bottom: 0.75rem;">
             © 2021 Copyright:
             <a class="text-white font-weight-bold" href="<?= base_url() ?>">iClass Education</a>
