@@ -120,6 +120,11 @@
                         <h6 id="belumterisi" class="mb-0 ml-auto">10</h6>
                     </div>
                 </div>
+                <div class="row justify-content-end w-100 mx-0 mt-4 px-3">
+                    <button class="btn btn-primary text-white border-30 px-4 py-2" onclick="selesai();">
+                        <h6 class="mb-0 p-1">Selesai</h6>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -199,15 +204,10 @@
             }
 
             if (soal<9) {
-                const selanjutnya = document.getElementById('selanjutnya');
-                selanjutnya.style.visibility="visible";
-                selanjutnya.innerHTML='<h4 class="fas fa-chevron-circle-right mb-0"></h4>';
-                selanjutnya.setAttribute('onclick', "javascript: selanjutnya();");
+                document.getElementById('selanjutnya').style.visibility="visible";
             } else {
                 soal=9;
-                const selanjutnya = document.getElementById('selanjutnya');
-                selanjutnya.innerHTML="Selesai";
-                selanjutnya.setAttribute('onclick', "javascript: selesai();");
+                document.getElementById('selanjutnya').style.visibility="hidden";
             }
 
             var jawaban = store.getState().jawaban[soal];

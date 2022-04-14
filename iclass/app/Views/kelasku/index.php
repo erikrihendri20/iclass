@@ -75,6 +75,7 @@
                 <div class="w-100 mt-4">
                     <button id="bums2021" onclick="bumsChange('2021')" class="btn btn-primary border-10 px-3">Tahun 2021</button>
                     <button id="bums2022" onclick="bumsChange('2022')" class="btn btn-light border-10 ml-3 px-3">Tahun 2022</button>
+                    <button id="bumsskd" onclick="bumsChange('skd')" class="btn btn-light border-10 ml-3 px-3">SKD</button>
                 </div>
                 <div class="row border w-100 mx-0 mt-4 p-3" style="border-radius: 37px;">
                     <div class="row align-content-center mx-0 py-3" style="width: 40%;">
@@ -86,7 +87,7 @@
                         <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                             <a id="abums" href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-primary px-3 ml-auto mt-3">Download</a>
                         <?php } else { ?>
-                            <button onclick="hanyaTryout();" class="btn btn-primary px-3 ml-auto mt-auto">Download</button>
+                            <button onclick="hanyaTryout();" class="btn btn-primary px-3 ml-auto mt-auto">Baca</button>
                         <?php } ?>
                     </div>
                 </div>
@@ -560,16 +561,22 @@
 
         function bumsChange(tahun) {
             if (tahun == '2021') {
-                switchColor('bums2021', 'bums2022');
+                switchColor('bums2021', 'bums2022', 'bumsskd');
                 document.getElementById('imgbums').src="<?= base_url() ?>/img/1.jpg";
                 <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                     document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf";
                 <?php } ?>
-            } else {
-                switchColor('bums2022', 'bums2021');
+            } else if (tahun == '2022') {
+                switchColor('bums2022', 'bums2021', 'bumsskd');
                 document.getElementById('imgbums').src="<?= base_url() ?>/img/2.jpg";
                 <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                     document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook2.pdf";
+                <?php } ?>
+            } else {
+                switchColor('bumsskd', 'bums2022', 'bums2021');
+                document.getElementById('imgbums').src="<?= base_url() ?>/img/2.jpg";
+                <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
+                    document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook3.pdf";
                 <?php } ?>
             }
         }

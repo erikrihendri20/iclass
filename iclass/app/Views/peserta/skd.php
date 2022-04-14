@@ -115,7 +115,7 @@
                             <?php foreach ($tiu as $t) { ?>
                                 <div class="mr-2 mt-2 nomor">
                                     <button id="TIU<?= $t['nomor'] ?>"
-                                        <?php if (!empty($jawaban_tiu) && !empty($jawaban_tiu[$t['nomor']-31])) { ?>
+                                        <?php if (!empty($jawaban_tiu) && !empty($jawaban_tiu[$t['nomor']-(sizeof($twk)+1)])) { ?>
                                             class="btn bg-primary text-white text-center font-weight-bold border p-2"
                                         <?php } else { ?>
                                             class="btn bg-white text-dark text-center font-weight-bold border p-0" 
@@ -130,7 +130,7 @@
                             <?php foreach ($tkp as $t) { ?>
                                 <div class="mr-2 mt-2 nomor">
                                     <button id="TKP<?= $t['nomor'] ?>"
-                                        <?php if (!empty($jawaban_tkp) && !empty($jawaban_tkp[$t['nomor']-66])) { ?>
+                                        <?php if (!empty($jawaban_tkp) && !empty($jawaban_tkp[$t['nomor']-(sizeof($twk)+sizeof($tiu)+1)])) { ?>
                                             class="btn bg-primary text-white text-center font-weight-bold border p-2"
                                         <?php } else { ?>
                                             class="btn bg-white text-dark text-center font-weight-bold border p-0" 
@@ -254,6 +254,9 @@
         }
 
         const store = Redux.createStore(jawabanReducer);
+        let twk_length = <?= sizeof($twk) ?>;
+        let tiu_length = <?= sizeof($tiu) ?>;
+        let tkp_length = <?= sizeof($tkp) ?>;
         
         function render() {
             document.getElementById('ragu').innerHTML=raguan.length;
@@ -263,13 +266,13 @@
         store.subscribe(render);
 
         function selanjutnya() {
-            if (soal[0]=='TWK' && soal[1]==29) {
+            if (soal[0]=='TWK' && soal[1]==(twk_length-1)) {
                 soal[0]='TIU';
-                soal[1]+=1;
-            } else if (soal[0]=='TIU' && soal[1]==64) {
+                soal[1]=30;
+            } else if (soal[0]=='TIU' && soal[1]==(29+tiu_length)) {
                 soal[0]='TKP';
-                soal[1]+=1;
-            } else if (soal[0]=='TKP' && soal[1]==109) {
+                soal[1]=65;
+            } else if (soal[0]=='TKP' && soal[1]==(64+tkp_length)) {
                 soal[0]='TKP';
                 soal[1]=109;
             } else {
@@ -281,10 +284,10 @@
         function sebelumnya() {
             if (soal[0]=='TKP' && soal[1]==65) {
                 soal[0]='TIU';
-                soal[1]-=1;
+                soal[1]=29+tiu_length;
             } else if (soal[0]=='TIU' && soal[1]==30) {
                 soal[0]='TWK';
-                soal[1]-=1;
+                soal[1]=twk_length-1;
             } else if (soal[0]=='TWK' && soal[1]==0) {
                 soal[0]='TWK';
                 soal[1]=0;
@@ -295,6 +298,7 @@
         }
 
         function pindah() {
+            console.log(soal);
             if (soal[0]=='TWK' && soal[1]<=0) {
                 soal[0]='TWK';
                 soal[1]=0;
@@ -303,25 +307,29 @@
                 document.getElementById('sebelumnya').style.visibility="visible";
             }
 
-            if (soal[0]=='TKP' && soal[1]>=109) {
+            if (soal[0]=='TKP' && soal[1]>=(64+tkp_length)) {
                 soal[0]='TKP';
-                soal[1]=109;
+                soal[1]=64+tkp_length;
                 document.getElementById('selanjutnya').style.visibility="hidden";
             } else {
                 document.getElementById('selanjutnya').style.visibility="visible";
             }
 
+            let jawaban = '';
+            let nomor = 0;
             if (soal[0]=='TWK') {
-                var jawaban = store.getState().jawaban_twk[soal[1]];
+                jawaban = store.getState().jawaban_twk[soal[1]];
+                nomor = soal[1]+1;
             } else if (soal[0]=='TIU') {
-                var jawaban = store.getState().jawaban_tiu[soal[1]-30];
+                jawaban = store.getState().jawaban_tiu[soal[1]-30];
+                nomor = soal[1]-29+twk_length;
             } else {
-                var jawaban = store.getState().jawaban_tkp[soal[1]-65];
+                jawaban = store.getState().jawaban_tkp[soal[1]-65];
+                nomor = soal[1]-64+twk_length+tiu_length;
             }
-            jawaban = jawaban!='' ? jawaban : 'F';
 
-            document.getElementById('no-soal').innerHTML="Soal <span class='font-weight-bold text-uppercase'>"+soal[0]+"</span> "+(soal[1]+1);
-            document.getElementById('soal').src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/"+soal[0]+"/"+(soal[1]+1)+".jpg";
+            document.getElementById('no-soal').innerHTML="Soal <span class='font-weight-bold text-uppercase'>"+soal[0]+"</span> "+(nomor);
+            document.getElementById('soal').src="<?= base_url() ?>/img/tryout/<?php echo $event['title']." - ".$event['id']; ?>/soal/"+soal[0]+"/"+(nomor)+".jpg";
             document.getElementById('radioA').setAttribute('onclick', "javascript: jawab('A');");
             document.getElementById('radioB').setAttribute('onclick', "javascript: jawab('B');");
             document.getElementById('radioC').setAttribute('onclick', "javascript: jawab('C');");
@@ -339,7 +347,13 @@
 
         function pindahSoal(jenis, nomor) {
             soal[0]=jenis;
-            soal[1]=parseInt(nomor);
+            if (soal[0]=='TIU' && parseInt(nomor)>=(twk_length)) {
+                soal[1]=30+(parseInt(nomor)-twk_length);
+            } else if (soal[0]=='TKP' && parseInt(nomor)>=(twk_length+tiu_length)) {
+                soal[1]=65+(parseInt(nomor)-twk_length-tiu_length);
+            } else {
+                soal[1]=parseInt(nomor);
+            }
             pindah();
         }
 
@@ -348,7 +362,16 @@
             if (active!=undefined) active.setAttribute('class', 'btn bg-white border font-weight-bold w-100 border-20 mt-2 py-2');
             document.getElementById('label'+jawaban).setAttribute('class', 'btn bg-primary text-white border font-weight-bold w-100 border-20 mt-2 py-2 active');
             
-            document.getElementById(soal[0]+(soal[1]+1).toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 p-2');
+            let nomor = 0;
+            if (soal[0]=='TWK') {
+                nomor = soal[1]+1;
+            } else if (soal[0]=='TIU') {
+                nomor = soal[1]-29+twk_length;
+            } else {
+                nomor = soal[1]-64+twk_length+tiu_length;
+            }
+            
+            document.getElementById(soal[0]+nomor.toString()).setAttribute('class', 'btn bg-primary text-white text-center font-weight-bold border border-10 p-2');
             
             let benar=false;
             for (let i=0; i<raguan.length; i++) {
@@ -384,8 +407,17 @@
                 raguan.push(soal[0]+(soal[1]+1).toString());
             }
             
+            let nomor = 0;
+            if (soal[0]=='TWK') {
+                nomor = soal[1]+1;
+            } else if (soal[0]=='TIU') {
+                nomor = soal[1]-29+twk_length;
+            } else {
+                nomor = soal[1]-64+twk_length+tiu_length;
+            }
+            
             document.getElementById('ragu').innerHTML=raguan.length;
-            document.getElementById(soal[0]+(soal[1]+1).toString()).setAttribute('class', 'btn bg-secondary text-black text-center font-weight-bold border border-10 p-2');
+            document.getElementById(soal[0]+(nomor).toString()).setAttribute('class', 'btn bg-secondary text-black text-center font-weight-bold border border-10 p-2');
         }
 
         <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d') && $peserta['selesai']!='1') { ?>

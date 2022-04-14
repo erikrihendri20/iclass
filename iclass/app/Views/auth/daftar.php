@@ -167,7 +167,8 @@
             var kelas = this.value;
             if (kelas == 'intensif') {
                 paket.innerHTML=`<option class="fs-16" value="4" selected>Intensif</option>
-                                <option class="fs-16" value="5">Intensif+</option>`;
+                                <option class="fs-16" value="5">Intensif+</option>
+                                <option class="fs-16" value="7">SKD</option>`;
             } else if (kelas == 'tryout') {
                 paket.innerHTML=`<option class="fs-16" value="6" selected>Tryout</option>`;
             } else {

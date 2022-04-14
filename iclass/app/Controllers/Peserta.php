@@ -785,9 +785,16 @@ class Peserta extends BaseController
             session()->setFlashData('flash', "<script>Swal.fire({icon: 'error', title: '', text: 'Kamu tidak mengikuti try out ini'});</script>");
             return redirect()->to(base_url().'/kelasku');
         }
+        
+        $twk = $db->table('skd')->where('jenis', 'TWK')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
+		$tiu = $db->table('skd')->where('jenis', 'TIU')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
+		$tkp = $db->table('skd')->where('jenis', 'TKP')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
+		$total = (sizeof($twk)*5)+(sizeof($tiu)*5)+(sizeof($tkp)*15);
+		if (empty($total)) $total=550;
+        
         $data = [
             'kuis' => $db->table('hasil_skd')->join('events', 'events.id=hasil_skd.event_id')->where('hasil_skd.event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
-            'persentase' => ((int)$tryout['hasil_twk']+(int)$tryout['hasil_tiu']+(int)$tryout['hasil_tkp'])/550*100,
+            'persentase' => ((int)$tryout['hasil_twk']+(int)$tryout['hasil_tiu']+(int)$tryout['hasil_tkp'])/$total*100,
             'title' => 'Hasil Try Out SKD',
             'active' => 'kelasku',
             'css' => 'kelasku/kuis.css'
