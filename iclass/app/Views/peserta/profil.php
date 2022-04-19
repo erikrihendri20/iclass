@@ -176,24 +176,13 @@
                                 <label class="h5" style="color: #12336D;" for="paketSaatIni">Paket Saat Ini</label>
                                 <input type="text" style="border-radius: 10px; font-size: 18px; cursor: default;" class="form-control border-0 font-weight-bold bg-white pl-0" id="paketSaatIni" name="paketSaatIni" value="<?php
                                         switch ($user['kode_paket']) {
-                                            case '1':
-                                                echo "Reguler";
-                                                break;
-                                            case '2':
-                                                echo "Premium";
-                                                break;
-                                            case '3':
-                                                echo "Premium+";
-                                                break;
-                                            case '4':
-                                                echo "Intensif";
-                                                break;
-                                            case '5':
-                                                echo "Intensif+";
-                                                break;
-                                            case '6':
-                                                echo "Try Out";
-                                                break;
+                                            case '1': echo "Reguler"; break;
+                                            case '2': echo "Premium"; break;
+                                            case '3': echo "Premium+"; break;
+                                            case '4': echo "Intensif"; break;
+                                            case '5': echo "Intensif+"; break;
+                                            case '6': echo "Try Out"; break;
+                                            case '7': echo "SKD"; break;
                                         }
                                     ?>" readonly>
                             </div>
@@ -205,6 +194,7 @@
                                     <option value="Premium+"<?php echo ($user['kode_paket']=='3') ? ' selected' : ''; ?>>Premium+</option>
                                     <option value="Intensif"<?php echo ($user['kode_paket']=='4') ? ' selected' : ''; ?>>Intensif</option>
                                     <option value="Intensif+"<?php echo ($user['kode_paket']=='5') ? ' selected' : ''; ?>>Intensif+</option>
+                                    <option value="SKD"<?php echo ($user['kode_paket']=='7') ? ' selected' : ''; ?>>SKD</option>
                                 </select>
                             </div>
                             <div class="form-group border-bottom w-100 ml-3">
@@ -257,6 +247,7 @@
                             case '4': echo 'Intensif'; break;
                             case '5': echo 'Intensif+'; break;
                             case '6': echo 'TryOut'; break;
+                            case '7': echo 'SKD'; break;
                         } ?>
                     </h6>
                 </div>

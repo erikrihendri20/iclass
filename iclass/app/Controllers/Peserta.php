@@ -41,6 +41,7 @@ class Peserta extends BaseController
 			case '4': $pertemuan=27; break;
 			case '5': $pertemuan=36; break;
 			case '6': $pertemuan=0; break;
+			case '7': $pertemuan=13; break;
 		}
 
 		$kuis = $db->table('events')->join('kuis', 'events.id=kuis.event_id', 'left')->like('kode_kelas', session('kode-kelas'))->where('start_event>=', date('Y-m-d'))->where('events.jenis', '3')->orderBy('start_event', 'asc')->get()->getResultArray();
@@ -140,10 +141,12 @@ class Peserta extends BaseController
 			}
 		}
 		
-		if (!empty($data['nilai'])) {
-			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->where('submateri.materi', $data['nilai'][0]['materi'])->get()->getResultArray();
-		} else {
-			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->get()->getResultArray();
+		if (session('kode-paket')!='7') {
+			if (!empty($data['nilai'])) {
+				$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->where('submateri.materi', $data['nilai'][0]['materi'])->get()->getResultArray();
+			} else {
+				$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->get()->getResultArray();
+			}
 		}
 		return view('peserta/index', $data);
 	}
@@ -373,7 +376,7 @@ class Peserta extends BaseController
 		$db = \Config\Database::connect();
 		$user = $db->table('users')->where('username', session('username'))->get()->getResultArray()[0];
 
-		if ($user['jurusan'] == 'intensif' || $user['jurusan'] == 'tryout') {
+		if (($user['jurusan'] == 'intensif' || $user['jurusan'] == 'tryout') && $user['kode_paket'] != '7') {
 			$data = [
 				'materi' => $db->table('materi')->like('materi', $cari)->get()->getResultArray(),
 				'mindmap' => $db->table('mindmap')->like('materi', $cari)->get()->getResultArray(),

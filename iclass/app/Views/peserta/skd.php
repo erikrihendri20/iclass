@@ -6,7 +6,7 @@
             <h5 class="w-50 my-auto pl-4"><?= $event['title'] ?></h5>
             <div class="row justify-content-end w-50 mx-0">
                 <h5 class="font-weight-bold my-auto">
-                    <?php if (date('Y-m-d')==date('Y-m-d', strtotime($event['start_event'])) && $peserta['selesai']!='1') { ?>
+                    <?php if ((date('Y-m-d')==date('Y-m-d', strtotime($event['start_event'])) || $event['class_name']=='skd2') && $peserta['selesai']!='1') { ?>
                         Waktu Tersisa&nbsp;
                         <span id="span" class="bg-white px-3 py-2" style="color:#12336D; border-radius: 10px;"></span>
                         <script>
@@ -298,7 +298,6 @@
         }
 
         function pindah() {
-            console.log(soal);
             if (soal[0]=='TWK' && soal[1]<=0) {
                 soal[0]='TWK';
                 soal[1]=0;
@@ -392,7 +391,7 @@
                 store.dispatch(tkpAction(jawaban));
             }
             
-            <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d') && $peserta['selesai']!='1') { ?>
+            <?php if ((date('Y-m-d')==date('Y-m-d', strtotime($event['start_event'])) || $event['class_name']=='skd2') && $peserta['selesai']!='1') { ?>
                 $.ajax({
                     url: '<?= base_url() ?>/peserta/jawabSKD/<?= $event['id'] ?>/'+store.getState().jawaban_twk.toString()+'/'+store.getState().jawaban_tiu.toString()+'/'+store.getState().jawaban_tkp.toString(),
                     success: function(res) {
@@ -420,7 +419,7 @@
             document.getElementById(soal[0]+(nomor).toString()).setAttribute('class', 'btn bg-secondary text-black text-center font-weight-bold border border-10 p-2');
         }
 
-        <?php if (date('Y-m-d', strtotime($event['start_event']))==date('Y-m-d') && $peserta['selesai']!='1') { ?>
+        <?php if ((date('Y-m-d')==date('Y-m-d', strtotime($event['start_event'])) || $event['class_name']=='skd2') && $peserta['selesai']!='1') { ?>
             function selesai() {
                 $('#modalSelesai').modal('show');
             }

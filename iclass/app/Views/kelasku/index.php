@@ -73,19 +73,36 @@
             <div class="mx-0 pl-3" style="width: 40%;">
                 <h4 class="font-weight-bold w-100 my-auto">Buku Ujian Masuk STIS</h4>
                 <div class="w-100 mt-4">
-                    <button id="bums2021" onclick="bumsChange('2021')" class="btn btn-primary border-10 px-3">Tahun 2021</button>
-                    <button id="bums2022" onclick="bumsChange('2022')" class="btn btn-light border-10 ml-3 px-3">Tahun 2022</button>
-                    <button id="bumsskd" onclick="bumsChange('skd')" class="btn btn-light border-10 ml-3 px-3">SKD</button>
+                    <?php if (session('kode-paket') != '7') { ?>
+                        <button id="bums2021" onclick="bumsChange('2021')" class="btn btn-primary border-10 px-3">Tahun 2021</button>
+                        <button id="bums2022" onclick="bumsChange('2022')" class="btn btn-light border-10 ml-3 px-3">Tahun 2022</button>
+                    <?php } ?>
+                    <?php if (session('kode-paket')=='5' || session('kode-paket')=='7') { ?>
+                        <button id="bumsskd" onclick="bumsChange('skd')" class="btn btn-light border-10 ml-3 px-3">SKD</button>
+                    <?php } ?>
                 </div>
                 <div class="row border w-100 mx-0 mt-4 p-3" style="border-radius: 37px;">
                     <div class="row align-content-center mx-0 py-3" style="width: 40%;">
-                        <img id="imgbums" src="<?= base_url() ?>/img/1.jpg" class="w-100 p-2" style="object-fit: contain;">
+                        <?php if (session('kode-paket') != '7') { ?>
+                            <img id="imgbums" src="<?= base_url() ?>/img/1.jpg" class="w-100 p-2" style="object-fit: contain;">
+                        <?php } else { ?>
+                            <img id="imgbums" src="<?= base_url() ?>/img/3.jpg" class="w-100 p-2" style="object-fit: contain;">
+                        <?php } ?>
                     </div>
                     <div class="row align-content-center mx-0 pl-2" style="width: 60%; height: 280px;">
-                        <h5 class="font-weight-bold w-100 mt-4">Buku Ujian Saringan Masuk Polstat STIS</h5>
-                        <h6 class="w-100 mb-5 mt-3">Ebook ini dilengkapi dengan kumpulan materi dan soal USM Polstat STIS lengkap beserta dengan pembahasannya</h6>
+                        <?php if (session('kode-paket') != '7') { ?>
+                            <h5 id="ebookTitle" class="font-weight-bold w-100 mt-4">Buku Ujian Saringan Masuk Polstat STIS</h5>
+                            <h6 id="ebookDescription" class="w-100 mb-5 mt-3">Ebook ini dilengkapi dengan kumpulan materi dan soal USM Polstat STIS lengkap beserta dengan pembahasannya</h6>
+                        <?php } else { ?>
+                            <h5 id="ebookTitle" class="font-weight-bold w-100 mt-4">Modul SKD</h5>
+                            <h6 id="ebookDescription" class="w-100 mb-5 mt-3">Modul ini dilengkapi ringkasan soal mengenai materi yang diujikan pada tes SKD. Materi didalam modul ini terdiri dari TWK, TIU, dan TKP</h6>
+                        <?php } ?>
                         <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
-                            <a id="abums" href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-primary px-3 ml-auto mt-3">Download</a>
+                            <?php if (session('kode-paket') != '7') { ?>
+                                <a id="abums" href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf" class="btn btn-primary px-3 ml-auto mt-3">Download</a>
+                            <?php } else { ?>
+                                <a id="abums" href="<?= base_url() ?>/kelasku/view_pdf/ebook3.pdf" class="btn btn-primary px-3 ml-auto mt-3">Download</a>
+                            <?php } ?>
                         <?php } else { ?>
                             <button onclick="hanyaTryout();" class="btn btn-primary px-3 ml-auto mt-auto">Baca</button>
                         <?php } ?>
@@ -216,21 +233,23 @@
                                 </div>
                                 <img src="<?= base_url() ?>/img/Aset/Asset 14.png" class="border-50 w-100" style="object-fit: contain;" />
                             </div>
-                            <h5 class="font-weight-bold text-capitalize mt-4 mb-0 w-100 px-3"><?= session('jurusan') ?></h5>
-                            <h5 class="font-weight-bold text-truncate mt-4 mb-0 w-100 px-3"><?= date('d F Y', strtotime($jadwalTryout[0]['start_event'])) ?></h5>
+                            <h5 class="font-weight-bold text-capitalize mt-4 mb-0 w-100 px-3">
+                                <?= strpos($jadwalTryout[0]['class_name'], 'skd')===false ? 'MTK' : 'SKD' ?>
+                            </h5>
+                            <h5 class="font-weight-bold text-truncate mt-4 mb-0 w-100 px-3"><?php if ($jadwalTryout[0]['class_name']!='skd2') echo date('d F Y', strtotime($jadwalTryout[0]['start_event'])); ?></h5>
                             <h6 class="text-truncate w-100 px-3 mt-2 mb-0"><?= $jadwalTryout[0]['title'] ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5 px-3">
                                 <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
-                                    <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[0]['start_event']))) { ?>
-                                        href="<?php if (!empty($jadwalTryout[0]) && $jadwalTryout[0]['class_name']!='skd') { ?>
-                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
-                                            <?php } else { ?>
+                                    <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[0]['start_event'])) || $jadwalTryout[0]['class_name']=='skd2') { ?>
+                                        href="<?php if (!empty($jadwalTryout[0]) && strpos($jadwalTryout[0]['class_name'], 'skd')!==false) { ?>
                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
+                                            <?php } else { ?>
+                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
                                             <?php } ?>"
                                     <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[0]['start_event']))) { ?>
                                         onclick="modalTryout('<?= $jadwalTryout[0]['id'] ?>', '<?= $jadwalTryout[0]['class_name'] ?>');"
                                     <?php } ?>>
-                                    <?php if (date('y-m-d', strtotime($jadwalTryout[0]['start_event']))==date('y-m-d')) {
+                                    <?php if (date('y-m-d', strtotime($jadwalTryout[0]['start_event']))==date('y-m-d') || $jadwalTryout[0]['class_name']=='skd2') {
                                         echo 'Ikuti Try Out';
                                     } elseif (date('y-m-d', strtotime($jadwalTryout[0]['start_event']))>date('y-m-d')) {
                                         $tanggal1 = strtotime(date('Y-m-d'));
@@ -257,23 +276,25 @@
                                             <img src="<?= base_url() ?>/img/Aset/Asset 14.png" class="border-50 w-100" style="object-fit: contain;" />
                                         </div>
                                         <div class="row align-items-center w-50 mx-0 pl-3">
-                                            <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
-                                            <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($jadwalTryout[$i]['start_event'])) ?></h5>
+                                            <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100">
+                                                <?= strpos($jadwalTryout[0]['class_name'], 'skd')===false ? 'MTK' : 'SKD' ?>
+                                            </h5>
+                                            <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?php if ($jadwalTryout[$i]['class_name']!='skd2') echo date('d F Y', strtotime($jadwalTryout[$i]['start_event'])); ?></h5>
                                             <h6 class="text-truncate w-100"><?= $jadwalTryout[$i]['title'] ?></h6>
                                             <?php if ((date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['end_event']))<=date('Y-m-d G:i:s'))) { ?>
                                                 <!-- <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-primary rounded-pill ml-auto mb-3 px-3">Nilai Try Out</a> -->
                                             <?php } ?>
                                             <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
-                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    href="<?php if (!empty($jadwalTryout[$i]) && $jadwalTryout[$i]['class_name']!='skd') { ?>
-                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
-                                                            <?php } else { ?>
+                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[$i]['class_name']=='skd2') { ?>
+                                                    href="<?php if (!empty($jadwalTryout[$i]) && strpos($jadwalTryout[$i]['class_name'], 'skd')!==false) { ?>
                                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } else { ?>
+                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
                                                             <?php } ?>"
                                                 <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
                                                     onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>', '<?= $jadwalTryout[$i]['class_name'] ?>');"
                                                 <?php } ?>>
-                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d')) {
+                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d') || $jadwalTryout[$i]['class_name']=='skd2') {
                                                     echo 'Ikuti Try Out';
                                                 } elseif (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))>date('y-m-d')) {
                                                     $tanggal1 = strtotime(date('Y-m-d'));
@@ -304,16 +325,16 @@
                                                 <!-- <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-primary rounded-pill ml-auto mb-3 px-3">Nilai Try Out</a> -->
                                             <?php } ?>
                                             <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
-                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
-                                                    href="<?php if (!empty($jadwalTryout[$i]) && $jadwalTryout[$i]['class_name']!='skd') { ?>
-                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
-                                                            <?php } else { ?>
+                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[0]['class_name']=='skd2') { ?>
+                                                    href="<?php if (!empty($jadwalTryout[$i]) && strpos($jadwalTryout[$i]['class_name'], 'skd')!==false) { ?>
                                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
+                                                            <?php } else { ?>
+                                                                <?= base_url() ?>/peserta/tryout/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
                                                             <?php } ?>"
                                                 <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
                                                     onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>', '<?= $jadwalTryout[$i]['class_name'] ?>');"
                                                 <?php } ?>>
-                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d')) {
+                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d') || $jadwalTryout[0]['class_name']=='skd2') {
                                                     echo 'Ikuti Try Out';
                                                 } elseif (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))>date('y-m-d')) {
                                                     $tanggal1 = strtotime(date('Y-m-d'));
@@ -437,70 +458,72 @@
                 <?php } ?>
             </div>
         </div>
-        <div class="row w-100 mt-4 mx-0 pt-5">
-            <h4 class="font-weight-bold w-100 my-auto pb-3">Kumpulan Latihan Soal</h4>
-            <div class="row bg-primary border-30 w-100 mx-0 mt-4">
-                <img src="<?= base_url() ?>/img/Aset/Asset 40.png" class="border-30 mt-5 pt-5" style="width: 40%; object-fit: contain;">
-                <div class="row mx-0 my-5 px-2" style="width: 30%;">
-                    <h5 class="text-white font-weight-bold w-100 pl-3">List Materi</h5>
-                    <div class="row w-100 mx-0" style="max-height: 200px; overflow-y: auto;">
-                        <div class="row w-100 mx-0 mt-3 pl-3">
-                            <button id="button<?= $materis[0]['materi'] ?>" onclick="changeLatihan('<?= $materis[0]['materi'] ?>');" 
-                                class="btn btn-link text-white font-weight-bold text-truncate bg-white text-dark border-10 py-1  buttonlatihan"><?= $materis[0]['materi'] ?></button>
-                        </div>
-                        <?php for($i=1; $i<sizeof($materis); $i++) { ?>
-                            <div class="row w-100 mx-0 pl-3">
-                                <button id="button<?= $materis[$i]['materi'] ?>" onclick="changeLatihan('<?= $materis[$i]['materi'] ?>');" 
-                                    class="btn btn-link text-white font-weight-bold text-truncate py-1 buttonlatihan"><?= $materis[$i]['materi'] ?></button>
+        <?php if (session('kode-paket') != '7') { ?>
+            <div class="row w-100 mt-4 mx-0 pt-5">
+                <h4 class="font-weight-bold w-100 my-auto pb-3">Kumpulan Latihan Soal</h4>
+                <div class="row bg-primary border-30 w-100 mx-0 mt-4">
+                    <img src="<?= base_url() ?>/img/Aset/Asset 40.png" class="border-30 mt-5 pt-5" style="width: 40%; object-fit: contain;">
+                    <div class="row mx-0 my-5 px-2" style="width: 30%;">
+                        <h5 class="text-white font-weight-bold w-100 pl-3">List Materi</h5>
+                        <div class="row w-100 mx-0" style="max-height: 200px; overflow-y: auto;">
+                            <div class="row w-100 mx-0 mt-3 pl-3">
+                                <button id="button<?= $materis[0]['materi'] ?>" onclick="changeLatihan('<?= $materis[0]['materi'] ?>');" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate bg-white text-dark border-10 py-1  buttonlatihan"><?= $materis[0]['materi'] ?></button>
                             </div>
-                        <?php } ?>
+                            <?php for($i=1; $i<sizeof($materis); $i++) { ?>
+                                <div class="row w-100 mx-0 pl-3">
+                                    <button id="button<?= $materis[$i]['materi'] ?>" onclick="changeLatihan('<?= $materis[$i]['materi'] ?>');" 
+                                        class="btn btn-link text-white font-weight-bold text-truncate py-1 buttonlatihan"><?= $materis[$i]['materi'] ?></button>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
-                </div>
-                <div class="row mx-0 my-5 pl-5 pr-2" style="width: 30%; max-height: 250px; overflow-y: auto;">
-                    <h5 class="text-white font-weight-bold w-100 pl-3">Pilih Paket</h5>
-                    <div class="row w-100 mx-0 mt-3 pl-3">
-                        <?php if (session('kode-paket')!='6') { ?>
-                            <a id="paket1" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-1.pdf" 
-                                class="btn btn-link text-white font-weight-bold text-truncate">Paket 1</a>
-                        <?php } else { ?>
-                            <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 1</button>
-                        <?php } ?>
-                    </div>
-                    <div class="row w-100 mx-0 pl-3">
-                        <?php if (session('kode-paket')!='6') { ?>
-                            <a id="paket2" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-2.pdf" 
-                                class="btn btn-link text-white font-weight-bold text-truncate">Paket 2</a>
-                        <?php } else { ?>
-                            <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 2</button>
-                        <?php } ?>
-                    </div>
-                    <div class="row w-100 mx-0 pl-3">
-                        <?php if (session('kode-paket')!='6') { ?>
-                            <a id="paket3" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-3.pdf" 
-                                class="btn btn-link text-white font-weight-bold text-truncate">Paket 3</a>
-                        <?php } else { ?>
-                            <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 3</button>
-                        <?php } ?>
-                    </div>
-                    <div class="row w-100 mx-0 pl-3">
-                        <?php if (session('kode-paket')!='6') { ?>
-                            <a id="paket4" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-4.pdf" 
-                                class="btn btn-link text-white font-weight-bold text-truncate">Paket 4</a>
-                        <?php } else { ?>
-                            <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 4</button>
-                        <?php } ?>
-                    </div>
-                    <div class="row w-100 mx-0 pl-3">
-                        <?php if (session('kode-paket')!='6') { ?>
-                            <button id="buttonMindMapping" onclick="openWindow('<?= $materis[0]['materi'] ?>');" 
-                                class="btn btn-link text-white font-weight-bold text-truncate">Mind Mapping</button>
-                        <?php } else { ?>
-                            <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Mind Mapping</button>
-                        <?php } ?>
+                    <div class="row mx-0 my-5 pl-5 pr-2" style="width: 30%; max-height: 250px; overflow-y: auto;">
+                        <h5 class="text-white font-weight-bold w-100 pl-3">Pilih Paket</h5>
+                        <div class="row w-100 mx-0 mt-3 pl-3">
+                            <?php if (session('kode-paket')!='6') { ?>
+                                <a id="paket1" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-1.pdf" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate">Paket 1</a>
+                            <?php } else { ?>
+                                <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 1</button>
+                            <?php } ?>
+                        </div>
+                        <div class="row w-100 mx-0 pl-3">
+                            <?php if (session('kode-paket')!='6') { ?>
+                                <a id="paket2" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-2.pdf" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate">Paket 2</a>
+                            <?php } else { ?>
+                                <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 2</button>
+                            <?php } ?>
+                        </div>
+                        <div class="row w-100 mx-0 pl-3">
+                            <?php if (session('kode-paket')!='6') { ?>
+                                <a id="paket3" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-3.pdf" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate">Paket 3</a>
+                            <?php } else { ?>
+                                <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 3</button>
+                            <?php } ?>
+                        </div>
+                        <div class="row w-100 mx-0 pl-3">
+                            <?php if (session('kode-paket')!='6') { ?>
+                                <a id="paket4" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-4.pdf" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate">Paket 4</a>
+                            <?php } else { ?>
+                                <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 4</button>
+                            <?php } ?>
+                        </div>
+                        <div class="row w-100 mx-0 pl-3">
+                            <?php if (session('kode-paket')!='6') { ?>
+                                <button id="buttonMindMapping" onclick="openWindow('<?= $materis[0]['materi'] ?>');" 
+                                    class="btn btn-link text-white font-weight-bold text-truncate">Mind Mapping</button>
+                            <?php } else { ?>
+                                <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Mind Mapping</button>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
 
     <div id="modalTryout" class="modal fade" tabindex="-1" role="dialog">
@@ -563,18 +586,24 @@
             if (tahun == '2021') {
                 switchColor('bums2021', 'bums2022', 'bumsskd');
                 document.getElementById('imgbums').src="<?= base_url() ?>/img/1.jpg";
+                document.getElementById('ebookTitle').innerHTML='Buku Ujian Saringan Masuk Polstat STIS';
+                document.getElementById('ebookDescription').innerHTML='Ebook ini dilengkapi dengan kumpulan materi dan soal USM Polstat STIS lengkap beserta dengan pembahasannya';
                 <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                     document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook.pdf";
                 <?php } ?>
             } else if (tahun == '2022') {
                 switchColor('bums2022', 'bums2021', 'bumsskd');
                 document.getElementById('imgbums').src="<?= base_url() ?>/img/2.jpg";
+                document.getElementById('ebookTitle').innerHTML='Buku Ujian Saringan Masuk Polstat STIS';
+                document.getElementById('ebookDescription').innerHTML='Ebook ini dilengkapi dengan kumpulan materi dan soal USM Polstat STIS lengkap beserta dengan pembahasannya';
                 <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                     document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook2.pdf";
                 <?php } ?>
             } else {
                 switchColor('bumsskd', 'bums2022', 'bums2021');
-                document.getElementById('imgbums').src="<?= base_url() ?>/img/2.jpg";
+                document.getElementById('imgbums').src="<?= base_url() ?>/img/3.jpg";
+                document.getElementById('ebookTitle').innerHTML='Modul SKD';
+                document.getElementById('ebookDescription').innerHTML='Modul ini dilengkapi ringkasan soal mengenai materi yang diujikan pada tes SKD. Materi didalam modul ini terdiri dari TWK, TIU, dan TKP';
                 <?php if (session('kode-paket')!='1' && session('kode-paket')!='6') { ?>
                     document.getElementById('abums').href="<?= base_url() ?>/kelasku/view_pdf/ebook3.pdf";
                 <?php } ?>
@@ -659,6 +688,10 @@
             counterNumber = 9;
             $('#modalTryout').modal('hide');
             document.getElementById('yesButton').innerHTML=`Ya ( 10 )`;
+        }
+
+        if (window.location.href.includes('#jadwalKeseluruhan')) {
+            changeJadwalTerdekat('tryout')
         }
     </script>
 </div>

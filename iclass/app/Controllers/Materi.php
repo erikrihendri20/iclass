@@ -19,8 +19,12 @@ class Materi extends BaseController
 
 		$kelas = $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'];
 
-		if (session('jurusan')=='intensif' || session('jurusan')=='tryout') {
-			$data['materis'] = $model->findAll();
+		if ((session('jurusan')=='intensif' || session('jurusan')=='tryout')) {
+			if (session('kode-paket')!='7') {
+				$data['materis'] = $model->findAll();
+			} else {
+				$data['materis'] = $model->like('kelas', 'skd')->findAll();
+			}
 		} else {
 		    $data['materis'] = $model->like('kelas', session('jurusan'))->findAll();
 		}
@@ -70,7 +74,14 @@ class Materi extends BaseController
 			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
 			$data['rekaman']['part'] = 1;
 		} else {
-			$data['rekaman'] = null;
+			if (session('kode-paket') != '7') {
+				$data['rekaman'] = null;
+			} else {
+				$data['rekaman']['admin'] = null;
+				$data['rekaman']['materi'] = null;
+				$data['rekaman']['ext_ppt'] = null;
+				$data['rekaman']['bagian'] = [];
+			}
 		}
 
 		$tingkatan = new Tingkatan_Model();
@@ -119,7 +130,11 @@ class Materi extends BaseController
 		if (session('jurusan') != 'intensif') {
 			$data['materis'] = $model->where('id !=', $id)->like('kelas', session('jurusan'))->findAll();
 		} else {
-			$data['materis'] = $model->where('id !=', $id)->findAll();
+			if (session('kode-paket')!='7') {
+				$data['materis'] = $model->where('id !=', $id)->findAll();
+			} else {
+				$data['materis'] = $model->where('id !=', $id)->like('kelas', 'skd')->findAll();
+			}
 		}
 
 		$tingkatans = [];
@@ -165,7 +180,14 @@ class Materi extends BaseController
 			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
 			$data['rekaman']['part'] = 1;
 		} else {
-			$data['rekaman'] = null;
+			if (session('kode-paket') != '7') {
+				$data['rekaman'] = null;
+			} else {
+				$data['rekaman']['admin'] = null;
+				$data['rekaman']['materi'] = null;
+				$data['rekaman']['ext_ppt'] = null;
+				$data['rekaman']['bagian'] = [];
+			}
 		}
 
 		$tingkatan = new Tingkatan_Model();
@@ -224,7 +246,11 @@ class Materi extends BaseController
 		if (session('jurusan') != 'intensif') {
 			$data['materis'] = $model->where('id !=', $id)->like('kelas', session('jurusan'))->findAll();
 		} else {
-			$data['materis'] = $model->where('id !=', $id)->findAll();
+			if (session('kode-paket')!='7') {
+				$data['materis'] = $model->where('id !=', $id)->findAll();
+			} else {
+				$data['materis'] = $model->where('id !=', $id)->like('kelas', 'skd')->findAll();
+			}
 		}
 
 		$data['materiPilihan'] = $model->where('id', $id)->first();
@@ -236,7 +262,14 @@ class Materi extends BaseController
 			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
 			$data['rekaman']['part'] = $part;
 		} else {
-			$data['rekaman'] = null;
+			if (session('kode-paket') != '7') {
+				$data['rekaman'] = null;
+			} else {
+				$data['rekaman']['admin'] = null;
+				$data['rekaman']['materi'] = null;
+				$data['rekaman']['ext_ppt'] = null;
+				$data['rekaman']['bagian'] = [];
+			}
 		}
 
 		$tingkatan = new Tingkatan_Model();

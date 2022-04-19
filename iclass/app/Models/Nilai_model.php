@@ -33,7 +33,7 @@ class Nilai_Model extends Model
         'Vektor_di_R2', 'Vektor_di_R3', 'Perbandingan_Vektor_dan_Koordinat', 'Hasil_Kali_Skalar_Dua_Vektor', 'Sudut_Antara_Dua_Vektor', 
         'Proyeksi_Vektor', 'Konsep_Peluang', 'Peluang_Kejadian_Saling_Bebas', 'Peluang_Kejadian_Saling_Lepas', 'Peluang_Kejadian_Bersyarat', 'Konsep_Variabel_Acak',
         'Konsep_dan_Sifat_Distribusi_Binomial', 'Uji_Hipotesis_dengan_Distribusi_Binomial', 'Masalah_Berkaitan_dengan_Distribusi_Binomial',
-        'Variabel_Acak_Kontinu', 'Peluang_Distribusi_Normal', 'Uji_Hipotesis_Distribusi_Normal', 'bulan',
+        'Variabel_Acak_Kontinu', 'Peluang_Distribusi_Normal', 'Uji_Hipotesis_Distribusi_Normal', 'TWK', 'TIU', 'TKP', 'bulan',
     ];
 
     protected $returnType     = 'array';

@@ -19,7 +19,18 @@
 
         <div class="form-group">
             <label for="jurusan">Jurusan</label>
-            <input type="text" value="<?= (old('jurusan') != null) ? old('jurusan') : $user['jurusan']; ?>" class="form-control <?= ($validation->hasError('jurusan')) ? 'is-invalid' : '' ?>" id="jurusan" name="jurusan" placeholder="Jurusan">
+            <select value="<?= (old('jurusan') != null) ? old('jurusan') : $user['jurusan']; ?>" class="form-control <?= ($validation->hasError('jurusan')) ? 'is-invalid' : '' ?>" id="jurusan" name="jurusan">
+                <option value="10" <?php if (old('jurusan')=='10') echo 'selected';
+                                    elseif ($user['jurusan']=='10') echo 'selected'; ?>>10</option>
+                <option value="11" <?php if (old('jurusan')=='11') echo 'selected';
+                                    elseif ($user['jurusan']=='11') echo 'selected'; ?>>11</option>
+                <option value="12" <?php if (old('jurusan')=='12') echo 'selected';
+                                    elseif ($user['jurusan']=='12') echo 'selected'; ?>>12</option>
+                <option value="intensif" <?php if (old('jurusan')=='intensif') echo 'selected';
+                                        elseif ($user['jurusan']=='intensif') echo 'selected'; ?>>Intensif</option>
+                <option value="tryout" <?php if (old('jurusan')=='tryout') echo 'selected';
+                                        elseif ($user['jurusan']=='tryout') echo 'selected'; ?>>Tryout</option>
+            </select>
             <div class="invalid-feedback">
                 <?= service('validation')->getError('jurusan'); ?>
             </div>

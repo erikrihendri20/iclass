@@ -33,6 +33,7 @@
                         <select class="form-control" id="jenis" name="jenis">
                           <option value="mtk" selected>Matematika</option>
                           <option value="skd">SKD</option>
+                          <option value="skd2">SKD 2</option>
                         </select>
                     </div>
 
@@ -118,7 +119,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('admin/edit_jadwal_tryout') ?>" method="POST">
+                        <form action="<?= base_url('admin/edit_jadwal_tryout') ?>" method="POST" enctype="multipart/form-data">
                           <div class="form-group">
                             <label for="kelas" class="form-label">Kelas</label>
                             <select class="form-control" id="kelas" name="kelas[]" multiple>
@@ -134,6 +135,10 @@
                                                                                         echo str_replace(" ", "T", $date); ?>" id="datetime" name="datetime">
                               <input type="hidden" name="id" value="<?= $dt['id'] ?>">
                             </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="pembahasan" class="form-label">Pembahasan</label>
+                            <input type="file" class="form-control" id="pembahasan" name="pembahasan">
                           </div>
                           <div class="modal-footer">
                             <?php if ($dt['class_name']!='skd') { ?>

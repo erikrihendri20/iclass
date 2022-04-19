@@ -160,7 +160,9 @@
                             <h6 class="text-truncate w-100 ml-2"><?= (!empty($jadwalTo)) ? $jadwalTo['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
                                 <button class="btn btn-primary text-white rounded-pill px-4" type="button"
-                                    <?php if(empty($jadwalTo)) :?>
+                                    <?php if(session('kode-paket')=='7') :?>
+                                        onclick="window.location.href='<?= base_url() ?>/kelasku#jadwalKeseluruhan'"
+                                    <?php elseif(empty($jadwalTo)) : ?>
                                         style="visibility:hidden;"
                                     <?php elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTo['start_event']))) : ?>
                                         onclick="modalTryout();"
@@ -172,7 +174,7 @@
                                         $selisih = $tanggal2-$tanggal1;
                                         $selisih=$selisih/60/60/24;
                                         echo $selisih==0 ? "Join Now" : $selisih." hari lagi";
-                                    } else { echo "-"; } ?>
+                                    } elseif(session('kode-paket')=='7') { echo "Join Now"; } else { echo "-"; } ?>
                                 </button>
                             </div>
                         </div>
@@ -215,25 +217,27 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-primary border-50 position-relative mx-0 mt-4 p-4">
-                <div class="row justify-content-end w-100 mx-0 mb-4">
-                    <a href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/1#vid" 
-                        class="btn btn-primary border-white font-weight-bold rounded-pill mb-0" style="border-width: 2px; padding: 10px 20px;">View More</a>
-                </div>
+            <?php if (session('kode-paket') != '7') { ?>
+                <div class="bg-primary border-50 position-relative mx-0 mt-4 p-4">
+                    <div class="row justify-content-end w-100 mx-0 mb-4">
+                        <a href="<?= base_url() ?>/materi/materi/<?= $rekomendasi[0]['id'] ?>/1#vid" 
+                            class="btn btn-primary border-white font-weight-bold rounded-pill mb-0" style="border-width: 2px; padding: 10px 20px;">View More</a>
+                    </div>
 
-                <div class="row w-100 mx-0 px-5 pb-5">
-                    <h2 class="text-white font-weight-bold w-100 mb-3">Rekomendasi Belajar</h2>
-                    <h4 class="text-white font-weight-bold mb-2" style="width: 60%;"><?= $rekomendasi[0]['materi'] ?></h4>
-                    <h5 class="text-white w-100 mt-2">Kelas <?= $rekomendasi[0]['kelas'] ?></h5>
-                </div>
+                    <div class="row w-100 mx-0 px-5 pb-5">
+                        <h2 class="text-white font-weight-bold w-100 mb-3">Rekomendasi Belajar</h2>
+                        <h4 class="text-white font-weight-bold mb-2" style="width: 60%;"><?= $rekomendasi[0]['materi'] ?></h4>
+                        <h5 class="text-white w-100 mt-2">Kelas <?= $rekomendasi[0]['kelas'] ?></h5>
+                    </div>
 
-                <div class="row w-50 mx-0 my-5 px-5">
-                    <img src="<?= base_url() ?>/img/Aset/Asset 2.png" class="pr-2" style="width: 20%; object-fit:contain">
-                    <h5 class="text-white w-50 my-auto" style="width: 80%;">Bagian 1</h5>
-                </div>
+                    <div class="row w-50 mx-0 my-5 px-5">
+                        <img src="<?= base_url() ?>/img/Aset/Asset 2.png" class="pr-2" style="width: 20%; object-fit:contain">
+                        <h5 class="text-white w-50 my-auto" style="width: 80%;">Bagian 1</h5>
+                    </div>
 
-                <img src="<?= base_url() ?>/img/Aset/Asset 39.png" class="position-absolute" style="width: 60%; bottom: 0; right: 0;">
-            </div>
+                    <img src="<?= base_url() ?>/img/Aset/Asset 39.png" class="position-absolute" style="width: 60%; bottom: 0; right: 0;">
+                </div>
+            <?php } ?>
         </div>
         <div class="position-absolute mx-0" style="left: 77%; width: 20%;">
             <div class="row bg-primary border-30 px-4 py-4">
@@ -469,13 +473,15 @@
                         const rekaman = document.getElementById('rekaman-kelas');
                         const latihan = document.getElementById('latihan-soal');
 
-                        if (res.materi.length != 0) {
-                            materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi - ${res['materi'][0]['materi']}</h6>`;
-                            ubahMateri(res.materi[0], res.tingkatan);
-                        } else {
-                            materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi</h6>`;
-                            materi.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
-                        }
+                        <?php if (session('kode-paket')!='7') { ?>
+                            if (res.materi.length != 0) {
+                                materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi - ${res['materi'][0]['materi']}</h6>`;
+                                ubahMateri(res.materi[0], res.tingkatan);
+                            } else {
+                                materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi</h6>`;
+                                materi.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
+                            }
+                        <?php } ?>
 
                         if (res['rekaman'].length != 0) {
                             rekaman.innerHTML=`<h6 class="text-white font-weight-bold w-100">Rekaman Kelas - ${res['rekaman'][0]['materi']}</h6>`;
@@ -485,13 +491,15 @@
                             rekaman.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
                         }
 
-                        if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
-                            latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h6>`;
-                            ubahLatihan(res['materi'][0], res['mindmap']);
-                        } else {
-                            latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal</h6>`;
-                            latihan.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
-                        }
+                        <?php if (session('kode-paket')!='7') { ?>
+                            if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
+                                latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h6>`;
+                                ubahLatihan(res['materi'][0], res['mindmap']);
+                            } else {
+                                latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal</h6>`;
+                                latihan.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
+                            }
+                        <?php } ?>
                     }
                 });
             });
@@ -508,13 +516,15 @@
                             const rekaman = document.getElementById('rekaman-kelas');
                             const latihan = document.getElementById('latihan-soal');
     
-                            if (res.materi.length != 0) {
-                                materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi - ${res['materi'][0]['materi']}</h6>`;
-                                ubahMateri(res.materi[0], res.tingkatan);
-                            } else {
-                                materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi</h6>`;
-                                materi.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
-                            }
+                            <?php if (session('kode-paket')!='7') { ?>
+                                if (res.materi.length != 0) {
+                                    materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi - ${res['materi'][0]['materi']}</h6>`;
+                                    ubahMateri(res.materi[0], res.tingkatan);
+                                } else {
+                                    materi.innerHTML=`<h6 class="text-white font-weight-bold w-100">Video Materi</h6>`;
+                                    materi.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
+                                }
+                            <?php } ?>
     
                             if (res['rekaman'].length != 0) {
                                 rekaman.innerHTML=`<h6 class="text-white font-weight-bold w-100">Rekaman Kelas - ${res['rekaman'][0]['materi']}</h6>`;
@@ -524,13 +534,15 @@
                                 rekaman.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
                             }
     
-                            if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
-                                latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h6>`;
-                                ubahLatihan(res['materi'][0], res['mindmap']);
-                            } else {
-                                latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal</h6>`;
-                                latihan.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
-                            }
+                            <?php if (session('kode-paket')!='7') { ?>
+                                if (res['materi'].length != 0 && res['materi'][0]['latihan'].length != 0) {
+                                    latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal - ${res['materi'][0]['materi']}</h6>`;
+                                    ubahLatihan(res['materi'][0], res['mindmap']);
+                                } else {
+                                    latihan.innerHTML=`<h6 class="text-white font-weight-bold w-100">Latihan Soal</h6>`;
+                                    latihan.innerHTML+=`<h6 class="text-white font-weight-bold w-100">-</h6>`;
+                                }
+                            <?php } ?>
                         }
                     });
                 }

@@ -335,6 +335,7 @@ class Auth extends BaseController
                     case '3': $sisa = 12;
                     case '4': $sisa = 27;
                     case '5': $sisa = 36;
+                    case '7': $sisa = 13;
                 }
                 $newuser = [
                     'nama' => $this->request->getPost('nama'),

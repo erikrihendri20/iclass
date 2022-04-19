@@ -21,6 +21,7 @@ use App\Models\UbahPaket_Model;
 use App\Models\Notifikasi_Model;
 use App\Models\SKD_Model;
 use Exception;
+use Throwable;
 
 class Admin extends BaseController
 {
@@ -608,9 +609,11 @@ class Admin extends BaseController
             case '4': $pertemuan=27; break;
             case '5': $pertemuan=36; break;
             case '6': $pertemuan=0; break;
+            case '7': $pertemuan=13; break;
         }
 
-        $u2 = $user->where('kode_kelas', $kode_kelas)->first()['username'];
+        $u2 = $user->where('kode_kelas', $kode_kelas)->first();
+        $u2 = !empty($u2) ? $u2['username'] : null;
 
         $jumlah = !empty($events) ? sizeof($events) : 0;
         $user->update($id, [
@@ -1392,6 +1395,11 @@ class Admin extends BaseController
                 ->set('kode_kelas', $kelas)
                 ->where('id', $id)
                 ->update();
+
+            $pembahasan = $this->request->getFile('pembahasan');
+            if (!empty($pembahasan)) {
+                $pembahasan->move('latihan', 'skd_'.$id.'.pdf', true);
+            }
 
             $flash = '<div class="mx-5 alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Edit jadwal kuis sukses!</strong>
