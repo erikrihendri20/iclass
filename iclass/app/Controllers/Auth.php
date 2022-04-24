@@ -272,10 +272,10 @@ class Auth extends BaseController
                     ]
                 ],
                 'jurusan' => [
-                    'label'  => 'Jurusan',
+                    'label'  => 'Kelas',
                     'rules'  => 'required',
                     'errors' => [
-                        'required' => 'Jurusan harus diisi'
+                        'required' => 'Kelas harus diisi'
                     ]
                 ],
                 'kode-paket' => [
@@ -442,6 +442,15 @@ class Auth extends BaseController
                         </div>';
                 session()->setFlashdata('flash', $flash);
                 return redirect()->to('ruangTunggu');
+            } else {
+                $flash = '<div class="alert alert-danger alert-dismissible fade show mt-4 mb-0" role="alert">
+                            <strong>gagal</strong> mengunggah bukti pembayaran <br>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>';
+                session()->setFlashdata('flash', $flash);
+                return redirect()->to('uploadBuktiPembayaran')->withInput();
             }
         }
         $user_model = new Users_Model();

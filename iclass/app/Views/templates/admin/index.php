@@ -332,6 +332,7 @@
                 
                 form.append('kelas', $("#kelas").val());
                 form.append('materi', $("#materi").val());
+                form.append('parts', $("#parts").val());
                 form.append('rekaman', $('#rekaman')[0].files[0]);
                 form.append('thumbnailRekaman', $('#thumbnailRekaman')[0].files[0]);
                 form.append('ppt', $('#ppt')[0].files[0]);
@@ -584,9 +585,9 @@
                 $('#modalNonton').modal('show');
             }
 
-            function hapusRekaman(admin, materi, part) {
+            function hapusRekaman(id) {
                 $.ajax({
-                    url: "<?= base_url() ?>/admin/hapusRekaman/"+admin.replace(/\s/g, '_')+"/"+materi.replace(/\s/g, '_')+"/"+part.replace(/\s/g, '_'),
+                    url: "<?= base_url() ?>/admin/hapusRekaman/"+id,
                     type: "POST",
                     cache: false,
                     contentType: false,
@@ -597,12 +598,8 @@
                         if (result == "gagal") {
                             swal("", "Part gagal dihapus", "error");
                         } else {
-                            if (result == materi) {
-                                document.getElementById(admin+materi+part).style.display='none';
-                            } else if (result == part) {
-                                document.getElementById('tr'+admin+materi).style.display='none';
-                            }
                             swal("", "Part berhasil dihapus", 'success');
+                            tampilkanRekaman();
                         }
                     }
                 });

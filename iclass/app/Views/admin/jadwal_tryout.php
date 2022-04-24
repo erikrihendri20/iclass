@@ -141,7 +141,7 @@
                             <input type="file" class="form-control" id="pembahasan" name="pembahasan">
                           </div>
                           <div class="modal-footer">
-                            <?php if ($dt['class_name']!='skd') { ?>
+                            <?php if (strpos($dt['class_name'], 'skd')===false) { ?>
                               <button type="button" class="btn btn-success text-white" 
                                 onclick="modalSoal('<?= $dt['id'] ?>', '<?= $dt['title'] ?>');">Soal & Pembahasan</button>
                             <?php } else { ?>

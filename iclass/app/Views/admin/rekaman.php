@@ -50,6 +50,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col col-form-label" for="parts">Part</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="parts" name="parts">
+                                <small id="errParts" class="form-text text-danger" style="visibility: hidden;"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col col-form-label" for="kelas">Kelas</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="kelas" name="kelas[]" value="" multiple>

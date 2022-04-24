@@ -311,7 +311,7 @@ class Admin extends BaseController
 
         $model = new Rekaman_Model();
 
-        $data['rekamans'] = $model->findAll();
+        $data['rekamans'] = $model->orderBy('admin', 'asc')->orderBy('materi', 'asc')->findAll();
         return view('admin/tampilkanRekaman', $data);
     }
 
@@ -321,18 +321,25 @@ class Admin extends BaseController
             $data['kelas'] = strval($this->request->getPost('kelas'));
             $data['admin'] = $this->request->getPost('admin');
             $data['materi'] = $this->request->getPost('materi');
-            
+            $data['parts'] = $this->request->getPost('parts');
             $data['rekaman'] = $this->request->getFile('rekaman');
             $data['thumbnailRekaman'] = $this->request->getFile('thumbnailRekaman');
             $data['ppt'] = $this->request->getFile('ppt');
         
             $rules = [
                 'materi' => [
-                    'label'  => 'Materi',
-                    'rules'  => 'required|max_length[250]',
+                    'label' => 'Materi',
+                    'rules' => 'required|max_length[250]',
                     'errors' => [
                         'required' => 'Materi harus diisi',
                         'max_length' => 'Nama materi berisi maksimal 250 karakter (termasuk spasi)'
+                    ]
+                ],
+                'parts' => [
+                    'label' => 'Part',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Part harus diisi',
                     ]
                 ],
                 'rekaman' => [
@@ -385,13 +392,14 @@ class Admin extends BaseController
                     'ext_tn' => $data['thumbnailRekaman']->guessExtension(),
                     'ext_ppt' => $data['ppt']->guessExtension(),
                     'admin' => $data['admin'],
-                    'uploaded' => date("Y-m-d")
+                    'uploaded' => date("Y-m-d"),
+                    'parts' => $data['parts'],
                 ];
 
                 $model = new Rekaman_Model();
                 $model->insert($data1);
                 
-                $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - 1.mp4", true);
+                $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - {$data['parts']}.mp4", true);
                 $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}", true);
                 $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}", true);
             
@@ -469,46 +477,23 @@ class Admin extends BaseController
         }
     }
 
-    public function hapusRekaman($admin, $materi, $part) {
-        $admin = str_replace("_", " ", $admin);
-        $materi = str_replace("_", " ", $materi);
-        $part = str_replace("_", " ", $part);
-        
+    public function hapusRekaman($id) {        
         $model = new Rekaman_Model();
-        $rekaman = $model->where('admin', $admin)->where('materi', $materi)->first();
-        $parts = $rekaman['parts'];
+        $rekaman = $model->where('id', $id)->first();
         
-        $hapus = strpos($parts, ',');
-        if ($hapus == false ) {
-            $model->where('admin', $admin)->where('materi', $materi)->delete();
-            
-            $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
-            unlink($file);
-            
-            $file = "./img/Rekaman Kelas/{$admin}/{$materi}.{$rekaman['ext_tn']}";
-            unlink($file);
-            
-            $file = "./ppt/Rekaman Kelas/{$admin}/{$materi}.{$rekaman['ext_ppt']}";
-            unlink($file);
-            
-            return $part;
-        } else {
-            if (strpos($parts, $part) == 0) {
-                $parts = substr($parts, 2);
-            } else {
-                $parts = str_replace(','.$part, '', $parts);
-            }
-            $file = "./vid/Rekaman Kelas/{$admin}/{$materi} - {$part}.mp4";
-            unlink($file);
-        }
-
-        $model->where('admin', $admin)
-            ->where('materi', $materi)
-            ->set('parts', $parts)
-            ->update();
+        $model->where('id', $id)->delete();
         
-        if ($parts == $model->where('admin', $admin)->where('materi', $materi)->first()['parts']) {
-            return $materi;
+        $file = "./vid/Rekaman Kelas/{$rekaman['admin']}/{$rekaman['materi']} - {$rekaman['parts']}.mp4";
+        unlink($file);
+        
+        $file = "./img/Rekaman Kelas/{$rekaman['admin']}/{$rekaman['materi']}.{$rekaman['ext_tn']}";
+        unlink($file);
+        
+        $file = "./ppt/Rekaman Kelas/{$rekaman['admin']}/{$rekaman['materi']}.{$rekaman['ext_ppt']}";
+        unlink($file);
+        
+        if (empty($model->where('id', $id)->first())) {
+            return $rekaman['materi'];
         } else {
             return "gagal";
         }

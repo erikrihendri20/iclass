@@ -39,15 +39,10 @@
                 </td>
                 <td><?php echo substr($rekaman['uploaded'],-2,2)."-".substr($rekaman['uploaded'],-5,2)."-".substr($rekaman['uploaded'],0,4); ?></td>
                 <td>
-                    <?php $result = explode(',', $rekaman['parts']);
-                          asort($result);
-                          foreach ($result as $r) { ?>
-                            <p id="<?php echo $rekaman['admin'].$rekaman['materi'].$r ?>" class="mb-0">
-                                <span class="mr-5" style="cursor: pointer;" onclick="nonton('<?= $rekaman['admin'] ?>', '<?= $rekaman['materi'] ?>', '<?= $r ?>')">Part <?= $r ?></span>
-                                <button class="badge badge-danger" style="border: none;" onclick="hapusRekaman('<?= $rekaman['admin'] ?>', '<?= $rekaman['materi'] ?>', '<?= $r ?>');">hapus</button>
-                            </P>
-                    <?php } ?>
-                    <button class="badge badge-primary" style="border: none;" onclick="tambahRekaman('<?= $rekaman['admin'] ?>', '<?= $rekaman['materi'] ?>', '<?= $rekaman['parts'] ?>');"><span class="p-2">tambah</span></button>
+                    <p id="<?php echo $rekaman['admin'].$rekaman['materi'].$rekaman['parts'] ?>" class="mb-0">
+                        <span class="mr-5" style="cursor: pointer;" onclick="nonton('<?= $rekaman['admin'] ?>', '<?= $rekaman['materi'] ?>', '<?= $rekaman['parts'] ?>')">Part <?= $rekaman['parts'] ?></span>
+                        <button class="badge badge-danger" style="border: none;" onclick="hapusRekaman('<?= $rekaman['id'] ?>');">hapus</button>
+                    </P>
                 </td>
             </tr>
         <?php

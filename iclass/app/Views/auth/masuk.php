@@ -1,57 +1,58 @@
 <?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
 <div class="content mb-3">
-    <div class="row shadow-lg border-20 mnya-5 px-0" style="height: 90vh;">
-        <div class="col-7 d-flex h-100 px-5">
-            <div class="row align-self-center w-100 mx-5">
-                <h3 class="font-weight-bold w-100 mb-0" style="color: darkblue;">Masuk</h3>
-                <?= session()->flash; ?>
-                <form class="d-flex flex-column w-100 mt5" method="POST" action="">
-                    <div class="form-group d-flex flex-column">
-                        <label for="username" class="h5 font-weight-bold" style="color: darkblue;">Username</label>
-                        <input name="username" type="text" class="form-control" style="border-radius: 10px;" id="username" placeholder="Username" required>
-                    </div>
-
-                    <div class="form-group form-group d-flex flex-column mt-0">
-                        <label for="password" class="h5 font-weight-bold" style="color: darkblue;">Password</label>
-                        <input name="password" type="password" class="form-control" style="border-radius: 10px;" id="password" placeholder="Password" required>
-                    </div>
-
-                    <h5 class="font-weight-bold mt5" style="color: darkblue;">Belum punya akun? Daftar <a href="<?= base_url() ?>/auth/daftar" class="text-warning">disini</a></h5>
-
-                    <div class="d-flex justify-content-end w-100 mx-0 px-0">
-                        <button type="submit" name="submit" class="btn btn-primary float-right w-25 mt5" style="border-radius: 10px;">
-                            <span class="h5">Masuk</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <div class="min-w-screen md:h-screen bg-white flex items-stretch justify-center px-5 py-3">
+        <div class="relative hidden md:block w-1/2 bg-mediumblue rounded-3xl py-10 px-10">
+            <div><img class="h-8 w-auto mb-16" src="./images/iclass-white.png" alt="Logo" /></div>
+            <div class="text-white lg:ml-8 mb-32">
+                <div class="text-5xl italic font-bold leading-normal">Welcome <br /> Back!</div>
+                <div
+                    class="mt-8 text-base xl:text-lg xl:leading-loose font-medium w-64 xl:w-96 max-w-xs leading-loose">
+                    Gimana persiapanmu dalam menghadapi USM Polstat STIS?</div>
+                <div
+                    class="mt-8 text-base xl:text-lg xl:leading-loose font-medium w-64 xl:w-96 max-w-xs leading-loose">
+                    Yuk latihan soal tiap hari biar makin mantap persiapannya.</div>
+            </div><img
+                class="absolute hidden lg:block top-1/2 transform -translate-y-1/2 -right-10 max-w-xs object-cover object-center rounded"
+                alt="img" src="./images/login.svg" />
         </div>
-        <div class="col-5 d-flex justify-content-center align-self-center bg-primary h-100 px-5" style="border-radius: 0 20px 20px 0;">
-            <div class="row justify-content-center mx-0">
-                <div id="carouselExampleSlidesOnly" class="carousel slide" style="width: 100%;" data-ride="carousel" data-interval="3000">
-                    <div class="carousel-inner h-100">
-                        <div class="carousel-item h-100 active">
-                            <div class="row justify-content-center align-items-center h-100">
-                                <img src="<?= base_url() ?>/img/Aset/Asset 4@300x.png" alt="" style="object-fit: contain; width: 90%">
-                            </div>
+        <div
+            class="w-full max-w-2xl m-auto md:w-1/2 py-10 xl:py-32 2xl:py-40 px-5 md:px-10 flex flex-col items-center justify-center">
+            <div class="w-full lg:px-16">
+                <div class="font-medium self-center text-xl sm:text-4xl text-gray-800">Masuk</div>
+                <?= session()->flash; ?>
+                <div class="mt-10">
+                    <form method="POST" action="">
+                        <div class="flex flex-col space-y-2 my-8">
+                            <label for="username" class="mb-1 text-base font-medium tracking-wide text-gray-700">Username</label>
+                            <input type="text" id="username" name="username" placeholder="username" required
+                                class="text-sm xl:text-lg text-gray-700 placeholder-gray-500 px-4 rounded-2xl xl:rounded-3xl border border-gray-500 w-full py-2 focus:outline-none focus:border-lightblue" />
                         </div>
-                        <div class="carousel-item h-100">
-                            <div class="row justify-content-center align-items-center h-100">
-                                <img src="<?= base_url() ?>/img/Aset/Asset 44@300x.png" alt="" style="object-fit: contain; width: 100%">
-                            </div>
+                        <div class="flex flex-col space-y-2 my-8">
+                            <label for="password" class="mb-1 text-base font-medium tracking-wide text-gray-700">Password</label>
+                            <input type="password" id="password" name="password" placeholder="password" required
+                                class="text-sm xl:text-lg text-gray-700 placeholder-gray-500 px-4 rounded-2xl xl:rounded-3xl border border-gray-500 w-full py-2 focus:outline-none focus:border-lightblue" />
                         </div>
-                        <div class="carousel-item h-100">
-                            <div class="row justify-content-center align-items-center h-100">
-                                <img src="<?= base_url() ?>/img/Aset/cHUVrf.tif@300x.png" alt="" style="object-fit: contain; width: 90%">
-                            </div>
+                        <div class="flex items-center justify-between mb-10">
+                            <a class="flex" href="<?= base_url() ?>/daftar">
+                                <span class="inline-flex text-xs sm:text-sm text-mediumblue hover:text-lightblue cursor-pointer">
+                                    Daftar
+                                </span>
+                            </a>
+                            <!-- <div class="flex" href="/login#"><span
+                                    class="inline-flex text-xs sm:text-sm text-mediumblue hover:text-lightblue cursor-pointer">Lupa
+                                    Password?</span></div> -->
                         </div>
-                    </div>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" name="submit"
+                                class="flex items-center justify-center focus:outline-none text-white font-bold bg-mediumblue hover:bg-lightblue rounded-full py-2 px-8 transition duration-150 ease-in">
+                                <span class="text-sm">Masuk</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div style="padding-top: 200px;"></div>
-<?= $this->include('templates/footer'); ?>
 <?= $this->endSection(); ?>

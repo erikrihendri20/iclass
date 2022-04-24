@@ -35,7 +35,9 @@
     <script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="https://www.amcharts.com/lib/3/pie.js"></script>
 
-    <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
+    <link rel="preload" href="<?= base_url() ?>/_next/static/css/3e41ab69d4599de3.css" as="style" />
+    <link rel="stylesheet" href="<?= base_url() ?>/_next/static/css/3e41ab69d4599de3.css" data-n-g="" />
+    <noscript data-n-css=""></noscript>
     <title><?= $title; ?></title>
 </head>
 
@@ -48,12 +50,7 @@
 
     <div style="padding-bottom: 50px;"></div>
 
-    <footer class="text-center position-absolute text-lg-start bg-primary w-100" style="bottom:0;">
-        <div class="text-center text-white px-4" style="padding-top: 0.75rem; padding-bottom: 0.75rem;">
-            © 2021 Copyright:
-            <a class="text-white font-weight-bold" href="<?= base_url() ?>">iClass Education</a>
-        </div>
-    </footer>
+    <?= $this->include('templates/footer'); ?>
 
     
     <!-- js -->

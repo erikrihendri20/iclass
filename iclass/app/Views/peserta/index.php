@@ -123,7 +123,7 @@
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Zoom Meeting</h5>
                             <h6 class="text-truncate w-100 ml-2"><?= (!empty($meetingDate)) ? $meetingDate['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
-                                <a class="btn btn-primary text-white rounded-pill px-4"
+                                <a class="btn bg-primary text-white rounded-pill px-4"
                                     <?php if(empty($meetingDate)) :?>
                                         style="visibility:hidden;"
                                     <?php elseif(date('Y-m-d') == date('Y-m-d', strtotime($meetingDate['start_event']))) : ?>
@@ -159,7 +159,7 @@
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Try Out</h5>
                             <h6 class="text-truncate w-100 ml-2"><?= (!empty($jadwalTo)) ? $jadwalTo['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
-                                <button class="btn btn-primary text-white rounded-pill px-4" type="button"
+                                <button class="btn bg-primary text-white rounded-pill px-4" type="button"
                                     <?php if(session('kode-paket')=='7') :?>
                                         onclick="window.location.href='<?= base_url() ?>/kelasku#jadwalKeseluruhan'"
                                     <?php elseif(empty($jadwalTo)) : ?>
@@ -197,7 +197,7 @@
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Kuis Harian</h5>
                             <h6 class="text-truncate w-100 ml-2"><?= (!empty($kuis)) ? $kuis['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
-                                <a class="btn btn-primary h6 rounded-pill px-4"
+                                <a class="btn bg-primary h6 rounded-pill px-4"
                                     <?php if(empty($kuis)) :?>
                                         style="visibility:hidden;"
                                     <?php elseif(date('Y-m-d') == date('Y-m-d', strtotime($kuis['start_event']))) : ?>

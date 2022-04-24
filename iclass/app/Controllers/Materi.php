@@ -70,18 +70,10 @@ class Materi extends BaseController
 		$kelas = (session('kode-kelas')!='0') ? $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'] : 'Belum ada kelas';
 		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
-			$data['rekaman'] = $rekamanKelas[0];
-			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
-			$data['rekaman']['part'] = 1;
+			$data['rekaman'] = $rekamanKelas;
+			$data['rekamanPart'] = 1;
 		} else {
-			if (session('kode-paket') != '7') {
-				$data['rekaman'] = null;
-			} else {
-				$data['rekaman']['admin'] = null;
-				$data['rekaman']['materi'] = null;
-				$data['rekaman']['ext_ppt'] = null;
-				$data['rekaman']['bagian'] = [];
-			}
+			$data['rekaman'] = [];
 		}
 
 		$tingkatan = new Tingkatan_Model();
@@ -108,7 +100,6 @@ class Materi extends BaseController
 		if ($data['materiPilihan']['materi']=='Suku Banyak' && $data['dasar']==true) {
 		    $data['rumit']==true;
 		}
-
 		$data['css'] = 'materi.css';
 		$data['active'] = 'materi';
 		$data['title'] = 'Materi';
@@ -176,18 +167,10 @@ class Materi extends BaseController
 		$kelas = (session('kode-kelas')!='0') ? $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'] : 'Belum ada kelas';
 		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
-			$data['rekaman'] = $rekamanKelas[0];
-			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
-			$data['rekaman']['part'] = 1;
+			$data['rekaman'] = $rekamanKelas;
+			$data['rekamanPart'] = 1;
 		} else {
-			if (session('kode-paket') != '7') {
-				$data['rekaman'] = null;
-			} else {
-				$data['rekaman']['admin'] = null;
-				$data['rekaman']['materi'] = null;
-				$data['rekaman']['ext_ppt'] = null;
-				$data['rekaman']['bagian'] = [];
-			}
+			$data['rekaman'] = [];
 		}
 
 		$tingkatan = new Tingkatan_Model();
@@ -255,21 +238,12 @@ class Materi extends BaseController
 
 		$data['materiPilihan'] = $model->where('id', $id)->first();
 		$data['submateris'] = $db->table('submateri')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
-
-		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->get()->getResultArray();
+		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
-			$data['rekaman'] = $rekamanKelas[0];
-			$data['rekaman']['bagian'] = explode(',', $data['rekaman']['parts']);
-			$data['rekaman']['part'] = $part;
+			$data['rekaman'] = $rekamanKelas;
+			$data['rekamanPart'] = $part;
 		} else {
-			if (session('kode-paket') != '7') {
-				$data['rekaman'] = null;
-			} else {
-				$data['rekaman']['admin'] = null;
-				$data['rekaman']['materi'] = null;
-				$data['rekaman']['ext_ppt'] = null;
-				$data['rekaman']['bagian'] = [];
-			}
+			$data['rekaman'] = [];
 		}
 
 		$tingkatan = new Tingkatan_Model();

@@ -1,13 +1,13 @@
-<?= $this->extend('templates/peserta'); ?>
+<?= $this->extend('templates/index'); ?>
 <?= $this->section('content'); ?>
-<div class="content mt-4 py-5">
+<div class="content pb-5">
     <div class="row mx-auto mt-5" style="width: 80%;">
         <div class="row w-75 mx-0 mt-5 pl-3">
             <div class="row align-content-start w-100 mx-0">
-                <div class="position-relative border-20" style="width: 20%;">
+                <div class="position-relative border-20 position-relative" style="width: 20%;">
                     <img src="<?= base_url() ?>/img/profil.png" alt="" class="w-100 border-50 position-relative" style="object-fit: cover;">
                     <img id="imgprof" src="<?= base_url() ?>/img/profil/<?= $user['username'] ?>.jpg" alt="" 
-                        class="w-100 h-100 border-50 position-absolute" style="left: 0; object-fit: cover;" 
+                        class="w-100 h-100 border-50 position-absolute" style="top: 0; left: 0; object-fit: cover;" 
                         onerror='this.style.display = "none"'>
                     <button id="uploadProfpic" class="btn bg-white border-0 position-absolute" style="padding: 2px; border-radius: 15px; width: 40px; top: 20px; right: 20px;">
                         <img src="<?= base_url() ?>/img/Aset/Asset 2222.png" alt="" class="w-100 p-2">
@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="row justify-content-end w-100 mx-0 mb-3">
-                                <button type="button" name="submit" class="btn btn-primary border-30 px-3"
+                                <button type="button" name="submit" class="btn bg-primary border-30 px-3"
                                     onclick="$('#modalBuktiPembayaran').modal('show');">
                                     Lanjutkan
                                 </button>

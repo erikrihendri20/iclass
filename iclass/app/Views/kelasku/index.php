@@ -133,7 +133,7 @@
                             <h5 class="font-weight-bold text-truncate mt-4 mb-0 w-100 px-3"><?= date('d F Y', strtotime($zoomMeeting[0]['start_event'])) ?></h5>
                             <h6 class="text-truncate w-100 px-3 mt-2 mb-0"><?= $zoomMeeting[0]['title'] ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5 px-3">
-                                <a class="btn btn-primary text-white rounded-pill px-3"
+                                <a class="btn bg-primary text-white rounded-pill px-3"
                                     <?php if(date('Y-m-d') == date('Y-m-d', strtotime($zoomMeeting[0]['start_event']))) : ?>
                                         href="<?= base_url() ?>/peserta/hadir/<?php echo (!empty($zoomMeeting[0])) ? $zoomMeeting[0]['id'] : ''; ?>"
                                     <?php endif; ?>
@@ -166,7 +166,7 @@
                                             <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
                                             <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($zoomMeeting[$i]['start_event'])) ?></h5>
                                             <h6 class="text-truncate w-100"><?= $zoomMeeting[$i]['title'] ?></h6>
-                                            <a class="btn btn-primary text-white rounded-pill px-3"
+                                            <a class="btn bg-primary text-white rounded-pill px-3"
                                                 <?php if(date('Y-m-d') == date('Y-m-d', strtotime($zoomMeeting[$i]['start_event']))) : ?>
                                                     href="<?= base_url() ?>/peserta/hadir/<?php echo (!empty($zoomMeeting[$i])) ? $zoomMeeting[$i]['id'] : ''; ?>"
                                                 <?php endif; ?>
@@ -196,7 +196,7 @@
                                             <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
                                             <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($zoomMeeting[$i]['start_event'])) ?></h5>
                                             <h6 class="text-truncate w-100"><?= $zoomMeeting[$i]['title'] ?></h6>
-                                            <a class="btn btn-primary text-white rounded-pill px-3"
+                                            <a class="btn bg-primary text-white rounded-pill px-3"
                                                 <?php if(date('Y-m-d') == date('Y-m-d', strtotime($zoomMeeting[$i]['start_event']))) : ?>
                                                     href="<?= base_url() ?>/peserta/hadir/<?php echo (!empty($zoomMeeting[$i])) ? $zoomMeeting[$i]['id'] : ''; ?>"
                                                 <?php endif; ?>
@@ -239,7 +239,7 @@
                             <h5 class="font-weight-bold text-truncate mt-4 mb-0 w-100 px-3"><?php if ($jadwalTryout[0]['class_name']!='skd2') echo date('d F Y', strtotime($jadwalTryout[0]['start_event'])); ?></h5>
                             <h6 class="text-truncate w-100 px-3 mt-2 mb-0"><?= $jadwalTryout[0]['title'] ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5 px-3">
-                                <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                <a class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                     <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[0]['start_event'])) || $jadwalTryout[0]['class_name']=='skd2') { ?>
                                         href="<?php if (!empty($jadwalTryout[0]) && strpos($jadwalTryout[0]['class_name'], 'skd')!==false) { ?>
                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[0])) ? $jadwalTryout[0]['id'] : ""; ?>
@@ -284,7 +284,7 @@
                                             <?php if ((date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['end_event']))<=date('Y-m-d G:i:s'))) { ?>
                                                 <!-- <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-primary rounded-pill ml-auto mb-3 px-3">Nilai Try Out</a> -->
                                             <?php } ?>
-                                            <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                            <a class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                                 <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[$i]['class_name']=='skd2') { ?>
                                                     href="<?php if (!empty($jadwalTryout[$i]) && strpos($jadwalTryout[$i]['class_name'], 'skd')!==false) { ?>
                                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
@@ -324,7 +324,7 @@
                                             <?php if ((date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['end_event']))<=date('Y-m-d G:i:s'))) { ?>
                                                 <!-- <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-primary rounded-pill ml-auto mb-3 px-3">Nilai Try Out</a> -->
                                             <?php } ?>
-                                            <a class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                            <a class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                                 <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[0]['class_name']=='skd2') { ?>
                                                     href="<?php if (!empty($jadwalTryout[$i]) && strpos($jadwalTryout[$i]['class_name'], 'skd')!==false) { ?>
                                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
@@ -372,7 +372,7 @@
                             <h5 class="font-weight-bold text-truncate mt-4 mb-0 w-100 px-3"><?= date('d F Y', strtotime($kuisHarian[0]['start_event'])) ?></h5>
                             <h6 class="text-truncate w-100 px-3 mt-2 mb-0"><?= $kuisHarian[0]['title'] ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5 px-3">
-                                <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[0]['id'] ?>/1" class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[0]['id'] ?>/1" class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                     style="<?php if (substr($kuisHarian[0]['start_event'],0,10)>date('Y-m-d')) echo " visibility: hidden;"; ?>">
                                     <?php if (date('y-m-d', strtotime($kuisHarian[0]['start_event']))==date('y-m-d')) {
                                         echo 'Ikuti Kuis';
@@ -404,7 +404,7 @@
                                             <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
                                             <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($kuisHarian[$i]['start_event'])) ?></h5>
                                             <h6 class="text-truncate w-100"><?= $kuisHarian[$i]['title'] ?></h6>
-                                            <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                            <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                                 style="<?php if (substr($kuisHarian[$i]['start_event'],0,10)>date('Y-m-d')) echo " visibility: hidden;"; ?>">
                                                 <?php if (date('y-m-d', strtotime($kuisHarian[$i]['start_event']))==date('y-m-d')) {
                                                     echo 'Ikuti Kuis';
@@ -433,7 +433,7 @@
                                             <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
                                             <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($kuisHarian[$i]['start_event'])) ?></h5>
                                             <h6 class="text-truncate w-100"><?= $kuisHarian[$i]['title'] ?></h6>
-                                            <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn btn-primary text-white rounded-pill ml-auto px-3" 
+                                            <a href="<?= base_url() ?>/kelasku/kuis/<?= $kuisHarian[$i]['id'] ?>/<?= $i+1 ?>" class="btn bg-primary text-white rounded-pill ml-auto px-3" 
                                                 style="<?php if (substr($kuisHarian[$i]['start_event'],0,10)>date('Y-m-d')) echo " visibility: hidden;"; ?>">
                                                 <?php if (date('y-m-d', strtotime($kuisHarian[$i]['start_event']))==date('y-m-d')) {
                                                     echo 'Ikuti Kuis';

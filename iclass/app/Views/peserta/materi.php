@@ -8,13 +8,13 @@
                 <?php if (session('jurusan')!='intensif' && session('jurusan')!='tryout') { ?>
                     <button class="btn bg-primary border-10" disabled>Kelas <?= session('jurusan') ?></button>
                 <?php } else { ?>
-                    <?php if (session('kode-paket') != '7') { ?>
+                    <?php if (session('kode-paket') != '7') { $done=false; ?>
                         <button id="buttonKelas10" onclick="changeKelas('10');" 
-                            class="btn <?= $materiPilihan['kelas']=='10' ? 'btn-primary' : 'btn-light' ?> border-10 px-3">Kelas 10</button>
+                            class="btn <?php if (strpos($materiPilihan['kelas'],'10')!==false && !$done) { echo 'btn-primary'; $done=true; } else { echo 'btn-light'; } ?> border-10 px-3">Kelas 10</button>
                         <button id="buttonKelas11" onclick="changeKelas('11');" 
-                            class="btn <?= $materiPilihan['kelas']=='11' ? 'btn-primary' : 'btn-light' ?> border-10 ml-3 px-3">Kelas 11</button>
+                            class="btn <?php if (strpos($materiPilihan['kelas'],'11')!==false && !$done) { echo 'btn-primary'; $done=true; } else { echo 'btn-light'; } ?> border-10 ml-3 px-3">Kelas 11</button>
                         <button id="buttonKelas12" onclick="changeKelas('12');" 
-                            class="btn <?= $materiPilihan['kelas']=='12' ? 'btn-primary' : 'btn-light' ?> border-10 mx-3 px-3">Kelas 12</button>
+                            class="btn <?php if (strpos($materiPilihan['kelas'],'12')!==false && !$done) { echo 'btn-primary'; $done=true; } else { echo 'btn-light'; } ?> border-10 mx-3 px-3">Kelas 12</button>
                     <?php } ?>
                     <?php if (session('kode-paket')=='5' || session('kode-paket')=='7') { ?>
                         <button id="buttonKelasSKD" onclick="changeKelas('skd');" 
@@ -23,8 +23,8 @@
                 <?php } ?>
             </div>
             <div class="row w-100 mx-0 mt-4"> 
-                <?php if (session('kode-paket') != '7') { ?>
-                    <div id="divKelas10" class="position-relative w-100" style="display: <?= ($materiPilihan['kelas']=='10' || session('jurusan')=='10') ? 'block' : 'none' ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                <?php if (session('kode-paket') != '7') { $done=false; ?>
+                    <div id="divKelas10" class="position-relative w-100" style="display: <?php if ((strpos($materiPilihan['kelas'],'10')!==false || session('jurusan')=='10') && !$done) { echo 'block'; $done=true; } else { echo 'none'; } ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
                         <?php if (strpos($materiPilihan['kelas'], '10')!==false) { ?>
                             <a class="text-dark pr-3 py-2" style="width: 20%; display:inline-block; float: none;" href="#">
                                 <div class="row align-content-center bg-primary border-20 position-relative w-100 mx-0 px-4" style="height: 150px;">
@@ -56,7 +56,7 @@
                                 </a>
                         <?php } } ?>
                     </div>
-                    <div id="divKelas11" class="position-relative w-100" style="display: <?= ($materiPilihan['kelas']=='11' || session('jurusan')=='11') ? 'block' : 'none' ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div id="divKelas11" class="position-relative w-100" style="display: <?php if ((strpos($materiPilihan['kelas'],'11')!==false || session('jurusan')=='11') && !$done) { echo 'block'; $done=true; } else { echo 'none'; } ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
                         <?php if (strpos($materiPilihan['kelas'], '11')!==false) { ?>
                             <a class="text-dark pr-3 py-2" style="width: 20%; display:inline-block; float: none;" href="#">
                                 <div class="row align-content-center bg-primary border-20 position-relative w-100 mx-0 px-4" style="height: 150px;">
@@ -88,7 +88,7 @@
                                 </a>
                         <?php } } ?>
                     </div>
-                    <div id="divKelas12" class="position-relative w-100" style="display: <?= ($materiPilihan['kelas']=='12' || session('jurusan')=='12') ? 'block' : 'none' ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div id="divKelas12" class="position-relative w-100" style="display: <?php if ((strpos($materiPilihan['kelas'],'12')!==false || session('jurusan')=='12') && !$done) { echo 'block'; $done=true; } else { echo 'none'; } ?>; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
                         <?php if (strpos($materiPilihan['kelas'], '12')!==false) { ?>
                             <a class="text-dark pr-3 py-2" style="width: 20%; display:inline-block; float: none;" href="#">
                                 <div class="row align-content-center bg-primary border-20 position-relative w-100 mx-0 px-4" style="height: 150px;">
@@ -161,10 +161,10 @@
                     <div class="row bg-primary border-30 embed-responsive embed-responsive-16by9 bg-light mx-0">
                         <video id="vid" class="embed-responsive-item bg-primary" controls controlslist="nodownload"
                             poster="<?= base_url() ?>/img/Aset/Asset 391.png">
-                            <?php if (session('kode-paket') != '7') { ?>
+                            <?php if (session('kode-paket') != '7' && $materiPilihan['materi']!='skd') { ?>
                                 <source id="vidSrc" src="<?php echo base_url()."/vid/Materi Baru/".$materiPilihan['materi']."/".$part.".mp4"; ?>" type="video/mp4">
                             <?php } else { ?>
-                                <source id="vidSrc" src="<?php echo base_url()."/vid/Rekaman Kelas/".$rekaman['admin']."/".$rekaman['materi']." - 1.mp4"; ?>" type="video/mp4">
+                                <source id="vidSrc" src="<?php echo base_url()."/vid/Rekaman Kelas/".$rekaman[$rekamanPart-1]['admin']."/".$rekaman[$rekamanPart-1]['materi']." - ".$rekamanPart.".mp4"; ?>" type="video/mp4">
                             <?php } ?>
                         </video>
                     </div>
@@ -179,7 +179,7 @@
             <div class="row mx-0 pl-2" style="width: 30%;">
                 <div class="row align-content-start justify-content-between border border-30 w-100 h-100 mx-0 px-4 py-3">
                     <div class="btn-group btn-group-toggle w-100">
-                        <?php if (session('kode-paket')!='7') { ?>
+                        <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
                             <button id="videoMateri" class="btn btn-link font-weight-bold mx-auto">
                                 <input type="radio" name="options" id="option1" autocomplete="off" checked>Video Materi
                             </button>
@@ -188,14 +188,16 @@
                             <input type="radio" name="options" id="option2" autocomplete="off">Rekaman Kelas
                         </button>
                     </div>
-                    <?php if (session('kode-paket')!='7') { ?>
-                        <div id="video-materi" class="row w-100 mx-0 mt-3">
+                    <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
+                        <div id="video-materi" class="row w-100 mx-0 mt-3" style="max-height: 400px; overflow-y: auto;">
                             <?php if ($materiPilihan['dasar']!='' && $materiPilihan['dasar']!='0') {
                                 for ($i=0; $i<(int)$materiPilihan['dasar']; $i++) { ?>
-                                    <button id="<?= $i ?>" class="btn bg-primary text-white text-left text-truncate border-20 w-100 mb-2"
+                                    <button id="<?= $i ?>" class="btn btn-primary text-white text-left text-truncate border-20 w-100 mb-2"
                                         onclick="tukarBagianMateri('<?= $materiPilihan['materi'] ?>', 'dasar', '<?= $i+1 ?>');">
-                                        <img id="img<?= $i ?>" src="<?= base_url() ?>/img/Aset/Asset 35.png" class="py-1" style="width: 15%; object-fit: contain;">
-                                        <span class="pl-2"><?= $submateris[$i]['submateri'] ?></span>
+                                        <div class="row mx-0">
+                                            <img id="img<?= $i ?>" src="<?= base_url() ?>/img/Aset/Asset 35.png" class="py-1" style="width: 15%; object-fit: contain;">
+                                            <span class="align-self-center pl-2"><?= $submateris[$i]['submateri'] ?></span>
+                                        </div>
                                     </button>
                             <?php } } ?>
                             <?php if ($materiPilihan['sedang']!='' && $materiPilihan['sedang']!='0') { $j=$i;
@@ -203,39 +205,43 @@
                                     <button id="<?= $j ?>" class="btn text-left text-truncate border-20 w-100 mb-2 <?php echo (!$sedang) ? 'bg-white' : 'bg-primary text-white'; ?>"
                                         onclick="tukarBagianMateri('<?= $materiPilihan['materi'] ?>', 'sedang', '<?= $j+1 ?>');"
                                         <?php echo (!$dasar) ? 'disabled' : ''; ?>>
-
-                                        <img id="img<?= $j ?>" src="<?= base_url() ?>/img/Aset/Asset <?= (!$sedang) ? '34' : '35' ?>.png" class="py-1" style="width: 15%; object-fit: contain;">
-                                        <span class="pl-2"><?= $submateris[$j]['submateri'] ?></span>
+                                        <div class="row mx-0">
+                                            <img id="img<?= $j ?>" src="<?= base_url() ?>/img/Aset/Asset <?= (!$sedang) ? '34' : '35' ?>.png" class="py-1" style="width: 15%; object-fit: contain;">
+                                            <span class="align-self-center pl-2"><?= $submateris[$j]['submateri'] ?></span>
+                                        </div>
                                     </button>
                             <?php $j++; } } else { $j=$i; $sedang=$dasar; } ?>
                             <?php if ($materiPilihan['rumit']!='' && $materiPilihan['rumit']!='0') { $k=$j;
                                 for ($i=0; $i<(int)$materiPilihan['rumit']; $i++) { ?>
-                                    <button id="<?= $k ?>" class="btn text-left text-truncate border-20 w-100 <?php echo (!$rumit ) ? 'bg-white' : 'bg-primary text-white'; ?>"
+                                    <button id="<?= $k ?>" class="btn text-left text-truncate border-20 w-100 mb-2 <?php echo (!$rumit ) ? 'bg-white' : 'bg-primary text-white'; ?>"
                                         onclick="tukarBagianMateri('<?= $materiPilihan['materi'] ?>', 'rumit', '<?= $k+1 ?>');"
                                         <?php echo (!$sedang) ? 'disabled' : ''; ?>>
-
-                                        <img id="img<?= $k ?>" src="<?= base_url() ?>/img/Aset/Asset <?= (!$rumit) ? '34' : '35' ?>.png" class="py-1" style="width: 15%; object-fit: contain;">
-                                        <span class="pl-2"><?= $submateris[$k]['submateri'] ?></span>
+                                        <div class="row mx-0">
+                                            <img id="img<?= $k ?>" src="<?= base_url() ?>/img/Aset/Asset <?= (!$rumit) ? '34' : '35' ?>.png" class="py-1" style="width: 15%; object-fit: contain;">
+                                            <span class="align-self-center pl-2"><?= $submateris[$k]['submateri'] ?></span>
+                                        </div>
                                     </button>
                             <?php $k++; } } ?>
                         </div>
                     <?php } ?>
-                    <div id="rekaman-kelas" class="row w-100 mx-0 mt-3" style="display: <?= (session('kode-paket') != '7') ? 'none' : 'block' ?> ;">
+                    <div id="rekaman-kelas" class="row w-100 mx-0 mt-3" style="max-height: 400px; overflow-y: auto; display: <?= (session('kode-paket') != '7' && $materiPilihan['kelas']!='skd') ? 'none' : 'block' ?> ;">
                         <?php if (!empty($rekaman)) { ?>
                             <div class="row mx-0">
-                                <?php foreach($rekaman['bagian'] as $bagian) { ?>
-                                    <button class="btn bg-primary text-white text-left text-truncate border-20 w-100 mb-2"
-                                        onclick="tukarBagianRekaman('<?= $bagian ?>');">
-                                        <img src="<?= base_url() ?>/img/Aset/Asset 35.png" class="py-1" style="width: 15%; object-fit: contain;">
-                                        <span class="pl-2">Bagian <?= $bagian ?></span>
+                                <?php foreach($rekaman as $rek) { ?>
+                                    <button class="btn btn-primary text-white text-left text-truncate border-20 w-100 mb-2"
+                                        onclick="tukarBagianRekaman('<?= $rek['parts'] ?>');">
+                                        <div class="row mx-0">
+                                            <img src="<?= base_url() ?>/img/Aset/Asset 35.png" class="py-1" style="width: 15%; object-fit: contain;">
+                                            <span class="align-self-center pl-2"><?= date('j F Y', strtotime($rek['uploaded'])) ?></span>
+                                        </div>
                                     </button>
                                 <?php } ?>
                                 <div class="col-4 mt-4 ml-2 px-0">
                                     <h6 class="font-weight-bold rounded mt-3 py-1" style="color: #12336D;">PPT</h6>
                                 </div>
                                 <?php if (session('kode-paket')!='6') { ?>
-                                    <?php if ($rekaman['admin']!=null) { ?>
-                                        <a id="anchorppt" class="text-left w-100 mt-2 ml-2 p-0" href="<?= base_url() ?>/ppt/Rekaman Kelas/<?php echo $rekaman['admin'].'/'.$rekaman['materi'].' - 1.'.$rekaman['ext_ppt'] ?>" download>
+                                    <?php if ($rekaman[$rekamanPart-1]!=null) { ?>
+                                        <a id="anchorppt" class="text-left w-100 mt-2 ml-2 p-0" href="<?= base_url() ?>/ppt/Rekaman Kelas/<?php echo $rekaman[$rekamanPart-1]['admin'].'/'.$rekaman[$rekamanPart-1]['materi'].' - '.$rekamanPart.'.'.$rekaman[$rekamanPart-1]['ext_ppt'] ?>" download>
                                             <h6 class="text-primary text-left truncate mb-0">Download PowerPoint</h6>
                                         </a>
                                     <?php } ?>
@@ -253,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <?php if (session('kode-paket')!='7') { ?>
+        <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
             <div class="row w-100 mx-0 mt-4 ml-3">
                 <div class="position-relative w-100" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
                     <?php $jmlh = (int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']+(int)$materiPilihan['rumit']; $j=0; $k=0;
@@ -297,15 +303,19 @@
                 document.getElementById(dua).classList.add("btn-light");
                 document.getElementById(tiga).classList.remove("btn-primary");
                 document.getElementById(tiga).classList.add("btn-light");
-                document.getElementById(empat).classList.remove("btn-primary");
-                document.getElementById(empat).classList.add("btn-light");
+                <?php if (session('kode-paket')=='5' || session('kode-paket')=='7') { ?>
+                    document.getElementById(empat).classList.remove("btn-primary");
+                    document.getElementById(empat).classList.add("btn-light");
+                <?php } ?>
             }
 
             function switchDisplay(satu, dua, tiga, empat) {
                 document.getElementById(satu).style.display="block";
                 document.getElementById(dua).style.display="none";
                 document.getElementById(tiga).style.display="none";
-                document.getElementById(empat).style.display="none";
+                <?php if (session('kode-paket')=='5' || session('kode-paket')=='7') { ?>
+                    document.getElementById(empat).style.display="none";
+                <?php } ?>
             }
 
             function changeKelas(kelas) {
@@ -332,12 +342,14 @@
         
         document.getElementById('rekamanKelas').addEventListener('click', function() {
             <?php if (!empty($rekaman)) { ?>
-                document.getElementById('video-materi').style.display="none";
+                <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
+                    document.getElementById('video-materi').style.display="none";
+                    document.getElementById('videoMateri').classList.add("text-secondary");
+                <?php } ?>
                 document.getElementById('rekaman-kelas').style.display="block";
-                document.getElementById('videoMateri').classList.add("text-secondary");
                 document.getElementById('rekamanKelas').classList.remove("text-secondary");
                 <?php if (session('kode-paket') != '6') { ?>
-                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - 1.mp4";
+                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - <?= $rekaman[$rekamanPart-1]['parts'] ?>.mp4";
                     document.getElementById('vid').poster="<?= base_url() ?>/img/Aset/Asset 391.png"
                     document.getElementById('vid').load();
                 <?php } ?>
@@ -352,31 +364,33 @@
         
         <?php if (!empty($rekaman)) { ?>
             function tukarBagianRekaman(bagian) {
-                document.getElementById('video-materi').style.display="none";
+                <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
+                    document.getElementById('video-materi').style.display="none";
+                <?php } ?>
                 document.getElementById('rekaman-kelas').style.display="block";
                 <?php if (session('kode-paket') != '6') { ?>
-                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - "+bagian+".mp4";
+                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".mp4";
                     document.getElementById('vid').poster="<?= base_url() ?>/img/Aset/Asset 391.png"
                     document.getElementById('vid').load();
-                    document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - "+bagian+".pdf";
+                    document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf";
                 <?php } ?>
 
                 var request = new XMLHttpRequest();  
-                request.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - "+bagian+".pdf", true);
+                request.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf", true);
                 request.onreadystatechange = function(){
                     if (request.readyState === 4){
                         if (request.status === 404) {  
                             <?php if (session('kode-paket') != '6') { ?>
-                                document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - "+bagian+".pptx";
+                                document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx";
                             <?php } ?>
 
                             var req = new XMLHttpRequest();
-                            req.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - "+bagian+".pptx", true);
+                            req.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx", true);
                             req.onreadystatechange = function(){
                                 if (req.readyState === 4){
                                     if (req.status === 404) {
                                         <?php if (session('kode-paket') != '6') { ?>  
-                                            document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman['admin'] ?>/<?= $rekaman['materi'] ?> - 1.<?= $rekaman['ext_ppt'] ?>";
+                                            document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".<?= $rekaman[$rekamanPart-1]['ext_ppt'] ?>";
                                         <?php } ?>
                                     }  
                                 }
@@ -390,25 +404,27 @@
         <?php } ?>
 
 
-        document.getElementById('videoMateri').addEventListener('click', function() {
-            <?php if ((int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']+(int)$materiPilihan['rumit']!=0) { ?>
-                <?php if (session('kode-paket') != '6') { ?>
-                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Materi Baru/<?= $materiPilihan['materi'] ?>/1.mp4";
-                    document.getElementById('vid').poster="<?= base_url() ?>/img/Video Materi/<?= $materiPilihan['materi'] ?>/1.jpg";
-                    document.getElementById('vid').load();
+        <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
+            document.getElementById('videoMateri').addEventListener('click', function() {
+                <?php if ((int)$materiPilihan['dasar']+(int)$materiPilihan['sedang']+(int)$materiPilihan['rumit']!=0) { ?>
+                    <?php if (session('kode-paket') != '6') { ?>
+                        document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Materi Baru/<?= $materiPilihan['materi'] ?>/1.mp4";
+                        document.getElementById('vid').poster="<?= base_url() ?>/img/Video Materi/<?= $materiPilihan['materi'] ?>/1.jpg";
+                        document.getElementById('vid').load();
+                    <?php } ?>
+                    document.getElementById('rekaman-kelas').style.display="none";
+                    document.getElementById('video-materi').style.display="block";
+                    document.getElementById('rekamanKelas').classList.add("text-secondary");
+                    document.getElementById('videoMateri').classList.remove("text-secondary");
+                <?php }  else { ?>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '',
+                        text: 'Maaf, video materi ini belum tersedia.'
+                    });
                 <?php } ?>
-                document.getElementById('rekaman-kelas').style.display="none";
-                document.getElementById('video-materi').style.display="block";
-                document.getElementById('rekamanKelas').classList.add("text-secondary");
-                document.getElementById('videoMateri').classList.remove("text-secondary");
-            <?php }  else { ?>
-                Swal.fire({
-                    icon: 'warning',
-                    title: '',
-                    text: 'Maaf, video materi ini belum tersedia.'
-                });
-            <?php } ?>
-        });
+            });
+        <?php } ?>
 
         function tukarBagianMateri(materi, tingkat, bagian){
             console.log(bagian);
