@@ -62,9 +62,9 @@
                             <select name="jurusan" id="jurusan" value="<?= old('jurusan'); ?>"
                                 class="bg-white text-sm xl:text-lg text-gray-700 placeholder-gray-500 px-4 rounded-2xl xl:rounded-3xl border border-gray-500 w-full py-2 focus:outline-none focus:border-lightblue">
                                 <option value="none" selected disabled hidden>Pilih kelas</option>
-                                <option class="fs-16" value="10" onclick="ubahPaket('kelas');">Kelas 10</option>
+                                <!-- <option class="fs-16" value="10" onclick="ubahPaket('kelas');">Kelas 10</option>
                                 <option class="fs-16" value="11" onclick="ubahPaket('kelas');">Kelas 11</option>
-                                <option class="fs-16" value="12" onclick="ubahPaket('kelas');">Kelas 12</option>
+                                <option class="fs-16" value="12" onclick="ubahPaket('kelas');">Kelas 12</option> -->
                                 <option class="fs-16" value="intensif" onclick="ubahPaket('intensif');">Intensif</option>
                                 <option class="fs-16" value="tryout" onclick="ubahPaket('tryout');">Tryout</option>
                             </select>
@@ -115,9 +115,9 @@
             } else if (kelas == 'tryout') {
                 paket.innerHTML=`<option class="fs-16" value="6" selected>Tryout</option>`;
             } else {
-                paket.innerHTML=`<option class="fs-16" value="1" selected>Reguler</option>
-                                <option class="fs-16" value="2">Premium</option>
-                                <option class="fs-16" value="3">Premium+</option>`;
+                // paket.innerHTML=`<option class="fs-16" value="1" selected>Reguler</option>
+                //                 <option class="fs-16" value="2">Premium</option>
+                //                 <option class="fs-16" value="3">Premium+</option>`;
             }
         });
     </script>

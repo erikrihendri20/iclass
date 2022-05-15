@@ -56,6 +56,14 @@
                                 <small id="errParts" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label class="col col-form-label" for="uploaded">Tanggal</label>
+                            <div class="col-sm-10">
+                              <input type="date" class="form-control" id="uploaded" name="uploaded">
+                              <small id="errUploaded" class="form-text text-danger" style="visibility: hidden;"></small>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col col-form-label" for="kelas">Kelas</label>
@@ -72,7 +80,7 @@
                         <div class="form-group">
                             <label class="col col-form-label" for="rekaman">Rekaman Pertemuan</label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control-file" id="rekaman" name="rekaman" accept="video/*">
+                                <input type="file" class="form-control-file" id="rekaman" name="rekaman">
                                 <small id="errRekaman" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>
@@ -80,7 +88,7 @@
                         <div class="form-group">
                             <label class="col col-form-label" for="thumbnailRekaman">Thumbnail Rekaman</label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control-file" id="thumbnailRekaman" name="thumbnailRekaman" accept="image/*">
+                                <input type="file" class="form-control-file" id="thumbnailRekaman" name="thumbnailRekaman" accept="image/*" >
                                 <small id="errThumbnail" class="form-text text-danger" style="visibility: hidden;"></small>
                             </div>
                         </div>

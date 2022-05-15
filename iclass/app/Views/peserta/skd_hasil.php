@@ -43,8 +43,10 @@
             </div>
         </div>
     </div>
-    <div class="row w-100 mx-0 mt-5 pt-5 px-5">
-        <a href="<?= base_url() ?>/kelasku/view_pdf/skd_<?= $kuis['event_id'] ?>.pdf" class="btn btn-primary px-3 mt-5">Pembahasan</a>
-    </div>
+    <?php if (date('Y-m-d')>date('Y-m-d', strtotime($kuis['start_event']))) { ?>
+        <div class="row w-100 mx-0 mt-5 pt-5 px-5">
+            <a href="<?= base_url() ?>/kelasku/view_pdf/skd_<?= $kuis['event_id'] ?>.pdf" class="btn btn-primary px-3 mt-5">Pembahasan</a>
+        </div>
+    <?php } ?>
 </div>
 <?= $this->endSection(); ?>

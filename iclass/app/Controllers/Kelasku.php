@@ -100,23 +100,23 @@ class Kelasku extends BaseController
     				$submateri[$i]['nilai'] = empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
     				if ($i==0) {
     					$materi[$j]['materi']=$submateri[$i]['materi'];
-    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    					$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
     					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
-    						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['nilai']+=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    						$materi[$j]['jumlah']+=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     					} else {
     						$j++;
     						$materi[$j]['materi']=$submateri[$i]['materi'];
-    						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    						$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     					}
     				} else {
     					$j++;
     					$materi[$j]['materi']=$submateri[$i]['materi'];
-    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    					$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     				}
     				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
     			}
@@ -124,7 +124,7 @@ class Kelasku extends BaseController
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
-			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
+			$materi[$i]['nilai'] = empty($materi[$i]['jumlah']) ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
 		usort($materi, function($a, $b) {
 			return $a['nilai'] <=> $b['nilai'];
@@ -273,15 +273,31 @@ class Kelasku extends BaseController
         $benar=0;
         $salah=0;
         $kosong=0;
-        for ($i=0; $i<sizeof($jawabanBenar); $i++) {
-            if ($jawabanBenar[$i]==$jawabanUser[$i]) {
-                $benar+=1;
-            } else if ($jawabanUser[$i]!='') {
-                $salah+=1;
-            } else {
-                $kosong+=1;
+
+        if ($event['materi']!='TKP') {
+            for ($i=0; $i<10; $i++) {
+                if ($jawabanBenar[$i]==$jawabanUser[$i]) {
+                    $benar+=1;
+                } else if ($jawabanUser[$i]!='') {
+                    $salah+=1;
+                } else {
+                    $kosong+=1;
+                }
+            }
+        } else {
+            for ($i=1; $i<=10; $i++) {
+                $poin=explode(',', $event['poin_'.$i]);
+                switch ($jawabanUser[$i-1]) {
+                    case 'A': $benar+=$poin[0]; $salah+=(5-$poin[0]); break;
+                    case 'B': $benar+=$poin[1]; $salah+=(5-$poin[1]); break;
+                    case 'C': $benar+=$poin[2]; $salah+=(5-$poin[2]); break;
+                    case 'D': $benar+=$poin[3]; $salah+=(5-$poin[3]); break;
+                    case 'E': $benar+=$poin[4]; $salah+=(5-$poin[4]); break;
+                    case '': $kosong+=1;
+                }
             }
         }
+
         $data = [
             'username' => session('username'),
             'kuis' => $kuis,
@@ -558,11 +574,14 @@ class Kelasku extends BaseController
         } else {
             return redirect()->to(base_url().'/kelasku');
         }
+
+        $soal = $hasil['materi']!='TKP' ? 10 : 50;
+
         $data = [
             'kuis' => $db->table('hasil_kuis')->join('kuis', 'kuis.id=hasil_kuis.kuis')->join('events', 'events.id=kuis.event_id')->where('username', session('username'))->where('hasil_kuis.kuis', $id)->get()->getResultArray()[0],
             'title' => 'Hasil Kuis',
             'active' => 'kelasku',
-            'persentase' => (int)$hasil['benar']/10*100,
+            'persentase' => (int)$hasil['benar']/$soal*100,
             'css' => 'kelasku/kuis.css'
         ];
         

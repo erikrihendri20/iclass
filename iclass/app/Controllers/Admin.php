@@ -70,10 +70,12 @@ class Admin extends BaseController
             $j=0;
             foreach (explode(',', $id['kode_kelas']) as $kls) {
                 $cls = $model->getByid($kls);
-                if ($j==0 && !empty($cls[0])) {
-                    $kelas = $cls[0]['nama'];
-                } elseif (!empty($cls[0])) {
-                    $kelas = $kelas.','.$cls[0]['nama'];
+                if (!empty($cls[0])) {
+                    if ($j==0) {
+                        $kelas = $cls[0]['nama'];
+                    } elseif (!empty($cls[0])) {
+                        $kelas = $kelas.','.$cls[0]['nama'];
+                    }
                 }
                 $j++;
             }
@@ -322,6 +324,7 @@ class Admin extends BaseController
             $data['admin'] = $this->request->getPost('admin');
             $data['materi'] = $this->request->getPost('materi');
             $data['parts'] = $this->request->getPost('parts');
+            $data['uploaded'] = $this->request->getPost('uploaded');
             $data['rekaman'] = $this->request->getFile('rekaman');
             $data['thumbnailRekaman'] = $this->request->getFile('thumbnailRekaman');
             $data['ppt'] = $this->request->getFile('ppt');
@@ -340,6 +343,13 @@ class Admin extends BaseController
                     'rules' => 'required',
                     'errors' => [
                         'required' => 'Part harus diisi',
+                    ]
+                ],
+                'uploaded' => [
+                    'label' => 'Uploaded',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Tanggal harus diisi',
                     ]
                 ],
                 'rekaman' => [
@@ -392,7 +402,7 @@ class Admin extends BaseController
                     'ext_tn' => $data['thumbnailRekaman']->guessExtension(),
                     'ext_ppt' => $data['ppt']->guessExtension(),
                     'admin' => $data['admin'],
-                    'uploaded' => date("Y-m-d"),
+                    'uploaded' => $data['uploaded'],
                     'parts' => $data['parts'],
                 ];
 
@@ -401,7 +411,7 @@ class Admin extends BaseController
                 
                 $data['rekaman']->move("./vid/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - {$data['parts']}.mp4", true);
                 $data['thumbnailRekaman']->move("./img/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['thumbnailRekaman']->guessExtension()}", true);
-                $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']}.{$data['ppt']->guessExtension()}", true);
+                $data['ppt']->move("./ppt/Rekaman Kelas/{$data1['admin']}", "{$data['materi']} - {$data['parts']}.{$data['ppt']->guessExtension()}", true);
             
                 $data2['judul'] = 'Upload Berhasil!';
                 $data2['pesan'] = 'Rekaman Kelas Berhasil Diupload';
@@ -1424,10 +1434,12 @@ class Admin extends BaseController
             $j=0;
             foreach (explode(',', $id['kode_kelas']) as $kls) {
                 $cls = $model->getByid($kls);
-                if ($j==0) {
-                    $kelas = $cls[0]['nama'];
-                } else {
-                    $kelas = $kelas.','.$cls[0]['nama'];
+                if (!empty($cls[0])) {
+                    if ($j==0) {
+                        $kelas = $cls[0]['nama'];
+                    } else {
+                        $kelas = $kelas.','.$cls[0]['nama'];
+                    }
                 }
                 $j++;
             }
@@ -1701,12 +1713,30 @@ class Admin extends BaseController
                 $jawaban = "";
                 $soals = $this->request->getFiles()['soal'];
                 $pembahasans = $this->request->getFiles()['pembahasan'];
+                $poin=[];
 
                 for ($i=1; $i<=10; $i++) {
                     if ($i!=10) {
                         $jawaban=$jawaban.$this->request->getPost('jawaban'.(string)$i).",";
                     } else {
                         $jawaban=$jawaban.$this->request->getPost('jawaban'.(string)$i);
+                    }
+                    
+                    $poin[$i]="";
+                    for ($j='A'; $j<='E'; $j++) {
+                        if (!empty($this->request->getPost('poin_'.(string)$i.(string)$j))) {
+                            if ($j!='E') {
+                                $poin[$i]=$poin[$i].$this->request->getPost('poin_'.(string)$i.(string)$j).",";
+                            } else {
+                                $poin[$i]=$poin[$i].$this->request->getPost('poin_'.(string)$i.(string)$j);
+                            }
+                        } else {
+                            if ($j!='E') {
+                                $poin[$i]=$poin[$i].'0,';
+                            } else {
+                                $poin[$i]=$poin[$i].'0';
+                            }
+                        }
                     }
                 }
 
@@ -1717,6 +1747,10 @@ class Admin extends BaseController
                     'pembahasan' => $this->request->getPost('materi'),
                     'materi' => $this->request->getPost('subbab'),
                 ];
+
+                for ($i=1; $i<=10; $i++) {
+                    $kuis['poin_'.$i] = $poin[$i];
+                }
 
                 if (empty($model->where('event_id', $kuis['event_id'])->first())) {
                     $model->save($kuis);

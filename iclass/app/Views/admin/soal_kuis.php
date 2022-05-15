@@ -39,7 +39,7 @@
                     <div class="row mx-0">
                         <h5 class="col-12 text-primary font-weight-bold mb-3 px-0">Jawaban Soal</h5>
                         <?php for ($i=1; $i<=10; $i++) { ?>
-                            <div class="col-6 mt-3">
+                            <div class="w-100 mt-3">
                                 <div class="form-group row pl-4">
                                     <label for="pembahasan" class="col-sm-1 col-form-label text-secondary"><span class="text-center"><?= $i ?></span></label>
                                     <div class="col-sm-8">
@@ -52,6 +52,13 @@
                                             <option class="font-weight-bold" value="E">E</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="row justify-content-center mt-2 mx-0">
+                                    <input type="text" class="col-sm-1 form-control" id="poin_<?= $i ?>A" name="poin_<?= $i ?>A" placeholder="A">
+                                    <input type="text" class="col-sm-1 form-control ml-2" id="poin_<?= $i ?>B" name="poin_<?= $i ?>B" placeholder="B">
+                                    <input type="text" class="col-sm-1 form-control ml-2" id="poin_<?= $i ?>C" name="poin_<?= $i ?>C" placeholder="C">
+                                    <input type="text" class="col-sm-1 form-control ml-2" id="poin_<?= $i ?>D" name="poin_<?= $i ?>D" placeholder="D">
+                                    <input type="text" class="col-sm-1 form-control ml-2" id="poin_<?= $i ?>E" name="poin_<?= $i ?>E" placeholder="E">
                                 </div>
                             </div>
                         <?php } ?>

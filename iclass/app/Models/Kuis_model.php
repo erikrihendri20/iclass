@@ -8,7 +8,9 @@ class Kuis_Model extends Model
 {
     protected $table      = 'kuis';
 
-    protected $allowedFields = ['kode_kuis', 'event_id', 'soal', 'jawaban', 'pembahasan', 'materi'];
+    protected $allowedFields = ['kode_kuis', 'event_id', 'soal', 'jawaban', 'pembahasan', 'materi', 
+        'poin_1', 'poin_2', 'poin_3', 'poin_4', 'poin_5',
+        'poin_6', 'poin_7', 'poin_8', 'poin_9', 'poin_10'];
 
     protected $returnType     = 'array';
 

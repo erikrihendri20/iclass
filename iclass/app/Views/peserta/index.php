@@ -197,7 +197,7 @@
                             <h5 class="font-weight-bold mt-4 ml-2 w-100">Kuis Harian</h5>
                             <h6 class="text-truncate w-100 ml-2"><?= (!empty($kuis)) ? $kuis['title'] : "&nbsp"; ?></h6>
                             <div class="row justify-content-end w-100 mx-0 mt-5">
-                                <a class="btn bg-primary h6 rounded-pill px-4"
+                                <a class="btn bg-primary text-white h6 rounded-pill px-4"
                                     <?php if(empty($kuis)) :?>
                                         style="visibility:hidden;"
                                     <?php elseif(date('Y-m-d') == date('Y-m-d', strtotime($kuis['start_event']))) : ?>

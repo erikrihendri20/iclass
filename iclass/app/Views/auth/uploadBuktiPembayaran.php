@@ -25,10 +25,10 @@
                             <select class="bg-white text-sm xl:text-lg text-gray-700 placeholder-gray-500 px-5 rounded-2xl xl:rounded-3xl border border-gray-500 w-full py-2 focus:outline-none focus:border-lightblue"
                                 onchange="changeMetodePembayaran(this.value)">
                                 <option value="bri" onclick="changeMetodePembayaran('bri')" selected>BRI</option>
-                                <option value="ovo" onclick="changeMetodePembayaran('ovo')">OVO</option>
+                                <!-- <option value="ovo" onclick="changeMetodePembayaran('ovo')">OVO</option>
                                 <option value="gopay" onclick="changeMetodePembayaran('gopay')">GoPay</option>
                                 <option value="dana" onclick="changeMetodePembayaran('dana')">Dana</option>
-                                <option value="linkaja" onclick="changeMetodePembayaran('linkaja')">Link Aja</option>
+                                <option value="linkaja" onclick="changeMetodePembayaran('linkaja')">Link Aja</option> -->
                             </select>
                             <p id="nomorPembayaran" class="bg-mediumblue text-white font-bold rounded-lg px-4 py-2">0344-0110-5184-503 a.n Ivan Masduqi Mahfuds</p>
                         </div>
@@ -62,10 +62,10 @@
             let nomor;
             switch (metode) {
                 case 'bri': nomor="0344-0110-5184-503 a.n Ivan Masduqi Mahfuds"; break;
-                case 'ovo': nomor="0812-1647-3536 a.n Ivan"; break;
-                case 'gopay': nomor="0812-1647-3536 a.n Ivan"; break;
-                case 'dana': nomor="0812-1647-3536 a.n Ivan"; break;
-                case 'linkaja': nomor="0812-1647-3536 a.n Ivan Masduqi Mahfuds"; break;
+                // case 'ovo': nomor="0812-1647-3536 a.n Ivan"; break;
+                // case 'gopay': nomor="0812-1647-3536 a.n Ivan"; break;
+                // case 'dana': nomor="0812-1647-3536 a.n Ivan"; break;
+                // case 'linkaja': nomor="0812-1647-3536 a.n Ivan Masduqi Mahfuds"; break;
             }
             console.log(metode);
             document.getElementById('nomorPembayaran').innerHTML=nomor;

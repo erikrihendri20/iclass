@@ -71,10 +71,10 @@ class Materi extends BaseController
 		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
 			$data['rekaman'] = $rekamanKelas;
-			$data['rekamanPart'] = 1;
 		} else {
 			$data['rekaman'] = [];
 		}
+		$data['rekamanPart'] = 1;
 
 		$tingkatan = new Tingkatan_Model();
 		$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
@@ -118,14 +118,14 @@ class Materi extends BaseController
 
 		$kelas = $db->table('kelas')->where('id', session('kode-kelas'))->get()->getResultArray()[0]['nama'];
 
-		if (session('jurusan') != 'intensif') {
-			$data['materis'] = $model->where('id !=', $id)->like('kelas', session('jurusan'))->findAll();
-		} else {
+        if ((session('jurusan')=='intensif' || session('jurusan')=='tryout')) {
 			if (session('kode-paket')!='7') {
-				$data['materis'] = $model->where('id !=', $id)->findAll();
+				$data['materis'] = $model->findAll();
 			} else {
-				$data['materis'] = $model->where('id !=', $id)->like('kelas', 'skd')->findAll();
+				$data['materis'] = $model->like('kelas', 'skd')->findAll();
 			}
+		} else {
+		    $data['materis'] = $model->like('kelas', session('jurusan'))->findAll();
 		}
 
 		$tingkatans = [];
@@ -168,10 +168,10 @@ class Materi extends BaseController
 		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
 			$data['rekaman'] = $rekamanKelas;
-			$data['rekamanPart'] = 1;
 		} else {
 			$data['rekaman'] = [];
 		}
+		$data['rekamanPart'] = 1;
 
 		$tingkatan = new Tingkatan_Model();
 		$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();
@@ -241,10 +241,10 @@ class Materi extends BaseController
 		$rekamanKelas = $db->table('rekaman')->where('materi', $data['materiPilihan']['materi'])->like('kelas', $kelas)->get()->getResultArray();
 		if (!empty($rekamanKelas)) {
 			$data['rekaman'] = $rekamanKelas;
-			$data['rekamanPart'] = $part;
 		} else {
 			$data['rekaman'] = [];
 		}
+		$data['rekamanPart'] = $part;
 
 		$tingkatan = new Tingkatan_Model();
 		$data['tingkatan'] = $tingkatan->where('username', session('username'))->where('materi', $data['materiPilihan']['materi'])->first();

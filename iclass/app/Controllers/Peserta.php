@@ -99,23 +99,23 @@ class Peserta extends BaseController
     				$submateri[$i]['nilai'] = empty($n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]) ? [0,0] : explode('-',$n[preg_replace('/\s+/', '_', $submateri[$i]['submateri'])]);
     				if ($i==0) {
     					$materi[$j]['materi']=$submateri[$i]['materi'];
-    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    					$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     				} else if ($submateri[$i]['materi']==$submateri[$i-1]['materi']) {
     					if (!empty($materi[$j]['nilai']) && $submateri[$i]['materi']==$materi[$j]['materi']) {
-    						$materi[$j]['nilai']+=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    						$materi[$j]['jumlah']+=(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['nilai']+=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    						$materi[$j]['jumlah']+=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     					} else {
     						$j++;
     						$materi[$j]['materi']=$submateri[$i]['materi'];
-    						$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    						$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    						$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    						$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     					}
     				} else {
     					$j++;
     					$materi[$j]['materi']=$submateri[$i]['materi'];
-    					$materi[$j]['nilai']=(int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1];
-    					$materi[$j]['jumlah']=(int)$submateri[$i]['nilai'][1];
+    					$materi[$j]['nilai']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][0]*(int)$submateri[$i]['nilai'][1] : 0;
+    					$materi[$j]['jumlah']=!empty($submateri[$i]['nilai'][1]) ? (int)$submateri[$i]['nilai'][1] : 0;
     				}
     				if ($materi[$j]['jumlah']==0) $materi[$j]['jumlah']=1;
     			}
@@ -123,7 +123,7 @@ class Peserta extends BaseController
 		}
 
 		for ($i=0; $i<sizeof($materi); $i++) {
-			$materi[$i]['nilai'] = $materi[$i]['jumlah']==0 ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
+			$materi[$i]['nilai'] = empty($materi[$i]['jumlah']) ? 0 : (int)($materi[$i]['nilai']/$materi[$i]['jumlah']);
 		}
 		usort($materi, function($a, $b) {
 			return $a['nilai'] <=> $b['nilai'];
@@ -457,7 +457,8 @@ class Peserta extends BaseController
     		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('jenis', '1')->like('start_event', $today)->orderBy('id', 'desc')->first()['id'];
     		
     		if ($today == $thatDay) {
-    			if ($kehadiran->where('username', session('username'))->where('event', $event)->first()['hadir'] != '1') {
+    			$hadir = $kehadiran->where('username', session('username'))->where('event', $event)->first();
+    			if (!empty($hadir) && $hadir['hadir'] != '1') {
     				$model = new Users_Model();
     				$user = $model->where('username', session('username'))->first();
     				$bolos = ((int)$user['bolos'] == 0) ? 1 : (int)$user['bolos'];
@@ -784,9 +785,6 @@ class Peserta extends BaseController
         $tryout = $db->table('hasil_skd')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
         if (!empty($tryout) && !empty($tryout[0]['selesai'])) {
             $tryout = $tryout[0];
-        } else {
-            session()->setFlashData('flash', "<script>Swal.fire({icon: 'error', title: '', text: 'Kamu tidak mengikuti try out ini'});</script>");
-            return redirect()->to(base_url().'/kelasku');
         }
         
         $twk = $db->table('skd')->where('jenis', 'TWK')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
@@ -795,9 +793,12 @@ class Peserta extends BaseController
 		$total = (sizeof($twk)*5)+(sizeof($tiu)*5)+(sizeof($tkp)*15);
 		if (empty($total)) $total=550;
         
+		$twkScore = !empty($tryout['hasil_twk']) ? (int)$tryout['hasil_twk'] : 0;
+		$tiuScore = !empty($tryout['hasil_tiu']) ? (int)$tryout['hasil_tiu'] : 0;
+		$tkpScore = !empty($tryout['hasil_tkp']) ? (int)$tryout['hasil_tkp'] : 0;
         $data = [
             'kuis' => $db->table('hasil_skd')->join('events', 'events.id=hasil_skd.event_id')->where('hasil_skd.event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
-            'persentase' => ((int)$tryout['hasil_twk']+(int)$tryout['hasil_tiu']+(int)$tryout['hasil_tkp'])/$total*100,
+            'persentase' => ($twkScore+$tiuScore+$tkpScore)/$total*100,
             'title' => 'Hasil Try Out SKD',
             'active' => 'kelasku',
             'css' => 'kelasku/kuis.css'

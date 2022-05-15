@@ -163,7 +163,7 @@
                             poster="<?= base_url() ?>/img/Aset/Asset 391.png">
                             <?php if (session('kode-paket') != '7' && $materiPilihan['materi']!='skd') { ?>
                                 <source id="vidSrc" src="<?php echo base_url()."/vid/Materi Baru/".$materiPilihan['materi']."/".$part.".mp4"; ?>" type="video/mp4">
-                            <?php } else { ?>
+                            <?php } elseif (!empty($rekaman)) { ?>
                                 <source id="vidSrc" src="<?php echo base_url()."/vid/Rekaman Kelas/".$rekaman[$rekamanPart-1]['admin']."/".$rekaman[$rekamanPart-1]['materi']." - ".$rekamanPart.".mp4"; ?>" type="video/mp4">
                             <?php } ?>
                         </video>
