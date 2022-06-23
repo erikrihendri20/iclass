@@ -142,11 +142,11 @@ class Peserta extends BaseController
 		}
 		
 		if (session('kode-paket')!='7') {
-			if (!empty($data['nilai'])) {
-				$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->where('submateri.materi', $data['nilai'][0]['materi'])->get()->getResultArray();
-			} else {
-				$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->get()->getResultArray();
-			}
+    		if (!empty($data['nilai'])) {
+    			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->where('submateri.materi', $data['nilai'][0]['materi'])->get()->getResultArray();
+    		} else {
+    			$data['rekomendasi'] = $db->table('submateri')->join('materi', 'materi.materi=submateri.materi')->get()->getResultArray();
+    		}
 		}
 		return view('peserta/index', $data);
 	}
@@ -457,7 +457,7 @@ class Peserta extends BaseController
     		$event = $jadwal->where('kode_kelas', session('kode-kelas'))->where('jenis', '1')->like('start_event', $today)->orderBy('id', 'desc')->first()['id'];
     		
     		if ($today == $thatDay) {
-    			$hadir = $kehadiran->where('username', session('username'))->where('event', $event)->first();
+    		    $hadir = $kehadiran->where('username', session('username'))->where('event', $event)->first();
     			if (!empty($hadir) && $hadir['hadir'] != '1') {
     				$model = new Users_Model();
     				$user = $model->where('username', session('username'))->first();
@@ -549,13 +549,12 @@ class Peserta extends BaseController
         $tryout = $db->table('hasil_tryout')->where('username', session('username'))->where('event_id', $id)->get()->getResultArray();
         if (!empty($tryout) && !empty($tryout[0]['jawaban'])) {
             $tryout = $tryout[0];
-        } else {
-            session()->setFlashData('flash', "<script>Swal.fire({icon: 'error', title: '', text: 'Kamu tidak mengikuti try out ini'});</script>");
-            return redirect()->to(base_url().'/kelasku');
         }
+        
+        $benar = !empty($tryout['benar']) ? (int)$tryout['benar'] : 0;
         $data = [
             'kuis' => $db->table('hasil_tryout')->join('events', 'events.id=hasil_tryout.event_id')->where('hasil_tryout.event_id', $id)->where('username', session('username'))->get()->getResultArray()[0],
-            'persentase' => (int)$tryout['benar']/40*100,
+            'persentase' => $benar/40*100,
             'title' => 'Hasil Try Out',
             'active' => 'kelasku',
             'css' => 'kelasku/kuis.css'
@@ -790,10 +789,10 @@ class Peserta extends BaseController
         $twk = $db->table('skd')->where('jenis', 'TWK')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
 		$tiu = $db->table('skd')->where('jenis', 'TIU')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
 		$tkp = $db->table('skd')->where('jenis', 'TKP')->where('event_id', $id)->orderBy('nomor', 'asc')->get()->getResultArray();
-		$total = (sizeof($twk)*5)+(sizeof($tiu)*5)+(sizeof($tkp)*15);
+		$total = (sizeof($twk)*5)+(sizeof($tiu)*5)+(sizeof($tkp)*5);
 		if (empty($total)) $total=550;
         
-		$twkScore = !empty($tryout['hasil_twk']) ? (int)$tryout['hasil_twk'] : 0;
+        $twkScore = !empty($tryout['hasil_twk']) ? (int)$tryout['hasil_twk'] : 0;
 		$tiuScore = !empty($tryout['hasil_tiu']) ? (int)$tryout['hasil_tiu'] : 0;
 		$tkpScore = !empty($tryout['hasil_tkp']) ? (int)$tryout['hasil_tkp'] : 0;
         $data = [

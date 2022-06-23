@@ -318,14 +318,16 @@
                                             <img src="<?= base_url() ?>/img/Aset/Asset 14.png" class="border-50 w-100" style="object-fit: contain;" />
                                         </div>
                                         <div class="row align-items-center w-50 mx-0 pl-3">
-                                            <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100"><?= session('jurusan') ?></h5>
+                                            <h5 class="font-weight-bold text-capitalize mt-3 mb-0 w-100">
+                                                <?= strpos($jadwalTryout[0]['class_name'], 'skd')===false ? 'MTK' : 'SKD' ?>
+                                            </h5>
                                             <h5 class="font-weight-bold text-truncate mt-2 w-100 mb-0"><?= date('d F Y', strtotime($jadwalTryout[$i]['start_event'])) ?></h5>
                                             <h6 class="text-truncate w-100"><?= $jadwalTryout[$i]['title'] ?></h6>
                                             <?php if ((date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['start_event']))<=date('Y-m-d G:i:s')) && (date('Y-m-d G:i:s', strtotime($jadwalTryout[$i]['end_event']))<=date('Y-m-d G:i:s'))) { ?>
                                                 <!-- <a href="<?= base_url() ?>/peserta/tryout_hasil/<?= $jadwalTryout[$i]['id'] ?>" class="btn btn-primary rounded-pill ml-auto mb-3 px-3">Nilai Try Out</a> -->
                                             <?php } ?>
                                             <a class="btn bg-primary text-white rounded-pill ml-auto px-3" 
-                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[0]['class_name']=='skd2') { ?>
+                                                <?php if (date('Y-m-d')>date('Y-m-d', strtotime($jadwalTryout[$i]['start_event'])) || $jadwalTryout[$i]['class_name']=='skd2') { ?>
                                                     href="<?php if (!empty($jadwalTryout[$i]) && strpos($jadwalTryout[$i]['class_name'], 'skd')!==false) { ?>
                                                                 <?= base_url() ?>/peserta/skd/<?php echo (!empty($jadwalTryout[$i])) ? $jadwalTryout[$i]['id'] : ""; ?>
                                                             <?php } else { ?>
@@ -334,7 +336,7 @@
                                                 <?php } elseif(date('Y-m-d') == date('Y-m-d', strtotime($jadwalTryout[$i]['start_event']))) { ?>
                                                     onclick="modalTryout('<?= $jadwalTryout[$i]['id'] ?>', '<?= $jadwalTryout[$i]['class_name'] ?>');"
                                                 <?php } ?>>
-                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d') || $jadwalTryout[0]['class_name']=='skd2') {
+                                                <?php if (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))==date('y-m-d') || $jadwalTryout[$i]['class_name']=='skd2') {
                                                     echo 'Ikuti Try Out';
                                                 } elseif (date('y-m-d', strtotime($jadwalTryout[$i]['start_event']))>date('y-m-d')) {
                                                     $tanggal1 = strtotime(date('Y-m-d'));
@@ -467,12 +469,12 @@
                         <h5 class="text-white font-weight-bold w-100 pl-3">List Materi</h5>
                         <div class="row w-100 mx-0" style="max-height: 200px; overflow-y: auto;">
                             <div class="row w-100 mx-0 mt-3 pl-3">
-                                <button id="button<?= $materis[0]['materi'] ?>" onclick="changeLatihan('<?= $materis[0]['materi'] ?>');" 
+                                <button id="button<?= $materis[0]['materi'] ?>" onclick="changeLatihan('<?= $materis[0]['id'] ?>', '<?= $materis[0]['materi'] ?>');" 
                                     class="btn btn-link text-white font-weight-bold text-truncate bg-white text-dark border-10 py-1  buttonlatihan"><?= $materis[0]['materi'] ?></button>
                             </div>
                             <?php for($i=1; $i<sizeof($materis); $i++) { ?>
                                 <div class="row w-100 mx-0 pl-3">
-                                    <button id="button<?= $materis[$i]['materi'] ?>" onclick="changeLatihan('<?= $materis[$i]['materi'] ?>');" 
+                                    <button id="button<?= $materis[$i]['materi'] ?>" onclick="changeLatihan('<?= $materis[$i]['id'] ?>', '<?= $materis[$i]['materi'] ?>');" 
                                         class="btn btn-link text-white font-weight-bold text-truncate py-1 buttonlatihan"><?= $materis[$i]['materi'] ?></button>
                                 </div>
                             <?php } ?>
@@ -482,7 +484,7 @@
                         <h5 class="text-white font-weight-bold w-100 pl-3">Pilih Paket</h5>
                         <div class="row w-100 mx-0 mt-3 pl-3">
                             <?php if (session('kode-paket')!='6') { ?>
-                                <a id="paket1" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-1.pdf" 
+                                <a id="paket1" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['id'] ?>-1.pdf" 
                                     class="btn btn-link text-white font-weight-bold text-truncate">Paket 1</a>
                             <?php } else { ?>
                                 <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 1</button>
@@ -490,7 +492,7 @@
                         </div>
                         <div class="row w-100 mx-0 pl-3">
                             <?php if (session('kode-paket')!='6') { ?>
-                                <a id="paket2" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-2.pdf" 
+                                <a id="paket2" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['id'] ?>-2.pdf" 
                                     class="btn btn-link text-white font-weight-bold text-truncate">Paket 2</a>
                             <?php } else { ?>
                                 <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 2</button>
@@ -498,7 +500,7 @@
                         </div>
                         <div class="row w-100 mx-0 pl-3">
                             <?php if (session('kode-paket')!='6') { ?>
-                                <a id="paket3" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-3.pdf" 
+                                <a id="paket3" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['id'] ?>-3.pdf" 
                                     class="btn btn-link text-white font-weight-bold text-truncate">Paket 3</a>
                             <?php } else { ?>
                                 <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 3</button>
@@ -506,7 +508,7 @@
                         </div>
                         <div class="row w-100 mx-0 pl-3">
                             <?php if (session('kode-paket')!='6') { ?>
-                                <a id="paket4" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['materi'] ?>-4.pdf" 
+                                <a id="paket4" href="<?= base_url() ?>/kelasku/view_pdf/<?= $materis[0]['id'] ?>-4.pdf" 
                                     class="btn btn-link text-white font-weight-bold text-truncate">Paket 4</a>
                             <?php } else { ?>
                                 <button class="btn btn-link text-white font-weight-bold text-truncate" onclick="hanyaTryout();">Paket 4</button>
@@ -629,7 +631,7 @@
             }
         }
 
-        function changeLatihan(materi) {
+        function changeLatihan(id, materi) {
             btns = document.getElementsByClassName('buttonlatihan');
             for (var i=0; i<btns.length; i++) {
                 btns[i].className = btns[i].className.replace(" bg-white text-dark border-10", "");
@@ -638,10 +640,10 @@
             btn.classList.add("bg-white");
             btn.classList.add("text-dark");
             btn.classList.add("border-10");
-            document.getElementById('paket1').href="<?= base_url() ?>/kelasku/view_pdf/"+materi+"-1.pdf";
-            document.getElementById('paket2').href="<?= base_url() ?>/kelasku/view_pdf/"+materi+"-2.pdf";
-            document.getElementById('paket3').href="<?= base_url() ?>/kelasku/view_pdf/"+materi+"-3.pdf";
-            document.getElementById('paket4').href="<?= base_url() ?>/kelasku/view_pdf/"+materi+"-4.pdf";
+            document.getElementById('paket1').href="<?= base_url() ?>/kelasku/view_pdf/"+id+"-1.pdf";
+            document.getElementById('paket2').href="<?= base_url() ?>/kelasku/view_pdf/"+id+"-2.pdf";
+            document.getElementById('paket3').href="<?= base_url() ?>/kelasku/view_pdf/"+id+"-3.pdf";
+            document.getElementById('paket4').href="<?= base_url() ?>/kelasku/view_pdf/"+id+"-4.pdf";
             document.getElementById('buttonMindMapping').setAttribute( "onClick", "javascript: openWindow('"+materi+"');" );
         }
 

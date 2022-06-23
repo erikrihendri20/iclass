@@ -229,7 +229,7 @@
                             <div class="row mx-0">
                                 <?php foreach($rekaman as $rek) { ?>
                                     <button class="btn btn-primary text-white text-left text-truncate border-20 w-100 mb-2"
-                                        onclick="tukarBagianRekaman('<?= $rek['parts'] ?>');">
+                                        onclick="tukarBagianRekaman('<?= $rek['parts'] ?>', '<?= $rek['admin'] ?>');">
                                         <div class="row mx-0">
                                             <img src="<?= base_url() ?>/img/Aset/Asset 35.png" class="py-1" style="width: 15%; object-fit: contain;">
                                             <span class="align-self-center pl-2"><?= date('j F Y', strtotime($rek['uploaded'])) ?></span>
@@ -363,34 +363,34 @@
         });
         
         <?php if (!empty($rekaman)) { ?>
-            function tukarBagianRekaman(bagian) {
+            function tukarBagianRekaman(bagian, admin) {
                 <?php if (session('kode-paket')!='7' && $materiPilihan['kelas']!='skd') { ?>
                     document.getElementById('video-materi').style.display="none";
                 <?php } ?>
                 document.getElementById('rekaman-kelas').style.display="block";
                 <?php if (session('kode-paket') != '6') { ?>
-                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".mp4";
+                    document.getElementById('vidSrc').src="<?= base_url() ?>/vid/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".mp4";
                     document.getElementById('vid').poster="<?= base_url() ?>/img/Aset/Asset 391.png"
                     document.getElementById('vid').load();
-                    document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf";
+                    document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf";
                 <?php } ?>
 
                 var request = new XMLHttpRequest();  
-                request.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf", true);
+                request.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pdf", true);
                 request.onreadystatechange = function(){
                     if (request.readyState === 4){
                         if (request.status === 404) {  
                             <?php if (session('kode-paket') != '6') { ?>
-                                document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx";
+                                document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx";
                             <?php } ?>
 
                             var req = new XMLHttpRequest();
-                            req.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx", true);
+                            req.open('GET', "<?= base_url() ?>/ppt/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".pptx", true);
                             req.onreadystatechange = function(){
                                 if (req.readyState === 4){
                                     if (req.status === 404) {
                                         <?php if (session('kode-paket') != '6') { ?>  
-                                            document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/<?= $rekaman[$rekamanPart-1]['admin'] ?>/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".<?= $rekaman[$rekamanPart-1]['ext_ppt'] ?>";
+                                            document.getElementById('anchorppt').href="<?= base_url() ?>/ppt/Rekaman Kelas/"+admin+"/<?= $rekaman[$rekamanPart-1]['materi'] ?> - "+bagian+".<?= $rekaman[$rekamanPart-1]['ext_ppt'] ?>";
                                         <?php } ?>
                                     }  
                                 }

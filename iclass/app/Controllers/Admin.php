@@ -634,7 +634,7 @@ class Admin extends BaseController
                     'kelas' => $u['kode_kelas'],
                     'event' => $hadir2[$i]['event'],
                     'hadir' => '0',
-                    'pertemuan' => $hadir2['pertemuan'],
+                    'pertemuan' => $hadir2[$i]['pertemuan'],
                 ];
 
                 $kehadiran->insert($data);
